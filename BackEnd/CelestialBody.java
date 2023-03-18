@@ -34,6 +34,59 @@ public class CelestialBody implements CPI {
         setAcc(innitAcc);
 
     }
+    // constructor for csv file
+    public CelestialBody( String name,Double x1,Double x2,Double x3,Double v1,Double v2,Double v3,Double m){
+        this.name = name;
+        setMass(m);
+        setradius(0);
+        this.pos[0] = x1;
+        this.pos[1] = x2;
+        this.pos[2] = x3;
+        this.vel[0] = v1;
+        this.vel[1] = v2;
+        this.vel[2] = v3;
+        this.acc[0] = 0;
+        this.acc[1] = 0;
+        this.acc[2] = 0;
+        switch(name){
+            case "Sun":
+                this.radius = 696340;
+                break;
+            case "Mercury":
+                this.radius = 2439.7;
+                break;
+            case "Venus":
+                this.radius = 6051.8;
+                break;
+            case "Earth":
+                this.radius = 6371;
+                break;
+            case "Mars":
+                this.radius = 3389.5;
+                break;
+            case "Jupiter":
+                this.radius = 69911;
+                break;
+            case "Saturn":
+                this.radius = 58232;
+                break;
+            case "Uranus":
+                this.radius = 25362;
+                break;
+            case "Neptune":
+                this.radius = 24622;
+                break;
+            case "Pluto":
+                this.radius = 1188.3;
+                break;
+            default:
+                this.radius = 0;
+                break;
+        }
+
+
+    }
+
 
     public CelestialBody(String name, double mass, double radius, double[] innitPos, double[] innitVel, double[] innitAcc){
         this.name = name;
