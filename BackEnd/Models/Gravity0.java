@@ -3,17 +3,6 @@ package BackEnd.Models;
 import BackEnd.CelestialBody;
 
 public class Gravity0 implements Model3D {
-    /*
-     * 3D model
-     * model is:
-     * 
-     * k'' = G*(k' - k)/r^3
-     * 
-     * k is 3d
-     * r = distance from object i to another object j; i != j
-     * G =  6.6743*10^(-20)
-     */
-
     private static final double G = 6.6743 * Math.pow(10, -20);
     private CelestialBody[] bodies;
 

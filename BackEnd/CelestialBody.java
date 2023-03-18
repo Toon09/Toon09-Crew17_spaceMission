@@ -48,6 +48,7 @@ public class CelestialBody {
         this.acc[0] = 0;
         this.acc[1] = 0;
         this.acc[2] = 0;
+        
         switch(name){
             case "Sun":
                 this.radius = 696340;
