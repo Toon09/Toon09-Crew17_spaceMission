@@ -7,7 +7,6 @@ public interface CPI {
     //getters
     public double[] getPos();
     public double[] getVel();
-    public double[] getAcc();
     public double getTime();
     public double getMass();
     public double getradius();
@@ -22,8 +21,6 @@ public interface CPI {
     
     public void setVel(double[] vel);
       
-    
-    public void setAcc(double[] acc);
         
     
 

@@ -16,10 +16,8 @@ public interface Model1D {
     public double getX();
     public double getY();
 
-    //calculates first derivative
+    //calc derivs
     public double _1Deriv();
-
-    //calculates second deriv if there is
     public double _2Deriv();
 
 }

@@ -7,25 +7,32 @@ public class Eulers {
 
     //updates positions in 3d space
     public static void _1DegStep3D(Model3D model, double dt){
+        _2DegStep3D(model, dt);
 
-        //need to:
-        //get all x, y, z and add with dt * deriv of x, y, z (temp[i] = getVel[i] * dt + pos[i])
-        //update x, y, z positions ( pos[i] = temp[i] )
-        //add dt to the time (addDt)
+        for(int i=0; i<model.size(); i++){
+            model.setPos(i, new double[] {  model.getPos(i)[0] + model.getVel(i)[0] * dt,
+                                            model.getPos(i)[1] + model.getVel(i)[1] * dt,
+                                            model.getPos(i)[2] + model.getVel(i)[2] * dt   } );
+        }
 
-        
+        //adds time
+        model.addDt(dt);
 
     }
 
     //updates velocities and acceleration
     public static void _2DegStep3D(Model3D model, double dt){
+        //updates all accelerations
+        model._2Deriv();
 
-        //need to:
-        //get all x', y', z' and add with dt * deriv of x', y', z' (temp[i] = getAcc[i] * dt + vel[i])
-        //update x, y, z positions ( vel[i] = temp[i] )
-        //call _1DegStep
+        for(int i=0; i<model.size(); i++){
+            model.setVel(i, new double[] {  model.getVel(i)[0] + model.getAcc(i)[0] * dt,
+                                            model.getVel(i)[1] + model.getAcc(i)[1] * dt,
+                                            model.getVel(i)[2] + model.getAcc(i)[2] * dt   } );
+        }
         
     }
+
 
     //////// 1 dimensional for testing of methods, 3d is above
     

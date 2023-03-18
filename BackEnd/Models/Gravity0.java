@@ -62,9 +62,12 @@ public class Gravity0 implements Model3D {
     @Override
     public void setPos(int index, double[] pos){ bodies[index].setPos(pos); }
     @Override
-    public void setVel(int index, double[] vel){ bodies[index].setPos(vel); }
+    public void setVel(int index, double[] vel){ bodies[index].setVel(vel); }
     @Override
     public void setAcc(int index, double[] acc){ bodies[index].setAcc(acc); }
+    @Override
+    public void addDt(double dt) { CelestialBody.addDt(dt); }
+    
 
 
     //getters
@@ -73,23 +76,43 @@ public class Gravity0 implements Model3D {
     @Override
     public double[] getVel(int index) { return bodies[index].getVel(); }
     @Override
-    public double[] getAcc(int index) { return bodies[index].getAcc(); }
-
-
-
-    ///////////////////////////////// calc derivs derivs
+    public double[] getAcc(int index){ return bodies[index].getAcc(); }
     @Override
-    public void _1Deriv(int index) {
+    public double getTime() { return CelestialBody.getTime(); }
+
+    //upates all derivs
+    @Override
+    public void _2Deriv() {
+        //must sum up all values of gravities with all other bodies
+
+        double dist=0;
+        for(int i=0; i<bodies.length; i++){
+            bodies[i].setVel(new double[] {0,0,0}); //reset to 0
+
+            for(int j=0; j<bodies.length; j++){
+                if(j==i)
+                    continue;
+                
+                //calc distance between 2
+                dist = getDistance(bodies[i], bodies[j]);
+                dist = dist*dist*dist;
+
+                //adding in dims
+                bodies[i].setAcc(new double[]{ bodies[i].getVel()[0] + G*bodies[j].getMass()* (bodies[j].getPos()[0] - bodies[i].getPos()[0])/dist, 
+                                               bodies[i].getVel()[1] + G*bodies[j].getMass()* (bodies[j].getPos()[1] - bodies[i].getPos()[1])/dist,
+                                               bodies[i].getVel()[2] + G*bodies[j].getMass()* (bodies[j].getPos()[2] - bodies[i].getPos()[2])/dist  });
+
+            }
+
+
+        }
 
     }
 
+
     @Override
-    public void _2Deriv(int index) {
-
+    public void _1Deriv() {
+        //second order model so nothing to update
     }
-
-    
-
-
 
 }

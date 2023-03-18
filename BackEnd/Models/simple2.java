@@ -30,12 +30,12 @@ public class simple2 implements Model1D {
     //calculating derivs
     @Override
     public double _1Deriv() {
-        return yD;
+        return yD +5*x;
     }
 
     @Override
     public double _2Deriv() {
-        return y + _1Deriv();
+        return y*x - _1Deriv()*_1Deriv();
     }
     
 }

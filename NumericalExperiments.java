@@ -21,8 +21,8 @@ class Main {
     public static void testing(){
         Model1D simple = new simple2(0, 8, 1);
 
-        int size = 1;
-        double dx = 0.1;
+        int size = 1000;
+        double dx = 0.001;
         
         double[][] errors = new double[2][size];
 
@@ -30,8 +30,7 @@ class Main {
         System.out.println("approx");
         for(int i=0; i<size; i++){
             errors[0][i] = Eulers._2DegStep1D(simple, dx);
-            System.out.println(simple.getX() + ", " + errors[0][i]); 
-            System.out.println( "BIATCH: " +  simple._1Deriv() );
+            System.out.println(simple.getX() + ", " + errors[0][i]);
         }
         System.out.println("\n");
 
@@ -45,7 +44,7 @@ class Main {
         for(int i=0; i<size; i++){
             x+=dx;
             errors[1][i] = 7 * Math.exp(x) - 6;
-            System.out.println( x + ", " + errors[1][i] );
+            //System.out.println( x + ", " + errors[1][i] );
         }
         System.out.println("\n");
 
@@ -54,7 +53,7 @@ class Main {
         x = 0;
         System.out.println("Errors");
         for(int i=0; i<size; i++){
-            System.out.println( x + ", " + (errors[0][i] - errors[1][i])/errors[1][i] );
+            //System.out.println( x + ", " + (errors[0][i] - errors[1][i])/errors[1][i] );
             x+=dx;
         }
     }
