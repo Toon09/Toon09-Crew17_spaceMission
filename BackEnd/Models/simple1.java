@@ -1,0 +1,44 @@
+package BackEnd.Models;
+
+//this model is for the eq: y' = 2 + y for demonstration
+
+//y(x) = c_1 e^x - 2
+
+public class simple1 implements Model {
+
+    private double x;
+    private double y;
+
+    public simple1(double xInnit, double yInnit){
+        x = xInnit;
+        y = yInnit;
+    }
+
+    //setters
+    @Override
+    public void setX(double x){ this.x = x; }
+    @Override
+    public void setY(double y){ this.y = y; }
+    @Override
+    public void setYD(double yD) { return; }
+
+    //getters
+    @Override
+    public double getX(){ return x; }
+    @Override
+    public double getY(){ return y; }
+
+    
+    //calculate derivatives
+    @Override
+    public double _1Deriv() {
+        return 2 + y;
+    }
+
+    @Override
+    public double _2Deriv() {
+        return 0; //if want actual value its the same as first deriv, but not necesary
+    }
+
+    
+}
