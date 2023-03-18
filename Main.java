@@ -2,6 +2,14 @@ import BackEnd.Models.Model1D;
 import BackEnd.Models.simple1;
 import BackEnd.NumericalMethods.*;
 
+//ToDo
+//Textures
+//Planets moving
+//Add the rest of the planets/moons
+//Putting the planets in the initial positions
+//set the planets sizes
+//
+
 class Main {
 
     /*
