@@ -13,6 +13,8 @@ public class Eulers {
         //update x, y, z positions ( pos[i] = temp[i] )
         //add dt to the time (addDt)
 
+        
+
     }
 
     //updates velocities and acceleration
