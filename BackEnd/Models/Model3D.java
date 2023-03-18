@@ -14,9 +14,9 @@ public interface Model3D {
 
 
     //calculates first derivative
-    public void _1Deriv();
+    public void _1Deriv(int index);
 
     //calculates second deriv if there is
-    public void _2Deriv();
+    public void _2Deriv(int index);
     
 }

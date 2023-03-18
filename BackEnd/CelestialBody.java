@@ -4,8 +4,8 @@ package BackEnd;
 public class CelestialBody {
 
     protected String name = "Pedro";
-    protected double mass;
-    protected double radius;
+    protected double mass = 0;
+    protected double radius = 0;
 
     protected double[] pos = new double[3];
     protected double[] vel = new double[3];

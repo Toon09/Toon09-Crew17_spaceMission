@@ -79,12 +79,12 @@ public class Gravity0 implements Model3D {
 
     ///////////////////////////////// calc derivs derivs
     @Override
-    public void _1Deriv() {
+    public void _1Deriv(int index) {
 
     }
 
     @Override
-    public void _2Deriv() {
+    public void _2Deriv(int index) {
 
     }
 
