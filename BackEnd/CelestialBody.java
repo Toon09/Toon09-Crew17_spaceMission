@@ -6,10 +6,14 @@ public class CelestialBody {
     private String name = "";
     private double mass;
 
-    private double[] pos;
-    private double[] vel;
-    private double[] acc;
+    private double[] pos = new double[3];
+    private double[] vel = new double[3];
+    private double[] acc = new double[3];
 
+
+    CelestialBody(){
+        
+    }
 
 
     CelestialBody(double mass, double[] innitPos, double[] innitVel, double[] innitAcc){
