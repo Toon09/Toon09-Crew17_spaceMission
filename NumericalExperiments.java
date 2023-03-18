@@ -1,12 +1,15 @@
-import BackEnd.Models.*;
+import BackEnd.Models.Model1D;
+import BackEnd.Models.simple1;
 import BackEnd.NumericalMethods.*;
 
-class NumericalExperiments {
+class Main {
 
     /*
      * a simple experiment set up to check how things work so far, before improvements
      */
     public static void main(String[] args) {
+
+    //
 
     }
 
