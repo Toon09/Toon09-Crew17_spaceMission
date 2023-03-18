@@ -16,7 +16,7 @@ public class CelestialBody {
     }
 
 
-    CelestialBody(double mass, double[] innitPos, double[] innitVel, double[] innitAcc){
+    public CelestialBody(double mass, double[] innitPos, double[] innitVel, double[] innitAcc){
         setMass(mass);
         setPos(innitPos);
         setVel(innitVel);
