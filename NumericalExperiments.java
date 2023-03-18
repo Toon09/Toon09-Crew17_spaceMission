@@ -8,9 +8,7 @@ class Main {
      * a simple experiment set up to check how things work so far, before improvements
      */
     public static void main(String[] args) {
-
-    //
-
+        testing();
     }
 
     /* TO DO
@@ -21,33 +19,33 @@ class Main {
 
 
 
-    public void testing(){
+    public static void testing(){
         Model1D simple = new simple1(0, 1);
 
-        double dx = 0.001;
-
-        int size = 100;
+        double dx = 0.05;
+        int size = 2;
+        
         double[][] errors = new double[2][size];
 
         //test
         System.out.println("approx");
         for(int i=0; i<size; i++){
             errors[0][i] = Eulers._1DegStep1D(simple, dx);
-            //System.out.println(simple.getX() + ", " + errors[0][i]); 
+            System.out.println(simple.getX() + ", " + errors[0][i]); 
         }
         System.out.println("\n");
 
 
         //solution for test
-        System.out.println("solution: y(x) = 3* e^x - 2"); 
+        System.out.println("solution: y(x) = (8)*e^t-7"); 
         //found with walfram alpha
         // https://www.wolframalpha.com/input?i=y%27+%3D+2+%2B+y%2C+y%280%29+%3D+1
 
         double x = 0;
         for(int i=0; i<size; i++){
-            errors[1][i] = 3 * Math.exp(x) - 2;
-            //System.out.println( x + ", " + errors[1][i] );
             x+=dx;
+            errors[1][i] = 8 * Math.exp(x) - 7;
+            System.out.println( x + ", " + errors[1][i] );
         }
         System.out.println("\n");
 
@@ -56,12 +54,16 @@ class Main {
         x = 0;
         System.out.println("Errors");
         for(int i=0; i<size; i++){
-            System.out.println( x + ", " + (errors[1][i] - errors[0][i]) );
+            System.out.println( x + ", " + (errors[0][i] - errors[1][i])/errors[1][i] );
             x+=dx;
         }
     }
 
 
+    /*
+     * write names of planets
+     * write their radiuses as well
+     */
 
     private static double[][] positions = { { 0, 0, 0 }, { 7.83e6, 4.49e7, 2.87e6 }, { -2.82e7, 1.04e8, 3.01e6 },
 			{ -1.48e8, -2.78e7, 3.37e4 }, { -1.48e8, -2.75e7, 7.02e4 }, { -1.59e8, 1.89e8, 7.87e6 },
