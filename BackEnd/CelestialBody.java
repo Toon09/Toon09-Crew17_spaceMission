@@ -2,7 +2,6 @@ package BackEnd;
 
 //to create model of solar system
 public class CelestialBody {
-
     private double mass;
 
     private double[] pos;
