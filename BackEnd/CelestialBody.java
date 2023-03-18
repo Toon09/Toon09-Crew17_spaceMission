@@ -1,7 +1,7 @@
 package BackEnd;
 
 //to create model of solar system
-public class CelestialBody {
+public class CelestialBody implements CPI {
 
     protected String name = "Pedro";
     protected double mass = 0;
@@ -50,7 +50,7 @@ public class CelestialBody {
     public double[] getPos(){ return pos; }
     public double[] getVel(){ return vel; }
     public double[] getAcc(){ return acc; }
-    public static double getTime(){ return time; }
+    public double getTime(){ return time; }
     public double getMass(){ return mass; }
     public double getradius(){ return radius; }
     public String getName(){ return name; }
