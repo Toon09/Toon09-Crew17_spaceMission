@@ -35,7 +35,7 @@ public class simple2 implements Model1D {
 
     @Override
     public double _2Deriv() {
-        return 0;
+        return y+ _1Deriv();
     }
     
 }

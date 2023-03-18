@@ -32,7 +32,7 @@ public class simple1 implements Model1D {
     //calculate derivatives
     @Override
     public double _1Deriv() {
-        return 2 + y;
+        return 7 + y;
     }
 
     @Override
