@@ -9,6 +9,19 @@ class Main {
      */
     public static void main(String[] args) {
 
+        
+
+    }
+
+    /* TO DO
+     * start GUI
+     * start planets and trajectory planning (staying away from other planets)
+     * teamchart?
+     */
+
+
+
+    public void testing(){
         Model simple = new simple1(0, 1);
 
         double dx = 0.001;
@@ -46,6 +59,6 @@ class Main {
             System.out.println( x + ", " + (errors[1][i] - errors[0][i]) );
             x+=dx;
         }
-
     }
+
 }

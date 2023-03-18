@@ -9,6 +9,17 @@ public class CelestialBody {
     private double[] vel;
     private double[] acc;
 
+
+
+    CelestialBody(double mass, double[] innitPos, double[] innitVel, double[] innitAcc){
+        setMass(mass);
+        setPos(innitPos);
+        setVel(innitVel);
+        setAcc(innitAcc);
+
+    }
+
+
     //getters
     public double[] getPos(){ return pos; }
     public double[] getVel(){ return vel; }
