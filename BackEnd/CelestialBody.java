@@ -3,8 +3,9 @@ package BackEnd;
 //to create model of solar system
 public class CelestialBody {
 
-    private String name = "";
+    private String name = "Pedro";
     private double mass;
+    private double radius;
 
     private double[] pos = new double[3];
     private double[] vel = new double[3];
@@ -34,6 +35,16 @@ public class CelestialBody {
 
     }
 
+    public CelestialBody(String name, double mass, double radius, double[] innitPos, double[] innitVel, double[] innitAcc){
+        this.name = name;
+        setMass(mass);
+        setradius(radius);
+        setPos(innitPos);
+        setVel(innitVel);
+        setAcc(innitAcc);
+
+    }
+
 
     //getters
     public double[] getPos(){ return pos; }
@@ -41,11 +52,13 @@ public class CelestialBody {
     public double[] getAcc(){ return acc; }
     public static double getTime(){ return time; }
     public double getMass(){ return mass; }
+    public double getradius(){ return radius; }
     public String getName(){ return name; }
     public void addDt(double dt){ time += dt; }
 
     //setters
     public void setMass(double mass){ this.mass = mass; }
+    public void setradius(double radius){ this.radius = radius; }
     public void setName(String name){ this.name = name; }
     public void setPos(double[] pos){
         this.pos[0] = pos[0];
