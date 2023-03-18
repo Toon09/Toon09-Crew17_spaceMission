@@ -19,10 +19,22 @@ public class Gravity0 implements Model {
             temp[i] = bodies[i];
         }
         temp[temp.length-1] = body;
+
+        bodies = temp;
     }
 
     public void addBody(CelestialBody[] Nbody){
-        
+        CelestialBody[] temp = new CelestialBody[ bodies.length + Nbody.length ];
+
+        for(int i=0; i<bodies.length; i++){
+            temp[i] = bodies[i];
+        }
+
+        for(int i=bodies.length; i<temp.length; i++){
+            temp[i] = Nbody[i-bodies.length];
+        }
+
+        bodies = temp;
     }
 
     @Override
