@@ -3,15 +3,17 @@ package BackEnd;
 //to create model of solar system
 public class CelestialBody {
 
-    private String name = "";
+    private String name = "Pedro";
     private double mass;
+    private double radius;
 
     private double[] pos = new double[3];
     private double[] vel = new double[3];
     private double[] acc = new double[3];
+    private static double time = 0;
 
 
-    CelestialBody(){
+    public CelestialBody(){
         
     }
 
@@ -24,9 +26,19 @@ public class CelestialBody {
 
     }
 
-    CelestialBody(String name, double mass, double[] innitPos, double[] innitVel, double[] innitAcc){
+    public CelestialBody(String name, double mass, double[] innitPos, double[] innitVel, double[] innitAcc){
         this.name = name;
         setMass(mass);
+        setPos(innitPos);
+        setVel(innitVel);
+        setAcc(innitAcc);
+
+    }
+
+    public CelestialBody(String name, double mass, double radius, double[] innitPos, double[] innitVel, double[] innitAcc){
+        this.name = name;
+        setMass(mass);
+        setradius(radius);
         setPos(innitPos);
         setVel(innitVel);
         setAcc(innitAcc);
@@ -38,11 +50,15 @@ public class CelestialBody {
     public double[] getPos(){ return pos; }
     public double[] getVel(){ return vel; }
     public double[] getAcc(){ return acc; }
+    public static double getTime(){ return time; }
     public double getMass(){ return mass; }
+    public double getradius(){ return radius; }
     public String getName(){ return name; }
+    public void addDt(double dt){ time += dt; }
 
     //setters
     public void setMass(double mass){ this.mass = mass; }
+    public void setradius(double radius){ this.radius = radius; }
     public void setName(String name){ this.name = name; }
     public void setPos(double[] pos){
         this.pos[0] = pos[0];
@@ -59,6 +75,7 @@ public class CelestialBody {
         this.acc[1] = acc[1];
         this.acc[2] = acc[2];
     }
+
 
     @Override
     public boolean equals(Object obj) {

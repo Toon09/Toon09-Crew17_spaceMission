@@ -2,7 +2,7 @@ package BackEnd.Models;
 
 import BackEnd.CelestialBody;
 
-public class Gravity0 implements Model {
+public class Gravity0 implements Model3D {
     /*
      * 3D model
      * model is:
@@ -57,58 +57,38 @@ public class Gravity0 implements Model {
         return Math.sqrt( a*a + b*b + c*c );
     }
 
-    //settings
+    //setters
+    @Override
     public void setPos(int index, double[] pos){ bodies[index].setPos(pos); }
+    @Override
     public void setVel(int index, double[] vel){ bodies[index].setPos(vel); }
+    @Override
     public void setAcc(int index, double[] acc){ bodies[index].setAcc(acc); }
 
 
+    //getters
+    @Override
+    public double[] getPos(int index) { return bodies[index].getPos(); }
+    @Override
+    public double[] getVel(int index) { return bodies[index].getVel(); }
+    @Override
+    public double[] getAcc(int index) { return bodies[index].getAcc(); }
 
+
+
+    ///////////////////////////////// calc derivs derivs
+    @Override
+    public void _1Deriv() {
+
+    }
+
+    @Override
+    public void _2Deriv() {
+
+    }
 
     
 
-    @Override
-    public double _1Deriv() {
-
-        //update all celestial bodies one by one with one another
-
-        return 0; //doesnt return a val in specific bc its 3d, instead is saved in the bodies themselves
-    }
-
-    @Override
-    public double _2Deriv() {
 
 
-        return 0; //doesnt return a val in specific bc its 3d, instead is saved in the bodies themselves
-    }
-
-
-
-    
-    // ########################### DO NOT IMPLEMENT
-
-    @Override //////////////do not implement
-    public void setX(double x) {
-        throw new UnsupportedOperationException("Unimplemented method 'setX'");
-    }
- 
-    @Override //////////////do not implement
-    public void setY(double y) {
-        throw new UnsupportedOperationException("Unimplemented method 'setY'");
-    }
-
-    @Override //////////////do not implement
-    public double getX() {
-        throw new UnsupportedOperationException("Unimplemented method 'getX'");
-    }
-
-    @Override //////////////do not implement
-    public double getY() {
-        throw new UnsupportedOperationException("Unimplemented method 'getY'");
-    }
-
-    @Override //////////////do not implement
-    public void setYD(double yD) {
-        throw new UnsupportedOperationException("Unimplemented method 'setYD'");
-    }
 }
