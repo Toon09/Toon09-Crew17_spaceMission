@@ -32,12 +32,12 @@ public class simple1 implements Model1D {
     //calculate derivatives
     @Override
     public double _1Deriv() {
-        return 7 + y;
+        return 10 + y;
     }
 
     @Override
     public double _2Deriv() {
-        return 0; //if want actual value its the same as first deriv, but not necesary
+        return _1Deriv(); //if want actual value its the same as first deriv, but not necesary
     }
 
     

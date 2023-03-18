@@ -1,5 +1,4 @@
-import BackEnd.Models.Model1D;
-import BackEnd.Models.simple1;
+import BackEnd.Models.*;
 import BackEnd.NumericalMethods.*;
 
 class Main {
@@ -22,29 +21,30 @@ class Main {
     public static void testing(){
         Model1D simple = new simple1(0, 1);
 
-        double dx = 0.05;
-        int size = 2;
+        int size = 1;
+        double dx = 0.1;
         
         double[][] errors = new double[2][size];
 
         //test
         System.out.println("approx");
         for(int i=0; i<size; i++){
-            errors[0][i] = Eulers._1DegStep1D(simple, dx);
+            errors[0][i] = Eulers._2DegStep1D(simple, dx);
             System.out.println(simple.getX() + ", " + errors[0][i]); 
+            System.out.println( "BIATCH: " +  simple._1Deriv() );
         }
         System.out.println("\n");
 
 
         //solution for test
-        System.out.println("solution: y(x) = (8)*e^t-7"); 
+        System.out.println("solution: y(x) = 3*e^t-2"); 
         //found with walfram alpha
         // https://www.wolframalpha.com/input?i=y%27+%3D+2+%2B+y%2C+y%280%29+%3D+1
 
         double x = 0;
         for(int i=0; i<size; i++){
             x+=dx;
-            errors[1][i] = 8 * Math.exp(x) - 7;
+            errors[1][i] = 11 * Math.exp(x) - 10;
             System.out.println( x + ", " + errors[1][i] );
         }
         System.out.println("\n");
