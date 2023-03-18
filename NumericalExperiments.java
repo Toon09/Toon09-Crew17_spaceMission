@@ -19,7 +19,7 @@ class Main {
 
 
     public static void testing(){
-        Model1D simple = new simple1(0, 1);
+        Model1D simple = new simple2(0, 8, 1);
 
         int size = 1;
         double dx = 0.1;
@@ -44,7 +44,7 @@ class Main {
         double x = 0;
         for(int i=0; i<size; i++){
             x+=dx;
-            errors[1][i] = 11 * Math.exp(x) - 10;
+            errors[1][i] = 7 * Math.exp(x) - 6;
             System.out.println( x + ", " + errors[1][i] );
         }
         System.out.println("\n");
