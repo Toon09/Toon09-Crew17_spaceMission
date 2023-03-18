@@ -9,14 +9,15 @@ public class CelestialBody {
     private double[] pos = new double[3];
     private double[] vel = new double[3];
     private double[] acc = new double[3];
+    private double time = 0;
 
 
-    CelestialBody(){
+    public CelestialBody(){
         
     }
 
 
-    CelestialBody(double mass, double[] innitPos, double[] innitVel, double[] innitAcc){
+    public CelestialBody(double mass, double[] innitPos, double[] innitVel, double[] innitAcc){
         setMass(mass);
         setPos(innitPos);
         setVel(innitVel);
@@ -24,7 +25,7 @@ public class CelestialBody {
 
     }
 
-    CelestialBody(String name, double mass, double[] innitPos, double[] innitVel, double[] innitAcc){
+    public CelestialBody(String name, double mass, double[] innitPos, double[] innitVel, double[] innitAcc){
         this.name = name;
         setMass(mass);
         setPos(innitPos);
@@ -40,6 +41,7 @@ public class CelestialBody {
     public double[] getAcc(){ return acc; }
     public double getMass(){ return mass; }
     public String getName(){ return name; }
+    public void addDt(double dt){ time += dt; }
 
     //setters
     public void setMass(double mass){ this.mass = mass; }
@@ -60,6 +62,7 @@ public class CelestialBody {
         this.acc[2] = acc[2];
     }
 
+    
     @Override
     public boolean equals(Object obj) {
         if( !(obj instanceof CelestialBody) )

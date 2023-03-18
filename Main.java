@@ -32,7 +32,7 @@ class Main {
         //test
         System.out.println("approx");
         for(int i=0; i<size; i++){
-            errors[0][i] = Eulers._1DegStep(simple, dx);
+            errors[0][i] = Eulers._1DegStep1D(simple, dx);
             //System.out.println(simple.getX() + ", " + errors[0][i]); 
         }
         System.out.println("\n");

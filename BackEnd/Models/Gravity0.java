@@ -64,15 +64,11 @@ public class Gravity0 implements Model {
 
 
 
-
-    
-
+    ///////////////////////////////// get derivs
     @Override
     public double _1Deriv() {
 
-        //update all celestial bodies one by one with one another
-
-        return 0; //doesnt return a val in specific bc its 3d, instead is saved in the bodies themselves
+        return 0;
     }
 
     @Override
@@ -84,7 +80,7 @@ public class Gravity0 implements Model {
 
 
 
-    
+
     // ########################### DO NOT IMPLEMENT
 
     @Override //////////////do not implement
