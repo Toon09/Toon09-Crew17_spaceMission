@@ -9,7 +9,7 @@ public class CelestialBody {
     private double[] pos = new double[3];
     private double[] vel = new double[3];
     private double[] acc = new double[3];
-    private double time = 0;
+    private static double time = 0;
 
 
     public CelestialBody(){
@@ -39,6 +39,7 @@ public class CelestialBody {
     public double[] getPos(){ return pos; }
     public double[] getVel(){ return vel; }
     public double[] getAcc(){ return acc; }
+    public static double getTime(){ return time; }
     public double getMass(){ return mass; }
     public String getName(){ return name; }
     public void addDt(double dt){ time += dt; }
@@ -62,7 +63,7 @@ public class CelestialBody {
         this.acc[2] = acc[2];
     }
 
-    
+
     @Override
     public boolean equals(Object obj) {
         if( !(obj instanceof CelestialBody) )

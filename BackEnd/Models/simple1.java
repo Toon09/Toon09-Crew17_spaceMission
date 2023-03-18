@@ -4,7 +4,7 @@ package BackEnd.Models;
 
 //y(x) = c_1 e^x - 2
 
-public class simple1 implements Model {
+public class simple1 implements Model1D {
 
     private double x;
     private double y;
@@ -20,7 +20,7 @@ public class simple1 implements Model {
     @Override
     public void setY(double y){ this.y = y; }
     @Override
-    public void setYD(double yD) { return; }
+    public void setYD(double yd) {}
 
     //getters
     @Override
