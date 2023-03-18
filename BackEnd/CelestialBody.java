@@ -3,14 +3,14 @@ package BackEnd;
 //to create model of solar system
 public class CelestialBody {
 
-    private String name = "Pedro";
-    private double mass;
-    private double radius;
+    protected String name = "Pedro";
+    protected double mass;
+    protected double radius;
 
-    private double[] pos = new double[3];
-    private double[] vel = new double[3];
-    private double[] acc = new double[3];
-    private static double time = 0;
+    protected double[] pos = new double[3];
+    protected double[] vel = new double[3];
+    protected double[] acc = new double[3];
+    protected static double time = 0;
 
 
     public CelestialBody(){
