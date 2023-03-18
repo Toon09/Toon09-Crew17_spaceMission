@@ -22,6 +22,7 @@ public class Gravity0 implements Model3D {
     }
 
     public CelestialBody getBody(int index){ return bodies[index]; }
+    public int size(){ return bodies.length; }
 
     //only for 1 body
     public void addBody(CelestialBody body){
