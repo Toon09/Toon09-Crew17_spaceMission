@@ -4,7 +4,21 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="bab05458-8716-4abd-8f37-31e577e5aaab" name="Changes" comment="" />
+    <list default="true" id="bab05458-8716-4abd-8f37-31e577e5aaab" name="Changes" comment="moving stuff">
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/planets/BackEnd/CelestialBody.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/planets/BackEnd/CelestialBody.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/planets/BackEnd/Models/Gravity0.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/planets/BackEnd/Models/Gravity0.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/planets/BackEnd/Models/simple1.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/planets/BackEnd/Models/simple1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/planets/BackEnd/Models/simple2.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/planets/BackEnd/Models/simple2.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/planets/BackEnd/NumericalMethods/Eulers.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/planets/BackEnd/NumericalMethods/Eulers.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/planets/BackEnd/Spaceship.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/planets/BackEnd/Spaceship.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/planets/Data/innit_Pos.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/planets/Data/innit_Pos.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/planets/GUI.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/planets/GUI.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/planets/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/planets/Main.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/planets/explanation.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/module-info.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/module-info.class" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -17,6 +31,9 @@
       </list>
     </option>
   </component>
+  <component name="Git.Settings">
+    <option name="UPDATE_TYPE" value="REBASE" />
+  </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
@@ -28,32 +45,36 @@
     </option>
   </component>
   <component name="ProjectId" id="2NCWcLuYHhcwt20P03l2liympkF" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "last_opened_file_path": "C:/Users/suszw/Desktop/uni/year_1/Period4/Project",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;full.screen.before.presentation.mode&quot;: &quot;false&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/suszw/Desktop/uni/year_1/Period4/Data stuctures/Planets&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\suszw\Desktop\uni\year_1\Period4\Data stuctures\Planets" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\suszw\Desktop\uni\year_1\Period4\plswork\src\main" />
+      <recent name="C:\Users\suszw\Desktop\uni\year_1\Period4\plswork\src\resources\com" />
+      <recent name="C:\Users\suszw\Desktop\uni\year_1\Period4\plswork\src\resources" />
+      <recent name="C:\Users\suszw\Desktop\uni\year_1\Period4\plswork\src\main\java\com\example\planets" />
       <recent name="C:\Users\suszw\Desktop\uni\year_1\Period4\Data stuctures\Planets\src\main\resources" />
-      <recent name="C:\Users\suszw\Desktop\uni\year_1\Period4\Data stuctures\Planets\src\main\resources\com\example\planets" />
-      <recent name="C:\Users\suszw\Desktop\uni\year_1\Period4\Data stuctures\Planets" />
-      <recent name="C:\Users\suszw\Desktop\uni\year_1\Period4\Data stuctures\Planets\src\main\java\com\example\planets" />
     </key>
   </component>
   <component name="RunManager" selected="Application.GUI">
@@ -117,10 +138,15 @@
       <workItem from="1679251843900" duration="2627000" />
       <workItem from="1679265969801" duration="3586000" />
       <workItem from="1679314405554" duration="1248000" />
+      <workItem from="1679317911374" duration="1670000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="moving stuff" />
+    <option name="LAST_COMMIT_MESSAGE" value="moving stuff" />
   </component>
 </project>
