@@ -1,4 +1,4 @@
-package BackEnd;
+package com.example.planets.BackEnd;
 
 public class Spaceship extends CelestialBody {
     private double fuel;

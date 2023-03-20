@@ -1,5 +1,5 @@
-package BackEnd.Models;
-import BackEnd.CelestialBody;
+package com.example.planets.BackEnd.Models;
+import com.example.planets.BackEnd.CelestialBody;
 
 public interface Model3D {
 

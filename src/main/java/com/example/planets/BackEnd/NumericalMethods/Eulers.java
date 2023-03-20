@@ -1,5 +1,5 @@
-package BackEnd.NumericalMethods;
-import BackEnd.Models.*;
+package com.example.planets.BackEnd.NumericalMethods;
+import com.example.planets.BackEnd.Models.*;
 
 public class Eulers {
 

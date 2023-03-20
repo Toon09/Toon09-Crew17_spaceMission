@@ -1,4 +1,4 @@
-package BackEnd.Models;
+package com.example.planets.BackEnd.Models;
 
 //example for second degree diff. eq. but couldnt think of anything
 public class simple2 implements Model1D {

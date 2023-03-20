@@ -1,4 +1,4 @@
-package BackEnd.Models;
+package com.example.planets.BackEnd.Models;
 
 /*
  * interface that makes using models and coding them into numerical methods faster

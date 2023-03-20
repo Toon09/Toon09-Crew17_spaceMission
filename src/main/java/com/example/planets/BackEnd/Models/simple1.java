@@ -1,4 +1,4 @@
-package BackEnd.Models;
+package com.example.planets.BackEnd.Models;
 
 //this model is for the eq: y' = 2 + y for demonstration
 

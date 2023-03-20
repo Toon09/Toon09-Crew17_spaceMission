@@ -1,6 +1,6 @@
-package BackEnd.Models;
+package com.example.planets.BackEnd.Models;
 
-import BackEnd.CelestialBody;
+import com.example.planets.BackEnd.CelestialBody;
 
 public class Gravity0 implements Model3D {
     private static final double G = 6.6743 * Math.pow(10, -20);

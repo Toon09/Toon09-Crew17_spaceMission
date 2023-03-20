@@ -1,5 +1,7 @@
-import BackEnd.Models.*;
-import BackEnd.NumericalMethods.*;
+package com.example.planets;
+
+import com.example.planets.BackEnd.Models.*;
+import com.example.planets.BackEnd.NumericalMethods.*;
 
 class Main {
 
