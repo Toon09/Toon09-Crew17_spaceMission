@@ -1,0 +1,41 @@
+package BackEnd.Models;
+
+//example for second degree diff. eq. but couldnt think of anything
+public class simple2 implements Model1D {
+
+    private double x;
+    private double y;
+    private double yD;
+
+    public simple2(double xInnit, double yInnit, double yDInnit){
+        x = xInnit;
+        y = yInnit;
+        yD = yDInnit;
+    }
+
+    //setters
+    @Override
+    public void setX(double x) { this.x = x; }
+    @Override
+    public void setY(double y) { this.y = y; }
+    @Override
+    public void setYD(double yD) { this. yD = yD; }
+
+    //getters
+    @Override
+    public double getX() { return x; }
+    @Override
+    public double getY() { return y; }
+
+    //calculating derivs
+    @Override
+    public double _1Deriv() {
+        return yD +5*x;
+    }
+
+    @Override
+    public double _2Deriv() {
+        return y*x - _1Deriv()*_1Deriv();
+    }
+    
+}
