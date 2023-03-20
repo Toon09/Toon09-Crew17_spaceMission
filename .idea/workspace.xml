@@ -4,7 +4,26 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="bab05458-8716-4abd-8f37-31e577e5aaab" name="Changes" comment="" />
+    <list default="true" id="bab05458-8716-4abd-8f37-31e577e5aaab" name="Changes" comment="moving stuff">
+      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Planets.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/planets/NumericalExperiments.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/planets/NumericalExperiments.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/resources/com/example/planets/hello-view.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/planets/hello-view.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/resources/earthTexture.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/earthTexture.jpg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/resources/jupiterTexture.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/jupiterTexture.jpg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/resources/marsTexture.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/marsTexture.jpg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/resources/mercuryTexture.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/resources/moonTexture.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/moonTexture.jpg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/resources/neptuneTexture.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/neptuneTexture.jpg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/resources/saturnTexture.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/saturnTexture.jpg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/resources/sunTexture.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/sunTexture.jpg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/resources/titanTexture.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/titanTexture.jpg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/resources/uranusTexture.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/uranusTexture.jpg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/resources/venusTexture.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/venusTexture.jpg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/earthTexture.jpg" beforeDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -17,6 +36,9 @@
       </list>
     </option>
   </component>
+  <component name="Git.Settings">
+    <option name="UPDATE_TYPE" value="REBASE" />
+  </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
@@ -28,6 +50,7 @@
     </option>
   </component>
   <component name="ProjectId" id="2NCWcLuYHhcwt20P03l2liympkF" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -36,8 +59,10 @@
   "keyToString": {
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "WebServerToolWindowFactoryState": "false",
-    "last_opened_file_path": "C:/Users/suszw/Desktop/uni/year_1/Period4/Project",
+    "full.screen.before.presentation.mode": "false",
+    "last_opened_file_path": "C:/Users/suszw/Desktop/uni/year_1/Period4/Data stuctures/Planets",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -50,10 +75,11 @@
       <recent name="C:\Users\suszw\Desktop\uni\year_1\Period4\Data stuctures\Planets" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\suszw\Desktop\uni\year_1\Period4\plswork\src\main" />
+      <recent name="C:\Users\suszw\Desktop\uni\year_1\Period4\plswork\src\resources\com" />
+      <recent name="C:\Users\suszw\Desktop\uni\year_1\Period4\plswork\src\resources" />
+      <recent name="C:\Users\suszw\Desktop\uni\year_1\Period4\plswork\src\main\java\com\example\planets" />
       <recent name="C:\Users\suszw\Desktop\uni\year_1\Period4\Data stuctures\Planets\src\main\resources" />
-      <recent name="C:\Users\suszw\Desktop\uni\year_1\Period4\Data stuctures\Planets\src\main\resources\com\example\planets" />
-      <recent name="C:\Users\suszw\Desktop\uni\year_1\Period4\Data stuctures\Planets" />
-      <recent name="C:\Users\suszw\Desktop\uni\year_1\Period4\Data stuctures\Planets\src\main\java\com\example\planets" />
     </key>
   </component>
   <component name="RunManager" selected="Application.GUI">
@@ -117,10 +143,15 @@
       <workItem from="1679251843900" duration="2627000" />
       <workItem from="1679265969801" duration="3586000" />
       <workItem from="1679314405554" duration="1248000" />
+      <workItem from="1679317911374" duration="1670000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="moving stuff" />
+    <option name="LAST_COMMIT_MESSAGE" value="moving stuff" />
   </component>
 </project>
