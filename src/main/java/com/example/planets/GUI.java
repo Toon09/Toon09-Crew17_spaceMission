@@ -107,7 +107,7 @@ public class GUI extends Application {
         //material for the sun
         sun.setEffect(sunGlow);
         PhongMaterial sunMaterial = new PhongMaterial();
-        //sunMaterial.setDiffuseMap(new Image("sunTexture.jpg"));
+        sunMaterial.setDiffuseMap(new Image("sunTexture.jpg"));
         sun.setMaterial(sunMaterial);
         Label sunLabel = new Label("SUN");
         sunLabel.setTranslateX(0);
