@@ -76,6 +76,7 @@ public class Merged extends Application {
 
             }
         });
+        world.setTranslateZ(world.getTranslateZ() + 100000);
         worldRotX.setAngle(worldRotX.getAngle());
         stage.show();
 
