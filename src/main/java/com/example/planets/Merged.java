@@ -82,10 +82,9 @@ public class Merged extends Application {
 
         Timer timer = new Timer();
         timer.schedule(new TimerTask() {
-            int day=1;
+
             @Override
             public void run() {
-                day+=1;
                 model.updatePos(0.1,0.1);
                 for (int i=0; i<world.getChildren().size(); i++){
                     setPosition(world.getChildren().get(i),model.getBody(i));
