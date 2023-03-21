@@ -1,5 +1,6 @@
 package com.example.planets;
 
+import com.example.planets.BackEnd.CelestialBody;
 import com.example.planets.BackEnd.Models.*;
 import com.example.planets.BackEnd.NumericalMethods.*;
 
@@ -9,19 +10,63 @@ class Main {
      * a simple experiment set up to check how things work so far, before improvements
      */
     public static void main(String[] args) {
-        testing();
+        testing3D();
         ///////////tested
     }
 
-    /* TO DO
-     * start GUI
-     * start planets and trajectory planning (staying away from other planets)
-     * teamchart?
+    /*
+     * hohmann for going from planet to planet
      */
 
+    public static void testing3D(){
+        Gravity0 grav = new Gravity0();
+
+        //to save space
+        {
+            CelestialBody[] bodies = new CelestialBody[ positions.length ];
+            for(int i=0; i<bodies.length; i++)
+                bodies[i] = new CelestialBody(mass[i][0], positions[i], velocity[i]);
+            
+            grav.addBody(bodies);
+        }
+
+        ////////////////////////////// parameters
+        double dt = 0.01;
+        long days = 25;
+        int planet = 3;
+        //earth is index 3
+
+        //with any dt days/execution time ratio remains mostly constant
+        //time to execution time ratio is approx 1.6666 for dt=0.1
+        
+        System.out.println("\nstart");
+        System.out.println("x: " + grav.getBody(planet).getPos()[0] + ", y: " + grav.getBody(planet).getPos()[1] + ", z: " + grav.getBody(planet).getPos()[2]);
+        System.out.println( "theta: " + (180/3.1415)*Math.atan( grav.getBody(planet).getPos()[1]/grav.getBody(planet).getPos()[0] ) );
+        System.out.println("r: " + CelestialBody.getDistance( grav.getBody(0), grav.getBody(planet) ));
+
+        
+        long start = System.currentTimeMillis();
+        
+        System.out.println("\ndays: " + days + "; dt: " + dt);
+        for(long i=0; i<CelestialBody.daysToSec(days)/dt; i++){
+            Eulers.step3D(grav, dt);
+            //System.out.println("time: " +  CelestialBody.secToDays( (long)(i*dt) ));
+        }
+
+        System.out.println( "\ntime taken[s]: " + (System.currentTimeMillis()-start)/1000 );
+
+        System.out.println("x: " + grav.getBody(planet).getPos()[0] + ", y: " + grav.getBody(planet).getPos()[1] + ", z: " + grav.getBody(planet).getPos()[2]);
+        System.out.println( "theta: " + (180/3.1415)*Math.atan( grav.getBody(planet).getPos()[1]/grav.getBody(planet).getPos()[0] ) );
+        System.out.println("r: " + CelestialBody.getDistance( grav.getBody(0), grav.getBody(planet) ));
+
+        System.out.println();
+        
+        
+    }
 
 
-    public static void testing(){
+
+    public static void testing1D(){
         Model1D simple = new simple2(0, 8, 1);
 
         int size = 1000;
@@ -79,5 +124,7 @@ class Main {
 
 	private static double[][] mass = { { 1.99e30 }, { 3.30e23 }, { 4.87e24 }, { 5.97e24 }, { 7.35e22 }, { 6.42e23 },
 			{ 1.90e27 }, { 5.68e26 }, { 1.35e23 }, { 1.02e26 }, { 8.68e25 } };
+
+    private static double[][] radius = null;
 
 }
