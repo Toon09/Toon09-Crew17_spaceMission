@@ -6,9 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="bab05458-8716-4abd-8f37-31e577e5aaab" name="Changes" comment="moving stuff">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/planets/GUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/planets/GUI.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/earthTexture.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/earthTexture.jpg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/example/planets/GUI.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/planets/GUI.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/planets/NumericalExperiments.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/planets/NumericalExperiments.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -24,19 +22,6 @@
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
-    <option name="UPDATE_TYPE" value="REBASE" />
-  </component>
-  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
-  "lastFilter": {
-  }
-}]]></component>
-  <component name="GithubPullRequestsUISettings">
-    <option name="selectedUrlAndAccountId">
-      <UrlAndAccount>
-        <option name="accountId" value="c37d27a7-5e9d-4481-829c-d27bcce73935" />
-        <option name="url" value="https://github.com/Toon09/Toon09-Crew17_spaceMission.git" />
-      </UrlAndAccount>
-    </option>
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
@@ -66,7 +51,7 @@
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
     &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Project&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
     &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
     &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;,
     &quot;settings.editor.selected.configurable&quot;: &quot;configurable.group.appearance&quot;,
@@ -78,14 +63,14 @@
       <recent name="C:\Users\suszw\Desktop\uni\year_1\Period4\Data stuctures\Planets" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
-      <recent name="C:\Users\vasea\OneDrive\Documents\GitHub\Toon09-Crew17_spaceMission\target\classes" />
-      <recent name="C:\Users\vasea\OneDrive\Documents\GitHub\Toon09-Crew17_spaceMission\target\classes\com" />
-      <recent name="C:\Users\vasea\OneDrive\Documents\GitHub\Toon09-Crew17_spaceMission\target\classes\com\example" />
+      <recent name="C:\Users\sirap\IdeaProjects\Toon09-Crew17_spaceMission\src\main\java\com\example\planets" />
       <recent name="C:\Users\suszw\Desktop\uni\year_1\Period4\plswork\src\main" />
       <recent name="C:\Users\suszw\Desktop\uni\year_1\Period4\plswork\src\resources\com" />
+      <recent name="C:\Users\suszw\Desktop\uni\year_1\Period4\plswork\src\resources" />
+      <recent name="C:\Users\suszw\Desktop\uni\year_1\Period4\plswork\src\main\java\com\example\planets" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.GUI">
+  <component name="RunManager" selected="Application.Main">
     <configuration name="GUI" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="com.example.planets.GUI" />
       <module name="Planets" />
@@ -127,8 +112,8 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.GUI" />
         <item itemvalue="Application.Main" />
+        <item itemvalue="Application.GUI" />
         <item itemvalue="Application.NumericalExperiments" />
       </list>
     </recent_temporary>
@@ -161,6 +146,17 @@
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="moving stuff" />

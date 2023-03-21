@@ -11,7 +11,7 @@ class Main {
      */
     public static void main(String[] args) {
         testing3D();
-        ///////////tested
+        //
     }
 
     /*
@@ -31,8 +31,8 @@ class Main {
         }
 
         ////////////////////////////// parameters
-        double dt = 0.01;
-        long days = 25;
+        double dt = 0.1;
+        long days = 5;
         int planet = 3;
         //earth is index 3
 

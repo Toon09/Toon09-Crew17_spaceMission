@@ -1,0 +1,134 @@
+Index: src/main/java/com/example/planets/NumericalExperiments.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.example.planets;\r\n\r\nimport com.example.planets.BackEnd.CelestialBody;\r\nimport com.example.planets.BackEnd.Models.*;\r\nimport com.example.planets.BackEnd.NumericalMethods.*;\r\n\r\nclass Main {\r\n\r\n    /*\r\n     * a simple experiment set up to check how things work so far, before improvements\r\n     */\r\n    public static void main(String[] args) {\r\n        testing3D();\r\n        ///////////tested\r\n    }\r\n\r\n    /*\r\n     * hohmann for going from planet to planet\r\n     */\r\n\r\n    public static void testing3D(){\r\n        Gravity0 grav = new Gravity0();\r\n\r\n        //to save space\r\n        {\r\n            CelestialBody[] bodies = new CelestialBody[ positions.length ];\r\n            for(int i=0; i<bodies.length; i++)\r\n                bodies[i] = new CelestialBody(mass[i][0], positions[i], velocity[i]);\r\n            \r\n            grav.addBody(bodies);\r\n        }\r\n\r\n        ////////////////////////////// parameters\r\n        double dt = 0.01;\r\n        long days = 25;\r\n        int planet = 3;\r\n        //earth is index 3\r\n\r\n        //with any dt days/execution time ratio remains mostly constant\r\n        //time to execution time ratio is approx 1.6666 for dt=0.1\r\n        \r\n        System.out.println(\"\\nstart\");\r\n        System.out.println(\"x: \" + grav.getBody(planet).getPos()[0] + \", y: \" + grav.getBody(planet).getPos()[1] + \", z: \" + grav.getBody(planet).getPos()[2]);\r\n        System.out.println( \"theta: \" + (180/3.1415)*Math.atan( grav.getBody(planet).getPos()[1]/grav.getBody(planet).getPos()[0] ) );\r\n        System.out.println(\"r: \" + CelestialBody.getDistance( grav.getBody(0), grav.getBody(planet) ));\r\n\r\n        \r\n        long start = System.currentTimeMillis();\r\n        \r\n        System.out.println(\"\\ndays: \" + days + \"; dt: \" + dt);\r\n        for(long i=0; i<CelestialBody.daysToSec(days)/dt; i++){\r\n            Eulers.step3D(grav, dt);\r\n            //System.out.println(\"time: \" +  CelestialBody.secToDays( (long)(i*dt) ));\r\n        }\r\n\r\n        System.out.println( \"\\ntime taken[s]: \" + (System.currentTimeMillis()-start)/1000 );\r\n\r\n        System.out.println(\"x: \" + grav.getBody(planet).getPos()[0] + \", y: \" + grav.getBody(planet).getPos()[1] + \", z: \" + grav.getBody(planet).getPos()[2]);\r\n        System.out.println( \"theta: \" + (180/3.1415)*Math.atan( grav.getBody(planet).getPos()[1]/grav.getBody(planet).getPos()[0] ) );\r\n        System.out.println(\"r: \" + CelestialBody.getDistance( grav.getBody(0), grav.getBody(planet) ));\r\n\r\n        System.out.println();\r\n        \r\n        \r\n    }\r\n\r\n\r\n\r\n    public static void testing1D(){\r\n        Model1D simple = new simple2(0, 8, 1);\r\n\r\n        int size = 1000;\r\n        double dx = 0.001;\r\n        \r\n        double[][] errors = new double[2][size];\r\n\r\n        //test\r\n        System.out.println(\"approx\");\r\n        for(int i=0; i<size; i++){\r\n            errors[0][i] = Eulers._2DegStep1D(simple, dx);\r\n            System.out.println(simple.getX() + \", \" + errors[0][i]);\r\n        }\r\n        System.out.println(\"\\n\");\r\n\r\n\r\n        //solution for test\r\n        System.out.println(\"solution: y(x) = 3*e^t-2\"); \r\n        //found with walfram alpha\r\n        // https://www.wolframalpha.com/input?i=y%27+%3D+2+%2B+y%2C+y%280%29+%3D+1\r\n\r\n        double x = 0;\r\n        for(int i=0; i<size; i++){\r\n            x+=dx;\r\n            errors[1][i] = 7 * Math.exp(x) - 6;\r\n            //System.out.println( x + \", \" + errors[1][i] );\r\n        }\r\n        System.out.println(\"\\n\");\r\n\r\n\r\n        //error finding\r\n        x = 0;\r\n        System.out.println(\"Errors\");\r\n        for(int i=0; i<size; i++){\r\n            //System.out.println( x + \", \" + (errors[0][i] - errors[1][i])/errors[1][i] );\r\n            x+=dx;\r\n        }\r\n    }\r\n\r\n\r\n    /*\r\n     * write names of planets\r\n     * write their radiuses as well\r\n     */\r\n\r\n    private static double[][] positions = { { 0, 0, 0 }, { 7.83e6, 4.49e7, 2.87e6 }, { -2.82e7, 1.04e8, 3.01e6 },\r\n\t\t\t{ -1.48e8, -2.78e7, 3.37e4 }, { -1.48e8, -2.75e7, 7.02e4 }, { -1.59e8, 1.89e8, 7.87e6 },\r\n\t\t\t{ 6.93e8, 2.59e8, -1.66e7 }, { 1.25e9, -7.60e8, -3.67e7 }, { 1.25e9, 7.61e8, -3.63e7 },\r\n\t\t\t{ 4.45e9, -3.98e8, -9.45e7 }, { 1.96e9, 2.19e9, -1.72e7 } };\r\n            \r\n\tprivate static double[][] velocity = { { 0, 0, 0 }, { -5.75e1, 1.15e1, 6.22e0 }, { -3.40e1, -8.97e0, 1.84e0 },\r\n\t\t\t{ 5.05e0, -2.94e1, 1.71e-3 }, { 4.34e0, -3.00e1, -1.16e-2 }, { -1.77e1, -1.35e1, 1.52e-1 },\r\n\t\t\t{ -4.71e0, 1.29e1, 5.22e-2 }, { 4.47e0, 8.24e0, -3.21e-1 }, { 9.00e0, 1.11e1, -2.25e0 },\r\n\t\t\t{ 4.48e-1, 5.45e0, -1.23e-1 }, { -5.13e0, 4.22e0, 8.21e-2 } };\r\n\r\n\tprivate static double[][] mass = { { 1.99e30 }, { 3.30e23 }, { 4.87e24 }, { 5.97e24 }, { 7.35e22 }, { 6.42e23 },\r\n\t\t\t{ 1.90e27 }, { 5.68e26 }, { 1.35e23 }, { 1.02e26 }, { 8.68e25 } };\r\n\r\n    private static double[][] radius = null;\r\n\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/com/example/planets/NumericalExperiments.java b/src/main/java/com/example/planets/NumericalExperiments.java
+--- a/src/main/java/com/example/planets/NumericalExperiments.java	(revision b875cb16368caca9c39213d32efa39b3e9103a92)
++++ b/src/main/java/com/example/planets/NumericalExperiments.java	(date 1679394440705)
+@@ -11,7 +11,7 @@
+      */
+     public static void main(String[] args) {
+         testing3D();
+-        ///////////tested
++        //
+     }
+ 
+     /*
+Index: .idea/workspace.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project version=\"4\">\r\n  <component name=\"AutoImportSettings\">\r\n    <option name=\"autoReloadType\" value=\"SELECTIVE\" />\r\n  </component>\r\n  <component name=\"ChangeListManager\">\r\n    <list default=\"true\" id=\"bab05458-8716-4abd-8f37-31e577e5aaab\" name=\"Changes\" comment=\"moving stuff\">\r\n      <change beforePath=\"$PROJECT_DIR$/.idea/workspace.xml\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/.idea/workspace.xml\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/main/java/com/example/planets/BackEnd/CelestialBody.java\" beforeDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/main/java/com/example/planets/BackEnd/Models/Gravity0.java\" beforeDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/main/java/com/example/planets/BackEnd/Models/Model1D.java\" beforeDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/main/java/com/example/planets/BackEnd/Models/Model3D.java\" beforeDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/main/java/com/example/planets/BackEnd/Models/simple1.java\" beforeDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/main/java/com/example/planets/BackEnd/Models/simple2.java\" beforeDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/main/java/com/example/planets/BackEnd/NumericalMethods/Eulers.java\" beforeDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/main/java/com/example/planets/BackEnd/Spaceship.java\" beforeDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/main/java/com/example/planets/Data/innit_Pos.csv\" beforeDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/main/java/com/example/planets/Data/innit_Pos.xlsx\" beforeDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/main/java/com/example/planets/NumericalExperiments.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/main/java/com/example/planets/NumericalExperiments.java\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/main/java/com/example/planets/explanation.txt\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/main/java/com/example/planets/explanation.txt\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/target/classes/com/earthTexture.jpg\" beforeDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/target/classes/com/example/planets/BackEnd/CelestialBody.class\" beforeDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/target/classes/com/example/planets/BackEnd/Models/Gravity0.class\" beforeDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/target/classes/com/example/planets/BackEnd/Models/Model1D.class\" beforeDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/target/classes/com/example/planets/BackEnd/Models/Model3D.class\" beforeDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/target/classes/com/example/planets/BackEnd/Models/simple1.class\" beforeDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/target/classes/com/example/planets/BackEnd/Models/simple2.class\" beforeDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/target/classes/com/example/planets/BackEnd/NumericalMethods/Eulers.class\" beforeDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/target/classes/com/example/planets/BackEnd/Spaceship.class\" beforeDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/target/classes/com/example/planets/Data/innit_Pos.csv\" beforeDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/target/classes/com/example/planets/Data/innit_Pos.xlsx\" beforeDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/target/classes/com/example/planets/GUI.class\" beforeDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/target/classes/com/example/planets/Main.class\" beforeDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/target/classes/com/example/planets/explanation.txt\" beforeDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/target/classes/com/example/planets/hello-view.fxml\" beforeDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/target/classes/jupiterTexture.jpg\" beforeDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/target/classes/marsTexture.jpg\" beforeDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/target/classes/module-info.class\" beforeDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/target/classes/moonTexture.jpg\" beforeDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/target/classes/neptuneTexture.jpg\" beforeDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/target/classes/saturnTexture.jpg\" beforeDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/target/classes/sunTexture.jpg\" beforeDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/target/classes/titanTexture.jpg\" beforeDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/target/classes/uranusTexture.jpg\" beforeDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/target/classes/venusTexture.jpg\" beforeDir=\"false\" />\r\n    </list>\r\n    <option name=\"SHOW_DIALOG\" value=\"false\" />\r\n    <option name=\"HIGHLIGHT_CONFLICTS\" value=\"true\" />\r\n    <option name=\"HIGHLIGHT_NON_ACTIVE_CHANGELIST\" value=\"false\" />\r\n    <option name=\"LAST_RESOLUTION\" value=\"IGNORE\" />\r\n  </component>\r\n  <component name=\"FileTemplateManagerImpl\">\r\n    <option name=\"RECENT_TEMPLATES\">\r\n      <list>\r\n        <option value=\"Class\" />\r\n      </list>\r\n    </option>\r\n  </component>\r\n  <component name=\"Git.Settings\">\r\n    <option name=\"RECENT_GIT_ROOT_PATH\" value=\"$PROJECT_DIR$\" />\r\n    <option name=\"UPDATE_TYPE\" value=\"REBASE\" />\r\n  </component>\r\n  <component name=\"MarkdownSettingsMigration\">\r\n    <option name=\"stateVersion\" value=\"1\" />\r\n  </component>\r\n  <component name=\"MavenImportPreferences\">\r\n    <option name=\"importingSettings\">\r\n      <MavenImportingSettings>\r\n        <option name=\"workspaceImportEnabled\" value=\"true\" />\r\n      </MavenImportingSettings>\r\n    </option>\r\n  </component>\r\n  <component name=\"ProjectId\" id=\"2NCWcLuYHhcwt20P03l2liympkF\" />\r\n  <component name=\"ProjectLevelVcsManager\" settingsEditedManually=\"true\" />\r\n  <component name=\"ProjectViewState\">\r\n    <option name=\"hideEmptyMiddlePackages\" value=\"true\" />\r\n    <option name=\"showLibraryContents\" value=\"true\" />\r\n  </component>\r\n  <component name=\"PropertiesComponent\"><![CDATA[{\n  \"keyToString\": {\n    \"RunOnceActivity.OpenProjectViewOnStart\": \"true\",\n    \"RunOnceActivity.ShowReadmeOnStart\": \"true\",\n    \"SHARE_PROJECT_CONFIGURATION_FILES\": \"true\",\n    \"WebServerToolWindowFactoryState\": \"false\",\n    \"full.screen.before.presentation.mode\": \"false\",\n    \"last_opened_file_path\": \"C:/Users/suszw/Desktop/uni/year_1/Period4/Data stuctures/Planets\",\n    \"node.js.detected.package.eslint\": \"true\",\n    \"node.js.detected.package.tslint\": \"true\",\n    \"node.js.selected.package.eslint\": \"(autodetect)\",\n    \"node.js.selected.package.tslint\": \"(autodetect)\",\n    \"project.structure.last.edited\": \"Modules\",\n    \"project.structure.proportion\": \"0.0\",\n    \"project.structure.side.proportion\": \"0.0\",\n    \"settings.editor.selected.configurable\": \"configurable.group.appearance\",\n    \"vue.rearranger.settings.migration\": \"true\"\n  }\n}]]></component>\r\n  <component name=\"RecentsManager\">\r\n    <key name=\"CopyFile.RECENT_KEYS\">\r\n      <recent name=\"C:\\Users\\suszw\\Desktop\\uni\\year_1\\Period4\\Data stuctures\\Planets\" />\r\n    </key>\r\n    <key name=\"MoveFile.RECENT_KEYS\">\r\n      <recent name=\"C:\\Users\\sirap\\IdeaProjects\\Toon09-Crew17_spaceMission\\src\\main\\java\\com\\example\\planets\" />\r\n      <recent name=\"C:\\Users\\suszw\\Desktop\\uni\\year_1\\Period4\\plswork\\src\\main\" />\r\n      <recent name=\"C:\\Users\\suszw\\Desktop\\uni\\year_1\\Period4\\plswork\\src\\resources\\com\" />\r\n      <recent name=\"C:\\Users\\suszw\\Desktop\\uni\\year_1\\Period4\\plswork\\src\\resources\" />\r\n      <recent name=\"C:\\Users\\suszw\\Desktop\\uni\\year_1\\Period4\\plswork\\src\\main\\java\\com\\example\\planets\" />\r\n    </key>\r\n  </component>\r\n  <component name=\"RunManager\" selected=\"Application.Main\">\r\n    <configuration name=\"GUI\" type=\"Application\" factoryName=\"Application\" temporary=\"true\" nameIsGenerated=\"true\">\r\n      <option name=\"MAIN_CLASS_NAME\" value=\"com.example.planets.GUI\" />\r\n      <module name=\"Planets\" />\r\n      <extension name=\"coverage\">\r\n        <pattern>\r\n          <option name=\"PATTERN\" value=\"com.example.planets.*\" />\r\n          <option name=\"ENABLED\" value=\"true\" />\r\n        </pattern>\r\n      </extension>\r\n      <method v=\"2\">\r\n        <option name=\"Make\" enabled=\"true\" />\r\n      </method>\r\n    </configuration>\r\n    <configuration name=\"Main\" type=\"Application\" factoryName=\"Application\" temporary=\"true\" nameIsGenerated=\"true\">\r\n      <option name=\"MAIN_CLASS_NAME\" value=\"com.example.planets.Main\" />\r\n      <module name=\"Planets\" />\r\n      <extension name=\"coverage\">\r\n        <pattern>\r\n          <option name=\"PATTERN\" value=\"com.example.planets.*\" />\r\n          <option name=\"ENABLED\" value=\"true\" />\r\n        </pattern>\r\n      </extension>\r\n      <method v=\"2\">\r\n        <option name=\"Make\" enabled=\"true\" />\r\n      </method>\r\n    </configuration>\r\n    <configuration name=\"NumericalExperiments\" type=\"Application\" factoryName=\"Application\" temporary=\"true\" nameIsGenerated=\"true\">\r\n      <option name=\"MAIN_CLASS_NAME\" value=\"com.example.planets.NumericalExperiments\" />\r\n      <module name=\"Planets\" />\r\n      <extension name=\"coverage\">\r\n        <pattern>\r\n          <option name=\"PATTERN\" value=\"com.example.planets.*\" />\r\n          <option name=\"ENABLED\" value=\"true\" />\r\n        </pattern>\r\n      </extension>\r\n      <method v=\"2\">\r\n        <option name=\"Make\" enabled=\"true\" />\r\n      </method>\r\n    </configuration>\r\n    <recent_temporary>\r\n      <list>\r\n        <item itemvalue=\"Application.Main\" />\r\n        <item itemvalue=\"Application.GUI\" />\r\n        <item itemvalue=\"Application.NumericalExperiments\" />\r\n      </list>\r\n    </recent_temporary>\r\n  </component>\r\n  <component name=\"SpellCheckerSettings\" RuntimeDictionaries=\"0\" Folders=\"0\" CustomDictionaries=\"0\" DefaultDictionary=\"application-level\" UseSingleDictionary=\"true\" transferred=\"true\" />\r\n  <component name=\"TaskManager\">\r\n    <task active=\"true\" id=\"Default\" summary=\"Default task\">\r\n      <changelist id=\"bab05458-8716-4abd-8f37-31e577e5aaab\" name=\"Changes\" comment=\"\" />\r\n      <created>1679168628679</created>\r\n      <option name=\"number\" value=\"Default\" />\r\n      <option name=\"presentableId\" value=\"Default\" />\r\n      <updated>1679168628679</updated>\r\n      <workItem from=\"1679168629899\" duration=\"5702000\" />\r\n      <workItem from=\"1679174718563\" duration=\"10631000\" />\r\n      <workItem from=\"1679251843900\" duration=\"2627000\" />\r\n      <workItem from=\"1679265969801\" duration=\"3586000\" />\r\n      <workItem from=\"1679314405554\" duration=\"1248000\" />\r\n      <workItem from=\"1679317911374\" duration=\"1670000\" />\r\n      <workItem from=\"1679322438755\" duration=\"983000\" />\r\n    </task>\r\n    <task id=\"LOCAL-00001\" summary=\"moving stuff\">\r\n      <created>1679322500707</created>\r\n      <option name=\"number\" value=\"00001\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00001\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1679322500707</updated>\r\n    </task>\r\n    <option name=\"localTasksCounter\" value=\"2\" />\r\n    <servers />\r\n  </component>\r\n  <component name=\"TypeScriptGeneratedFilesManager\">\r\n    <option name=\"version\" value=\"3\" />\r\n  </component>\r\n  <component name=\"VcsManagerConfiguration\">\r\n    <MESSAGE value=\"moving stuff\" />\r\n    <option name=\"LAST_COMMIT_MESSAGE\" value=\"moving stuff\" />\r\n  </component>\r\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/workspace.xml b/.idea/workspace.xml
+--- a/.idea/workspace.xml	(revision b875cb16368caca9c39213d32efa39b3e9103a92)
++++ b/.idea/workspace.xml	(date 1679394490590)
+@@ -6,43 +6,8 @@
+   <component name="ChangeListManager">
+     <list default="true" id="bab05458-8716-4abd-8f37-31e577e5aaab" name="Changes" comment="moving stuff">
+       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/planets/BackEnd/CelestialBody.java" beforeDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/planets/BackEnd/Models/Gravity0.java" beforeDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/planets/BackEnd/Models/Model1D.java" beforeDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/planets/BackEnd/Models/Model3D.java" beforeDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/planets/BackEnd/Models/simple1.java" beforeDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/planets/BackEnd/Models/simple2.java" beforeDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/planets/BackEnd/NumericalMethods/Eulers.java" beforeDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/planets/BackEnd/Spaceship.java" beforeDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/planets/Data/innit_Pos.csv" beforeDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/planets/Data/innit_Pos.xlsx" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/planets/GUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/planets/GUI.java" afterDir="false" />
+       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/planets/NumericalExperiments.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/planets/NumericalExperiments.java" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/planets/explanation.txt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/planets/explanation.txt" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/target/classes/com/earthTexture.jpg" beforeDir="false" />
+-      <change beforePath="$PROJECT_DIR$/target/classes/com/example/planets/BackEnd/CelestialBody.class" beforeDir="false" />
+-      <change beforePath="$PROJECT_DIR$/target/classes/com/example/planets/BackEnd/Models/Gravity0.class" beforeDir="false" />
+-      <change beforePath="$PROJECT_DIR$/target/classes/com/example/planets/BackEnd/Models/Model1D.class" beforeDir="false" />
+-      <change beforePath="$PROJECT_DIR$/target/classes/com/example/planets/BackEnd/Models/Model3D.class" beforeDir="false" />
+-      <change beforePath="$PROJECT_DIR$/target/classes/com/example/planets/BackEnd/Models/simple1.class" beforeDir="false" />
+-      <change beforePath="$PROJECT_DIR$/target/classes/com/example/planets/BackEnd/Models/simple2.class" beforeDir="false" />
+-      <change beforePath="$PROJECT_DIR$/target/classes/com/example/planets/BackEnd/NumericalMethods/Eulers.class" beforeDir="false" />
+-      <change beforePath="$PROJECT_DIR$/target/classes/com/example/planets/BackEnd/Spaceship.class" beforeDir="false" />
+-      <change beforePath="$PROJECT_DIR$/target/classes/com/example/planets/Data/innit_Pos.csv" beforeDir="false" />
+-      <change beforePath="$PROJECT_DIR$/target/classes/com/example/planets/Data/innit_Pos.xlsx" beforeDir="false" />
+-      <change beforePath="$PROJECT_DIR$/target/classes/com/example/planets/GUI.class" beforeDir="false" />
+-      <change beforePath="$PROJECT_DIR$/target/classes/com/example/planets/Main.class" beforeDir="false" />
+-      <change beforePath="$PROJECT_DIR$/target/classes/com/example/planets/explanation.txt" beforeDir="false" />
+-      <change beforePath="$PROJECT_DIR$/target/classes/com/example/planets/hello-view.fxml" beforeDir="false" />
+-      <change beforePath="$PROJECT_DIR$/target/classes/jupiterTexture.jpg" beforeDir="false" />
+-      <change beforePath="$PROJECT_DIR$/target/classes/marsTexture.jpg" beforeDir="false" />
+-      <change beforePath="$PROJECT_DIR$/target/classes/module-info.class" beforeDir="false" />
+-      <change beforePath="$PROJECT_DIR$/target/classes/moonTexture.jpg" beforeDir="false" />
+-      <change beforePath="$PROJECT_DIR$/target/classes/neptuneTexture.jpg" beforeDir="false" />
+-      <change beforePath="$PROJECT_DIR$/target/classes/saturnTexture.jpg" beforeDir="false" />
+-      <change beforePath="$PROJECT_DIR$/target/classes/sunTexture.jpg" beforeDir="false" />
+-      <change beforePath="$PROJECT_DIR$/target/classes/titanTexture.jpg" beforeDir="false" />
+-      <change beforePath="$PROJECT_DIR$/target/classes/uranusTexture.jpg" beforeDir="false" />
+-      <change beforePath="$PROJECT_DIR$/target/classes/venusTexture.jpg" beforeDir="false" />
+     </list>
+     <option name="SHOW_DIALOG" value="false" />
+     <option name="HIGHLIGHT_CONFLICTS" value="true" />
+@@ -76,25 +41,25 @@
+     <option name="hideEmptyMiddlePackages" value="true" />
+     <option name="showLibraryContents" value="true" />
+   </component>
+-  <component name="PropertiesComponent"><![CDATA[{
+-  "keyToString": {
+-    "RunOnceActivity.OpenProjectViewOnStart": "true",
+-    "RunOnceActivity.ShowReadmeOnStart": "true",
+-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+-    "WebServerToolWindowFactoryState": "false",
+-    "full.screen.before.presentation.mode": "false",
+-    "last_opened_file_path": "C:/Users/suszw/Desktop/uni/year_1/Period4/Data stuctures/Planets",
+-    "node.js.detected.package.eslint": "true",
+-    "node.js.detected.package.tslint": "true",
+-    "node.js.selected.package.eslint": "(autodetect)",
+-    "node.js.selected.package.tslint": "(autodetect)",
+-    "project.structure.last.edited": "Modules",
+-    "project.structure.proportion": "0.0",
+-    "project.structure.side.proportion": "0.0",
+-    "settings.editor.selected.configurable": "configurable.group.appearance",
+-    "vue.rearranger.settings.migration": "true"
++  <component name="PropertiesComponent">{
++  &quot;keyToString&quot;: {
++    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
++    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
++    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
++    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
++    &quot;full.screen.before.presentation.mode&quot;: &quot;false&quot;,
++    &quot;last_opened_file_path&quot;: &quot;C:/Users/suszw/Desktop/uni/year_1/Period4/Data stuctures/Planets&quot;,
++    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
++    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
++    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
++    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
++    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
++    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
++    &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;,
++    &quot;settings.editor.selected.configurable&quot;: &quot;configurable.group.appearance&quot;,
++    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+   }
+-}]]></component>
++}</component>
+   <component name="RecentsManager">
+     <key name="CopyFile.RECENT_KEYS">
+       <recent name="C:\Users\suszw\Desktop\uni\year_1\Period4\Data stuctures\Planets" />
+@@ -178,7 +143,14 @@
+       <option name="project" value="LOCAL" />
+       <updated>1679322500707</updated>
+     </task>
+-    <option name="localTasksCounter" value="2" />
++    <task id="LOCAL-00002" summary="moving stuff">
++      <created>1679393808445</created>
++      <option name="number" value="00002" />
++      <option name="presentableId" value="LOCAL-00002" />
++      <option name="project" value="LOCAL" />
++      <updated>1679393808445</updated>
++    </task>
++    <option name="localTasksCounter" value="3" />
+     <servers />
+   </component>
+   <component name="TypeScriptGeneratedFilesManager">
