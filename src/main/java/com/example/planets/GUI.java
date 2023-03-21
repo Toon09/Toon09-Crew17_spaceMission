@@ -56,16 +56,16 @@ public class GUI extends Application {
         primaryStage.addEventHandler(KeyEvent.KEY_PRESSED, event -> {
             switch (event.getCode()) {
                 case LEFT:
-                    worldRotY.setAngle(worldRotY.getAngle() + 20);
+                    worldRotY.setAngle(worldRotY.getAngle() + 10);
                     break;
                 case RIGHT:
-                    worldRotY.setAngle(worldRotY.getAngle() - 20);
+                    worldRotY.setAngle(worldRotY.getAngle() - 10);
                     break;
                 case UP:
-                    worldRotX.setAngle(worldRotX.getAngle() + 20);
+                    worldRotX.setAngle(worldRotX.getAngle() + 10);
                     break;
                 case DOWN:
-                    worldRotX.setAngle(worldRotX.getAngle() - 20);
+                    worldRotX.setAngle(worldRotX.getAngle() - 10);
                     break;
                 case X: //shift/Control is for z
                     world.setTranslateZ(world.getTranslateZ() + 3500);
@@ -100,7 +100,7 @@ public class GUI extends Application {
         //create the sun
         Sphere sun = new Sphere();
         setPosition(sun, 0);
-        sun.setRadius(planetSize);
+        sun.setRadius(10000);
         //glow
         Glow sunGlow = new Glow();
         sunGlow.setLevel(10000);
@@ -111,97 +111,97 @@ public class GUI extends Application {
         sun.setMaterial(sunMaterial);
         Label sunLabel = new Label("SUN");
         sunLabel.setTranslateX(0);
-        sunLabel.setTranslateY(planetSize+sun.getRadius());
+        sunLabel.setTranslateY(60000+sun.getRadius());
         sunLabel.setTranslateZ(0);
 
         //create mercury
         Sphere mercury = new Sphere();
         setPosition(mercury, 1);
-        mercury.setRadius(planetSize);
+        mercury.setRadius(2440);
         //material for the mercury
         PhongMaterial mercuryMaterial = new PhongMaterial();
-        //mercuryMaterial.setDiffuseMap(new Image("mercuryTexture.jpg"));
+        mercuryMaterial.setDiffuseMap(new Image("mercuryTexture.jpg"));
         mercury.setMaterial(mercuryMaterial);
 
         //create venus
         Sphere venus = new Sphere();
         setPosition(venus, 2);
-        venus.setRadius(planetSize);
+        venus.setRadius(6050);
         //material for the venus
         PhongMaterial venusMaterial = new PhongMaterial();
-        //venusMaterial.setDiffuseMap(new Image("venusTexture.jpg"));
+        venusMaterial.setDiffuseMap(new Image("venusTexture.jpg"));
         venus.setMaterial(venusMaterial);
 
         //create earth
         Sphere earth = new Sphere();
-        earth.setRadius(planetSize);
+        earth.setRadius(6370);
         setPosition(earth, 3);
         //material for the earth
         PhongMaterial earthMaterial = new PhongMaterial();
-        //earthMaterial.setDiffuseMap(new Image("earthTexture.jpg"));
+        earthMaterial.setDiffuseMap(new Image("earthTexture.jpg"));
         earth.setMaterial(earthMaterial);
 
         //create moon
         Sphere moon = new Sphere();
         setPosition(moon, 4);
-        moon.setRadius(1500);
+        moon.setRadius(1740);
         //material for the moon
         PhongMaterial moonMaterial = new PhongMaterial();
-        //moonMaterial.setDiffuseMap(new Image("moonTexture.jpg"));
+        moonMaterial.setDiffuseMap(new Image("moonTexture.jpg"));
         moon.setMaterial(moonMaterial);
 
         //create mars
         Sphere mars = new Sphere();
         setPosition(mars, 5);
-        mars.setRadius(planetSize);
+        mars.setRadius(3390);
         //material for the mars
         PhongMaterial marsMaterial = new PhongMaterial();
-        //marsMaterial.setDiffuseMap(new Image("marsTexture.jpg"));
+        marsMaterial.setDiffuseMap(new Image("marsTexture.jpg"));
         mars.setMaterial(marsMaterial);
 
         //create jupiter
         Sphere jupiter = new Sphere();
         setPosition(jupiter, 6);
-        jupiter.setRadius(planetSize);
+        jupiter.setRadius(7149);
         //material for the jupiter
         PhongMaterial jupiterMaterial = new PhongMaterial();
-        //jupiterMaterial.setDiffuseMap(new Image("jupiterTexture.jpg"));
+        jupiterMaterial.setDiffuseMap(new Image("jupiterTexture.jpg"));
         jupiter.setMaterial(jupiterMaterial);
 
         //create saturn
         Sphere saturn = new Sphere();
         setPosition(saturn, 7);
-        saturn.setRadius(planetSize);
+        saturn.setRadius(6026);
         //material for the saturn
         PhongMaterial saturnMaterial = new PhongMaterial();
-        //saturnMaterial.setDiffuseMap(new Image("saturnTexture.jpg"));
+        saturnMaterial.setDiffuseMap(new Image("saturnTexture.jpg"));
         saturn.setMaterial(saturnMaterial);
 
         //create titan
         Sphere titan = new Sphere();
         setPosition(titan, 8);
-        titan.setRadius(planetSize);
+        titan.setRadius(2570);
         //material for the titan
         PhongMaterial titanMaterial = new PhongMaterial();
-        //titanMaterial.setDiffuseMap(new Image("titanTexture.jpg"));
+        titanMaterial.setDiffuseMap(new Image("titanTexture.jpg"));
         titan.setMaterial(titanMaterial);
 
         //create neptune
         Sphere neptune = new Sphere();
         setPosition(neptune, 9);
-        neptune.setRadius(planetSize);
+        neptune.setRadius(2476);
         //material for the neptune
         PhongMaterial neptuneMaterial = new PhongMaterial();
-        //neptuneMaterial.setDiffuseMap(new Image("neptuneTexture.jpg"));
+        neptuneMaterial.setDiffuseMap(new Image("neptuneTexture.jpg"));
         neptune.setMaterial(neptuneMaterial);
 
         //create uranus
         Sphere uranus = new Sphere();
         setPosition(uranus, 10);
-        uranus.setRadius(planetSize);
+        uranus.setRadius(2555);
         //material for the uranus
         PhongMaterial uranusMaterial = new PhongMaterial();
-        //uranusMaterial.setDiffuseMap(new Image("uranusTexture.jpg"));
+        uranusMaterial.setDiffuseMap(new Image("uranusTexture.jpg"));
         uranus.setMaterial(uranusMaterial);
 
         group.getChildren().addAll(sun,sunLabel, mercury, venus, earth, moon, mars, jupiter, saturn, titan, neptune, uranus);
