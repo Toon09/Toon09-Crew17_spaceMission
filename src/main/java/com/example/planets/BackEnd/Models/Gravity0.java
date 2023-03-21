@@ -2,22 +2,38 @@ package com.example.planets.BackEnd.Models;
 
 import com.example.planets.BackEnd.CelestialBody;
 import com.example.planets.BackEnd.NumericalMethods.Eulers;
+import com.example.planets.BackEnd.Spaceship;
 
 public class Gravity0 implements Model3D {
     public static final double G = 6.6743 * Math.pow(10, -20);
     private CelestialBody[] bodies;
 
+    public Gravity0(){
+        bodies = new CelestialBody[ positions.length ];
+        for(int i=0; i<bodies.length; i++)
+            bodies[i] = new CelestialBody(mass[i][0], positions[i], velocity[i]);
+
+        this.addBody(bodies);
+
+        Spaceship ship = new Spaceship(50000, positions[3], velocity[3]);
+
+        this.addBody(ship);
+
+    }
+
+    public Spaceship getShip(){
+        return (Spaceship) this.getBody( this.size() -1);
+    }
+
 
     //days is how many days to compute at a time
     public void updatePos(double days, double dt){
-        for(int i=0; i<CelestialBody.daysToSec(days)/dt ;i++ ){
+        for(int i=0; i<CelestialBody.daysToSec(days)/dt; i++ ){
             Eulers.step3D(this, dt);
         }
     }
 
-    public Gravity0(){
-        bodies = new CelestialBody[0];
-    }
+    //make function that returns the rocket
 
     public CelestialBody getBody(int index){ return bodies[index]; }
     public int size(){ return bodies.length; }
@@ -106,5 +122,21 @@ public class Gravity0 implements Model3D {
     public void _1Deriv() {
         //second order model so nothing to update
     }
+
+
+    private static double[][] positions = { { 0, 0, 0 }, { 7.83e6, 4.49e7, 2.87e6 }, { -2.82e7, 1.04e8, 3.01e6 },
+            { -1.48e8, -2.78e7, 3.37e4 }, { -1.48e8, -2.75e7, 7.02e4 }, { -1.59e8, 1.89e8, 7.87e6 },
+            { 6.93e8, 2.59e8, -1.66e7 }, { 1.25e9, -7.60e8, -3.67e7 }, { 1.25e9, 7.61e8, -3.63e7 },
+            { 4.45e9, -3.98e8, -9.45e7 }, { 1.96e9, 2.19e9, -1.72e7 } };
+
+    private static double[][] velocity = { { 0, 0, 0 }, { -5.75e1, 1.15e1, 6.22e0 }, { -3.40e1, -8.97e0, 1.84e0 },
+            { 5.05e0, -2.94e1, 1.71e-3 }, { 4.34e0, -3.00e1, -1.16e-2 }, { -1.77e1, -1.35e1, 1.52e-1 },
+            { -4.71e0, 1.29e1, 5.22e-2 }, { 4.47e0, 8.24e0, -3.21e-1 }, { 9.00e0, 1.11e1, -2.25e0 },
+            { 4.48e-1, 5.45e0, -1.23e-1 }, { -5.13e0, 4.22e0, 8.21e-2 } };
+
+    private static double[][] mass = { { 1.99e30 }, { 3.30e23 }, { 4.87e24 }, { 5.97e24 }, { 7.35e22 }, { 6.42e23 },
+            { 1.90e27 }, { 5.68e26 }, { 1.35e23 }, { 1.02e26 }, { 8.68e25 } };
+
+    private static double[][] radius = null;
 
 }

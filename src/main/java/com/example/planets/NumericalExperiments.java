@@ -62,7 +62,6 @@ class Main {
 
         grav.addBody(rock);
 
-
         ////////////////////////////// parameters
         double dt = 1;
         long days = 10;
