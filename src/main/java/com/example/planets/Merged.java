@@ -14,6 +14,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 //ToDo
+//update the camera movement -Jakub
 //set the planets sizes
 //better scale
 //make the sun shine
