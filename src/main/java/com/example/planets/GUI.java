@@ -17,7 +17,7 @@ import javafx.scene.shape.Sphere;
 import javafx.scene.paint.PhongMaterial;
 import javafx.scene.effect.Glow;
 
-//ToDo
+//ToDo #
 //Textures - for now there are just colors in place
 //Planets moving
 //Add the rest of the planets/moons - done
