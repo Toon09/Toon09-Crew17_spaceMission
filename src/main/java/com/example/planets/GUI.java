@@ -120,7 +120,7 @@ public class GUI extends Application {
         mercury.setRadius(planetSize);
         //material for the mercury
         PhongMaterial mercuryMaterial = new PhongMaterial();
-        //mercuryMaterial.setDiffuseMap(new Image("mercuryTexture.jpg"));
+        mercuryMaterial.setDiffuseMap(new Image("mercuryTexture.jpg"));
         mercury.setMaterial(mercuryMaterial);
 
         //create venus
@@ -129,7 +129,7 @@ public class GUI extends Application {
         venus.setRadius(planetSize);
         //material for the venus
         PhongMaterial venusMaterial = new PhongMaterial();
-        //venusMaterial.setDiffuseMap(new Image("venusTexture.jpg"));
+        venusMaterial.setDiffuseMap(new Image("venusTexture.jpg"));
         venus.setMaterial(venusMaterial);
 
         //create earth
@@ -138,7 +138,7 @@ public class GUI extends Application {
         setPosition(earth, 3);
         //material for the earth
         PhongMaterial earthMaterial = new PhongMaterial();
-        //earthMaterial.setDiffuseMap(new Image("earthTexture.jpg"));
+        earthMaterial.setDiffuseMap(new Image("earthTexture.jpg"));
         earth.setMaterial(earthMaterial);
 
         //create moon
@@ -147,7 +147,7 @@ public class GUI extends Application {
         moon.setRadius(1500);
         //material for the moon
         PhongMaterial moonMaterial = new PhongMaterial();
-        //moonMaterial.setDiffuseMap(new Image("moonTexture.jpg"));
+        moonMaterial.setDiffuseMap(new Image("moonTexture.jpg"));
         moon.setMaterial(moonMaterial);
 
         //create mars
@@ -156,7 +156,7 @@ public class GUI extends Application {
         mars.setRadius(planetSize);
         //material for the mars
         PhongMaterial marsMaterial = new PhongMaterial();
-        //marsMaterial.setDiffuseMap(new Image("marsTexture.jpg"));
+        marsMaterial.setDiffuseMap(new Image("marsTexture.jpg"));
         mars.setMaterial(marsMaterial);
 
         //create jupiter
@@ -165,7 +165,7 @@ public class GUI extends Application {
         jupiter.setRadius(planetSize);
         //material for the jupiter
         PhongMaterial jupiterMaterial = new PhongMaterial();
-        //jupiterMaterial.setDiffuseMap(new Image("jupiterTexture.jpg"));
+        jupiterMaterial.setDiffuseMap(new Image("jupiterTexture.jpg"));
         jupiter.setMaterial(jupiterMaterial);
 
         //create saturn
@@ -174,7 +174,7 @@ public class GUI extends Application {
         saturn.setRadius(planetSize);
         //material for the saturn
         PhongMaterial saturnMaterial = new PhongMaterial();
-        //saturnMaterial.setDiffuseMap(new Image("saturnTexture.jpg"));
+        saturnMaterial.setDiffuseMap(new Image("saturnTexture.jpg"));
         saturn.setMaterial(saturnMaterial);
 
         //create titan
@@ -183,7 +183,7 @@ public class GUI extends Application {
         titan.setRadius(planetSize);
         //material for the titan
         PhongMaterial titanMaterial = new PhongMaterial();
-        //titanMaterial.setDiffuseMap(new Image("titanTexture.jpg"));
+        titanMaterial.setDiffuseMap(new Image("titanTexture.jpg"));
         titan.setMaterial(titanMaterial);
 
         //create neptune
@@ -192,7 +192,7 @@ public class GUI extends Application {
         neptune.setRadius(planetSize);
         //material for the neptune
         PhongMaterial neptuneMaterial = new PhongMaterial();
-        //neptuneMaterial.setDiffuseMap(new Image("neptuneTexture.jpg"));
+        neptuneMaterial.setDiffuseMap(new Image("neptuneTexture.jpg"));
         neptune.setMaterial(neptuneMaterial);
 
         //create uranus
@@ -201,7 +201,7 @@ public class GUI extends Application {
         uranus.setRadius(planetSize);
         //material for the uranus
         PhongMaterial uranusMaterial = new PhongMaterial();
-        //uranusMaterial.setDiffuseMap(new Image("uranusTexture.jpg"));
+        uranusMaterial.setDiffuseMap(new Image("uranusTexture.jpg"));
         uranus.setMaterial(uranusMaterial);
 
         group.getChildren().addAll(sun, mercury, venus, earth, moon, mars, jupiter, saturn, titan, neptune, uranus);
@@ -218,8 +218,8 @@ public class GUI extends Application {
             {-1.48e8, -2.78e7, 3.37e4}, {-1.48e8, -2.75e7, 7.02e4}, {-1.59e8, 1.89e8, 7.87e6},
             {6.93e8, 2.59e8, -1.66e7}, {1.25e9, -7.60e8, -3.67e7}, {1.25e9, 7.61e8, -3.63e7},
             {4.45e9, -3.98e8, -9.45e7}, {1.96e9, 2.19e9, -1.72e7}};
-    private static double scale = 2000;
-    private static int planetSize = 6371;
+    private static double scale = 5000;
+    private static int planetSize = 6371/2;
 
     private String getposition(Sphere sphere) {
         return ("X: " + sphere.getTranslateX() + ", Y: " + sphere.getTranslateY() + ", Z: " + sphere.getTranslateZ());

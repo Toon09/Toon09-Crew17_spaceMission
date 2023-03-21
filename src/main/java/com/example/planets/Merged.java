@@ -20,7 +20,7 @@ import java.util.concurrent.TimeUnit;
 
 public class Merged extends Application {
     static Gravity0 model = new Gravity0();
-    private static int scale = 2000;
+    private static int scale = 5000;
     private static int counter =0;
 
     @Override
@@ -84,24 +84,15 @@ public class Merged extends Application {
             int day=1;
             @Override
             public void run() {
-                System.out.println("day: "+ day);
                 day+=1;
                 model.updatePos(day,0.1);
                 for (int i=0; i<world.getChildren().size(); i++){
-                    System.out.println("at index: "+ i +" there is  "+model.getBody(i).getName()+" at position "+ Arrays.toString(model.getBody(i).getPos()));
                     setPosition(world.getChildren().get(i),model.getBody(i));
                 }
             }
         }, 0, 1);
 
 
-    }
-    private static void run(Group world,int day) {
-        System.out.println("day: "+ day);
-        model.updatePos(day,0.1);
-        for (int i=0; i<world.getChildren().size(); i++){
-            setPosition(world.getChildren().get(i),model.getBody(i));
-        }
     }
 
     public static void main(String... args) {
