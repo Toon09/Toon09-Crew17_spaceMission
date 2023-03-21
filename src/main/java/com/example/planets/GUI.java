@@ -18,13 +18,7 @@ import javafx.scene.paint.PhongMaterial;
 import javafx.scene.effect.Glow;
 
 //ToDo
-//Textures - for now there are just colors in place
-//Planets moving
-//Add the rest of the planets/moons - done
-//Putting the planets in the initial positions - kinda done
 //set the planets sizes
-//fix the camera
-//planets placement - done i think
 //better scale
 //make the sun shine
 //some glow around other planets (tried for the sun but it doesnt work)
