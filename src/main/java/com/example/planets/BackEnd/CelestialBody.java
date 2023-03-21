@@ -1,0 +1,172 @@
+package com.example.planets.BackEnd;
+
+//to create model of solar system
+public class CelestialBody {
+
+    protected String name = "Pedro";
+    protected double mass = 0;
+    protected double radius = 0;
+
+    protected double[] pos = new double[3];
+    protected double[] vel = new double[3];
+    protected double[] acc = new double[]{0,0,0};
+    protected static double time = 0;
+
+
+    public static long daysToSec(long days){
+        return days*60*60*24;
+    }
+
+    public static long secToDays(long sec){
+        return sec/(60*60*24);
+    }
+
+    public static double getDistance(CelestialBody body1, CelestialBody body2){
+        double a = ( body1.getPos()[0] - body2.getPos()[0] );
+        double b = ( body1.getPos()[1] - body2.getPos()[1] );
+        double c = ( body1.getPos()[2] - body2.getPos()[2] );
+
+        return Math.sqrt( a*a + b*b + c*c );
+    }
+
+    public CelestialBody(){
+        
+    }
+
+
+    public CelestialBody(double mass, double[] innitPos, double[] innitVel){
+        setMass(mass);
+        setPos(innitPos);
+        setVel(innitVel);
+
+
+    }
+
+    public CelestialBody(String name, double mass, double[] innitPos, double[] innitVel){
+        this.name = name;
+        setMass(mass);
+        setPos(innitPos);
+        setVel(innitVel);
+
+    }
+    // constructor for csv file
+    public CelestialBody( String name,Double x1,Double x2,Double x3,Double v1,Double v2,Double v3,Double m){
+        this.name = name;
+        setMass(m);
+        setradius(0);
+        this.pos[0] = x1;
+        this.pos[1] = x2;
+        this.pos[2] = x3;
+
+        this.vel[0] = v1;
+        this.vel[1] = v2;
+        this.vel[2] = v3;
+        
+        switch(name){
+            case "Sun":
+                this.radius = 696340;
+                break;
+            case "Mercury":
+                this.radius = 2439.7;
+                break;
+            case "Venus":
+                this.radius = 6051.8;
+                break;
+            case "Earth":
+                this.radius = 6371;
+                break;
+            case "Mars":
+                this.radius = 3389.5;
+                break;
+            case "Jupiter":
+                this.radius = 69911;
+                break;
+            case "Saturn":
+                this.radius = 58232;
+                break;
+            case "Uranus":
+                this.radius = 25362;
+                break;
+            case "Neptune":
+                this.radius = 24622;
+                break;
+            case "Pluto":
+                this.radius = 1188.3;
+                break;
+            default:
+                this.radius = 0;
+                break;
+        }
+
+
+    }
+
+
+    public CelestialBody(String name, double mass, double radius, double[] innitPos, double[] innitVel, double[] innitAcc){
+        this.name = name;
+        setMass(mass);
+        setradius(radius);
+        setPos(innitPos);
+        setVel(innitVel);
+        setAcc(innitAcc);
+
+    }
+
+
+    //getters
+    public double[] getPos(){ return pos; }
+    public double[] getVel(){ return vel; }
+    public double[] getAcc(){ return acc; }
+    public static double getTime(){ return time; }
+    public double getMass(){ return mass; }
+    public double getradius(){ return radius; }
+    public String getName(){ return name; }
+    public static void addDt(double dt){ time += dt; }
+
+    //setters
+    public void setMass(double mass){ this.mass = mass; }
+    public void setradius(double radius){ this.radius = radius; }
+    public void setName(String name){ this.name = name; }
+    public void setPos(double[] pos){
+        this.pos[0] = pos[0];
+        this.pos[1] = pos[1];
+        this.pos[2] = pos[2];
+    }
+    public void setVel(double[] vel){
+        this.vel[0] = vel[0];
+        this.vel[1] = vel[1];
+        this.vel[2] = vel[2];
+    }
+    public void setAcc(double[] acc){
+        this.acc[0] = acc[0];
+        this.acc[1] = acc[1];
+        this.acc[2] = acc[2];
+    }
+
+
+    @Override
+    public boolean equals(Object obj) {
+        if( !(obj instanceof CelestialBody) )
+            return false;
+
+        CelestialBody temp = (CelestialBody)obj;
+
+        for(int i=0; i<3; i++){
+            if( pos[i] != temp.getPos()[i] )
+                return false;
+        }
+
+        for(int i=0; i<3; i++){
+            if( vel[i] != temp.getVel()[i] )
+                return false;
+        }
+
+        for(int i=0; i<3; i++){
+            if( acc[i] != temp.getAcc()[i] )
+                return false;
+        }
+
+        return true;
+    }
+
+}
