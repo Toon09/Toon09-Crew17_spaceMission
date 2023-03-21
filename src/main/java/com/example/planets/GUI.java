@@ -33,7 +33,6 @@ public class GUI extends Application {
         Camera camera = new PerspectiveCamera();
         camera.setFarClip(2000);
         camera.setNearClip(1);
-
         //initial camera setting
         scene.setCamera(camera);
         Rotate worldRotX = new Rotate(0, Rotate.X_AXIS);
