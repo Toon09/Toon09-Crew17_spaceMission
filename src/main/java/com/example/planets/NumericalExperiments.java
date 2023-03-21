@@ -18,6 +18,23 @@ class Main {
      * hohmann for going from planet to planet
      */
 
+    public  static void testHohmann(){
+        Gravity0 grav = new Gravity0();
+
+        //to save space
+        {
+            CelestialBody[] bodies = new CelestialBody[ positions.length ];
+            for(int i=0; i<bodies.length; i++)
+                bodies[i] = new CelestialBody(mass[i][0], positions[i], velocity[i]);
+
+            grav.addBody(bodies);
+        }
+
+        //
+
+    }
+
+
     public static void testing3D(){
         Gravity0 grav = new Gravity0();
 
@@ -29,11 +46,27 @@ class Main {
             
             grav.addBody(bodies);
         }
+        //titan is index 8
+        double dist = 2574.7;
+
+        double Vesc = Math.sqrt( 2*Gravity0.G * grav.getBody(8).getMass() / dist );
+
+
+        CelestialBody rock = new CelestialBody(50000,
+                                        new double[]{1254501624.95946 + 2,574.7,-761340299.067828,-36309613.8378104},
+                                        new double[]{8.99593229549645, 11.1085713608453 + Vesc,-2.25130986174761});
+
+        // F_g = Gm1m2/dist^2 = 0
+
+        //Vesc = sqrt( 2GM_titan/r_titan&rock )
+
+        grav.addBody(rock);
+
 
         ////////////////////////////// parameters
-        double dt = 0.01;
-        long days = 25;
-        int planet = 3;
+        double dt = 1;
+        long days = 10;
+        int planet = grav.size()-1;
         //earth is index 3
 
         //with any dt days/execution time ratio remains mostly constant
@@ -49,8 +82,14 @@ class Main {
         
         System.out.println("\ndays: " + days + "; dt: " + dt);
         for(long i=0; i<CelestialBody.daysToSec(days)/dt; i++){
-            Eulers.step3D(grav, dt);
-            //System.out.println("time: " +  CelestialBody.secToDays( (long)(i*dt) ));
+            Eulers.step3D(grav, -dt);
+
+            if( false ){
+                System.out.println("x: " + grav.getBody(planet).getPos()[0] + ", y: " + grav.getBody(planet).getPos()[1] + ", z: " + grav.getBody(planet).getPos()[2]);
+                System.out.println( "theta: " + (180/3.1415)*Math.atan( grav.getBody(planet).getPos()[1]/grav.getBody(planet).getPos()[0] ) );
+                System.out.println("r: " + CelestialBody.getDistance( grav.getBody(0), grav.getBody(planet) ));
+            }
+
         }
 
         System.out.println( "\ntime taken[s]: " + (System.currentTimeMillis()-start)/1000 );

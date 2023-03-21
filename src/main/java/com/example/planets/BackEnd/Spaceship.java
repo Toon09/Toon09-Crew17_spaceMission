@@ -10,10 +10,13 @@ public class Spaceship extends CelestialBody {
 
     //getter
     public double getFuel(){ return fuel; }
-    public void addAcc(double[] acc){
-        this.acc[0] += acc[0];
-        this.acc[1] += acc[1];
-        this.acc[2] += acc[2];
+
+    /**
+     * this method
+     * @param vel the velocity desired tanglential to the rocket to reach the planet
+     */
+    public void addAcc(double vel){
+        //
     }
 
     //setter

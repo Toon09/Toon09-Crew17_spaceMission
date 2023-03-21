@@ -4,7 +4,7 @@ import com.example.planets.BackEnd.CelestialBody;
 import com.example.planets.BackEnd.NumericalMethods.Eulers;
 
 public class Gravity0 implements Model3D {
-    private static final double G = 6.6743 * Math.pow(10, -20);
+    public static final double G = 6.6743 * Math.pow(10, -20);
     private CelestialBody[] bodies;
 
 
