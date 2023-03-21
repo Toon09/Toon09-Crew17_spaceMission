@@ -87,13 +87,12 @@ public class Merged extends Application {
                 System.out.println("day: "+ day);
                 day+=1;
                 model.updatePos(day,0.1);
-                System.out.println(world.getChildren().size());
                 for (int i=0; i<world.getChildren().size(); i++){
                     System.out.println("at index: "+ i +" there is  "+model.getBody(i).getName()+" at position "+ Arrays.toString(model.getBody(i).getPos()));
                     setPosition(world.getChildren().get(i),model.getBody(i));
                 }
             }
-        }, 0, 1000);
+        }, 0, 1);
 
 
     }
