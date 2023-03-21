@@ -1,10 +1,19 @@
 package com.example.planets.BackEnd.Models;
 
 import com.example.planets.BackEnd.CelestialBody;
+import com.example.planets.BackEnd.NumericalMethods.Eulers;
 
 public class Gravity0 implements Model3D {
     private static final double G = 6.6743 * Math.pow(10, -20);
     private CelestialBody[] bodies;
+
+
+    //days is how many days to compute at a time
+    public void updatePos(double days, double dt){
+        for(int i=0; i<CelestialBody.daysToSec(days)/dt ;i++ ){
+            Eulers.step3D(this, dt);
+        }
+    }
 
     public Gravity0(){
         bodies = new CelestialBody[0];

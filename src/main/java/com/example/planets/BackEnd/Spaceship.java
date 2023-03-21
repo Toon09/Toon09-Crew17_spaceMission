@@ -21,3 +21,7 @@ public class Spaceship extends CelestialBody {
 
 
 }
+
+/*
+ * calc where titan will be and shoot there, repeat to account for gravity changrs with a larger dt
+ */

@@ -13,7 +13,7 @@ public class CelestialBody {
     protected static double time = 0;
 
 
-    public static long daysToSec(long days){
+    public static double daysToSec(double days){
         return days*60*60*24;
     }
 

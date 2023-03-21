@@ -2,7 +2,7 @@ package com.example.planets;
 
 import com.example.planets.BackEnd.CelestialBody;
 import com.example.planets.BackEnd.Models.*;
-import com.example.planets.BackEnd.NumericalMethods.*;
+import com.example.planets.BackEnd.NumericalMethods.Eulers;
 
 class Main {
 
@@ -31,8 +31,8 @@ class Main {
         }
 
         ////////////////////////////// parameters
-        double dt = 1;
-        long days = 5;
+        double dt = 0.01;
+        long days = 25;
         int planet = 3;
         //earth is index 3
 
