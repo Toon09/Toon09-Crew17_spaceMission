@@ -86,7 +86,7 @@ public class Merged extends Application {
             @Override
             public void run() {
                 day+=1;
-                model.updatePos(day,0.1);
+                model.updatePos(0.1,0.1);
                 for (int i=0; i<world.getChildren().size(); i++){
                     setPosition(world.getChildren().get(i),model.getBody(i));
                 }

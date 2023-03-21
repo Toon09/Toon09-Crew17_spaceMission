@@ -4,8 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="bab05458-8716-4abd-8f37-31e577e5aaab" name="Changes" comment="add a new class">
+    <list default="true" id="bab05458-8716-4abd-8f37-31e577e5aaab" name="Changes" comment="re start">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/planets/Merged.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/planets/Merged.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/planets/GUI$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/planets/GUI$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/planets/GUI.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/planets/GUI.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -64,14 +67,14 @@
       <recent name="C:\Users\suszw\Desktop\uni\year_1\Period4\Data stuctures\Planets" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
-      <recent name="C:\Users\suszw\Desktop\uni\year_1\Period4\ihopeitsfinal\src\main\resources" />
       <recent name="C:\Users\sirap\IdeaProjects\Toon09-Crew17_spaceMission\src\main\java\com\example\planets" />
       <recent name="C:\Users\suszw\Desktop\uni\year_1\Period4\plswork\src\main" />
       <recent name="C:\Users\suszw\Desktop\uni\year_1\Period4\plswork\src\resources\com" />
       <recent name="C:\Users\suszw\Desktop\uni\year_1\Period4\plswork\src\resources" />
+      <recent name="C:\Users\suszw\Desktop\uni\year_1\Period4\plswork\src\main\java\com\example\planets" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.Merged">
+  <component name="RunManager">
     <configuration name="GUI" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="com.example.planets.GUI" />
       <module name="Planets" />
@@ -98,19 +101,6 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="Merged" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="com.example.planets.Merged" />
-      <module name="Planets" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.example.planets.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
     <configuration name="NumericalExperiments" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="com.example.planets.NumericalExperiments" />
       <module name="Planets" />
@@ -126,9 +116,8 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.Merged" />
-        <item itemvalue="Application.Main" />
         <item itemvalue="Application.GUI" />
+        <item itemvalue="Application.Main" />
         <item itemvalue="Application.NumericalExperiments" />
       </list>
     </recent_temporary>
@@ -191,42 +180,16 @@
       <option name="project" value="LOCAL" />
       <updated>1679413177924</updated>
     </task>
-    <task id="LOCAL-00007" summary="add a new class">
-      <created>1679420857672</created>
-      <option name="number" value="00007" />
-      <option name="presentableId" value="LOCAL-00007" />
-      <option name="project" value="LOCAL" />
-      <updated>1679420857672</updated>
-    </task>
-    <task id="LOCAL-00008" summary="add a new class">
-      <created>1679421420475</created>
-      <option name="number" value="00008" />
-      <option name="presentableId" value="LOCAL-00008" />
-      <option name="project" value="LOCAL" />
-      <updated>1679421420475</updated>
-    </task>
-    <option name="localTasksCounter" value="9" />
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
-  <component name="Vcs.Log.Tabs.Properties">
-    <option name="TAB_STATES">
-      <map>
-        <entry key="MAIN">
-          <value>
-            <State />
-          </value>
-        </entry>
-      </map>
-    </option>
-  </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="moving stuff" />
     <MESSAGE value="re start" />
-    <MESSAGE value="add a new class" />
-    <option name="LAST_COMMIT_MESSAGE" value="add a new class" />
+    <option name="LAST_COMMIT_MESSAGE" value="re start" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
