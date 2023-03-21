@@ -13,11 +13,17 @@ import javafx.stage.Stage;
 import java.util.Timer;
 import java.util.TimerTask;
 
+//ToDo
+//set the planets sizes
+//better scale
+//make the sun shine
+//some glow around other planets (tried for the sun but it doesnt work)
+//make the button to stop the program
 
 public class Merged extends Application {
     static Gravity0 model = new Gravity0();
     private static int scale = 5000;
-    private static int counter =0;
+    private static int counter = 0;
 
     @Override
     public void start(Stage stage) throws Exception {
@@ -36,7 +42,8 @@ public class Merged extends Application {
         Rotate worldRotX = new Rotate(0, Rotate.X_AXIS);
         Rotate worldRotY = new Rotate(0, Rotate.Y_AXIS);
         Translate worldTransX = new Translate();
-        world.getTransforms().addAll(worldRotY, worldRotX);
+        camera.getTransforms().addAll(worldRotY, worldRotX);
+        //world.getTransforms().addAll(worldRotY, worldRotX);
         stage.addEventHandler(KeyEvent.KEY_PRESSED, event -> {
             switch (event.getCode()) {
                 case LEFT:
@@ -69,7 +76,9 @@ public class Merged extends Application {
                 case S:
                     world.setTranslateY(world.getTranslateY() - 1350);
                     break;
-
+                case U:
+                    camera.setTranslateX(camera.getTranslateX() + 1350);
+                    break;
             }
         });
         world.setTranslateZ(world.getTranslateZ() + 100000);

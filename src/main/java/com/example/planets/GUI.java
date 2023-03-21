@@ -17,11 +17,6 @@ import javafx.scene.shape.Sphere;
 import javafx.scene.paint.PhongMaterial;
 import javafx.scene.effect.Glow;
 
-//ToDo
-//set the planets sizes
-//better scale
-//make the sun shine
-//some glow around other planets (tried for the sun but it doesnt work)
 public class GUI extends Application {
 
     public static int SIZEFACTOR = 100;
@@ -31,8 +26,6 @@ public class GUI extends Application {
         Group world = createEnvironment();
 
         Scene scene = new Scene(world, 1920, 1080, true);
-        Group axis = buildAxes();
-        world.getChildren().addAll(axis);
         scene.setFill(Color.BLACK);
         primaryStage.setScene(scene);
         primaryStage.setWidth(16 * SIZEFACTOR);
@@ -223,22 +216,5 @@ public class GUI extends Application {
         sphere.setTranslateX(positions[index][0] / scale);
         sphere.setTranslateY(positions[index][1] / scale);
         sphere.setTranslateZ(positions[index][2] / scale);
-    }
-    private Group buildAxes() {
-        //green - Z
-        //blue -Y
-        //red - X
-
-        Box xAxis = new Box(1200000, 10, 10);
-        Box yAxis = new Box(10, 1200000, 10);
-        Box zAxis = new Box(10, 10, 1200000);
-
-        xAxis.setMaterial(new PhongMaterial(Color.RED));
-        yAxis.setMaterial(new PhongMaterial(Color.GREEN));
-        zAxis.setMaterial(new PhongMaterial(Color.BLUE));
-
-        Group axisGroup = new Group();
-        axisGroup.getChildren().addAll(xAxis, yAxis, zAxis);
-        return axisGroup;
     }
 }
