@@ -11,6 +11,7 @@ import javafx.scene.transform.Rotate;
 import javafx.scene.transform.Translate;
 import javafx.stage.Stage;
 
+import java.util.Arrays;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.concurrent.Executors;
@@ -88,7 +89,7 @@ public class Merged extends Application {
                 model.updatePos(day,0.1);
                 System.out.println(world.getChildren().size());
                 for (int i=0; i<world.getChildren().size(); i++){
-                    System.out.println("at index: "+ i +" there is  "+model.getBody(i).getName());
+                    System.out.println("at index: "+ i +" there is  "+model.getBody(i).getName()+" at position "+ Arrays.toString(model.getBody(i).getPos()));
                     setPosition(world.getChildren().get(i),model.getBody(i));
                 }
             }
