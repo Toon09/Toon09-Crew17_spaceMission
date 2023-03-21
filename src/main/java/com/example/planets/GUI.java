@@ -47,6 +47,8 @@ public class GUI extends Application {
         camera.setFarClip(2000);
         camera.setNearClip(1);
 
+        //.setPosition(sphere obj, )
+
         //initial camera setting
         scene.setCamera(camera);
         Rotate worldRotX = new Rotate(0, Rotate.X_AXIS);
@@ -95,7 +97,7 @@ public class GUI extends Application {
         primaryStage.show();
     }
 
-    private Group createEnvironment() {
+    Group createEnvironment() {
         Group group = new Group();
         //create the sun
         Sphere sun = new Sphere();

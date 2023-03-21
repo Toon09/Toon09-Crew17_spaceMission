@@ -38,7 +38,7 @@ public class CelestialBody {
         setMass(mass);
         setPos(innitPos);
         setVel(innitVel);
-
+        acc = new double[] {0,0,0};
 
     }
 
@@ -143,6 +143,10 @@ public class CelestialBody {
         this.acc[2] = acc[2];
     }
 
+    @Override
+    public String toString() {
+        return name;
+    }
 
     @Override
     public boolean equals(Object obj) {
