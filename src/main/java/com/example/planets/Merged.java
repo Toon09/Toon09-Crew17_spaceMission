@@ -14,7 +14,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 //ToDo
-//update the camera movement -Jakub
+//update the camera movement (figure out how to rotate with something else than 0/0/0 in the middle ) -Jakub
 //set the planets sizes
 //better scale
 //make the sun shine
@@ -38,13 +38,12 @@ public class Merged extends Application {
         Camera camera = new PerspectiveCamera();
         camera.setFarClip(2000);
         camera.setNearClip(1);
-        //initial camera settings
+        //initial camera setting
         scene.setCamera(camera);
         Rotate worldRotX = new Rotate(0, Rotate.X_AXIS);
         Rotate worldRotY = new Rotate(0, Rotate.Y_AXIS);
         Translate worldTransX = new Translate();
-        camera.getTransforms().addAll(worldRotY, worldRotX);
-        //world.getTransforms().addAll(worldRotY, worldRotX);
+        world.getTransforms().addAll(worldRotY, worldRotX);
         stage.addEventHandler(KeyEvent.KEY_PRESSED, event -> {
             switch (event.getCode()) {
                 case LEFT:
@@ -77,9 +76,7 @@ public class Merged extends Application {
                 case S:
                     world.setTranslateY(world.getTranslateY() - 1350);
                     break;
-                case U:
-                    camera.setTranslateX(camera.getTranslateX() + 1350);
-                    break;
+
             }
         });
         world.setTranslateZ(world.getTranslateZ() + 100000);
