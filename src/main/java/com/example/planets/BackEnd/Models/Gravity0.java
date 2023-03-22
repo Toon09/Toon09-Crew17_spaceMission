@@ -12,13 +12,12 @@ public class Gravity0 implements Model3D {
 
         this.bodies = new CelestialBody[ positions.length ];
         for(int i=0; i<this.bodies.length; i++){
-            this.bodies[i] = new CelestialBody(this.names[i], this.mass[i][0], this.positions[i], this.velocity[i]) ;
+            this.bodies[i] = new CelestialBody(this.names[i], this.mass[i], this.positions[i], this.velocity[i]) ;
         }
 
 
-        //Spaceship ship = new Spaceship(50000, positions[0], velocity[0]);
-
-        //this.addBody(ship);
+        Spaceship ship = new Spaceship(50000, positions[0], velocity[0], 0, 0);
+        this.addBody(ship);
 
     }
 
@@ -149,8 +148,11 @@ public class Gravity0 implements Model3D {
             { -4.71e0, 1.29e1, 5.22e-2 }, { 4.47e0, 8.24e0, -3.21e-1 }, { 9.00e0, 1.11e1, -2.25e0 },
             { 4.48e-1, 5.45e0, -1.23e-1 }, { -5.13e0, 4.22e0, 8.21e-2 } };
 
-    public static double[][] mass = { { 1.99e30 }, { 3.30e23 }, { 4.87e24 }, { 5.97e24 }, { 7.35e22 }, { 6.42e23 },
-            { 1.90e27 }, { 5.68e26 }, { 1.35e23 }, { 1.02e26 }, { 8.68e25 } };
+    public static double[] mass = { 1.99e30, 3.30e23, 4.87e24, 5.97e24, 7.35e22, 6.42e23,
+                                    1.90e27, 5.68e26, 1.35e23, 1.02e26, 8.68e25 };
+
+    public static double[] radiuses = { 696340, 2439.7, 6051.8, 6371, 1737.4, 3390, 69911,
+                                    58232, 2574.7, 24622, 25362 };
 
     public static String[] names = {"sun", "Mercury", "Venus", "Earth", "Moon", "Mars", "Jupiter",
                                      "Saturn", "Titan", "Neptune", "Uranus"};

@@ -4,7 +4,7 @@ import com.example.planets.BackEnd.CelestialBody;
 import com.example.planets.BackEnd.Models.*;
 import com.example.planets.BackEnd.NumericalMethods.*;
 
-class Main {
+class NumericalExperiments {
 
     /*
      * a simple experiment set up to check how things work so far, before improvements
