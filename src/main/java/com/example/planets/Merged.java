@@ -27,7 +27,7 @@ import java.util.TimerTask;
 //make the button to stop the program
 
 public class Merged extends Application {
-    static Gravity0 model = new Gravity0(0,0, new double[]{11,11,0});
+    static Gravity0 model = new Gravity0(0,Math.PI/2, new double[]{11,11,0});
     private static int scale = 3000;
     private static int counter = 0;
 
