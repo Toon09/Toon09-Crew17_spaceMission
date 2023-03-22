@@ -224,10 +224,10 @@ public class GUI {
 
         return group;
     }
-    private static Gravity0 model = new Gravity0(0,Math.PI/2, new double[]{11,11,0});
+    private static final Gravity0 model = new Gravity0(0,Math.PI/2, new double[]{11,11,0});
 
-    private static double scale = 3000;
-    private static int planetSize = 6371/2;
+    private static final double scale = 3000;
+    private static final int planetSize = 6371/2;
 
 
     public static void setPosition(Node sphere, CelestialBody body) {
