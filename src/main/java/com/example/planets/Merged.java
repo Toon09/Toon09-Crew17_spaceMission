@@ -3,6 +3,7 @@ package com.example.planets;
 import com.example.planets.BackEnd.CelestialBody;
 import com.example.planets.BackEnd.Models.Gravity0;
 import javafx.application.Application;
+import javafx.geometry.Point3D;
 import javafx.scene.*;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.paint.Color;
@@ -10,18 +11,21 @@ import javafx.scene.shape.Sphere;
 import javafx.scene.transform.Rotate;
 import javafx.scene.transform.Translate;
 import javafx.stage.Stage;
-
-import java.util.Arrays;
 import java.util.Timer;
 import java.util.TimerTask;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.TimeUnit;
+
+//ToDo
+//update the camera movement (figure out how to rotate with something else than 0/0/0 in the middle) -Jakub
+//set the planets sizes
+//better scale
+//make the sun shine
+//some glow around other planets (tried for the sun but it doesnt work)
+//make the button to stop the program
 
 public class Merged extends Application {
     static Gravity0 model = new Gravity0();
     private static int scale = 5000;
-    private static int counter =0;
+    private static int counter = 0;
 
     @Override
     public void start(Stage stage) throws Exception {
@@ -35,7 +39,7 @@ public class Merged extends Application {
         Camera camera = new PerspectiveCamera();
         camera.setFarClip(2000);
         camera.setNearClip(1);
-        //initial camera settings
+        //initial camera setting
         scene.setCamera(camera);
         Rotate worldRotX = new Rotate(0, Rotate.X_AXIS);
         Rotate worldRotY = new Rotate(0, Rotate.Y_AXIS);
@@ -78,11 +82,13 @@ public class Merged extends Application {
         });
         world.setTranslateZ(world.getTranslateZ() + 100000);
         worldRotX.setAngle(worldRotX.getAngle());
+        System.out.println(camera.getRotationAxis());
+        world.setRotationAxis(new Point3D(model.getBody(3).getPos()[0],model.getBody(3).getPos()[1],model.getBody(3).getPos()[2]));
+
         stage.show();
 
         Timer timer = new Timer();
         timer.schedule(new TimerTask() {
-
             @Override
             public void run() {
                 model.updatePos(0.1,0.1);
@@ -91,21 +97,10 @@ public class Merged extends Application {
                 }
             }
         }, 0, 1);
-
-
     }
 
     public static void main(String... args) {
         launch(args);
-    }
-
-    public Group createEnvironment() {
-        Group group = new Group();
-        Sphere sun = new Sphere();
-        setPosition(sun, model.getBody(0));
-        sun.setRadius(120);
-        group.getChildren().add(sun);
-        return group;
     }
 
     public static void setPosition(Node sphere, CelestialBody body) {
