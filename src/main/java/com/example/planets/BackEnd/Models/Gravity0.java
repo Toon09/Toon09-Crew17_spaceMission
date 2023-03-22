@@ -16,12 +16,12 @@ public class Gravity0 implements Model3D {
         }
 
 
-        Spaceship ship = new Spaceship(50000, positions[0], velocity[0], 0, 0);
+        Spaceship ship = new Spaceship(50000, positions[0], velocity[0], 0, 0, new double[] {0, 0, 0});
         this.addBody(ship);
 
     }
 
-    public Gravity0(double theta, double phi){
+    public Gravity0(double theta, double phi, double[] rocketVel){
 
         this.bodies = new CelestialBody[ positions.length ];
         for(int i=0; i<this.bodies.length; i++){
@@ -29,9 +29,8 @@ public class Gravity0 implements Model3D {
         }
 
 
-        Spaceship ship = new Spaceship(50000, positions[0], velocity[0], 0, 0);
+        Spaceship ship = new Spaceship(50000, positions[0], velocity[0], 0, 0, rocketVel);
         this.addBody(ship);
-
     }
 
     public  Gravity0(boolean comoEstas){
@@ -153,7 +152,7 @@ public class Gravity0 implements Model3D {
 
     public static double[][] positions = { { 0, 0, 0 }, { 7.83e6, 4.49e7, 2.87e6 }, { -2.82e7, 1.04e8, 3.01e6 },
             { -1.48e8, -2.78e7, 3.37e4 }, { -1.48e8, -2.75e7, 7.02e4 }, { -1.59e8, 1.89e8, 7.87e6 },
-            { 6.93e8, 2.59e8, -1.66e7 }, { 1.25e9, -7.60e8, -3.67e7 }, { 1.25e9, 7.61e8, -3.63e7 },
+            { 6.93e8, 2.59e8, -1.66e7 }, { 1.25e9, -7.60e8, -3.67e7 }, { 1.25e9, -7.61e8, -3.63e7 },
             { 4.45e9, -3.98e8, -9.45e7 }, { 1.96e9, 2.19e9, -1.72e7 } };
 
     public static double[][] velocity = { { 0, 0, 0 }, { -5.75e1, 1.15e1, 6.22e0 }, { -3.40e1, -8.97e0, 1.84e0 },
