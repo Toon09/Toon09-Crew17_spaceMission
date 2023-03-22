@@ -22,8 +22,6 @@ class NumericalExperiments {
         //
 
     }
-
-
     public static void testing3D(){
         Gravity0 grav = new Gravity0();
 
