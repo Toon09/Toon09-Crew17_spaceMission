@@ -11,10 +11,10 @@ import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Box;
 import javafx.scene.shape.Cylinder;
-import javafx.scene.shape.Rectangle;
 import javafx.scene.transform.Rotate;
 import javafx.scene.transform.Translate;
 import javafx.stage.Stage;
@@ -33,6 +33,14 @@ public class GUI extends Application {
 
         Scene scene = new Scene(world, 1920, 1080, true);
         scene.setFill(Color.BLACK);
+
+        // trying out stuff
+        //StackPane root = new StackPane();
+        //Image img = new Image("background.jpg");
+        //BackgroundImage bImg = new BackgroundImage(img, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);
+        //Background bGround = new Background(bImg);
+        //root.setBackground(bGround);
+
         primaryStage.setScene(scene);
         primaryStage.setWidth(16 * SIZEFACTOR);
         primaryStage.setHeight(9 * SIZEFACTOR);
@@ -248,15 +256,16 @@ public class GUI extends Application {
 
         // create the path of the rocket
 
-        Cylinder rocketPath = new Cylinder(100, 100);
+        Cylinder rocketPath = new Cylinder(100, 1000);
         setPosition(rocketPath, 3);
-        rocketPath.setTranslateX(rocketBase.getTranslateX() + earth.getRadius());
+        rocketPath.setRotate(90);
+        rocketPath.setTranslateX(rocketPath.getTranslateX() + earth.getRadius() + 100);
         PhongMaterial rocketPathMaterial = new PhongMaterial();
         rocketPathMaterial.setDiffuseColor(Color.GOLD);
         rocketPath.setMaterial(rocketPathMaterial);
 
 
-        group.getChildren().addAll(sun, mercury, venus, earth, moon, mars, jupiter, saturn, titan, neptune, uranus,rocketBase);
+        group.getChildren().addAll(sun, mercury, venus, earth, moon, mars, jupiter, saturn, titan, neptune, uranus,rocketBase,rocketPath);
 
         return group;
     }
