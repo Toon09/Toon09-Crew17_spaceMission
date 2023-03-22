@@ -289,7 +289,7 @@ public class GUI extends Application {
 
         Box rocketBase = new Box(1000, 500, 1000);
         setPosition(rocketBase, 3);
-        rocketBase.setTranslateX(rocketBase.getTranslateX()+earth.getRadius());
+        rocketBase.setTranslateX(rocketBase.getTranslateX()+earth.getRadius()+1000);
         PhongMaterial rocketBaseMaterial = new PhongMaterial() ;
         rocketBaseMaterial.setDiffuseColor(Color.DARKVIOLET);
         rocketBase.setMaterial(rocketBaseMaterial);
