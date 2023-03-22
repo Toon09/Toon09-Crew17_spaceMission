@@ -27,7 +27,7 @@ import java.util.TimerTask;
 //make the button to stop the program
 
 public class Merged extends Application {
-    static Gravity0 model = new Gravity0();
+    static Gravity0 model = new Gravity0(0,0, new double[]{11,11,0});
     private static int scale = 3000;
     private static int counter = 0;
 
@@ -101,10 +101,10 @@ public class Merged extends Application {
                 for (int i=0; i<12; i++){
                     setPosition(world.getChildren().get(i),model.getBody(i));
                 }
-                System.out.println("earth at: "+Arrays.toString(model.getBody(3).getPos()));
-                System.out.println("ship at: "+Arrays.toString(model.getBody(11).getPos()));
+                //System.out.println("earth at: "+Arrays.toString(model.getBody(3).getPos()));
+                //System.out.println("ship at: "+Arrays.toString(model.getBody(11).getPos()));
             }
-        }, 0, 1000);
+        }, 0, 1);
     }
 
     public static void main(String... args) {

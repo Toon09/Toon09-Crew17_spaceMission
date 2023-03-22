@@ -16,7 +16,7 @@ public class Gravity0 implements Model3D {
         }
 
 
-        Spaceship ship = new Spaceship(50000, positions[0], velocity[0], 0, 0, new double[] {0, 0, 0});
+        Spaceship ship = new Spaceship(50000, positions[3], velocity[3], 0, 0, new double[] {0, 0, 0});
         this.addBody(ship);
 
     }
@@ -29,7 +29,7 @@ public class Gravity0 implements Model3D {
         }
 
 
-        Spaceship ship = new Spaceship(50000, positions[0], velocity[0], 0, 0, rocketVel);
+        Spaceship ship = new Spaceship(50000, positions[3], velocity[3], 0, 0, rocketVel);
         this.addBody(ship);
     }
 

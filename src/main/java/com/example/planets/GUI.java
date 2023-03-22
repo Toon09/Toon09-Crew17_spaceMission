@@ -287,8 +287,9 @@ public class GUI extends Application {
 
         // create the rocket
 
-        Box rocketBase = new Box(10000, 50000, 10000);
-        setPosition(rocketBase, 0);
+        Box rocketBase = new Box(1000, 500, 1000);
+        setPosition(rocketBase, 3);
+        rocketBase.setTranslateX(rocketBase.getTranslateX()+earth.getRadius());
         PhongMaterial rocketBaseMaterial = new PhongMaterial() ;
         rocketBaseMaterial.setDiffuseColor(Color.DARKVIOLET);
         rocketBase.setMaterial(rocketBaseMaterial);
