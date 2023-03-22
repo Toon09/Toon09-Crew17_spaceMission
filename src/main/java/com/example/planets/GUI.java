@@ -49,7 +49,6 @@ public class GUI {
         mercury.setMaterial(mercuryMaterial);
 
         // rotation for mercury
-
         RotateTransition rotateMercury = new RotateTransition(Duration.seconds(10), mercury);
         rotateMercury.setByAngle(360);
         rotateMercury.setAxis(Rotate.Y_AXIS);
@@ -67,7 +66,6 @@ public class GUI {
         venus.setMaterial(venusMaterial);
 
         // rotation for venus
-
         RotateTransition rotateVenus = new RotateTransition(Duration.seconds(10), venus);
         rotateVenus.setByAngle(360);
         rotateVenus.setAxis(Rotate.Y_AXIS);
@@ -102,7 +100,6 @@ public class GUI {
         moon.setMaterial(moonMaterial);
 
         // rotation for moon
-
         RotateTransition rotateMoon = new RotateTransition(Duration.seconds(10), moon);
         rotateMoon.setByAngle(360);
         rotateMoon.setAxis(Rotate.Y_AXIS);
@@ -120,7 +117,6 @@ public class GUI {
         mars.setMaterial(marsMaterial);
 
         // rotation for mars
-
         RotateTransition rotateMars = new RotateTransition(Duration.seconds(10), mars);
         rotateMars.setByAngle(360);
         rotateMars.setAxis(Rotate.Y_AXIS);
@@ -138,7 +134,6 @@ public class GUI {
         jupiter.setMaterial(jupiterMaterial);
 
         // rotation for jupiter
-
         RotateTransition rotateJupiter = new RotateTransition(Duration.seconds(10), jupiter);
         rotateJupiter.setByAngle(360);
         rotateJupiter.setAxis(Rotate.Y_AXIS);
@@ -174,7 +169,6 @@ public class GUI {
         titan.setMaterial(titanMaterial);
 
         // rotation for titan
-
         RotateTransition rotateTitan = new RotateTransition(Duration.seconds(10), titan);
         rotateTitan.setByAngle(360);
         rotateTitan.setAxis(Rotate.Y_AXIS);
@@ -192,7 +186,6 @@ public class GUI {
         neptune.setMaterial(neptuneMaterial);
 
         // rotation for neptune
-
         RotateTransition rotateNeptune = new RotateTransition(Duration.seconds(10), neptune);
         rotateNeptune.setByAngle(360);
         rotateNeptune.setAxis(Rotate.Y_AXIS);
@@ -218,7 +211,6 @@ public class GUI {
         rotateUranus.play();
 
         // create the rocket
-
         Box rocketBase = new Box(1000, 500, 1000);
         setPosition(rocketBase, model.getBody(11));
         rocketBase.setTranslateX(rocketBase.getTranslateX()+earth.getRadius()+1000);
@@ -233,10 +225,7 @@ public class GUI {
         return group;
     }
     private static Gravity0 model = new Gravity0(0,Math.PI/2, new double[]{11,11,0});
-    private static double[][] positions = {{0, 0, 0}, {7.83e6, 4.49e7, 2.87e6}, {-2.82e7, 1.04e8, 3.01e6},
-            {-1.48e8, -2.78e7, 3.37e4}, {-1.48e8, -2.75e7, 7.02e4}, {-1.59e8, 1.89e8, 7.87e6},
-            {6.93e8, 2.59e8, -1.66e7}, {1.25e9, -7.60e8, -3.67e7}, {1.25e9, 7.61e8, -3.63e7},
-            {4.45e9, -3.98e8, -9.45e7}, {1.96e9, 2.19e9, -1.72e7}};
+
     private static double scale = 3000;
     private static int planetSize = 6371/2;
 
