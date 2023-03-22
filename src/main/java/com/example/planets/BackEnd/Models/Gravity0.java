@@ -21,6 +21,19 @@ public class Gravity0 implements Model3D {
 
     }
 
+    public Gravity0(double theta, double phi){
+
+        this.bodies = new CelestialBody[ positions.length ];
+        for(int i=0; i<this.bodies.length; i++){
+            this.bodies[i] = new CelestialBody(this.names[i], this.mass[i], this.positions[i], this.velocity[i]) ;
+        }
+
+
+        Spaceship ship = new Spaceship(50000, positions[0], velocity[0], 0, 0);
+        this.addBody(ship);
+
+    }
+
     public  Gravity0(boolean comoEstas){
         this.bodies = new CelestialBody[0];
     }
