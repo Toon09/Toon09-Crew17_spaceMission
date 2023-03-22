@@ -311,7 +311,7 @@ public class GUI extends Application {
             {-1.48e8, -2.78e7, 3.37e4}, {-1.48e8, -2.75e7, 7.02e4}, {-1.59e8, 1.89e8, 7.87e6},
             {6.93e8, 2.59e8, -1.66e7}, {1.25e9, -7.60e8, -3.67e7}, {1.25e9, 7.61e8, -3.63e7},
             {4.45e9, -3.98e8, -9.45e7}, {1.96e9, 2.19e9, -1.72e7}};
-    private static double scale = 5000;
+    private static double scale = 1000;
     private static int planetSize = 6371/2;
 
     private String getposition(Sphere sphere) {

@@ -19,11 +19,9 @@ class NumericalExperiments {
 
     public  static void testHohmann(){
         Gravity0 grav = new Gravity0();
-        //
+
 
     }
-
-
     public static void testing3D(){
         Gravity0 grav = new Gravity0();
 
@@ -35,7 +33,8 @@ class NumericalExperiments {
 
         //grav.addBody(bodies);
 
-        grav.toString();
+
+        System.out.println(grav.toString());
         // F_g = Gm1m2/dist^2 = 0
 
         //Vesc = sqrt( 2GM_titan/r_titan&rock )

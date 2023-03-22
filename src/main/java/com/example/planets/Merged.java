@@ -7,6 +7,8 @@ import javafx.geometry.Point3D;
 import javafx.scene.*;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.paint.Color;
+import javafx.scene.paint.PhongMaterial;
+import javafx.scene.shape.Box;
 import javafx.scene.shape.Sphere;
 import javafx.scene.transform.Rotate;
 import javafx.scene.transform.Translate;
@@ -24,7 +26,7 @@ import java.util.TimerTask;
 
 public class Merged extends Application {
     static Gravity0 model = new Gravity0();
-    private static int scale = 5000;
+    private static int scale = 1000;
     private static int counter = 0;
 
     @Override
@@ -33,11 +35,13 @@ public class Merged extends Application {
         GUI gui = new GUI();
         Group world = gui.createEnvironment();
         Scene scene = new Scene(world, 1920, 1080, true);
+        Group axis = buildAxes();
+        world.getChildren().addAll(axis);
         //background
         scene.setFill(Color.BLACK);
         stage.setScene(scene);
         Camera camera = new PerspectiveCamera();
-        camera.setFarClip(2000);
+        camera.setFarClip(4000);
         camera.setNearClip(1);
         //initial camera setting
         scene.setCamera(camera);
@@ -92,7 +96,7 @@ public class Merged extends Application {
             @Override
             public void run() {
                 model.updatePos(0.1,0.1);
-                for (int i=0; i<world.getChildren().size(); i++){
+                for (int i=0; i<11; i++){
                     setPosition(world.getChildren().get(i),model.getBody(i));
                 }
             }
@@ -107,5 +111,22 @@ public class Merged extends Application {
         sphere.setTranslateX(body.getPos()[0] / scale);
         sphere.setTranslateY(body.getPos()[1] / scale);
         sphere.setTranslateZ(body.getPos()[2] / scale);
+    }
+    private Group buildAxes() {
+        //green - y
+        //blue -z
+        //red - X
+
+        Box xAxis = new Box(1200000, 100, 100);
+        Box yAxis = new Box(100, 1200000, 100);
+        Box zAxis = new Box(100, 100, 1200000);
+
+        xAxis.setMaterial(new PhongMaterial(Color.RED));
+        yAxis.setMaterial(new PhongMaterial(Color.GREEN));
+        zAxis.setMaterial(new PhongMaterial(Color.BLUE));
+
+        Group axisGroup = new Group();
+        axisGroup.getChildren().addAll(xAxis, yAxis, zAxis);
+        return axisGroup;
     }
 }
