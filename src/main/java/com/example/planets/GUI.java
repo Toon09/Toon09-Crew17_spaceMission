@@ -13,6 +13,7 @@ import javafx.scene.image.Image;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Box;
+import javafx.scene.shape.Rectangle;
 import javafx.scene.transform.Rotate;
 import javafx.scene.transform.Translate;
 import javafx.stage.Stage;
@@ -87,6 +88,7 @@ public class GUI extends Application {
 
     public Group createEnvironment() {
         Group group = new Group();
+
         //create the sun
         Sphere sun = new Sphere();
         setPosition(sun, 0);
@@ -283,7 +285,19 @@ public class GUI extends Application {
         rotateUranus.setCycleCount(Animation.INDEFINITE);
         rotateUranus.play();
 
-        group.getChildren().addAll(sun, mercury, venus, earth, moon, mars, jupiter, saturn, titan, neptune, uranus);
+        // create the rocket
+
+        Box rocketBase = new Box(500, 1000, 100);
+        rocketBase.setTranslateX(10000);
+        rocketBase.setTranslateY(0);
+        rocketBase.setTranslateZ(0);
+        PhongMaterial rocketBaseMaterial = new PhongMaterial() ;
+        rocketBaseMaterial.setDiffuseColor(Color.DARKVIOLET);
+        rocketBase.setMaterial(rocketBaseMaterial);
+
+
+
+        group.getChildren().addAll(sun, mercury, venus, earth, moon, mars, jupiter, saturn, titan, neptune, uranus,rocketBase);
 
         return group;
     }
