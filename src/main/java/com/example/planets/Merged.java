@@ -41,7 +41,7 @@ public class Merged extends Application {
         scene.setFill(Color.BLACK);
         stage.setScene(scene);
         Camera camera = new PerspectiveCamera();
-        camera.setFarClip(2000);
+        camera.setFarClip(4000);
         camera.setNearClip(1);
         //initial camera setting
         scene.setCamera(camera);
