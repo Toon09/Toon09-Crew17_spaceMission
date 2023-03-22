@@ -13,6 +13,8 @@ import javafx.scene.shape.Sphere;
 import javafx.scene.transform.Rotate;
 import javafx.scene.transform.Translate;
 import javafx.stage.Stage;
+
+import java.util.Arrays;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -26,7 +28,7 @@ import java.util.TimerTask;
 
 public class Merged extends Application {
     static Gravity0 model = new Gravity0();
-    private static int scale = 1000;
+    private static int scale = 3000;
     private static int counter = 0;
 
     @Override
@@ -96,11 +98,13 @@ public class Merged extends Application {
             @Override
             public void run() {
                 model.updatePos(0.1,0.1);
-                for (int i=0; i<11; i++){
+                for (int i=0; i<12; i++){
                     setPosition(world.getChildren().get(i),model.getBody(i));
                 }
+                System.out.println("earth at: "+Arrays.toString(model.getBody(3).getPos()));
+                System.out.println("ship at: "+Arrays.toString(model.getBody(11).getPos()));
             }
-        }, 0, 1);
+        }, 0, 1000);
     }
 
     public static void main(String... args) {
