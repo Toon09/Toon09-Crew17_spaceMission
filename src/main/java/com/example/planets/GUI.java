@@ -1,5 +1,8 @@
 package com.example.planets;
 
+import javafx.animation.Animation;
+import javafx.animation.Interpolator;
+import javafx.animation.RotateTransition;
 import javafx.application.Application;
 import javafx.scene.Camera;
 import javafx.scene.Group;
@@ -16,6 +19,7 @@ import javafx.stage.Stage;
 import javafx.scene.shape.Sphere;
 import javafx.scene.paint.PhongMaterial;
 import javafx.scene.effect.Glow;
+import javafx.util.Duration;
 
 public class GUI extends Application {
 
@@ -109,6 +113,15 @@ public class GUI extends Application {
         mercuryMaterial.setDiffuseMap(new Image("mercuryTexture.jpg"));
         mercury.setMaterial(mercuryMaterial);
 
+        // rotation for mercury
+
+        RotateTransition rotateMercury = new RotateTransition(Duration.seconds(10), mercury);
+        rotateMercury.setByAngle(360);
+        rotateMercury.setAxis(Rotate.Y_AXIS);
+        rotateMercury.setInterpolator(Interpolator.LINEAR);
+        rotateMercury.setCycleCount(Animation.INDEFINITE);
+        rotateMercury.play();
+
         //create venus
         Sphere venus = new Sphere();
         setPosition(venus, 2);
@@ -117,6 +130,15 @@ public class GUI extends Application {
         PhongMaterial venusMaterial = new PhongMaterial();
         venusMaterial.setDiffuseMap(new Image("venusTexture.jpg"));
         venus.setMaterial(venusMaterial);
+
+        // rotation for venus
+
+        RotateTransition rotateVenus = new RotateTransition(Duration.seconds(10), venus);
+        rotateVenus.setByAngle(360);
+        rotateVenus.setAxis(Rotate.Y_AXIS);
+        rotateVenus.setInterpolator(Interpolator.LINEAR);
+        rotateVenus.setCycleCount(Animation.INDEFINITE);
+        rotateVenus.play();
 
         //create earth
         Sphere earth = new Sphere();
@@ -127,6 +149,14 @@ public class GUI extends Application {
         earthMaterial.setDiffuseMap(new Image("earthTexture.jpg"));
         earth.setMaterial(earthMaterial);
 
+        // rotation for earth
+        RotateTransition rotateEarth = new RotateTransition(Duration.seconds(10), earth);
+        rotateEarth.setByAngle(360);
+        rotateEarth.setAxis(Rotate.Y_AXIS);
+        rotateEarth.setInterpolator(Interpolator.LINEAR);
+        rotateEarth.setCycleCount(Animation.INDEFINITE);
+        rotateEarth.play();
+
         //create moon
         Sphere moon = new Sphere();
         setPosition(moon, 4);
@@ -136,14 +166,32 @@ public class GUI extends Application {
         moonMaterial.setDiffuseMap(new Image("moonTexture.jpg"));
         moon.setMaterial(moonMaterial);
 
+        // rotation for moon
+
+        RotateTransition rotateMoon = new RotateTransition(Duration.seconds(10), moon);
+        rotateMoon.setByAngle(360);
+        rotateMoon.setAxis(Rotate.Y_AXIS);
+        rotateMoon.setInterpolator(Interpolator.LINEAR);
+        rotateMoon.setCycleCount(Animation.INDEFINITE);
+        rotateMoon.play();
+
         //create mars
         Sphere mars = new Sphere();
         setPosition(mars, 5);
         mars.setRadius(planetSize);
         //material for the mars
         PhongMaterial marsMaterial = new PhongMaterial();
-        marsMaterial.setDiffuseMap(new Image("marsTexture.jpg"));
+        marsMaterial.setDiffuseMap(new Image("marsTexture.png"));
         mars.setMaterial(marsMaterial);
+
+        // rotation for mars
+
+        RotateTransition rotateMars = new RotateTransition(Duration.seconds(10), mars);
+        rotateMars.setByAngle(360);
+        rotateMars.setAxis(Rotate.Y_AXIS);
+        rotateMars.setInterpolator(Interpolator.LINEAR);
+        rotateMars.setCycleCount(Animation.INDEFINITE);
+        rotateMars.play();
 
         //create jupiter
         Sphere jupiter = new Sphere();
@@ -154,6 +202,15 @@ public class GUI extends Application {
         jupiterMaterial.setDiffuseMap(new Image("jupiterTexture.jpg"));
         jupiter.setMaterial(jupiterMaterial);
 
+        // rotation for jupiter
+
+        RotateTransition rotateJupiter = new RotateTransition(Duration.seconds(10), jupiter);
+        rotateJupiter.setByAngle(360);
+        rotateJupiter.setAxis(Rotate.Y_AXIS);
+        rotateJupiter.setInterpolator(Interpolator.LINEAR);
+        rotateJupiter.setCycleCount(Animation.INDEFINITE);
+        rotateJupiter.play();
+
         //create saturn
         Sphere saturn = new Sphere();
         setPosition(saturn, 7);
@@ -162,6 +219,15 @@ public class GUI extends Application {
         PhongMaterial saturnMaterial = new PhongMaterial();
         saturnMaterial.setDiffuseMap(new Image("saturnTexture.jpg"));
         saturn.setMaterial(saturnMaterial);
+
+        // rotation for saturn
+
+        RotateTransition rotateSaturn = new RotateTransition(Duration.seconds(10), saturn);
+        rotateSaturn.setByAngle(360);
+        rotateSaturn.setAxis(Rotate.Y_AXIS);
+        rotateSaturn.setInterpolator(Interpolator.LINEAR);
+        rotateSaturn.setCycleCount(Animation.INDEFINITE);
+        rotateSaturn.play();
 
         //create titan
         Sphere titan = new Sphere();
@@ -172,6 +238,15 @@ public class GUI extends Application {
         titanMaterial.setDiffuseMap(new Image("titanTexture.jpg"));
         titan.setMaterial(titanMaterial);
 
+        // rotation for titan
+
+        RotateTransition rotateTitan = new RotateTransition(Duration.seconds(10), titan);
+        rotateTitan.setByAngle(360);
+        rotateTitan.setAxis(Rotate.Y_AXIS);
+        rotateTitan.setInterpolator(Interpolator.LINEAR);
+        rotateTitan.setCycleCount(Animation.INDEFINITE);
+        rotateTitan.play();
+
         //create neptune
         Sphere neptune = new Sphere();
         setPosition(neptune, 9);
@@ -181,6 +256,15 @@ public class GUI extends Application {
         neptuneMaterial.setDiffuseMap(new Image("neptuneTexture.jpg"));
         neptune.setMaterial(neptuneMaterial);
 
+        // rotation for neptune
+
+        RotateTransition rotateNeptune = new RotateTransition(Duration.seconds(10), neptune);
+        rotateNeptune.setByAngle(360);
+        rotateNeptune.setAxis(Rotate.Y_AXIS);
+        rotateNeptune.setInterpolator(Interpolator.LINEAR);
+        rotateNeptune.setCycleCount(Animation.INDEFINITE);
+        rotateNeptune.play();
+
         //create uranus
         Sphere uranus = new Sphere();
         setPosition(uranus, 10);
@@ -189,6 +273,15 @@ public class GUI extends Application {
         PhongMaterial uranusMaterial = new PhongMaterial();
         uranusMaterial.setDiffuseMap(new Image("uranusTexture.jpg"));
         uranus.setMaterial(uranusMaterial);
+
+        // rotation for uranus
+
+        RotateTransition rotateUranus = new RotateTransition(Duration.seconds(10), uranus);
+        rotateUranus.setByAngle(360);
+        rotateUranus.setAxis(Rotate.Y_AXIS);
+        rotateUranus.setInterpolator(Interpolator.LINEAR);
+        rotateUranus.setCycleCount(Animation.INDEFINITE);
+        rotateUranus.play();
 
         group.getChildren().addAll(sun, mercury, venus, earth, moon, mars, jupiter, saturn, titan, neptune, uranus);
 
