@@ -100,6 +100,7 @@ public class Merged extends Application {
                 model.updatePos(0.1,0.1);
                 for (int i=0; i<12; i++){
                     setPosition(world.getChildren().get(i),model.getBody(i));
+
                 }
                 //System.out.println("earth at: "+Arrays.toString(model.getBody(3).getPos()));
                 //System.out.println("ship at: "+Arrays.toString(model.getBody(11).getPos()));

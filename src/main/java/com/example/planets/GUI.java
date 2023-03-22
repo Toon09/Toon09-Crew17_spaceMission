@@ -13,6 +13,7 @@ import javafx.scene.image.Image;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Box;
+import javafx.scene.shape.Cylinder;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.transform.Rotate;
 import javafx.scene.transform.Translate;
@@ -117,12 +118,7 @@ public class GUI extends Application {
 
         // rotation for mercury
 
-        RotateTransition rotateMercury = new RotateTransition(Duration.seconds(10), mercury);
-        rotateMercury.setByAngle(360);
-        rotateMercury.setAxis(Rotate.Y_AXIS);
-        rotateMercury.setInterpolator(Interpolator.LINEAR);
-        rotateMercury.setCycleCount(Animation.INDEFINITE);
-        rotateMercury.play();
+        rotation(mercury);
 
         //create venus
         Sphere venus = new Sphere();
@@ -135,12 +131,7 @@ public class GUI extends Application {
 
         // rotation for venus
 
-        RotateTransition rotateVenus = new RotateTransition(Duration.seconds(10), venus);
-        rotateVenus.setByAngle(360);
-        rotateVenus.setAxis(Rotate.Y_AXIS);
-        rotateVenus.setInterpolator(Interpolator.LINEAR);
-        rotateVenus.setCycleCount(Animation.INDEFINITE);
-        rotateVenus.play();
+        rotation(venus);
 
         //create earth
         Sphere earth = new Sphere();
@@ -152,12 +143,8 @@ public class GUI extends Application {
         earth.setMaterial(earthMaterial);
 
         // rotation for earth
-        RotateTransition rotateEarth = new RotateTransition(Duration.seconds(10), earth);
-        rotateEarth.setByAngle(360);
-        rotateEarth.setAxis(Rotate.Y_AXIS);
-        rotateEarth.setInterpolator(Interpolator.LINEAR);
-        rotateEarth.setCycleCount(Animation.INDEFINITE);
-        rotateEarth.play();
+
+        rotation(earth);
 
         //create moon
         Sphere moon = new Sphere();
@@ -170,12 +157,7 @@ public class GUI extends Application {
 
         // rotation for moon
 
-        RotateTransition rotateMoon = new RotateTransition(Duration.seconds(10), moon);
-        rotateMoon.setByAngle(360);
-        rotateMoon.setAxis(Rotate.Y_AXIS);
-        rotateMoon.setInterpolator(Interpolator.LINEAR);
-        rotateMoon.setCycleCount(Animation.INDEFINITE);
-        rotateMoon.play();
+        rotation(moon);
 
         //create mars
         Sphere mars = new Sphere();
@@ -188,12 +170,7 @@ public class GUI extends Application {
 
         // rotation for mars
 
-        RotateTransition rotateMars = new RotateTransition(Duration.seconds(10), mars);
-        rotateMars.setByAngle(360);
-        rotateMars.setAxis(Rotate.Y_AXIS);
-        rotateMars.setInterpolator(Interpolator.LINEAR);
-        rotateMars.setCycleCount(Animation.INDEFINITE);
-        rotateMars.play();
+        rotation(mars);
 
         //create jupiter
         Sphere jupiter = new Sphere();
@@ -206,12 +183,7 @@ public class GUI extends Application {
 
         // rotation for jupiter
 
-        RotateTransition rotateJupiter = new RotateTransition(Duration.seconds(10), jupiter);
-        rotateJupiter.setByAngle(360);
-        rotateJupiter.setAxis(Rotate.Y_AXIS);
-        rotateJupiter.setInterpolator(Interpolator.LINEAR);
-        rotateJupiter.setCycleCount(Animation.INDEFINITE);
-        rotateJupiter.play();
+        rotation(jupiter) ;
 
         //create saturn
         Sphere saturn = new Sphere();
@@ -224,12 +196,7 @@ public class GUI extends Application {
 
         // rotation for saturn
 
-        RotateTransition rotateSaturn = new RotateTransition(Duration.seconds(10), saturn);
-        rotateSaturn.setByAngle(360);
-        rotateSaturn.setAxis(Rotate.Y_AXIS);
-        rotateSaturn.setInterpolator(Interpolator.LINEAR);
-        rotateSaturn.setCycleCount(Animation.INDEFINITE);
-        rotateSaturn.play();
+        rotation(saturn) ;
 
         //create titan
         Sphere titan = new Sphere();
@@ -242,12 +209,7 @@ public class GUI extends Application {
 
         // rotation for titan
 
-        RotateTransition rotateTitan = new RotateTransition(Duration.seconds(10), titan);
-        rotateTitan.setByAngle(360);
-        rotateTitan.setAxis(Rotate.Y_AXIS);
-        rotateTitan.setInterpolator(Interpolator.LINEAR);
-        rotateTitan.setCycleCount(Animation.INDEFINITE);
-        rotateTitan.play();
+        rotation(titan) ;
 
         //create neptune
         Sphere neptune = new Sphere();
@@ -260,12 +222,7 @@ public class GUI extends Application {
 
         // rotation for neptune
 
-        RotateTransition rotateNeptune = new RotateTransition(Duration.seconds(10), neptune);
-        rotateNeptune.setByAngle(360);
-        rotateNeptune.setAxis(Rotate.Y_AXIS);
-        rotateNeptune.setInterpolator(Interpolator.LINEAR);
-        rotateNeptune.setCycleCount(Animation.INDEFINITE);
-        rotateNeptune.play();
+        rotation(neptune) ;
 
         //create uranus
         Sphere uranus = new Sphere();
@@ -278,22 +235,25 @@ public class GUI extends Application {
 
         // rotation for uranus
 
-        RotateTransition rotateUranus = new RotateTransition(Duration.seconds(10), uranus);
-        rotateUranus.setByAngle(360);
-        rotateUranus.setAxis(Rotate.Y_AXIS);
-        rotateUranus.setInterpolator(Interpolator.LINEAR);
-        rotateUranus.setCycleCount(Animation.INDEFINITE);
-        rotateUranus.play();
+        rotation(uranus) ;
 
         // create the rocket
 
         Box rocketBase = new Box(1000, 500, 1000);
         setPosition(rocketBase, 3);
-        rocketBase.setTranslateX(rocketBase.getTranslateX()+earth.getRadius());
+        rocketBase.setTranslateX(rocketBase.getTranslateX()+earth.getRadius()+100);
         PhongMaterial rocketBaseMaterial = new PhongMaterial() ;
         rocketBaseMaterial.setDiffuseColor(Color.DARKVIOLET);
         rocketBase.setMaterial(rocketBaseMaterial);
 
+        // create the path of the rocket
+
+        Cylinder rocketPath = new Cylinder(100, 100);
+        setPosition(rocketPath, 3);
+        rocketPath.setTranslateX(rocketBase.getTranslateX() + earth.getRadius());
+        PhongMaterial rocketPathMaterial = new PhongMaterial();
+        rocketPathMaterial.setDiffuseColor(Color.GOLD);
+        rocketPath.setMaterial(rocketPathMaterial);
 
 
         group.getChildren().addAll(sun, mercury, venus, earth, moon, mars, jupiter, saturn, titan, neptune, uranus,rocketBase);
@@ -304,6 +264,16 @@ public class GUI extends Application {
 
     public static void main(String... args) {
         launch(args);
+    }
+
+    public static void rotation(Sphere sphere)
+    {
+        RotateTransition rotate = new RotateTransition(Duration.seconds(10), sphere);
+        rotate.setByAngle(360);
+        rotate.setAxis(Rotate.Y_AXIS);
+        rotate.setInterpolator(Interpolator.LINEAR);
+        rotate.setCycleCount(Animation.INDEFINITE);
+        rotate.play() ;
     }
 
     private static double[][] positions = {{0, 0, 0}, {7.83e6, 4.49e7, 2.87e6}, {-2.82e7, 1.04e8, 3.01e6},
@@ -326,6 +296,12 @@ public class GUI extends Application {
         box.setTranslateX(positions[index][0] / scale);
         box.setTranslateY(positions[index][1] / scale);
         box.setTranslateZ(positions[index][2] / scale);
+    }
+
+    private void setPosition(Cylinder cylinder, int index) {
+        cylinder.setTranslateX(positions[index][0] / scale);
+        cylinder.setTranslateY(positions[index][1] / scale);
+        cylinder.setTranslateZ(positions[index][2] / scale);
     }
 
 }
