@@ -34,14 +34,15 @@ import java.util.TimerTask;
 //better scale
 //make the sun shine
 //some glow around other planets (tried for the sun but it doesnt work)
-//make the button to stop the program
 
 public class Merged extends Application {
     static Gravity0 model = new Gravity0(0, Math.PI / 2, new double[]{11, 11, 0});
     private static int scale = 3000;
     private static int counter = 0;
     private int planetSize = 6371 / 2;
-    private static boolean lookAtEarth = true;
+    private static boolean lookAtEarth = false;
+    private static boolean lookAtTitan = false ;
+    private static boolean lookAtSun = false ;
 
     @Override
     public void start(Stage stage) throws Exception {
@@ -103,18 +104,42 @@ public class Merged extends Application {
                     for (int i = 0; i < 3; i++) {
                         System.out.println(model.getBody(3).getPos()[i] / scale);
                     }
+                    System.out.println();
                     break;
                 case P:
                     System.exit(0);
                     break;
-                case L:
+                case DIGIT1:
                     if (lookAtEarth) {
                         lookAtEarth = false;
                     } else {
                         lookAtEarth = true;
+                        lookAtTitan = false;
+                        lookAtSun = false ;
                     }
+                    break ;
+                case DIGIT3:
+                    if(lookAtTitan) {
+                        lookAtTitan = false ;
+                    } else {
+                        lookAtTitan = true;
+                        lookAtSun = false ;
+                        lookAtEarth = false ;
+                    }
+                    break ;
+                case DIGIT2:
+                    if(lookAtSun) {
+                        lookAtSun = false;
+                    } else {
+                        lookAtSun = true;
+                        lookAtTitan = false;
+                        lookAtEarth = false ;
+                    }
+                    break ;
+
             }
         });
+
         world.setTranslateZ(world.getTranslateZ() + 100000);
         worldRotX.setAngle(worldRotX.getAngle());
         System.out.println(camera.getRotationAxis());
@@ -135,6 +160,17 @@ public class Merged extends Application {
                     world.setTranslateY(-model.getBody(3).getPos()[1] / scale + 1000);
                     world.setTranslateZ(model.getBody(3).getPos()[2] / scale + 100000);
                 }
+                if(lookAtSun) {
+                    world.setTranslateX(-model.getBody(0).getPos()[0] / scale + 1000);
+                    world.setTranslateY(-model.getBody(0).getPos()[1] / scale + 1000);
+                    world.setTranslateZ(model.getBody(0).getPos()[2] / scale + 100000);
+                }
+                if (lookAtTitan) {
+                    world.setTranslateX(-model.getBody(8).getPos()[0] / scale + 1000);
+                    world.setTranslateY(-model.getBody(8).getPos()[1] / scale + 1000);
+                    world.setTranslateZ(model.getBody(8).getPos()[2] / scale + 100000);
+                }
+
             }
         }, 1, 1);
     }
@@ -240,7 +276,7 @@ public class Merged extends Application {
         //create moon
         Sphere moon = new Sphere();
         setPosition(moon, 4);
-        moon.setRadius(1500);
+        moon.setRadius(500);
         //material for the moon
         PhongMaterial moonMaterial = new PhongMaterial();
         moonMaterial.setDiffuseMap(new Image("moonTexture.jpg"));
@@ -292,7 +328,7 @@ public class Merged extends Application {
         //create titan
         Sphere titan = new Sphere();
         setPosition(titan, 8);
-        titan.setRadius(planetSize);
+        titan.setRadius(1000);
         //material for the titan
         PhongMaterial titanMaterial = new PhongMaterial();
         titanMaterial.setDiffuseMap(new Image("titanTexture.jpg"));
