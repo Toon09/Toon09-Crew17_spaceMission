@@ -1,0 +1,19 @@
+<changelist name="Uncommitted_changes_before_Update_at_23_03_2023_17_37_[Changes]1" date="1679589471077" recycled="true" deleted="true">
+  <option name="PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_23_03_2023_17_37_[Changes]1/shelved.patch" />
+  <option name="DESCRIPTION" value="Uncommitted changes before Update at 23.03.2023 17:37 [Changes]" />
+  <binary>
+    <option name="BEFORE_PATH" value="target/classes/com/example/planets/Merged$2.class" />
+    <option name="AFTER_PATH" value="target/classes/com/example/planets/Merged$2.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_23_03_2023_17_37_[Changes]1/Merged$2.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="target/classes/com/example/planets/Merged$1.class" />
+    <option name="AFTER_PATH" value="target/classes/com/example/planets/Merged$1.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_23_03_2023_17_37_[Changes]1/Merged$1.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="target/classes/com/example/planets/Merged.class" />
+    <option name="AFTER_PATH" value="target/classes/com/example/planets/Merged.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_23_03_2023_17_37_[Changes]1/Merged.class" />
+  </binary>
+</changelist>

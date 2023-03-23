@@ -39,7 +39,7 @@ import java.util.TimerTask;
 public class Merged extends Application {
     static Gravity0 model = new Gravity0(0, Math.PI / 2, new double[]{11, 11, 0});
     private static int scale = 25;
-    private static int smallScale = 50;
+    private static int smallScale = 25;
     private static int bigScale = 3000;
     private static int counter = 0;
     private int planetSize = 6371 / 2;
@@ -48,12 +48,15 @@ public class Merged extends Application {
     private static boolean lookAtSun = false;
     private static boolean lookatEverything = false;
     private static boolean lookAtSpaceship = false;
+    private static Box[] path = new Box[10000];
 
     @Override
     public void start(Stage stage) throws Exception {
+        inicilizePath();
         //create a new group
         Group world = createEnvironment();
         Scene scene = new Scene(world, 1920, 1080, true);
+        world.getChildren().addAll(path);
         //Group axis = buildAxes();
         //world.getChildren().addAll(axis);
         //background
@@ -128,7 +131,6 @@ public class Merged extends Application {
                         lookAtSun = false;
                         lookatEverything = false;
                         lookAtSpaceship = false;
-
                     }
                     break;
                 case DIGIT2:
@@ -225,13 +227,26 @@ public class Merged extends Application {
                     camera.setTranslateY(model.getBody(8).getPos()[1] / scale + 115144);
                     camera.setTranslateZ(model.getBody(8).getPos()[2] / scale - 471948);
                 }
-                if (lookAtSpaceship){
+                if (lookAtSpaceship) {
                     camera.setTranslateX(model.getBody(11).getPos()[0] / scale + 1000);
                     camera.setTranslateY(model.getBody(11).getPos()[1] / scale + 2000);
                     camera.setTranslateZ(model.getBody(11).getPos()[2] / scale - 24000);
                 }
+
+
             }
         }, 1, 1);
+        timer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                if (counter < path.length) {
+                    path[counter].setTranslateX(model.getBody(11).getPos()[0] / scale);
+                    path[counter].setTranslateY(model.getBody(11).getPos()[1] / scale);
+                    path[counter].setTranslateZ(model.getBody(11).getPos()[2] / scale);
+                    counter++;
+                }
+            }
+        },20,2000);
     }
 
     public static void main(String... args) {
@@ -463,6 +478,12 @@ public class Merged extends Application {
         System.out.println("looks at titan: " + lookAtTitan);
         System.out.println("looks at everything: " + lookatEverything);
 
+    }
+
+    private static void inicilizePath() {
+        for (int i = 0; i < path.length; i++) {
+            path[i] = new Box(800, 800, 800);
+        }
     }
 
 }

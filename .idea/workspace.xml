@@ -5,49 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="bab05458-8716-4abd-8f37-31e577e5aaab" name="Changes" comment="orbits and stuff">
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_21_03_2023_14_46__Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_21_03_2023_14_46__Changes_.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_21_03_2023_16_23__Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_21_03_2023_16_23__Changes_.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_21_03_2023_16_44__Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_21_03_2023_16_44__Changes_.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_21_03_2023_18_43__Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_21_03_2023_18_43__Changes_.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_21_03_2023_20_37__Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_21_03_2023_20_37__Changes_.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_22_03_2023_14_00__Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_22_03_2023_14_00__Changes_.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_22_03_2023_14_11__Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_22_03_2023_14_11__Changes_.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_22_03_2023_14_43__Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_22_03_2023_14_43__Changes_.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_23_03_2023_11_42__Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_23_03_2023_11_42__Changes_.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_23_03_2023_14_06__Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_23_03_2023_14_06__Changes_.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_3_22_2023_1_08_PM__Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_3_22_2023_1_08_PM__Changes_.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_3_22_2023_3_18_PM__Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_3_22_2023_3_18_PM__Changes_.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/planets/NumericalExperiments.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/planets/NumericalExperiments.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/module-info.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/module-info.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/innit_Pos.xlsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/planets/innit_Pos.xlsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/example/planets/BackEnd/CelestialBody.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/example/planets/BackEnd/Models/Gravity0.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/example/planets/BackEnd/Models/Model1D.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/example/planets/BackEnd/Models/Model3D.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/example/planets/BackEnd/Models/simple1.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/example/planets/BackEnd/Models/simple2.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/example/planets/BackEnd/NumericalMethods/Eulers.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/example/planets/BackEnd/Spaceship.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/example/planets/Merged$1.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/example/planets/Merged$2.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/example/planets/Merged.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/example/planets/NumericalExperiments.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/example/planets/hello-view.fxml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/earthTexture.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/innit_Pos.xlsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/jupiterTexture.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/marsTexture.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/mercuryTexture.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/module-info.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/moonTexture.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/neptuneTexture.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/saturnTexture.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/sunTexture.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/titanTexture.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/uranusTexture.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/venusTexture.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/planets/Merged.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/planets/Merged.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -80,43 +39,39 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Downloaded.Files.Path.Enabled": "false",
-    "Repository.Attach.Annotations": "false",
-    "Repository.Attach.JavaDocs": "false",
-    "Repository.Attach.Sources": "false",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "full.screen.before.presentation.mode": "false",
-    "last_opened_file_path": "C:/Users/sirap/IdeaProjects/Toon09-Crew17_spaceMission/src/main/java/com/example/planets",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "project.structure.last.edited": "Libraries",
-    "project.structure.proportion": "0.0",
-    "project.structure.side.proportion": "0.2",
-    "settings.editor.selected.configurable": "configurable.group.appearance",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;full.screen.before.presentation.mode&quot;: &quot;false&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/sirap/IdeaProjects/Toon09-Crew17_spaceMission/src/main/java/com/example/planets&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Project&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;configurable.group.appearance&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\sirap\IdeaProjects\Toon09-Crew17_spaceMission\src\main\java\com\example\planets" />
       <recent name="C:\Users\suszw\Desktop\uni\year_1\Period4\Data stuctures\Planets" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
-      <recent name="C:\Users\User\Documents\Div\Toon09-Crew17_spaceMission\src\main\java\com\example\planets" />
       <recent name="C:\Users\sirap\IdeaProjects\Toon09-Crew17_spaceMission\src\main\java\com\example\planets" />
       <recent name="C:\Users\suszw\Desktop\uni\year_1\Period4\plswork\src\main" />
       <recent name="C:\Users\suszw\Desktop\uni\year_1\Period4\plswork\src\resources\com" />
       <recent name="C:\Users\suszw\Desktop\uni\year_1\Period4\plswork\src\resources" />
+      <recent name="C:\Users\suszw\Desktop\uni\year_1\Period4\plswork\src\main\java\com\example\planets" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.NumericalExperiments">
+  <component name="RunManager" selected="Application.Merged">
     <configuration name="GUI" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="com.example.planets.GUI" />
       <module name="Planets" />
@@ -171,10 +126,10 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.NumericalExperiments" />
-        <item itemvalue="Application.Main" />
         <item itemvalue="Application.Merged" />
         <item itemvalue="Application.GUI" />
+        <item itemvalue="Application.Main" />
+        <item itemvalue="Application.NumericalExperiments" />
       </list>
     </recent_temporary>
   </component>
@@ -193,7 +148,6 @@
       <workItem from="1679314405554" duration="1248000" />
       <workItem from="1679317911374" duration="1670000" />
       <workItem from="1679322438755" duration="983000" />
-      <workItem from="1679582420502" duration="2096000" />
     </task>
     <task id="LOCAL-00001" summary="moving stuff">
       <created>1679322500707</created>
@@ -327,5 +281,16 @@
     <MESSAGE value="added cameras for titan sun earth and buttons for them" />
     <MESSAGE value="orbits and stuff" />
     <option name="LAST_COMMIT_MESSAGE" value="orbits and stuff" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/example/planets/NumericalExperiments.java</url>
+          <line>103</line>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>
