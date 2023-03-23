@@ -34,10 +34,11 @@ import java.util.TimerTask;
 //make the button to stop the program
 
 public class Merged extends Application {
-    static Gravity0 model = new Gravity0(0,Math.PI/2, new double[]{11,11,0});
+    static Gravity0 model = new Gravity0(0, Math.PI / 2, new double[]{11, 11, 0});
     private static int scale = 3000;
     private static int counter = 0;
-    private int planetSize =6371/2;
+    private int planetSize = 6371 / 2;
+    private static boolean lookAtEarth = true;
 
     @Override
     public void start(Stage stage) throws Exception {
@@ -58,7 +59,6 @@ public class Merged extends Application {
         Rotate worldRotY = new Rotate(0, Rotate.Y_AXIS);
         Translate worldTransX = new Translate();
         world.getTransforms().addAll(worldRotY, worldRotX);
-        boolean lookAtEarth = true;
         stage.addEventHandler(KeyEvent.KEY_PRESSED, event -> {
             switch (event.getCode()) {
                 case LEFT:
@@ -104,12 +104,18 @@ public class Merged extends Application {
                 case P:
                     System.exit(0);
                     break;
+                case L:
+                    if (lookAtEarth) {
+                        lookAtEarth = false;
+                    } else {
+                        lookAtEarth = true;
+                    }
             }
         });
         world.setTranslateZ(world.getTranslateZ() + 100000);
         worldRotX.setAngle(worldRotX.getAngle());
         System.out.println(camera.getRotationAxis());
-        world.setRotationAxis(new Point3D(model.getBody(3).getPos()[0],model.getBody(3).getPos()[1],model.getBody(3).getPos()[2]));
+        world.setRotationAxis(new Point3D(model.getBody(3).getPos()[0], model.getBody(3).getPos()[1], model.getBody(3).getPos()[2]));
 
         stage.show();
 
@@ -122,9 +128,9 @@ public class Merged extends Application {
                     setPosition(world.getChildren().get(i), model.getBody(i));
                 }
                 if (lookAtEarth) {
-                    world.setTranslateX(-model.getBody(3).getPos()[0]/scale+1000);
-                    world.setTranslateY(-model.getBody(3).getPos()[1]/scale+1000);
-                    world.setTranslateZ(model.getBody(3).getPos()[2]/scale+100000);
+                    world.setTranslateX(-model.getBody(3).getPos()[0] / scale + 1000);
+                    world.setTranslateY(-model.getBody(3).getPos()[1] / scale + 1000);
+                    world.setTranslateZ(model.getBody(3).getPos()[2] / scale + 100000);
                 }
             }
         }, 1, 1);
@@ -145,11 +151,13 @@ public class Merged extends Application {
         box.setTranslateY(body.getPos()[1] / scale);
         box.setTranslateZ(body.getPos()[2] / scale);
     }
+
     private void setPosition(Sphere sphere, int index) {
         sphere.setTranslateX(positions[index][0] / scale);
         sphere.setTranslateY(positions[index][1] / scale);
         sphere.setTranslateZ(positions[index][2] / scale);
     }
+
     private void setPosition(Box box, int index) {
         box.setTranslateX(positions[index][0] / scale);
         box.setTranslateY(positions[index][1] / scale);
@@ -166,6 +174,7 @@ public class Merged extends Application {
             {-1.48e8, -2.78e7, 3.37e4}, {-1.48e8, -2.75e7, 7.02e4}, {-1.59e8, 1.89e8, 7.87e6},
             {6.93e8, 2.59e8, -1.66e7}, {1.25e9, -7.60e8, -3.67e7}, {1.25e9, 7.61e8, -3.63e7},
             {4.45e9, -3.98e8, -9.45e7}, {1.96e9, 2.19e9, -1.72e7}};
+
     public Group createEnvironment() {
         Group group = new Group();
 
@@ -183,7 +192,7 @@ public class Merged extends Application {
         sun.setMaterial(sunMaterial);
         Label sunLabel = new Label("SUN");
         sunLabel.setTranslateX(0);
-        sunLabel.setTranslateY(planetSize+sun.getRadius());
+        sunLabel.setTranslateY(planetSize + sun.getRadius());
         sunLabel.setTranslateZ(0);
 
         //create mercury
@@ -301,7 +310,7 @@ public class Merged extends Application {
 
         // rotation for neptune
 
-        rotation(neptune) ;
+        rotation(neptune);
 
         //create uranus
         Sphere uranus = new Sphere();
@@ -314,14 +323,14 @@ public class Merged extends Application {
 
         // rotation for uranus
 
-        rotation(uranus) ;
+        rotation(uranus);
 
         // create the rocket
 
         Box rocketBase = new Box(1000, 500, 1000);
         setPosition(rocketBase, 3);
-        rocketBase.setTranslateX(rocketBase.getTranslateX()+earth.getRadius()+100);
-        PhongMaterial rocketBaseMaterial = new PhongMaterial() ;
+        rocketBase.setTranslateX(rocketBase.getTranslateX() + earth.getRadius() + 100);
+        PhongMaterial rocketBaseMaterial = new PhongMaterial();
         rocketBaseMaterial.setDiffuseColor(Color.DARKVIOLET);
         rocketBase.setMaterial(rocketBaseMaterial);
 
@@ -336,19 +345,18 @@ public class Merged extends Application {
         rocketPath.setMaterial(rocketPathMaterial);
 
 
-        group.getChildren().addAll(sun, mercury, venus, earth, moon, mars, jupiter, saturn, titan, neptune, uranus,rocketBase,rocketPath);
+        group.getChildren().addAll(sun, mercury, venus, earth, moon, mars, jupiter, saturn, titan, neptune, uranus, rocketBase, rocketPath);
 
         return group;
     }
 
-    private static void rotation(Sphere sphere)
-    {
+    private static void rotation(Sphere sphere) {
         RotateTransition rotate = new RotateTransition(Duration.seconds(10), sphere);
         rotate.setByAngle(360);
         rotate.setAxis(Rotate.Y_AXIS);
         rotate.setInterpolator(Interpolator.LINEAR);
         rotate.setCycleCount(Animation.INDEFINITE);
-        rotate.play() ;
+        rotate.play();
     }
 
 }
