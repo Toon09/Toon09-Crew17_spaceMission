@@ -9,12 +9,9 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.PhongMaterial;
 import javafx.scene.shape.Box;
-import javafx.scene.shape.Sphere;
 import javafx.scene.transform.Rotate;
 import javafx.scene.transform.Translate;
 import javafx.stage.Stage;
-
-import java.util.Arrays;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -37,8 +34,8 @@ public class Merged extends Application {
         GUI gui = new GUI();
         Group world = gui.createEnvironment();
         Scene scene = new Scene(world, 1920, 1080, true);
-        Group axis = buildAxes();
-        world.getChildren().addAll(axis);
+        //Group axis = buildAxes();
+        //world.getChildren().addAll(axis);
         //background
         scene.setFill(Color.BLACK);
         stage.setScene(scene);
@@ -119,8 +116,6 @@ public class Merged extends Application {
                     world.setTranslateY(-model.getBody(3).getPos()[1]/scale+1000);
                     world.setTranslateZ(model.getBody(3).getPos()[2]/scale+100000);
                 }
-                //System.out.println("earth at: "+Arrays.toString(model.getBody(3).getPos()));
-                //System.out.println("ship at: "+Arrays.toString(model.getBody(11).getPos()));
             }
         }, 1, 1);
     }
@@ -141,21 +136,4 @@ public class Merged extends Application {
         box.setTranslateZ(body.getPos()[2] / scale);
     }
 
-    private Group buildAxes() {
-        //green - y
-        //blue -z
-        //red - X
-
-        Box xAxis = new Box(1200000, 100, 100);
-        Box yAxis = new Box(100, 1200000, 100);
-        Box zAxis = new Box(100, 100, 1200000);
-
-        xAxis.setMaterial(new PhongMaterial(Color.RED));
-        yAxis.setMaterial(new PhongMaterial(Color.GREEN));
-        zAxis.setMaterial(new PhongMaterial(Color.BLUE));
-
-        Group axisGroup = new Group();
-        axisGroup.getChildren().addAll(xAxis, yAxis, zAxis);
-        return axisGroup;
-    }
 }
