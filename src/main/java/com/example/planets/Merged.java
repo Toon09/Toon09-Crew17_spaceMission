@@ -219,7 +219,7 @@ public class Merged extends Application {
 
         // rotation for venus
 
-        rotation(venus);
+        //rotation(venus);
 
         //create earth
         Sphere earth = new Sphere();
@@ -232,7 +232,7 @@ public class Merged extends Application {
 
         // rotation for earth
 
-        rotation(earth);
+        //rotation(earth);
 
         //create moon
         Sphere moon = new Sphere();
@@ -245,7 +245,7 @@ public class Merged extends Application {
 
         // rotation for moon
 
-        rotation(moon);
+        //rotation(moon);
 
         //create mars
         Sphere mars = new Sphere();
@@ -258,7 +258,7 @@ public class Merged extends Application {
 
         // rotation for mars
 
-        rotation(mars);
+        //rotation(mars);
 
         //create jupiter
         Sphere jupiter = new Sphere();
@@ -310,7 +310,7 @@ public class Merged extends Application {
 
         // rotation for neptune
 
-        rotation(neptune);
+        //rotation(neptune);
 
         //create uranus
         Sphere uranus = new Sphere();
@@ -323,7 +323,7 @@ public class Merged extends Application {
 
         // rotation for uranus
 
-        rotation(uranus);
+        //rotation(uranus);
 
         // create the rocket
 
