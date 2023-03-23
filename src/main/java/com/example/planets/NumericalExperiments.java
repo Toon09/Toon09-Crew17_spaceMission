@@ -127,7 +127,7 @@ class NumericalExperiments {
         // FileChooser fileChooser = new FileChooser();
         // fileChooser.setTitle("Open Resource File");
         // get the file from path
-        File file = file = new File("*.xlsx");
+        File file = file = new File("Planets.xlsx");
         // create a file input stream
 
 
