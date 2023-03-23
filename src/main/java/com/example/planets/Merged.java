@@ -41,7 +41,7 @@ public class Merged extends Application {
     private static int scale = 3000;
     private static int counter = 0;
     private int planetSize = 6371 / 2;
-    private static boolean lookAtEarth = true;
+    private static boolean lookAtEarth = false;
 
     @Override
     public void start(Stage stage) throws Exception {

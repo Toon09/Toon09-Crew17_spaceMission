@@ -237,7 +237,21 @@
       <option name="project" value="LOCAL" />
       <updated>1679569477025</updated>
     </task>
-    <option name="localTasksCounter" value="14" />
+    <task id="LOCAL-00014" summary="cleaning up the code in Merged/GUI">
+      <created>1679571869507</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1679571869507</updated>
+    </task>
+    <task id="LOCAL-00015" summary="cleaning up the code in Merged/GUI">
+      <created>1679571969214</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1679571969214</updated>
+    </task>
+    <option name="localTasksCounter" value="16" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
