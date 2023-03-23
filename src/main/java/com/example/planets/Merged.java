@@ -226,7 +226,7 @@ public class Merged extends Application {
         PhongMaterial earthMaterial = new PhongMaterial();
         earthMaterial.setDiffuseMap(new Image("earthTexture.jpg"));
         earth.setMaterial(earthMaterial);
-        //earh orbit
+        //earth's orbit
 
 
 
