@@ -38,13 +38,16 @@ import java.util.TimerTask;
 
 public class Merged extends Application {
     static Gravity0 model = new Gravity0(0, Math.PI / 2, new double[]{11, 11, 0});
-    private static int scale = 50;
+    private static int scale = 25;
+    private static int smallScale = 50;
+    private static int bigScale = 3000;
     private static int counter = 0;
     private int planetSize = 6371 / 2;
     private static boolean lookAtEarth = false;
     private static boolean lookAtTitan = false;
     private static boolean lookAtSun = false;
     private static boolean lookatEverything = false;
+    private static boolean lookAtSpaceship = false;
 
     @Override
     public void start(Stage stage) throws Exception {
@@ -118,40 +121,72 @@ public class Merged extends Application {
                     if (lookAtEarth) {
                         lookAtEarth = false;
                     } else {
+                        world.getChildren().get(7).setVisible(true);
+                        scale = smallScale;
                         lookAtEarth = true;
                         lookAtTitan = false;
                         lookAtSun = false;
+                        lookatEverything = false;
+                        lookAtSpaceship = false;
+
                     }
                     break;
                 case DIGIT2:
                     if (lookAtSun) {
                         lookAtSun = false;
                     } else {
+                        world.getChildren().get(7).setVisible(true);
+                        scale = smallScale;
                         lookAtSun = true;
                         lookAtTitan = false;
                         lookAtEarth = false;
+                        lookatEverything = false;
+                        lookAtSpaceship = false;
+
                     }
                     break;
                 case DIGIT3:
                     if (lookAtTitan) {
                         lookAtTitan = false;
                     } else {
+                        world.getChildren().get(7).setVisible(true);
+                        scale = smallScale;
                         lookAtTitan = true;
                         lookAtSun = false;
                         lookAtEarth = false;
+                        lookatEverything = false;
+                        lookAtSpaceship = false;
+
                     }
                     break;
                 case DIGIT4:
                     if (lookatEverything) {
+                        world.getChildren().get(7).setVisible(true);
+                        scale = smallScale;
                         lookatEverything = false;
                     } else {
+                        world.getChildren().get(7).setVisible(false);
+                        scale = bigScale;
                         lookatEverything = true;
                         lookAtSun = false;
                         lookAtEarth = false;
                         lookAtTitan = false;
+                        lookAtSpaceship = false;
+
                     }
-
-
+                    break;
+                case DIGIT5:
+                    if (lookAtSpaceship) {
+                        lookAtSpaceship = false;
+                    } else {
+                        lookAtSpaceship = true;
+                        scale = smallScale;
+                        lookatEverything = false;
+                        lookAtSun = false;
+                        lookAtEarth = false;
+                        lookAtTitan = false;
+                    }
+                    break;
             }
         });
 
@@ -185,12 +220,16 @@ public class Merged extends Application {
                     camera.setTranslateY(model.getBody(8).getPos()[1] / scale + 2000);
                     camera.setTranslateZ(model.getBody(8).getPos()[2] / scale - 24000);
                 }
-                if (lookatEverything){
+                if (lookatEverything) {
                     camera.setTranslateX(model.getBody(8).getPos()[0] / scale - 237755);
                     camera.setTranslateY(model.getBody(8).getPos()[1] / scale + 115144);
-                    camera.setTranslateZ(model.getBody(8).getPos()[2] / scale -471948);
+                    camera.setTranslateZ(model.getBody(8).getPos()[2] / scale - 471948);
                 }
-
+                if (lookAtSpaceship){
+                    camera.setTranslateX(model.getBody(11).getPos()[0] / scale + 1000);
+                    camera.setTranslateY(model.getBody(11).getPos()[1] / scale + 2000);
+                    camera.setTranslateZ(model.getBody(11).getPos()[2] / scale - 24000);
+                }
             }
         }, 1, 1);
     }
@@ -416,6 +455,14 @@ public class Merged extends Application {
         rotate.setInterpolator(Interpolator.LINEAR);
         rotate.setCycleCount(Animation.INDEFINITE);
         rotate.play();
+    }
+
+    private static void printLooks() {
+        System.out.println("looks at earth: " + lookAtEarth);
+        System.out.println("looks at sun: " + lookAtSun);
+        System.out.println("looks at titan: " + lookAtTitan);
+        System.out.println("looks at everything: " + lookatEverything);
+
     }
 
 }
