@@ -3,6 +3,11 @@ package com.example.planets;
 import com.example.planets.BackEnd.CelestialBody;
 import com.example.planets.BackEnd.Models.*;
 import com.example.planets.BackEnd.NumericalMethods.*;
+import org.apache.poi.ss.usermodel.*;
+
+import java.io.File;
+import java.io.IOException;
+import java.util.Iterator;
 
 class NumericalExperiments {
 
@@ -116,7 +121,51 @@ class NumericalExperiments {
         }
     }
 
+    public Double[][] getData () throws IOException {
 
+        // run file chooser dialog
+        // FileChooser fileChooser = new FileChooser();
+        // fileChooser.setTitle("Open Resource File");
+        // get the file from path
+        File file = file = new File("*.xlsx");
+        // create a file input stream
+
+
+        Workbook workbook = WorkbookFactory.create(file);
+        Sheet sheet = workbook.getSheetAt(0);
+        Iterator<Row> rowIterator = sheet.rowIterator();
+        int rows = sheet.getLastRowNum() + 1;
+        int columns = sheet.getRow(0).getLastCellNum();
+        String[][] data = new String[rows][columns];
+        int i = 0;
+
+        while (rowIterator.hasNext()) {
+            Row row = rowIterator.next();
+            Iterator<Cell> cellIterator = row.cellIterator();
+            int j = 0;
+
+            while (cellIterator.hasNext()) {
+                Cell cell = cellIterator.next();
+                data[i][j] = cell.toString();
+                j++;
+            }
+
+            i++;
+        }
+
+        workbook.close();
+
+
+        Double[][] data2 = new Double[rows][columns];
+        for (int k = 0; k < rows; k++) {
+            for (int l = 0; l < columns; l++) {
+                data2[k][l] = Double.parseDouble(data[k][l]);
+            }
+        }
+
+        return data2;
+
+    }
     /*
      * write names of planets
      * write their radiuses as well
