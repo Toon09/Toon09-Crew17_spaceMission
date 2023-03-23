@@ -4,8 +4,11 @@ import com.example.planets.BackEnd.CelestialBody;
 import com.example.planets.BackEnd.Models.*;
 import com.example.planets.BackEnd.NumericalMethods.*;
 import org.apache.poi.ss.usermodel.*;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Iterator;
 
@@ -14,7 +17,7 @@ class NumericalExperiments {
     /*
      * a simple experiment set up to check how things work so far, before improvements
      */
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         testing3D();
     }
 
@@ -27,9 +30,55 @@ class NumericalExperiments {
 
 
     }
-    public static void testing3D(){
+    public static void testing3D() throws IOException {
         Gravity0 grav = new Gravity0();
 
+
+        FileInputStream file = new FileInputStream(new File(
+                "C:\\Users\\User\\Documents\\Div\\Toon09-Crew17_spaceMission\\src\\main\\java\\com\\example\\planets\\innit_Pos.xlsx"));
+        Workbook workbook = WorkbookFactory.create(file);
+        Sheet sheet = workbook.getSheetAt(0);
+        Iterator<Row> rowIterator = sheet.rowIterator();
+        int rows = sheet.getLastRowNum() + 1;
+        int columns = sheet.getRow(0).getLastCellNum();
+        String[][] data = new String[rows][columns];
+        int i = 0;
+
+        while (rowIterator.hasNext()) {
+            Row row = rowIterator.next();
+            Iterator<Cell> cellIterator = row.cellIterator();
+            int j = 0;
+
+            while (cellIterator.hasNext()) {
+                Cell cell = cellIterator.next();
+                data[i][j] = cell.toString();
+                System.out.print(data[i][j] + " ");
+                j++;
+            }
+
+            i++;
+        }
+
+        workbook.close();
+
+
+        Double[][] data2 = new Double[rows][columns];
+        for (int k = 0; k < rows; k++) {
+            for (int l = 0; l < columns; l++) {
+                data2[k][l] = Double.parseDouble(data[k][l]);
+            }
+        }
+
+
+
+
+    /*
+     * write names of planets
+     * write their radiuses as well
+     */
+
+
+}
         //System.out.println(Gravity0.positions.length);
         //CelestialBody[] bodies = new CelestialBody[ Gravity0.positions.length ];
         //for(int i=0; i<bodies.length; i++){
@@ -39,7 +88,7 @@ class NumericalExperiments {
         //grav.addBody(bodies);
 
 
-        System.out.println(grav.toString());
+
         // F_g = Gm1m2/dist^2 = 0
 
         //Vesc = sqrt( 2GM_titan/r_titan&rock )
@@ -48,36 +97,11 @@ class NumericalExperiments {
         ////////////////////////////// parameters
         double dt = 1;
         long days = 10;
-        int planet = grav.size()-1;
         //earth is index 3
 
         //with any dt days/execution time ratio remains mostly constant
         //time to execution time ratio is approx 1.6666 for dt=0.1
         
-        System.out.println("\nstart");
-        System.out.println("x: " + grav.getBody(planet).getPos()[0] + ", y: " + grav.getBody(planet).getPos()[1] + ", z: " + grav.getBody(planet).getPos()[2]);
-        System.out.println( "theta: " + (180/3.1415)*Math.atan( grav.getBody(planet).getPos()[1]/grav.getBody(planet).getPos()[0] ) );
-        System.out.println("r: " + CelestialBody.getDistance( grav.getBody(0), grav.getBody(planet) ));
-
-        
-        long start = System.currentTimeMillis();
-        
-        System.out.println("\ndays: " + days + "; dt: " + dt);
-        for(long i=0; i<CelestialBody.daysToSec(days)/dt; i++){
-            Eulers.step3D(grav, dt);
-
-        }
-
-        System.out.println( "\ntime taken[s]: " + (System.currentTimeMillis()-start)/1000 );
-
-        System.out.println("x: " + grav.getBody(planet).getPos()[0] + ", y: " + grav.getBody(planet).getPos()[1] + ", z: " + grav.getBody(planet).getPos()[2]);
-        System.out.println( "theta: " + (180/3.1415)*Math.atan( grav.getBody(planet).getPos()[1]/grav.getBody(planet).getPos()[0] ) );
-        System.out.println("r: " + CelestialBody.getDistance( grav.getBody(0), grav.getBody(planet) ));
-
-        System.out.println();
-        
-        
-    }
 
 
 
