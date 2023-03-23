@@ -26,6 +26,9 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 //ToDo
+//add orbits
+//make buttons for other planets (titan, sun)
+//add button for axis
 //update the camera movement (figure out how to rotate with something else than 0/0/0 in the middle) -Jakub
 //set the planets sizes
 //better scale
