@@ -16,6 +16,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.paint.PhongMaterial;
 import javafx.scene.shape.Box;
 import javafx.scene.shape.Cylinder;
+import javafx.scene.shape.Ellipse;
 import javafx.scene.shape.Sphere;
 import javafx.scene.transform.Rotate;
 import javafx.scene.transform.Translate;
@@ -232,6 +233,14 @@ public class Merged extends Application {
         PhongMaterial earthMaterial = new PhongMaterial();
         earthMaterial.setDiffuseMap(new Image("earthTexture.jpg"));
         earth.setMaterial(earthMaterial);
+        //earh orbit
+        Ellipse earthOrbit = new Ellipse();
+        earthOrbit.setCenterX(1000);
+        earthOrbit.setCenterY(0);
+        earthOrbit.setRadiusX(model.getBody(3).getPos()[0]/scale);
+        earthOrbit.setRadiusY(model.getBody(3).getPos()[1]/scale);
+        earthOrbit.setFill(Color.WHITE);
+        earthOrbit.setStrokeWidth(1000);
 
         // rotation for earth
 
@@ -348,18 +357,18 @@ public class Merged extends Application {
         rocketPath.setMaterial(rocketPathMaterial);
 
 
-        group.getChildren().addAll(sun, mercury, venus, earth, moon, mars, jupiter, saturn, titan, neptune, uranus, rocketBase, rocketPath);
+        group.getChildren().addAll(sun, mercury, venus, earth, moon, mars, jupiter, saturn, titan, neptune, uranus, rocketBase, rocketPath,earthOrbit);
 
         return group;
     }
 
-    private static void rotation(Sphere sphere) {
-        RotateTransition rotate = new RotateTransition(Duration.seconds(10), sphere);
-        rotate.setByAngle(360);
-        rotate.setAxis(Rotate.Y_AXIS);
-        rotate.setInterpolator(Interpolator.LINEAR);
-        rotate.setCycleCount(Animation.INDEFINITE);
-        rotate.play();
-    }
+//    private static void rotation(Sphere sphere) {
+//        RotateTransition rotate = new RotateTransition(Duration.seconds(10), sphere);
+//        rotate.setByAngle(360);
+//        rotate.setAxis(Rotate.Y_AXIS);
+//        rotate.setInterpolator(Interpolator.LINEAR);
+//        rotate.setCycleCount(Animation.INDEFINITE);
+//        rotate.play();
+//    }
 
 }
