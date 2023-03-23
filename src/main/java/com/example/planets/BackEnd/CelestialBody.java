@@ -50,17 +50,17 @@ public class CelestialBody {
 
     }
     // constructor for csv file
-    public CelestialBody( String name,Double x1,Double x2,Double x3,Double v1,Double v2,Double v3,Double m){
+    public CelestialBody( String name,String x1,String x2,String x3,String v1,String v2,String v3,String m){
         this.name = name;
-        setMass(m);
+        setMass(Double.parseDouble(m));
         setradius(0);
-        this.pos[0] = x1;
-        this.pos[1] = x2;
-        this.pos[2] = x3;
+        this.pos[0] = Double.parseDouble(x1);
+        this.pos[1] = Double.parseDouble(x2);
+        this.pos[2] = Double.parseDouble(x3);
 
-        this.vel[0] = v1;
-        this.vel[1] = v2;
-        this.vel[2] = v3;
+        this.vel[0] = Double.parseDouble(v1);
+        this.vel[1] = Double.parseDouble(v2);
+        this.vel[2] = Double.parseDouble(v3);
         
         switch(name){
             case "Sun":
