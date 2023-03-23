@@ -51,8 +51,8 @@ public class DataGiver {
             file.close();
             return data;
         }
-    public  static CelestialBody[] GetP() throws IOException {
-        String[][] data = Data("C:\\Users\\User\\Documents\\Div\\Toon09-Crew17_spaceMission\\src\\main\\java\\com\\example\\planets\\innit_Pos.xlsx");
+    public  static CelestialBody[] GetP(String xs) throws IOException {
+        String[][] data = Data(xs);
 
             CelestialBody[] P = new CelestialBody[data.length];
             for (int i = 0; i < data.length; i++) {
