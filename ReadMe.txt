@@ -8,3 +8,4 @@ left arrow - rotate the universe left
 right arrow - rotate the universe left
 down arrow - rotate the universe left
 upper arrow - rotate the universe left
+L - focus on earth
