@@ -27,17 +27,18 @@ import java.util.TimerTask;
 
 //ToDo
 //add orbits
-//make buttons for other planets (titan, sun)
-//add button for axis
 //update the camera movement (figure out how to rotate with something else than 0/0/0 in the middle) -Jakub
 //set the planets sizes
 //better scale
+
+// extra stuff if we have time
+//add button for axis
 //make the sun shine
 //some glow around other planets (tried for the sun but it doesnt work)
 
 public class Merged extends Application {
     static Gravity0 model = new Gravity0(0, Math.PI / 2, new double[]{11, 11, 0});
-    private static int scale = 3000;
+    private static int scale = 200;
     private static int counter = 0;
     private int planetSize = 6371 / 2;
     private static boolean lookAtEarth = false;
@@ -166,9 +167,9 @@ public class Merged extends Application {
                     world.setTranslateZ(model.getBody(0).getPos()[2] / scale + 100000);
                 }
                 if (lookAtTitan) {
-                    world.setTranslateX(-model.getBody(8).getPos()[0] / scale + 1000);
-                    world.setTranslateY(-model.getBody(8).getPos()[1] / scale + 1000);
-                    world.setTranslateZ(model.getBody(8).getPos()[2] / scale + 100000);
+                    world.setTranslateX(-model.getBody(8).getPos()[0] / scale);
+                    world.setTranslateY(-model.getBody(8).getPos()[1] / scale);
+                    world.setTranslateZ(model.getBody(8).getPos()[2] / scale );
                 }
 
             }
@@ -223,7 +224,7 @@ public class Merged extends Application {
         sun.setRadius(planetSize);
         //glow
         Glow sunGlow = new Glow();
-        sunGlow.setLevel(10000);
+        sunGlow.setLevel(1000);
         //material for the sun
         sun.setEffect(sunGlow);
         PhongMaterial sunMaterial = new PhongMaterial();
@@ -328,7 +329,7 @@ public class Merged extends Application {
         //create titan
         Sphere titan = new Sphere();
         setPosition(titan, 8);
-        titan.setRadius(1000);
+        titan.setRadius(planetSize);
         //material for the titan
         PhongMaterial titanMaterial = new PhongMaterial();
         titanMaterial.setDiffuseMap(new Image("titanTexture.jpg"));
