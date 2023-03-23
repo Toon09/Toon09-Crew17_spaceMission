@@ -4,10 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="bab05458-8716-4abd-8f37-31e577e5aaab" name="Changes" comment="orbits and stuff">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/planets/Merged.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/planets/Merged.java" afterDir="false" />
-    </list>
+    <list default="true" id="bab05458-8716-4abd-8f37-31e577e5aaab" name="Changes" comment="path I guess" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -254,7 +251,21 @@
       <option name="project" value="LOCAL" />
       <updated>1679580574710</updated>
     </task>
-    <option name="localTasksCounter" value="16" />
+    <task id="LOCAL-00016" summary="path I guess">
+      <created>1679606392813</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1679606392813</updated>
+    </task>
+    <task id="LOCAL-00017" summary="path I guess">
+      <created>1679606407748</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1679606407748</updated>
+    </task>
+    <option name="localTasksCounter" value="18" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -280,7 +291,8 @@
     <MESSAGE value="moving violet rocket, working on rocketPath" />
     <MESSAGE value="added cameras for titan sun earth and buttons for them" />
     <MESSAGE value="orbits and stuff" />
-    <option name="LAST_COMMIT_MESSAGE" value="orbits and stuff" />
+    <MESSAGE value="path I guess" />
+    <option name="LAST_COMMIT_MESSAGE" value="path I guess" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

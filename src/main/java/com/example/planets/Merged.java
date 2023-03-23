@@ -246,7 +246,7 @@ public class Merged extends Application {
                     counter++;
                 }
             }
-        },20,2000);
+        },5,4000);
     }
 
     public static void main(String... args) {
