@@ -2,9 +2,6 @@ package com.example.planets;
 
 import com.example.planets.BackEnd.CelestialBody;
 import com.example.planets.BackEnd.Models.Gravity0;
-import javafx.animation.Animation;
-import javafx.animation.Interpolator;
-import javafx.animation.RotateTransition;
 import javafx.application.Application;
 import javafx.geometry.Point3D;
 import javafx.scene.*;
@@ -14,14 +11,10 @@ import javafx.scene.image.Image;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.PhongMaterial;
-import javafx.scene.shape.Box;
-import javafx.scene.shape.Cylinder;
-import javafx.scene.shape.Ellipse;
-import javafx.scene.shape.Sphere;
+import javafx.scene.shape.*;
 import javafx.scene.transform.Rotate;
 import javafx.scene.transform.Translate;
 import javafx.stage.Stage;
-import javafx.util.Duration;
 
 import java.util.Timer;
 import java.util.TimerTask;
@@ -234,13 +227,8 @@ public class Merged extends Application {
         earthMaterial.setDiffuseMap(new Image("earthTexture.jpg"));
         earth.setMaterial(earthMaterial);
         //earh orbit
-        Ellipse earthOrbit = new Ellipse();
-        earthOrbit.setCenterX(1000);
-        earthOrbit.setCenterY(0);
-        earthOrbit.setRadiusX(model.getBody(3).getPos()[0]/scale);
-        earthOrbit.setRadiusY(model.getBody(3).getPos()[1]/scale);
-        earthOrbit.setFill(Color.WHITE);
-        earthOrbit.setStrokeWidth(1000);
+
+
 
         // rotation for earth
 
@@ -357,7 +345,7 @@ public class Merged extends Application {
         rocketPath.setMaterial(rocketPathMaterial);
 
 
-        group.getChildren().addAll(sun, mercury, venus, earth, moon, mars, jupiter, saturn, titan, neptune, uranus, rocketBase, rocketPath,earthOrbit);
+        group.getChildren().addAll(sun, mercury, venus, earth, moon, mars, jupiter, saturn, titan, neptune, uranus, rocketBase, rocketPath);
 
         return group;
     }
