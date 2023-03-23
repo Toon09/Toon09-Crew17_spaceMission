@@ -51,6 +51,7 @@ public class Merged extends Application {
         Rotate worldRotY = new Rotate(0, Rotate.Y_AXIS);
         Translate worldTransX = new Translate();
         world.getTransforms().addAll(worldRotY, worldRotX);
+        boolean lookAtEarth = true;
         stage.addEventHandler(KeyEvent.KEY_PRESSED, event -> {
             switch (event.getCode()) {
                 case LEFT:
@@ -83,7 +84,19 @@ public class Merged extends Application {
                 case S:
                     world.setTranslateY(world.getTranslateY() - 1350);
                     break;
-
+                case O:
+                    System.out.println("camera at:");
+                    System.out.println("X: " + world.getTranslateX());
+                    System.out.println("Y: " + world.getTranslateY());
+                    System.out.println("Z: " + world.getTranslateZ());
+                    System.out.println("earth at: ");
+                    for (int i = 0; i < 3; i++) {
+                        System.out.println(model.getBody(3).getPos()[i] / scale);
+                    }
+                    break;
+                case P:
+                    System.exit(0);
+                    break;
             }
         });
         world.setTranslateZ(world.getTranslateZ() + 100000);
@@ -97,15 +110,19 @@ public class Merged extends Application {
         timer.schedule(new TimerTask() {
             @Override
             public void run() {
-                model.updatePos(0.1,0.1);
-                for (int i=0; i<12; i++){
-                    setPosition(world.getChildren().get(i),model.getBody(i));
-
+                model.updatePos(0.1, 0.1);
+                for (int i = 0; i < 12; i++) {
+                    setPosition(world.getChildren().get(i), model.getBody(i));
+                }
+                if (lookAtEarth) {
+                    world.setTranslateX(-model.getBody(3).getPos()[0]/scale+1000);
+                    world.setTranslateY(-model.getBody(3).getPos()[1]/scale+1000);
+                    world.setTranslateZ(model.getBody(3).getPos()[2]/scale+100000);
                 }
                 //System.out.println("earth at: "+Arrays.toString(model.getBody(3).getPos()));
                 //System.out.println("ship at: "+Arrays.toString(model.getBody(11).getPos()));
             }
-        }, 0, 1);
+        }, 1, 1);
     }
 
     public static void main(String... args) {
@@ -117,6 +134,13 @@ public class Merged extends Application {
         sphere.setTranslateY(body.getPos()[1] / scale);
         sphere.setTranslateZ(body.getPos()[2] / scale);
     }
+
+    public static void setPosition(Box box, CelestialBody body) {
+        box.setTranslateX(body.getPos()[0] / scale);
+        box.setTranslateY(body.getPos()[1] / scale);
+        box.setTranslateZ(body.getPos()[2] / scale);
+    }
+
     private Group buildAxes() {
         //green - y
         //blue -z
