@@ -2,6 +2,7 @@ package com.example.planets.BackEnd;
 
 import com.example.planets.BackEnd.Models.Gravity0;
 
+
 public class Spaceship extends CelestialBody {
     private double fuel;
     //speed limit is 60km/s (starting)
@@ -17,6 +18,12 @@ public class Spaceship extends CelestialBody {
         //add to its position
         this.addPos( new double[] { x, y, z } );
         this.addVel(addVel);
+    }
+
+
+    public Spaceship(double mass, double[] pos, double[] vel){
+        super(mass, pos, vel);
+        fuel = 100; //from 100 usage to 0, should be changed to litters later for more precision tho
     }
 
     //getter

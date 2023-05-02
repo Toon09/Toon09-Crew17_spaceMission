@@ -1,5 +1,6 @@
 package com.example.planets.BackEnd;
 
+
 //to create model of solar system
 public class CelestialBody {
 

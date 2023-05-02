@@ -10,9 +10,9 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Iterator;
 
-// TEST
 
 class NumericalExperiments {
 
@@ -20,138 +20,111 @@ class NumericalExperiments {
      * a simple experiment set up to check how things work so far, before improvements
      */
     public static void main(String[] args) throws IOException {
-        testing3D();
-    }
+        //experiment setup hyper parameters
+        double time = 5;
+        boolean isDay = true;
+        int checkInterval = 1; //every how many days do you want it to print the values
+        final int MARS = 4;
 
-    /*
-     * hohmann for going from planet to planet
-     */
+        //  testing models
+        ArrayList<Model3D> models = new ArrayList<Model3D>();
+        //models.add( new Gravity0( new Eulers() ) );
 
-    public  static void testHohmann(){
-        Gravity0 grav = new Gravity0();
+        //new Gravity0(0, Math.PI / 2.0, new double[]{11, 11, 0}, new RK2());
 
-
-    }
-    public static void testing3D() throws IOException {
-        Gravity0 grav = new Gravity0();
+        models.add( new Gravity0(0, Math.PI / 2.0, new double[]{11, 11, 0}, new RK2()) );
+        models.add( new Gravity0(new AB2()) );
 
 
-        FileInputStream file = new FileInputStream(new File(
-                "C:\\Users\\User\\Documents\\Div\\Toon09-Crew17_spaceMission\\src\\main\\java\\com\\example\\planets\\innit_Pos.xlsx"));
-        Workbook workbook = WorkbookFactory.create(file);
-        Sheet sheet = workbook.getSheetAt(0);
-        Iterator<Row> rowIterator = sheet.rowIterator();
-        int rows = sheet.getLastRowNum() + 1;
-        int columns = sheet.getRow(0).getLastCellNum();
-        String[][] data = new String[rows][columns];
-        int i = 0;
+        // benchmark model
+        Model3D benchmark = new Gravity0(new RK2());
 
-        while (rowIterator.hasNext()) {
-            Row row = rowIterator.next();
-            Iterator<Cell> cellIterator = row.cellIterator();
-            int j = 0;
+        double testDt = 0.1;
+        double benchmarkPrecision = 0.1;
 
-            while (cellIterator.hasNext()) {
-                Cell cell = cellIterator.next();
-                data[i][j] = cell.toString();
-                System.out.print(data[i][j] + " ");
-                j++;
+        //test details
+        System.out.println("target planet: MARS");
+        System.out.println("test precision: " + testDt);
+        System.out.println("benchmark precision: " + benchmarkPrecision);
+        System.out.println("benchmark model: " + benchmark.getSolverName() + "\n");
+
+        double[][] errors = new double[models.size()][3];
+
+        //using mars
+        for (int i = 0; i < time; i++) {
+            //benchmark precision
+            benchmark.updatePos(1, benchmarkPrecision, isDay);
+
+            // update all models positions
+            for (int j = 0; j < models.size(); j++) {
+                models.get(j).updatePos(1, testDt, isDay);
             }
 
-            i++;
-        }
 
-        workbook.close();
-
-
-        Double[][] data2 = new Double[rows][columns];
-        for (int k = 0; k < rows; k++) {
-            for (int l = 0; l < columns; l++) {
-                data2[k][l] = Double.parseDouble(data[k][l]);
+            //calculae errors
+            for (int j = 0; j < models.size(); j++) {
+                errors[j][0] = benchmark.getBody(MARS).getPos()[0] - models.get(j).getBody(MARS).getPos()[0];
+                errors[j][1] = benchmark.getBody(MARS).getPos()[1] - models.get(j).getBody(MARS).getPos()[1];
+                errors[j][2] = benchmark.getBody(MARS).getPos()[2] - models.get(j).getBody(MARS).getPos()[2];
             }
+
+
+            //prints
+            if ((i + 1) % checkInterval == 0) {
+                System.out.println("Day: " + (i + 1) + "\n");
+
+                for (int j = 0; j < models.size(); j++) {
+                    System.out.println(models.get(j).getSolverName() + "\nError= X: " + errors[j][0] + "; Y: " + errors[j][1] + "; Z: " + errors[j][2] + "\n");
+                }
+
+                System.out.println("\n\n");
+            }
+
+
         }
 
 
-
-
-    /*
-     * write names of planets
-     * write their radiuses as well
-     */
-
-
-}
-        //System.out.println(Gravity0.positions.length);
-        //CelestialBody[] bodies = new CelestialBody[ Gravity0.positions.length ];
-        //for(int i=0; i<bodies.length; i++){
-        //    bodies[i] = new CelestialBody(Gravity0.names[i], Gravity0.mass[i][0], Gravity0.positions[i], Gravity0.velocity[i]);
-        //}
-
-        //grav.addBody(bodies);
-
-
-
-        // F_g = Gm1m2/dist^2 = 0
-
-        //Vesc = sqrt( 2GM_titan/r_titan&rock )
-
-
-        ////////////////////////////// parameters
-        double dt = 1;
-        long days = 10;
-        //earth is index 3
-
-        //with any dt days/execution time ratio remains mostly constant
-        //time to execution time ratio is approx 1.6666 for dt=0.1
-        
-
-
-
-    public static void testing1D(){
-        Model1D simple = new simple2(0, 8, 1);
-
-        int size = 1000;
-        double dx = 0.001;
-        
-        double[][] errors = new double[2][size];
-
-        //test
-        System.out.println("approx");
-        for(int i=0; i<size; i++){
-            errors[0][i] = Eulers._2DegStep1D(simple, dx);
-            System.out.println(simple.getX() + ", " + errors[0][i]);
         }
-        System.out.println("\n");
+        public static void excelTest() throws IOException {
+            Gravity0 grav = new Gravity0();
 
 
-        //solution for test
-        System.out.println("solution: y(x) = 3*e^t-2"); 
-        //found with walfram alpha
-        // https://www.wolframalpha.com/input?i=y%27+%3D+2+%2B+y%2C+y%280%29+%3D+1
+            FileInputStream file = new FileInputStream(new File(
+                    "C:\\Users\\User\\Documents\\Div\\Toon09-Crew17_spaceMission\\src\\main\\java\\com\\example\\planets\\innit_Pos.xlsx"));
+            Workbook workbook = WorkbookFactory.create(file);
+            Sheet sheet = workbook.getSheetAt(0);
+            Iterator<Row> rowIterator = sheet.rowIterator();
+            int rows = sheet.getLastRowNum() + 1;
+            int columns = sheet.getRow(0).getLastCellNum();
+            String[][] data = new String[rows][columns];
+            int i = 0;
 
-        double x = 0;
-        for(int i=0; i<size; i++){
-            x+=dx;
-            errors[1][i] = 7 * Math.exp(x) - 6;
-            //System.out.println( x + ", " + errors[1][i] );
+            while (rowIterator.hasNext()) {
+                Row row = rowIterator.next();
+                Iterator<Cell> cellIterator = row.cellIterator();
+                int j = 0;
+
+                while (cellIterator.hasNext()) {
+                    Cell cell = cellIterator.next();
+                    data[i][j] = cell.toString();
+                    System.out.print(data[i][j] + " ");
+                    j++;
+                }
+
+                i++;
+            }
+
+            workbook.close();
+
+            Double[][] data2 = new Double[rows][columns];
+            for(int k = 0; k < rows; k++) {
+                for (int l = 0; l < columns; l++) {
+                    data2[k][l] = Double.parseDouble(data[k][l]);
+                }
+            }
+
         }
-        System.out.println("\n");
 
-
-        //error finding
-        x = 0;
-        System.out.println("Errors");
-        for(int i=0; i<size; i++){
-            //System.out.println( x + ", " + (errors[0][i] - errors[1][i])/errors[1][i] );
-            x+=dx;
-        }
-    }
-
-
-    /*
-     * write names of planets
-     * write their radiuses as well
-     */
 
 
 }

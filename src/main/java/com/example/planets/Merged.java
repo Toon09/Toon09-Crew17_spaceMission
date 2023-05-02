@@ -2,6 +2,7 @@ package com.example.planets;
 
 import com.example.planets.BackEnd.CelestialBody;
 import com.example.planets.BackEnd.Models.Gravity0;
+import com.example.planets.BackEnd.NumericalMethods.RK2;
 import javafx.animation.Animation;
 import javafx.animation.Interpolator;
 import javafx.animation.RotateTransition;
@@ -37,7 +38,7 @@ import java.util.TimerTask;
 //some glow around other planets (tried for the sun but it doesnt work)
 
 public class Merged extends Application {
-    static Gravity0 model = new Gravity0(0, Math.PI / 2, new double[]{11, 11, 0});
+    static Gravity0 model = new Gravity0(0, Math.PI / 2.0, new double[]{11, 11, 0}, new RK2()); /////////////
     private static int scale = 25;
     private static int smallScale = 25;
     private static int bigScale = 3000;
@@ -203,7 +204,7 @@ public class Merged extends Application {
         timer.schedule(new TimerTask() {
             @Override
             public void run() {
-                model.updatePos(0.1, 0.1);
+                model.updatePos(0.1, 0.1, true);
                 for (int i = 0; i < 12; i++) {
                     setPosition(world.getChildren().get(i), model.getBody(i));
                 }

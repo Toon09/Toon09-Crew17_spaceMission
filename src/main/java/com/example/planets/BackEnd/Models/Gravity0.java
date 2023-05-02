@@ -1,31 +1,56 @@
 package com.example.planets.BackEnd.Models;
 
 import com.example.planets.BackEnd.CelestialBody;
-import com.example.planets.BackEnd.NumericalMethods.Eulers;
+import com.example.planets.BackEnd.NumericalMethods.NumSolver;
 import com.example.planets.BackEnd.Spaceship;
+
 
 public class Gravity0 implements Model3D {
     public static final double G = 6.6743 * Math.pow(10, -20);
     private CelestialBody[] bodies;
+    private NumSolver numSolver;
 
     public Gravity0(){
-
         this.bodies = new CelestialBody[ positions.length ];
         for(int i=0; i<this.bodies.length; i++){
-            this.bodies[i] = new CelestialBody(this.names[i], this.mass[i], this.positions[i], this.velocity[i]) ;
+            this.bodies[i] = new CelestialBody(names[i], mass[i], positions[i], velocity[i]) ;
         }
-
-
-        Spaceship ship = new Spaceship(50000, positions[3], velocity[3], 0, 0, new double[] {0, 0, 0});
-        this.addBody(ship);
 
     }
 
-    public Gravity0(double theta, double phi, double[] rocketVel){
+    public Gravity0(NumSolver numSolver){
+        this.numSolver = numSolver;
 
         this.bodies = new CelestialBody[ positions.length ];
         for(int i=0; i<this.bodies.length; i++){
-            this.bodies[i] = new CelestialBody(this.names[i], this.mass[i], this.positions[i], this.velocity[i]) ;
+            this.bodies[i] = new CelestialBody(names[i], mass[i], positions[i], velocity[i]) ;
+        }
+
+    }
+
+    
+    public Gravity0(CelestialBody[] bodies, NumSolver numSolver){
+        this.numSolver = numSolver;
+
+        this.bodies = new CelestialBody[ positions.length ];
+        for(int i=0; i<this.size(); i++){
+            if( bodies[i] instanceof Spaceship ){
+                this.bodies[i] = new CelestialBody(bodies[i].getMass(), bodies[i].getPos(), bodies[i].getVel());
+            }else {
+                this.bodies[i] = new CelestialBody(bodies[i].getName(), bodies[i].getMass(), bodies[i].getPos(), bodies[i].getVel());
+            }
+
+        }
+
+    }
+
+    public Gravity0(double theta, double phi, double[] rocketVel, NumSolver numSolver){
+
+        this.numSolver = numSolver;
+
+        this.bodies = new CelestialBody[ positions.length ];
+        for(int i=0; i<this.bodies.length; i++){
+            this.bodies[i] = new CelestialBody(names[i], mass[i], positions[i], velocity[i]) ;
         }
 
 
@@ -33,20 +58,49 @@ public class Gravity0 implements Model3D {
         this.addBody(ship);
     }
 
-    public  Gravity0(boolean comoEstas){
-        this.bodies = new CelestialBody[0];
-    }
 
     public Spaceship getShip(){
         return (Spaceship) this.getBody( this.size() -1);
     }
 
+    @Override
+    public void setSolver(NumSolver numSolver) {
+        this.numSolver = numSolver;
+    }
+
 
     //days is how many days to compute at a time
-    public void updatePos(double days, double dt){
-        for(int i=0; i<CelestialBody.daysToSec(days)/dt; i++ ){
-            Eulers.step3D(this, dt);
+    @Override
+    public void updatePos(double time, double dt, boolean days){
+        _2Deriv(); //gets the acceleration at the starting point so that the velocity doesnt take the acc as 0 at the start
+
+        //uses the unit of days to calculate how long to run the simulation for
+        if( days ){
+            for(int i=0; i<CelestialBody.daysToSec(time)/dt; i++ )
+                numSolver.step(this, dt);
+        //uses seconds to calculate how long to run
+        }else{
+            for(int i=0; i<time/dt; i++ )
+                numSolver.step(this, dt);
+            
         }
+
+        
+    }
+
+    @Override
+    public double[][][] getState() {
+        double[][][] result = new double[this.size()][3/*0:acc, 1:vel, 2:pos*/][3/*x,y,z*/];
+
+        //every body
+        for(int i=0; i<this.size(); i++){
+            result[i][0] = this.getAcc(i);
+            result[i][1] = this.getVel(i);
+            result[i][2] = this.getPos(i);
+        }
+
+        return result;
+
     }
 
     //make function that returns the rocket
@@ -134,11 +188,40 @@ public class Gravity0 implements Model3D {
 
     }
 
+    //update derivs individually
+    @Override
+    public double[] _2DerivInd(int index) {
+        //must sum up all values of gravities with all other bodies
+
+        double dist=0;
+
+        double[] result = {0,0,0};
+
+        bodies[index].setAcc(new double[] {0,0,0}); //reset to 0  
+        for(int j=0; j<bodies.length; j++){
+            if(j==index){
+                continue;
+            }       
+            //calc distance between 2
+            dist = CelestialBody.getDistance(bodies[index], bodies[j]);
+            dist = dist*dist*dist;      
+            //adding in dims
+            result[0] = bodies[index].getAcc()[0] + G*bodies[j].getMass()* (bodies[j].getPos()[0] - bodies[index].getPos()[0])/dist; 
+            result[1] = bodies[index].getAcc()[1] + G*bodies[j].getMass()* (bodies[j].getPos()[1] - bodies[index].getPos()[1])/dist;
+            result[2] = bodies[index].getAcc()[2] + G*bodies[j].getMass()* (bodies[j].getPos()[2] - bodies[index].getPos()[2])/dist; 
+
+        }
+
+        return result;
+
+    }
+
 
     @Override
-    public void _1Deriv() {
-        //second order model so nothing to update
+    public String getSolverName() {
+        return numSolver.getName();
     }
+
 
     @Override
     public String toString() {
@@ -148,6 +231,11 @@ public class Gravity0 implements Model3D {
         }
 
         return result;
+    }
+
+    @Override
+    public Model3D clone(NumSolver numSolver) {
+        return new Gravity0(bodies, numSolver); //////////////// PROBLEM
     }
 
     public static double[][] positions = { { 0, 0, 0 }, { 7.83e6, 4.49e7, 2.87e6 }, { -2.82e7, 1.04e8, 3.01e6 },
@@ -168,5 +256,7 @@ public class Gravity0 implements Model3D {
 
     public static String[] names = {"sun", "Mercury", "Venus", "Earth", "Moon", "Mars", "Jupiter",
                                      "Saturn", "Titan", "Neptune", "Uranus"};
+
+
 
 }
