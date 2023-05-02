@@ -10,13 +10,6 @@ public class Gravity0 implements Model3D {
     private CelestialBody[] bodies;
     private NumSolver numSolver;
 
-    public Gravity0(){
-        this.bodies = new CelestialBody[ positions.length ];
-        for(int i=0; i<this.bodies.length; i++){
-            this.bodies[i] = new CelestialBody(names[i], mass[i], positions[i], velocity[i]) ;
-        }
-
-    }
 
     public Gravity0(NumSolver numSolver){
         this.numSolver = numSolver;
@@ -32,10 +25,10 @@ public class Gravity0 implements Model3D {
     public Gravity0(CelestialBody[] bodies, NumSolver numSolver){
         this.numSolver = numSolver;
 
-        this.bodies = new CelestialBody[ positions.length ];
-        for(int i=0; i<this.size(); i++){
+        this.bodies = new CelestialBody[ positions.length+1 ];
+        for(int i=0; i<bodies.length; i++){
             if( bodies[i] instanceof Spaceship ){
-                this.bodies[i] = new CelestialBody(bodies[i].getMass(), bodies[i].getPos(), bodies[i].getVel());
+                this.bodies[i] = new Spaceship(bodies[i].getMass(), bodies[i].getPos(), bodies[i].getVel());
             }else {
                 this.bodies[i] = new CelestialBody(bodies[i].getName(), bodies[i].getMass(), bodies[i].getPos(), bodies[i].getVel());
             }
@@ -48,14 +41,12 @@ public class Gravity0 implements Model3D {
 
         this.numSolver = numSolver;
 
-        this.bodies = new CelestialBody[ positions.length ];
-        for(int i=0; i<this.bodies.length; i++){
+        this.bodies = new CelestialBody[ positions.length+1 ];
+        for(int i=0; i<this.bodies.length-1; i++){
             this.bodies[i] = new CelestialBody(names[i], mass[i], positions[i], velocity[i]) ;
         }
+        this.bodies[ this.bodies.length-1 ] = new Spaceship(50000, positions[3], velocity[3], 0, 0, rocketVel);
 
-
-        Spaceship ship = new Spaceship(50000, positions[3], velocity[3], 0, 0, rocketVel);
-        this.addBody(ship);
     }
 
 
@@ -168,9 +159,7 @@ public class Gravity0 implements Model3D {
             bodies[i].setAcc(new double[] {0,0,0}); //reset to 0
 
             for(int j=0; j<bodies.length; j++){
-                if(j==i){
-                    continue;
-                }
+                if(j==i){ continue; }
 
                 //calc distance between 2
                 dist = CelestialBody.getDistance(bodies[i], bodies[j]);
@@ -235,7 +224,7 @@ public class Gravity0 implements Model3D {
 
     @Override
     public Model3D clone(NumSolver numSolver) {
-        return new Gravity0(bodies, numSolver); //////////////// PROBLEM
+        return new Gravity0(this.bodies, numSolver); //////////////// PROBLEM
     }
 
     public static double[][] positions = { { 0, 0, 0 }, { 7.83e6, 4.49e7, 2.87e6 }, { -2.82e7, 1.04e8, 3.01e6 },

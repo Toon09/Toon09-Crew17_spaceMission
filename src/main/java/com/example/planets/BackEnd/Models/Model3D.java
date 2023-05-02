@@ -31,7 +31,7 @@ public interface Model3D {
     public double[][][] getState(); //returns all values of velicity and acceleration in an ordered format
 
     //updating
-    public void updatePos(double time, double dt, boolean days);
+    public void updatePos(double time, double dt, boolean inDays);
 
     
 }

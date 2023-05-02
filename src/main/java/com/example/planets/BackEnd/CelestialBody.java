@@ -4,7 +4,7 @@ package com.example.planets.BackEnd;
 //to create model of solar system
 public class CelestialBody {
 
-    protected String name = "Pedro";
+    protected String name = "Ship";
     protected double mass = 0;
     protected double radius = 0;
 

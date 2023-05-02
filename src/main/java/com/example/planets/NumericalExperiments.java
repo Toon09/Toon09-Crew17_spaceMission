@@ -1,6 +1,5 @@
 package com.example.planets;
 
-import com.example.planets.BackEnd.CelestialBody;
 import com.example.planets.BackEnd.Models.*;
 import com.example.planets.BackEnd.NumericalMethods.*;
 import org.apache.poi.ss.usermodel.*;
@@ -19,7 +18,7 @@ class NumericalExperiments {
     /*
      * a simple experiment set up to check how things work so far, before improvements
      */
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) {
         //experiment setup hyper parameters
         double time = 5;
         boolean isDay = true;
@@ -28,16 +27,16 @@ class NumericalExperiments {
 
         //  testing models
         ArrayList<Model3D> models = new ArrayList<Model3D>();
-        //models.add( new Gravity0( new Eulers() ) );
+
 
         //new Gravity0(0, Math.PI / 2.0, new double[]{11, 11, 0}, new RK2());
-
-        models.add( new Gravity0(0, Math.PI / 2.0, new double[]{11, 11, 0}, new RK2()) );
-        models.add( new Gravity0(new AB2()) );
+        models.add( new Gravity0(0, Math.PI / 2.0, new double[]{11, 11, 0}, new RK2(Math.sqrt(2))) );
+        models.add( new Gravity0( 0, Math.PI / 2.0, new double[]{11, 11, 0}, new AB2() ) );
+        models.add( new Gravity0( 0, Math.PI / 2.0, new double[]{11, 11, 0}, new Euler() ) );
 
 
         // benchmark model
-        Model3D benchmark = new Gravity0(new RK2());
+        Model3D benchmark = new Gravity0( 0, Math.PI / 2.0, new double[]{11, 11, 0}, new RK2() );
 
         double testDt = 0.1;
         double benchmarkPrecision = 0.1;
@@ -56,8 +55,8 @@ class NumericalExperiments {
             benchmark.updatePos(1, benchmarkPrecision, isDay);
 
             // update all models positions
-            for (int j = 0; j < models.size(); j++) {
-                models.get(j).updatePos(1, testDt, isDay);
+            for (Model3D model : models) {
+                model.updatePos(1, testDt, isDay);
             }
 
 
@@ -86,7 +85,7 @@ class NumericalExperiments {
 
         }
         public static void excelTest() throws IOException {
-            Gravity0 grav = new Gravity0();
+            Gravity0 grav = new Gravity0(new Euler());
 
 
             FileInputStream file = new FileInputStream(new File(
