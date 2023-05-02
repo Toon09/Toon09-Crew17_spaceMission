@@ -5,14 +5,29 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="bab05458-8716-4abd-8f37-31e577e5aaab" name="Changes" comment="Numerical method functioning">
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/planets/BackEnd/CelestialEntities/Planning.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/planets/BackEnd/CelestialBody.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/planets/BackEnd/CelestialBody.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/planets/BackEnd/CelestialBody.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/planets/BackEnd/CelestialEntities/CelestialBody.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/planets/BackEnd/DataGiver.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/planets/BackEnd/DataGiver.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/planets/BackEnd/Models/Gravity0.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/planets/BackEnd/Models/Gravity0.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/planets/BackEnd/Models/Model3D.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/planets/BackEnd/Models/Model3D.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/planets/BackEnd/NumericalMethods/AB2.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/planets/BackEnd/NumericalMethods/AB2.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/planets/BackEnd/NumericalMethods/Euler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/planets/BackEnd/NumericalMethods/Euler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/planets/BackEnd/NumericalMethods/RK2.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/planets/BackEnd/NumericalMethods/RK2.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/planets/BackEnd/Spaceship.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/planets/BackEnd/CelestialEntities/Spaceship.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/planets/Merged.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/planets/Merged.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/planets/NumericalExperiments.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/planets/NumericalExperiments.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/example/planets/BackEnd/CelestialBody.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/planets/BackEnd/CelestialBody.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/planets/BackEnd/CelestialBody.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/planets/BackEnd/DataGiver.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/planets/BackEnd/DataGiver.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/com/example/planets/BackEnd/Models/Gravity0.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/planets/BackEnd/Models/Gravity0.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/example/planets/BackEnd/NumericalMethods/Eulers.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/planets/BackEnd/Models/Model3D.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/planets/BackEnd/Models/Model3D.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/planets/BackEnd/NumericalMethods/AB2.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/planets/BackEnd/NumericalMethods/AB2.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/planets/BackEnd/NumericalMethods/Euler.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/planets/BackEnd/NumericalMethods/Euler.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/planets/BackEnd/NumericalMethods/RK2.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/planets/BackEnd/NumericalMethods/RK2.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/planets/BackEnd/Spaceship.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/planets/Merged$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/planets/Merged$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/planets/Merged$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/planets/Merged$2.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/planets/Merged.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/planets/Merged.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/com/example/planets/NumericalExperiments.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/planets/NumericalExperiments.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -72,7 +87,7 @@
       <recent name="C:\Users\suszw\Desktop\uni\year_1\Period4\plswork\src\main\java\com\example\planets" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.NumericalExperiments">
+  <component name="RunManager" selected="Application.Merged">
     <configuration name="GUI" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="com.example.planets.GUI" />
       <module name="Planets" />
@@ -127,8 +142,8 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.NumericalExperiments" />
         <item itemvalue="Application.Merged" />
+        <item itemvalue="Application.NumericalExperiments" />
         <item itemvalue="Application.GUI" />
         <item itemvalue="Application.Main" />
       </list>
@@ -290,7 +305,21 @@
       <option name="project" value="LOCAL" />
       <updated>1683042945595</updated>
     </task>
-    <option name="localTasksCounter" value="21" />
+    <task id="LOCAL-00021" summary="Numerical method functioning">
+      <created>1683046465497</created>
+      <option name="number" value="00021" />
+      <option name="presentableId" value="LOCAL-00021" />
+      <option name="project" value="LOCAL" />
+      <updated>1683046465497</updated>
+    </task>
+    <task id="LOCAL-00022" summary="Numerical method functioning">
+      <created>1683046502523</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1683046502523</updated>
+    </task>
+    <option name="localTasksCounter" value="23" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

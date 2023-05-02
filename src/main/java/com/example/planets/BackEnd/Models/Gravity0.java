@@ -1,8 +1,8 @@
 package com.example.planets.BackEnd.Models;
 
-import com.example.planets.BackEnd.CelestialBody;
+import com.example.planets.BackEnd.CelestialEntities.CelestialBody;
 import com.example.planets.BackEnd.NumericalMethods.NumSolver;
-import com.example.planets.BackEnd.Spaceship;
+import com.example.planets.BackEnd.CelestialEntities.Spaceship;
 
 
 public class Gravity0 implements Model3D {
@@ -49,9 +49,12 @@ public class Gravity0 implements Model3D {
 
     }
 
-
+    @Override
     public Spaceship getShip(){
-        return (Spaceship) this.getBody( this.size() -1);
+        if(this.getBody( this.size() -1) instanceof  Spaceship)
+            return (Spaceship) this.getBody( this.size() -1);
+        else
+            return null;
     }
 
     @Override
@@ -63,7 +66,7 @@ public class Gravity0 implements Model3D {
     //days is how many days to compute at a time
     @Override
     public void updatePos(double time, double dt, boolean days){
-        _2Deriv(); //gets the acceleration at the starting point so that the velocity doesnt take the acc as 0 at the start
+        hDeriv(); //gets the acceleration at the starting point so that the velocity doesnt take the acc as 0 at the start
 
         //uses the unit of days to calculate how long to run the simulation for
         if( days ){
@@ -95,8 +98,9 @@ public class Gravity0 implements Model3D {
     }
 
     //make function that returns the rocket
-
+    @Override
     public CelestialBody getBody(int index){ return bodies[index]; }
+    @Override
     public int size(){ return bodies.length; }
 
     //only for 1 body
@@ -151,7 +155,7 @@ public class Gravity0 implements Model3D {
 
     //upates all derivs
     @Override
-    public void _2Deriv() {
+    public void hDeriv() {
         //must sum up all values of gravities with all other bodies
 
         double dist=0;
@@ -159,7 +163,7 @@ public class Gravity0 implements Model3D {
             bodies[i].setAcc(new double[] {0,0,0}); //reset to 0
 
             for(int j=0; j<bodies.length; j++){
-                if(j==i){ continue; }
+                if(j==i || bodies[j] instanceof  Spaceship){ continue; }
 
                 //calc distance between 2
                 dist = CelestialBody.getDistance(bodies[i], bodies[j]);
@@ -172,36 +176,7 @@ public class Gravity0 implements Model3D {
 
             }
 
-
         }
-
-    }
-
-    //update derivs individually
-    @Override
-    public double[] _2DerivInd(int index) {
-        //must sum up all values of gravities with all other bodies
-
-        double dist=0;
-
-        double[] result = {0,0,0};
-
-        bodies[index].setAcc(new double[] {0,0,0}); //reset to 0  
-        for(int j=0; j<bodies.length; j++){
-            if(j==index){
-                continue;
-            }       
-            //calc distance between 2
-            dist = CelestialBody.getDistance(bodies[index], bodies[j]);
-            dist = dist*dist*dist;      
-            //adding in dims
-            result[0] = bodies[index].getAcc()[0] + G*bodies[j].getMass()* (bodies[j].getPos()[0] - bodies[index].getPos()[0])/dist; 
-            result[1] = bodies[index].getAcc()[1] + G*bodies[j].getMass()* (bodies[j].getPos()[1] - bodies[index].getPos()[1])/dist;
-            result[2] = bodies[index].getAcc()[2] + G*bodies[j].getMass()* (bodies[j].getPos()[2] - bodies[index].getPos()[2])/dist; 
-
-        }
-
-        return result;
 
     }
 
@@ -224,7 +199,7 @@ public class Gravity0 implements Model3D {
 
     @Override
     public Model3D clone(NumSolver numSolver) {
-        return new Gravity0(this.bodies, numSolver); //////////////// PROBLEM
+        return new Gravity0(this.bodies, numSolver);
     }
 
     public static double[][] positions = { { 0, 0, 0 }, { 7.83e6, 4.49e7, 2.87e6 }, { -2.82e7, 1.04e8, 3.01e6 },

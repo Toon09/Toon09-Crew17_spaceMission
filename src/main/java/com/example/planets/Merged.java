@@ -1,6 +1,6 @@
 package com.example.planets;
 
-import com.example.planets.BackEnd.CelestialBody;
+import com.example.planets.BackEnd.CelestialEntities.CelestialBody;
 import com.example.planets.BackEnd.Models.Gravity0;
 import com.example.planets.BackEnd.NumericalMethods.RK2;
 import javafx.animation.Animation;

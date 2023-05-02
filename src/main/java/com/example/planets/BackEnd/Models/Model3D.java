@@ -1,6 +1,7 @@
 package com.example.planets.BackEnd.Models;
 
-import com.example.planets.BackEnd.CelestialBody;
+import com.example.planets.BackEnd.CelestialEntities.CelestialBody;
+import com.example.planets.BackEnd.CelestialEntities.Spaceship;
 import com.example.planets.BackEnd.NumericalMethods.NumSolver;
 
 public interface Model3D {
@@ -22,11 +23,11 @@ public interface Model3D {
 
     //elements
     public CelestialBody getBody(int index);
+    public Spaceship getShip();
     public int size();
 
     //derivs
-    public void _2Deriv();
-    public double[] _2DerivInd(int index); //gets the values of the second derivative per individual celestial body
+    public void hDeriv();
     public Model3D clone(NumSolver numSolver);
     public double[][][] getState(); //returns all values of velicity and acceleration in an ordered format
 

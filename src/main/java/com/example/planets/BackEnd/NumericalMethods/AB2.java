@@ -45,7 +45,7 @@ public class AB2 implements NumSolver {
         }
 
         //update acc
-        model._2Deriv();
+        model.hDeriv();
 
         //adds time
         model.addDt(dt);

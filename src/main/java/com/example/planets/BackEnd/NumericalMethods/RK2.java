@@ -43,10 +43,18 @@ public class RK2 implements NumSolver {
         }
 
         //update acceleration
-        model._2Deriv();
+        model.hDeriv();
 
         //adds time
         model.addDt(dt);
+
+        //update for trajectory changes of ship
+        // trajectory changes, right after current acc is calculated
+        if( model.getShip().trajectoryChangeCondition(model) ){
+            //the magnitutes and such can be saved in another class and this call can be emptied out
+            //the values can be saved in an array of sorts
+            model.getShip().accelerate(dt);
+        }
 
 
     }

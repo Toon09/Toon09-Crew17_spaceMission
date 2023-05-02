@@ -15,10 +15,17 @@ import java.util.Iterator;
 
 class NumericalExperiments {
 
-    /*
-     * a simple experiment set up to check how things work so far, before improvements
-     */
+
     public static void main(String[] args) {
+        //comparingToEachOther();
+    }
+
+    public static void engineTest() {
+
+    }
+
+
+    public static void comparingToEachOther() {
         //experiment setup hyper parameters
         double time = 5;
         boolean isDay = true;

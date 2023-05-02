@@ -1,4 +1,4 @@
-package com.example.planets.BackEnd;
+package com.example.planets.BackEnd.CelestialEntities;
 
 
 //to create model of solar system
