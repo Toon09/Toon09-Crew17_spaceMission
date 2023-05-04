@@ -3,7 +3,9 @@ package com.example.planets;
 import com.example.planets.BackEnd.CelestialEntities.CelestialBody;
 import com.example.planets.BackEnd.Models.Gravity0;
 import com.example.planets.BackEnd.NumericalMethods.RK2;
-import javafx.animation.*;
+import javafx.animation.Animation;
+import javafx.animation.Interpolator;
+import javafx.animation.RotateTransition;
 import javafx.application.Application;
 import javafx.geometry.Point3D;
 import javafx.scene.*;
@@ -11,16 +13,27 @@ import javafx.scene.control.Label;
 import javafx.scene.effect.Glow;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.paint.*;
-import javafx.scene.shape.*;
-import javafx.scene.transform.*;
+import javafx.scene.paint.Color;
+import javafx.scene.paint.PhongMaterial;
+import javafx.scene.shape.Box;
+import javafx.scene.shape.Cylinder;
+import javafx.scene.shape.Sphere;
+import javafx.scene.transform.Rotate;
+import javafx.scene.transform.Translate;
 import javafx.stage.Stage;
 import javafx.util.Duration;
-import java.util.*;
+
+import java.util.Timer;
+import java.util.TimerTask;
+
+//ToDo
+//add a spaceship model
+//fix the spaceship camera
+//maybe add a camera on the whole solar system
 
 public class Merged extends Application {
-    static Gravity0 model = new Gravity0(0, Math.PI / 2.0, new double[]{11, 11, 0}, new RK2());
-    private static int scale = 20;
+    static Gravity0 model = new Gravity0(0, Math.PI / 2.0, new double[]{11, 11, 0}, new RK2()); /////////////
+    private static int scale = 25;
     private static int smallScale = 25;
     private static int bigScale = 3000;
     private static int counter = 0;
@@ -55,36 +68,36 @@ public class Merged extends Application {
         camera.getTransforms().addAll(worldRotY, worldRotX);
         stage.addEventHandler(KeyEvent.KEY_PRESSED, event -> {
             switch (event.getCode()) {
-                case LEFT:
-                    worldRotY.setAngle(worldRotY.getAngle() - 20);
-                    break;
-                case RIGHT:
-                    worldRotY.setAngle(worldRotY.getAngle() + 20);
-                    break;
-                case UP:
-                    worldRotX.setAngle(worldRotX.getAngle() - 20);
-                    break;
-                case DOWN:
-                    worldRotX.setAngle(worldRotX.getAngle() + 20);
-                    break;
-                case X: //shift/Control is for z
-                    camera.setTranslateZ(camera.getTranslateZ() - 3500);
-                    break;
-                case Z:
-                    camera.setTranslateZ(camera.getTranslateZ() + 3500);
-                    break;
-                case A:// a/d is x axis
-                    camera.setTranslateX(camera.getTranslateX() - 1350);
-                    break;
-                case D:
-                    camera.setTranslateX(camera.getTranslateX() + 1350);
-                    break;
-                case W:// w/s is for y axis
-                    camera.setTranslateY(camera.getTranslateY() - 1350);
-                    break;
-                case S:
-                    camera.setTranslateY(camera.getTranslateY() + 1350);
-                    break;
+//                case LEFT:
+//                    worldRotY.setAngle(worldRotY.getAngle() - 20);
+//                    break;
+//                case RIGHT:
+//                    worldRotY.setAngle(worldRotY.getAngle() + 20);
+//                    break;
+//                case UP:
+//                    worldRotX.setAngle(worldRotX.getAngle() - 20);
+//                    break;
+//                case DOWN:
+//                    worldRotX.setAngle(worldRotX.getAngle() + 20);
+//                    break;
+//                case X: //shift/Control is for z
+//                    camera.setTranslateZ(camera.getTranslateZ() - 3500);
+//                    break;
+//                case Z:
+//                    camera.setTranslateZ(camera.getTranslateZ() + 3500);
+//                    break;
+//                case A:// a/d is x axis
+//                    camera.setTranslateX(camera.getTranslateX() - 1350);
+//                    break;
+//                case D:
+//                    camera.setTranslateX(camera.getTranslateX() + 1350);
+//                    break;
+//                case W:// w/s is for y axis
+//                    camera.setTranslateY(camera.getTranslateY() - 1350);
+//                    break;
+//                case S:
+//                    camera.setTranslateY(camera.getTranslateY() + 1350);
+//                    break;
                 case O:
                     System.out.println("camera at:");
                     System.out.println("X: " + camera.getTranslateX());
@@ -103,9 +116,9 @@ public class Merged extends Application {
                     System.exit(0);
                     break;
                 case DIGIT1:
-                    if (lookAtEarth) {
-                        lookAtEarth = false;
-                    } else {
+//                    if (lookAtEarth) {
+//                        lookAtEarth = false;
+//                    } else {
                         world.getChildren().get(7).setVisible(true);
                         scale = smallScale;
                         lookAtEarth = true;
@@ -113,12 +126,12 @@ public class Merged extends Application {
                         lookAtSun = false;
                         lookatEverything = false;
                         lookAtSpaceship = false;
-                    }
+//                    }
                     break;
                 case DIGIT2:
-                    if (lookAtSun) {
-                        lookAtSun = false;
-                    } else {
+//                    if (lookAtSun) {
+//                        lookAtSun = false;
+//                    } else {
                         world.getChildren().get(7).setVisible(true);
                         scale = smallScale;
                         lookAtSun = true;
@@ -127,12 +140,12 @@ public class Merged extends Application {
                         lookatEverything = false;
                         lookAtSpaceship = false;
 
-                    }
+//                   }
                     break;
                 case DIGIT3:
-                    if (lookAtTitan) {
-                        lookAtTitan = false;
-                    } else {
+//                    if (lookAtTitan) {
+//                        lookAtTitan = false;
+//                    } else {
                         world.getChildren().get(7).setVisible(true);
                         scale = smallScale;
                         lookAtTitan = true;
@@ -141,14 +154,14 @@ public class Merged extends Application {
                         lookatEverything = false;
                         lookAtSpaceship = false;
 
-                    }
+//                    }
                     break;
                 case DIGIT4:
-                    if (lookatEverything) {
-                        world.getChildren().get(7).setVisible(true);
-                        scale = smallScale;
-                        lookatEverything = false;
-                    } else {
+//                    if (lookatEverything) {
+//                        world.getChildren().get(7).setVisible(true);
+//                        scale = smallScale;
+//                        lookatEverything = false;
+//                    } else {
                         world.getChildren().get(7).setVisible(false);
                         scale = bigScale;
                         lookatEverything = true;
@@ -157,7 +170,7 @@ public class Merged extends Application {
                         lookAtTitan = false;
                         lookAtSpaceship = false;
 
-                    }
+ //                   }
                     break;
                 case DIGIT5:
                     if (lookAtSpaceship) {
