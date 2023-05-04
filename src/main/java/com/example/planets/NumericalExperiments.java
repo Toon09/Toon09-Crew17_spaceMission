@@ -13,8 +13,13 @@ import java.util.Iterator;
 class NumericalExperiments {
 
     /*
+    ToDo
     + finish setting up the engine for easy use and implementation
     + optimize RK2 in a way that makes other methods easier to implement (AB4 or ode45 with RK)
+        -making func's take an array instead as an input and from there have each method have instances of the arrays
+        with the data they override as they are going thru it with the required data, instead of copying everything
+        each time its required could speed things up
+        -use this for LeapFrog, RK2 and RK4
     + write documentation
     + make a test folder and add folders inside with separated test cases for everything in here (pain)
      */
