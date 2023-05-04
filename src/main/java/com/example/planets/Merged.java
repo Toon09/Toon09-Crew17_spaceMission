@@ -27,15 +27,8 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 //ToDo
-//add orbits
-//update the camera movement (figure out how to rotate with something else than 0/0/0 in the middle) -Jakub
-//set the planets sizes
-//better scale
-
-// extra stuff if we have time
-//add button for axis
-//make the sun shine
-//some glow around other planets (tried for the sun but it doesnt work)
+//add a spaceship model
+//fix the spaceship camera
 
 public class Merged extends Application {
     static Gravity0 model = new Gravity0(0, Math.PI / 2.0, new double[]{11, 11, 0}, new RK2()); /////////////
