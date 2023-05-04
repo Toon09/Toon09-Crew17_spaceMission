@@ -99,10 +99,12 @@ public class Merged extends Application {
 //                    camera.setTranslateY(camera.getTranslateY() + 1350);
 //                    break;
                 case DIGIT0:
+                    System.out.println("------------------------------------------");
                     System.out.println("titan at: ");
                     for (int i = 0; i < 3; i++) {
                         System.out.println(model.getBody(8).getPos()[i] / scale);
                     }
+                    System.out.println("------------------------------------------");
                     System.out.println("spaceship at: ");
                     for (int i = 0; i < 3; i++) {
                         System.out.println(model.getBody(11).getPos()[i] / scale);
