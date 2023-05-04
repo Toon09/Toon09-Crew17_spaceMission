@@ -16,7 +16,7 @@ public class Spaceship extends CelestialBody {
     Planning plan = new Planning();
     private final double maxSpeed = 2_500; //2,500 to 4,500 m/s (look up)
     private  final double maxForce = 3 * Math.pow(10, 7); // Newtons
-    public double getUSedFuel(){ return usedFuel; }
+    public double getUsedFuel(){ return usedFuel; }
     // public void setFuel(double fuel){ this.fuel = fuel; }
 
 
@@ -46,7 +46,6 @@ public class Spaceship extends CelestialBody {
         return false;
 
     }
-
 
 
     //give the magnitute of the velocity and tbe direction (normalized) in which the aircraft needs to travel

@@ -2,7 +2,7 @@ package com.example.planets;
 
 import com.example.planets.BackEnd.CelestialEntities.CelestialBody;
 import com.example.planets.BackEnd.Models.Gravity0;
-import com.example.planets.BackEnd.NumericalMethods.RK2;
+import com.example.planets.BackEnd.NumericalMethods.*;
 import javafx.animation.Animation;
 import javafx.animation.Interpolator;
 import javafx.animation.RotateTransition;
@@ -111,7 +111,7 @@ public class Merged extends Application {
                         System.out.println(model.getBody(11).getPos()[i] / scale);
                     }
                     System.out.println("------------------------------------------");
-                    System.out.println(model.getShip().getUSedFuel());
+                    System.out.println(model.getShip().getUsedFuel());
                     break;
                 case P:
                     System.exit(0);
