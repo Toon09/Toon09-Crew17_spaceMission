@@ -67,18 +67,18 @@ public class Merged extends Application {
         camera.getTransforms().addAll(worldRotY, worldRotX);
         stage.addEventHandler(KeyEvent.KEY_PRESSED, event -> {
             switch (event.getCode()) {
-                case LEFT:
-                    worldRotY.setAngle(worldRotY.getAngle() - 20);
-                    break;
-                case RIGHT:
-                    worldRotY.setAngle(worldRotY.getAngle() + 20);
-                    break;
-                case UP:
-                    worldRotX.setAngle(worldRotX.getAngle() - 20);
-                    break;
-                case DOWN:
-                    worldRotX.setAngle(worldRotX.getAngle() + 20);
-                    break;
+//                case LEFT:
+//                    worldRotY.setAngle(worldRotY.getAngle() - 20);
+//                    break;
+//                case RIGHT:
+//                    worldRotY.setAngle(worldRotY.getAngle() + 20);
+//                    break;
+//                case UP:
+//                    worldRotX.setAngle(worldRotX.getAngle() - 20);
+//                    break;
+//                case DOWN:
+//                    worldRotX.setAngle(worldRotX.getAngle() + 20);
+//                    break;
                 case X: //shift/Control is for z
                     camera.setTranslateZ(camera.getTranslateZ() - 3500);
                     break;
