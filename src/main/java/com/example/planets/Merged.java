@@ -29,7 +29,8 @@ import java.util.TimerTask;
 //ToDo
 //add a spaceship model
 //fix the spaceship camera
-//maybe add a camera on the whole solar systemww
+//maybe add a camera on the whole solar systemw
+//add used fuel meter
 
 public class Merged extends Application {
     static Gravity0 model = new Gravity0(0, Math.PI / 2.0, new double[]{150,-200, 0}, new RK2()); /////////////
@@ -109,6 +110,8 @@ public class Merged extends Application {
                     for (int i = 0; i < 3; i++) {
                         System.out.println(model.getBody(11).getPos()[i] / scale);
                     }
+                    System.out.println("------------------------------------------");
+                    System.out.println(model.getShip().getUSedFuel());
                     break;
                 case P:
                     System.exit(0);
