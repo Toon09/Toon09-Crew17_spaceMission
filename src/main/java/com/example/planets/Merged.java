@@ -3,9 +3,7 @@ package com.example.planets;
 import com.example.planets.BackEnd.CelestialEntities.CelestialBody;
 import com.example.planets.BackEnd.Models.Gravity0;
 import com.example.planets.BackEnd.NumericalMethods.RK2;
-import javafx.animation.Animation;
-import javafx.animation.Interpolator;
-import javafx.animation.RotateTransition;
+import javafx.animation.*;
 import javafx.application.Application;
 import javafx.geometry.Point3D;
 import javafx.scene.*;
@@ -13,33 +11,16 @@ import javafx.scene.control.Label;
 import javafx.scene.effect.Glow;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.paint.Color;
-import javafx.scene.paint.PhongMaterial;
-import javafx.scene.shape.Box;
-import javafx.scene.shape.Cylinder;
-import javafx.scene.shape.Sphere;
-import javafx.scene.transform.Rotate;
-import javafx.scene.transform.Translate;
+import javafx.scene.paint.*;
+import javafx.scene.shape.*;
+import javafx.scene.transform.*;
 import javafx.stage.Stage;
 import javafx.util.Duration;
-
-import java.util.Timer;
-import java.util.TimerTask;
-
-//ToDo
-//add orbits
-//update the camera movement (figure out how to rotate with something else than 0/0/0 in the middle) -Jakub
-//set the planets sizes
-//better scale
-
-// extra stuff if we have time
-//add button for axis
-//make the sun shine
-//some glow around other planets (tried for the sun but it doesnt work)
+import java.util.*;
 
 public class Merged extends Application {
-    static Gravity0 model = new Gravity0(0, Math.PI / 2.0, new double[]{11, 11, 0}, new RK2()); /////////////
-    private static int scale = 200;
+    static Gravity0 model = new Gravity0(0, Math.PI / 2.0, new double[]{11, 11, 0}, new RK2());
+    private static int scale = 20;
     private static int smallScale = 25;
     private static int bigScale = 3000;
     private static int counter = 0;
