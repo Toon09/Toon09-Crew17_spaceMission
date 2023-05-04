@@ -163,7 +163,7 @@ public class Gravity0 implements Model3D {
             bodies[i].setAcc(new double[] {0,0,0}); //reset to 0
 
             for(int j=0; j<bodies.length; j++){
-                if(j==i || bodies[j] instanceof  Spaceship){ continue; }
+                if( j==i || bodies[j] instanceof  Spaceship ){ continue; } //|| bodies[j] instanceof  Spaceship
 
                 //calc distance between 2
                 dist = CelestialBody.getDistance(bodies[i], bodies[j]);

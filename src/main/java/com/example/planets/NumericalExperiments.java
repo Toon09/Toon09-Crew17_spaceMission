@@ -5,29 +5,38 @@ import com.example.planets.BackEnd.NumericalMethods.*;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Iterator;
 
 
 class NumericalExperiments {
 
+    /*
+    + finish setting up the engine for easy use and implementation
+    + optimize RK2 in a way that makes other methods easier to implement (AB4 or ode45 with RK)
+    + write documentation
+    + make a test folder and add folders inside with separated test cases for everything in here (pain)
+     */
+
 
     public static void main(String[] args) {
-        //comparingToEachOther();
+        // engineTest()
+
+        // comparingToEachOther();
     }
 
     public static void engineTest() {
+        /*
+        +write a method to add points to the planning so the engine can be tested with these
+         */
 
     }
 
 
     public static void comparingToEachOther() {
         //experiment setup hyper parameters
-        double time = 5;
+        double time = 10;
         boolean isDay = true;
         int checkInterval = 1; //every how many days do you want it to print the values
         final int MARS = 4;
@@ -37,9 +46,8 @@ class NumericalExperiments {
 
 
         //new Gravity0(0, Math.PI / 2.0, new double[]{11, 11, 0}, new RK2());
-        models.add( new Gravity0(0, Math.PI / 2.0, new double[]{11, 11, 0}, new RK2(Math.sqrt(2))) );
         models.add( new Gravity0( 0, Math.PI / 2.0, new double[]{11, 11, 0}, new AB2() ) );
-        models.add( new Gravity0( 0, Math.PI / 2.0, new double[]{11, 11, 0}, new Euler() ) );
+        models.add( new Gravity0( 0, Math.PI / 2.0, new double[]{11, 11, 0}, new RK4() ) );
 
 
         // benchmark model
@@ -63,7 +71,7 @@ class NumericalExperiments {
 
             // update all models positions
             for (Model3D model : models) {
-                model.updatePos(1, testDt, isDay);
+                model.updatePos(0.1, testDt, isDay);
             }
 
 
@@ -131,6 +139,30 @@ class NumericalExperiments {
 
         }
 
+    public static double[][] LineGetData(int lineSelected, String filePath) {
+        try {
+            BufferedReader reader = new BufferedReader(new FileReader(filePath));
+            String line = null;
+            int currentLineNumber = 1;
+            while ((line = reader.readLine()) != null) {
+                if (currentLineNumber == lineSelected) {
+                    double X = Double.parseDouble(line.substring(51,73));
+                    double Y = Double.parseDouble(line.substring(75,97));
+                    double Z = Double.parseDouble(line.substring(99,121));
+                    double VX = Double.parseDouble(line.substring(123,145));
+                    double VY = Double.parseDouble(line.substring(147,169));
+                    double VZ = Double.parseDouble(line.substring(171,193));
+                    double [][] positionAndVelocity = {{X,Y,Z},{VX,VY,VZ}};
+                    return positionAndVelocity;
+                }
+                currentLineNumber++;
+            }
+            reader.close();
+        } catch (IOException e) {
+            System.err.println("Error reading file: " + e.getMessage());
+        }
+        return null;
+    }
 
 
 }
