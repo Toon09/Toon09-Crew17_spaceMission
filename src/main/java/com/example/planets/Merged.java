@@ -29,10 +29,11 @@ import java.util.TimerTask;
 //ToDo
 //add a spaceship model
 //fix the spaceship camera
-//maybe add a camera on the whole solar system
+//maybe add a camera on the whole solar systemw
+//add used fuel meter
 
 public class Merged extends Application {
-    static Gravity0 model = new Gravity0(0, Math.PI / 2.0, new double[]{11, 11, 0}, new RK2()); /////////////
+    static Gravity0 model = new Gravity0(0, Math.PI / 2.0, new double[]{150,-200, 0}, new RK2()); /////////////
     private static int scale = 25;
     private static int smallScale = 25;
     private static int bigScale = 3000;
@@ -98,19 +99,19 @@ public class Merged extends Application {
 //                case S:
 //                    camera.setTranslateY(camera.getTranslateY() + 1350);
 //                    break;
-                case O:
-                    System.out.println("camera at:");
-                    System.out.println("X: " + camera.getTranslateX());
-                    System.out.println("Y: " + camera.getTranslateY());
-                    System.out.println("Z: " + camera.getTranslateZ());
+                case DIGIT0:
+                    System.out.println("------------------------------------------");
                     System.out.println("titan at: ");
                     for (int i = 0; i < 3; i++) {
                         System.out.println(model.getBody(8).getPos()[i] / scale);
                     }
-                    System.out.println("rotation is");
-                    System.out.println("Y: " + worldRotY.getAngle());
-                    System.out.println("X: " + worldRotX.getAngle());
-
+                    System.out.println("------------------------------------------");
+                    System.out.println("spaceship at: ");
+                    for (int i = 0; i < 3; i++) {
+                        System.out.println(model.getBody(11).getPos()[i] / scale);
+                    }
+                    System.out.println("------------------------------------------");
+                    System.out.println(model.getShip().getUSedFuel());
                     break;
                 case P:
                     System.exit(0);

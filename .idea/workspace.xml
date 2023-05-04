@@ -4,7 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="bab05458-8716-4abd-8f37-31e577e5aaab" name="Changes" comment="Numerical method functioning" />
+    <list default="true" id="bab05458-8716-4abd-8f37-31e577e5aaab" name="Changes" comment="Numerical method functioning">
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/planets/Merged.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/planets/Merged.java" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -147,7 +149,7 @@
       <workItem from="1679314405554" duration="1248000" />
       <workItem from="1679317911374" duration="1670000" />
       <workItem from="1679322438755" duration="983000" />
-      <workItem from="1683209681075" duration="920000" />
+      <workItem from="1683209681075" duration="3407000" />
     </task>
     <task id="LOCAL-00001" summary="moving stuff">
       <created>1679322500707</created>
@@ -317,7 +319,56 @@
       <option name="project" value="LOCAL" />
       <updated>1683209998874</updated>
     </task>
-    <option name="localTasksCounter" value="25" />
+    <task id="LOCAL-00025" summary="Numerical method functioning">
+      <created>1683211157129</created>
+      <option name="number" value="00025" />
+      <option name="presentableId" value="LOCAL-00025" />
+      <option name="project" value="LOCAL" />
+      <updated>1683211157129</updated>
+    </task>
+    <task id="LOCAL-00026" summary="Numerical method functioning">
+      <created>1683211389013</created>
+      <option name="number" value="00026" />
+      <option name="presentableId" value="LOCAL-00026" />
+      <option name="project" value="LOCAL" />
+      <updated>1683211389014</updated>
+    </task>
+    <task id="LOCAL-00027" summary="Numerical method functioning">
+      <created>1683211421495</created>
+      <option name="number" value="00027" />
+      <option name="presentableId" value="LOCAL-00027" />
+      <option name="project" value="LOCAL" />
+      <updated>1683211421495</updated>
+    </task>
+    <task id="LOCAL-00028" summary="Numerical method functioning">
+      <created>1683212098274</created>
+      <option name="number" value="00028" />
+      <option name="presentableId" value="LOCAL-00028" />
+      <option name="project" value="LOCAL" />
+      <updated>1683212098274</updated>
+    </task>
+    <task id="LOCAL-00029" summary="Numerical method functioning">
+      <created>1683212530050</created>
+      <option name="number" value="00029" />
+      <option name="presentableId" value="LOCAL-00029" />
+      <option name="project" value="LOCAL" />
+      <updated>1683212530050</updated>
+    </task>
+    <task id="LOCAL-00030" summary="Numerical method functioning">
+      <created>1683212658327</created>
+      <option name="number" value="00030" />
+      <option name="presentableId" value="LOCAL-00030" />
+      <option name="project" value="LOCAL" />
+      <updated>1683212658327</updated>
+    </task>
+    <task id="LOCAL-00031" summary="Numerical method functioning">
+      <created>1683213041955</created>
+      <option name="number" value="00031" />
+      <option name="presentableId" value="LOCAL-00031" />
+      <option name="project" value="LOCAL" />
+      <updated>1683213041955</updated>
+    </task>
+    <option name="localTasksCounter" value="32" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
