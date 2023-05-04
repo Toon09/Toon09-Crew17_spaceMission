@@ -79,24 +79,24 @@ public class Merged extends Application {
 //                case DOWN:
 //                    worldRotX.setAngle(worldRotX.getAngle() + 20);
 //                    break;
-                case X: //shift/Control is for z
-                    camera.setTranslateZ(camera.getTranslateZ() - 3500);
-                    break;
-                case Z:
-                    camera.setTranslateZ(camera.getTranslateZ() + 3500);
-                    break;
-                case A:// a/d is x axis
-                    camera.setTranslateX(camera.getTranslateX() - 1350);
-                    break;
-                case D:
-                    camera.setTranslateX(camera.getTranslateX() + 1350);
-                    break;
-                case W:// w/s is for y axis
-                    camera.setTranslateY(camera.getTranslateY() - 1350);
-                    break;
-                case S:
-                    camera.setTranslateY(camera.getTranslateY() + 1350);
-                    break;
+//                case X: //shift/Control is for z
+//                    camera.setTranslateZ(camera.getTranslateZ() - 3500);
+//                    break;
+//                case Z:
+//                    camera.setTranslateZ(camera.getTranslateZ() + 3500);
+//                    break;
+//                case A:// a/d is x axis
+//                    camera.setTranslateX(camera.getTranslateX() - 1350);
+//                    break;
+//                case D:
+//                    camera.setTranslateX(camera.getTranslateX() + 1350);
+//                    break;
+//                case W:// w/s is for y axis
+//                    camera.setTranslateY(camera.getTranslateY() - 1350);
+//                    break;
+//                case S:
+//                    camera.setTranslateY(camera.getTranslateY() + 1350);
+//                    break;
                 case O:
                     System.out.println("camera at:");
                     System.out.println("X: " + camera.getTranslateX());
@@ -115,9 +115,9 @@ public class Merged extends Application {
                     System.exit(0);
                     break;
                 case DIGIT1:
-                    if (lookAtEarth) {
-                        lookAtEarth = false;
-                    } else {
+//                    if (lookAtEarth) {
+//                        lookAtEarth = false;
+//                    } else {
                         world.getChildren().get(7).setVisible(true);
                         scale = smallScale;
                         lookAtEarth = true;
@@ -125,12 +125,12 @@ public class Merged extends Application {
                         lookAtSun = false;
                         lookatEverything = false;
                         lookAtSpaceship = false;
-                    }
+//                    }
                     break;
                 case DIGIT2:
-                    if (lookAtSun) {
-                        lookAtSun = false;
-                    } else {
+//                    if (lookAtSun) {
+//                        lookAtSun = false;
+//                    } else {
                         world.getChildren().get(7).setVisible(true);
                         scale = smallScale;
                         lookAtSun = true;
@@ -139,12 +139,12 @@ public class Merged extends Application {
                         lookatEverything = false;
                         lookAtSpaceship = false;
 
-                    }
+//                   }
                     break;
                 case DIGIT3:
-                    if (lookAtTitan) {
-                        lookAtTitan = false;
-                    } else {
+//                    if (lookAtTitan) {
+//                        lookAtTitan = false;
+//                    } else {
                         world.getChildren().get(7).setVisible(true);
                         scale = smallScale;
                         lookAtTitan = true;
@@ -153,14 +153,14 @@ public class Merged extends Application {
                         lookatEverything = false;
                         lookAtSpaceship = false;
 
-                    }
+//                    }
                     break;
                 case DIGIT4:
-                    if (lookatEverything) {
-                        world.getChildren().get(7).setVisible(true);
-                        scale = smallScale;
-                        lookatEverything = false;
-                    } else {
+//                    if (lookatEverything) {
+//                        world.getChildren().get(7).setVisible(true);
+//                        scale = smallScale;
+//                        lookatEverything = false;
+//                    } else {
                         world.getChildren().get(7).setVisible(false);
                         scale = bigScale;
                         lookatEverything = true;
@@ -169,7 +169,7 @@ public class Merged extends Application {
                         lookAtTitan = false;
                         lookAtSpaceship = false;
 
-                    }
+ //                   }
                     break;
                 case DIGIT5:
                     if (lookAtSpaceship) {
