@@ -29,7 +29,7 @@ import java.util.TimerTask;
 //ToDo
 //add a spaceship model
 //fix the spaceship camera
-//maybe add a camera on the whole solar system
+//maybe add a camera on the whole solar systemww
 
 public class Merged extends Application {
     static Gravity0 model = new Gravity0(0, Math.PI / 2.0, new double[]{11, 11, 0}, new RK2()); /////////////
