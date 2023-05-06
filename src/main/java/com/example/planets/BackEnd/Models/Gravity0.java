@@ -66,7 +66,10 @@ public class Gravity0 implements Model3D {
     //days is how many days to compute at a time
     @Override
     public void updatePos(double time, double dt, boolean days){
-        hDeriv(); //gets the acceleration at the starting point so that the velocity doesnt take the acc as 0 at the start
+        hDeriv(); //gets the acceleration at the starting point..
+        //.. so that the velocity doesn't take the acc as 0 at the start
+
+        numSolver.setState( this.getState() ); //saves useful info to speed up model
 
         //uses the unit of days to calculate how long to run the simulation for
         if( days ){
@@ -84,7 +87,7 @@ public class Gravity0 implements Model3D {
 
     @Override
     public double[][][] getState() {
-        double[][][] result = new double[this.size()][3/*0:acc, 1:vel, 2:pos*/][3/*x,y,z*/];
+        double[][][] result = new double[this.size()][3/*0:pos, 1:vel, 2:acc*/][3/*x,y,z*/];
 
         //every body
         for(int i=0; i<this.size(); i++){

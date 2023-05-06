@@ -22,13 +22,26 @@ class NumericalExperiments {
         -use this for LeapFrog, RK2 and RK4
     + write documentation
     + make a test folder and add folders inside with separated test cases for everything in here (pain)
+
+    Grav0 line 68 is where the optimization can happen
+
+    make sure the call in 68 copies mass and no other, that or use the mass from the model itself
+    with 0 copies
+
+    check if you can avoid copying the position all together
+
+    change comparingToEachOther() to make it so that is saves the speed of each model as well
+
+
+    change setVel, setPos, setAcc in model to take 3 doubles instead of a new double[] for spedddd
+    change time to run instead of in amount of days, to be in hours
      */
 
 
     public static void main(String[] args) {
         // engineTest()
 
-        // comparingToEachOther();
+        comparingToEachOther();
     }
 
     public static void engineTest() {
@@ -51,8 +64,8 @@ class NumericalExperiments {
 
 
         //new Gravity0(0, Math.PI / 2.0, new double[]{11, 11, 0}, new RK2());
-        models.add( new Gravity0( 0, Math.PI / 2.0, new double[]{11, 11, 0}, new AB2() ) );
-        models.add( new Gravity0( 0, Math.PI / 2.0, new double[]{11, 11, 0}, new RK4() ) );
+        models.add( new Gravity0( 0, Math.PI / 2.0, new double[]{11, 11, 0}, new FastRK2() ) );
+        //models.add( new Gravity0( 0, Math.PI / 2.0, new double[]{11, 11, 0}, new RK4() ) );
 
 
         // benchmark model
@@ -68,15 +81,22 @@ class NumericalExperiments {
         System.out.println("benchmark model: " + benchmark.getSolverName() + "\n");
 
         double[][] errors = new double[models.size()][3];
+        double[] chrono = new double[models.size()+1]; //last index is the benchmark
 
         //using mars
         for (int i = 0; i < time; i++) {
             //benchmark precision
-            benchmark.updatePos(1, benchmarkPrecision, isDay);
+            chrono[ chrono.length-1 ] = System.currentTimeMillis();
+            benchmark.updatePos(0.1, benchmarkPrecision, isDay);
+            chrono[ chrono.length-1 ] = System.currentTimeMillis() - chrono[ chrono.length-1 ];
 
             // update all models positions
-            for (Model3D model : models) {
-                model.updatePos(0.1, testDt, isDay);
+            for (int j=0; j<models.size(); j++) {
+                //start count of how much each model took here
+                chrono[j] = System.currentTimeMillis();
+                models.get(j).updatePos(0.1, testDt, isDay);
+                //end count of how long each model here
+                chrono[j] = System.currentTimeMillis() - chrono[j];
             }
 
 
@@ -93,9 +113,14 @@ class NumericalExperiments {
                 System.out.println("Day: " + (i + 1) + "\n");
 
                 for (int j = 0; j < models.size(); j++) {
-                    System.out.println(models.get(j).getSolverName() + "\nError= X: " + errors[j][0] + "; Y: " + errors[j][1] + "; Z: " + errors[j][2] + "\n");
+                    System.out.println( models.get(j).getSolverName() );
+                    System.out.println("Excution time: " + chrono[j] + "ms");
+                    System.out.println("Error= X: " + errors[j][0] + "; Y: " + errors[j][1] + "; Z: " + errors[j][2] + "\n");
+
                 }
 
+                //print benchmark data here
+                System.out.println("Benchmark time: " + chrono[ chrono.length-1 ] + "ms");
                 System.out.println("\n\n");
             }
 

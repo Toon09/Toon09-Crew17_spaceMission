@@ -29,6 +29,16 @@ public interface Model3D {
     //derivs
     public void hDeriv();
     public Model3D clone(NumSolver numSolver);
+
+    /**
+     * returns a 3D array of doubles that contains the position, velocity and acceleration of every
+     * object in the model, in this format:
+     *                                      [ represents each element in the model in the same order ]
+     *  arrays of length 3 that contain     [ 0:position, 1:velocity, 2:acceleration ]
+     *  values of each coordinate in        [ 0:x, 1:y, 2:z ]
+     *
+     * @return a 3D arrays with the characteristics described above
+     */
     public double[][][] getState(); //returns all values of velicity and acceleration in an ordered format
 
     //updating

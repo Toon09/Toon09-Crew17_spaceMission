@@ -51,6 +51,11 @@ public class RK4 implements NumSolver{
     }
 
     @Override
+    public void setState(double[][][] state) {
+
+    }
+
+    @Override
     public String getName() {
         return "RK4";
     }
