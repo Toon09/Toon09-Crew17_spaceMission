@@ -59,6 +59,9 @@ public class RK2 implements NumSolver {
 
     }
 
+    @Override
+    public void setState(double[][][] state) {} //empty since to test optimization
+
 
     @Override
     public String getName() {
