@@ -10,6 +10,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.Background;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.PhongMaterial;
 import javafx.scene.shape.Box;
@@ -51,8 +52,6 @@ public class Merged extends Application {
 
         Scene scene = new Scene(root, 1920, 1080, true);
         world.getChildren().addAll(path);
-        ProgressBar fuel = new ProgressBar(0.5);
-        fuel.setPrefSize(1500,1000);
         //background
         worldScene.setFill(Color.BLACK);
         scene.setFill(Color.BLACK);
@@ -60,6 +59,7 @@ public class Merged extends Application {
         Camera camera = new PerspectiveCamera();
         camera.setFarClip(4000);
         camera.setNearClip(1);
+
         //label and progressbar to show the fuel
         Label title = new Label("Fuel remaining:");
         title.setTextFill(Color.WHITE);
@@ -70,7 +70,6 @@ public class Merged extends Application {
         fuelBar.setPrefSize(200,20);
         fuelBar.setLayoutY(40);
         root.getChildren().addAll(worldScene, title, fuelBar, progressLabel);
-
         //initial camera setting
         worldScene.setCamera(camera);
         Rotate worldRotX = new Rotate(0, Rotate.X_AXIS);
@@ -158,9 +157,6 @@ public class Merged extends Application {
                 for (int i = 0; i < 12; i++) {
                     setPosition(world.getChildren().get(i), model.getBody(i));
                 }
-                fuel.setTranslateX(camera.getTranslateX()+300);
-                fuel.setTranslateY(camera.getTranslateY()+300);
-                //fuel.setTranslateZ(camera.getTranslateZ()+50);
                 if (lookAtEarth) {
                     camera.setTranslateX(model.getBody(3).getPos()[0] / scale + 1000);
                     camera.setTranslateY(model.getBody(3).getPos()[1] / scale + 2000);
