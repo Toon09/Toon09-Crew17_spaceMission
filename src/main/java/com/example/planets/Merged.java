@@ -36,7 +36,7 @@ public class Merged extends Application {
     private static boolean lookAtEarth = false;
     private static boolean lookAtTitan = false;
     private static boolean lookAtSun = false;
-    private static boolean lookatEverything = false;
+    private static boolean lookAtEverything = false;
     private static boolean lookAtSpaceship = false;
     private static Box[] path = new Box[10000];
 
@@ -87,7 +87,7 @@ public class Merged extends Application {
                         lookAtEarth = true;
                         lookAtTitan = false;
                         lookAtSun = false;
-                        lookatEverything = false;
+                        lookAtEverything = false;
                         lookAtSpaceship = false;
                     }
                 }
@@ -97,7 +97,7 @@ public class Merged extends Application {
                     lookAtSun = true;
                     lookAtTitan = false;
                     lookAtEarth = false;
-                    lookatEverything = false;
+                    lookAtEverything = false;
                     lookAtSpaceship = false;
                 }
                 case DIGIT3 -> {
@@ -106,13 +106,13 @@ public class Merged extends Application {
                     lookAtTitan = true;
                     lookAtSun = false;
                     lookAtEarth = false;
-                    lookatEverything = false;
+                    lookAtEverything = false;
                     lookAtSpaceship = false;
                 }
                 case DIGIT4 -> {
                     world.getChildren().get(7).setVisible(false);
                     scale = bigScale;
-                    lookatEverything = true;
+                    lookAtEverything = true;
                     lookAtSun = false;
                     lookAtEarth = false;
                     lookAtTitan = false;
@@ -121,7 +121,7 @@ public class Merged extends Application {
                 case DIGIT5 -> {
                     lookAtSpaceship = true;
                     scale = smallScale;
-                    lookatEverything = false;
+                    lookAtEverything = false;
                     lookAtSun = false;
                     lookAtEarth = false;
                     lookAtTitan = false;
@@ -162,7 +162,7 @@ public class Merged extends Application {
                     camera.setTranslateY(model.getBody(8).getPos()[1] / scale + 2000);
                     camera.setTranslateZ(model.getBody(8).getPos()[2] / scale - 24000);
                 }
-                if (lookatEverything) {
+                if (lookAtEverything) {
                     camera.setTranslateX(183608);
                     camera.setTranslateY(-128907);
                     camera.setTranslateZ(-(484573*2));
@@ -278,7 +278,7 @@ public class Merged extends Application {
         Sphere mars = new Sphere();
         setPosition(mars, 5);
         mars.setRadius(planetSize);
-        //material for the mars
+        //material for the Mars
         PhongMaterial marsMaterial = new PhongMaterial();
         marsMaterial.setDiffuseMap(new Image("marsTexture.png"));
         mars.setMaterial(marsMaterial);
