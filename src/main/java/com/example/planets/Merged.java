@@ -10,6 +10,7 @@ import javafx.application.Application;
 import javafx.geometry.Point3D;
 import javafx.scene.*;
 import javafx.scene.control.Label;
+import javafx.scene.control.ProgressBar;
 import javafx.scene.effect.Glow;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyEvent;
@@ -54,6 +55,9 @@ public class Merged extends Application {
         Group world = createEnvironment();
         Scene scene = new Scene(world, 1920, 1080, true);
         world.getChildren().addAll(path);
+        ProgressBar fuel = new ProgressBar(0.5);
+        fuel.setPrefSize(1500,1000);
+        scene.setCamera();
         //Group axis = buildAxes();
         //world.getChildren().addAll(axis);
         //background
@@ -154,6 +158,9 @@ public class Merged extends Application {
                 for (int i = 0; i < 12; i++) {
                     setPosition(world.getChildren().get(i), model.getBody(i));
                 }
+                fuel.setTranslateX(camera.getTranslateX()+300);
+                fuel.setTranslateY(camera.getTranslateY()+300);
+                //fuel.setTranslateZ(camera.getTranslateZ()+50);
                 if (lookAtEarth) {
                     camera.setTranslateX(model.getBody(3).getPos()[0] / scale + 1000);
                     camera.setTranslateY(model.getBody(3).getPos()[1] / scale + 2000);
