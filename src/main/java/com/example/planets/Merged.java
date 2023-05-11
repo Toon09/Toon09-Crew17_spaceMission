@@ -178,7 +178,7 @@ public class Merged extends Application {
                 if (lookatEverything) {
                     camera.setTranslateX(183608);
                     camera.setTranslateY(-128907);
-                    camera.setTranslateZ(-484573);
+                    camera.setTranslateZ(-(484573*2));
                 }
                 if (lookAtSpaceship) {
                     camera.setTranslateX(model.getBody(11).getPos()[0] / scale + 1000);

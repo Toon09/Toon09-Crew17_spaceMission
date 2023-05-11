@@ -4,8 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="bab05458-8716-4abd-8f37-31e577e5aaab" name="Changes" comment="Numerical method functioning">
+    <list default="true" id="bab05458-8716-4abd-8f37-31e577e5aaab" name="Changes" comment="GUI changes">
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/planets/Merged.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/planets/Merged.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/planets/Merged$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/planets/Merged$1.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -368,7 +369,14 @@
       <option name="project" value="LOCAL" />
       <updated>1683213041955</updated>
     </task>
-    <option name="localTasksCounter" value="32" />
+    <task id="LOCAL-00032" summary="GUI changes">
+      <created>1683813020788</created>
+      <option name="number" value="00032" />
+      <option name="presentableId" value="LOCAL-00032" />
+      <option name="project" value="LOCAL" />
+      <updated>1683813020788</updated>
+    </task>
+    <option name="localTasksCounter" value="33" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -397,6 +405,7 @@
     <MESSAGE value="path I guess" />
     <MESSAGE value="tesring" />
     <MESSAGE value="Numerical method functioning" />
-    <option name="LAST_COMMIT_MESSAGE" value="Numerical method functioning" />
+    <MESSAGE value="GUI changes" />
+    <option name="LAST_COMMIT_MESSAGE" value="GUI changes" />
   </component>
 </project>
