@@ -44,19 +44,35 @@ public class Merged extends Application {
     public void start(Stage stage) throws Exception {
         inicilizePath();
         //create a new group
+        Group root = new Group();
+
         Group world = createEnvironment();
-        Scene scene = new Scene(world, 1920, 1080, true);
+        SubScene worldScene = new SubScene(world, 1920, 1080, true, SceneAntialiasing.BALANCED);
+
+        Scene scene = new Scene(root, 1920, 1080, true);
         world.getChildren().addAll(path);
         ProgressBar fuel = new ProgressBar(0.5);
         fuel.setPrefSize(1500,1000);
         //background
+        worldScene.setFill(Color.BLACK);
         scene.setFill(Color.BLACK);
         stage.setScene(scene);
         Camera camera = new PerspectiveCamera();
         camera.setFarClip(4000);
         camera.setNearClip(1);
+        //label and progressbar to show the fuel
+        Label title = new Label("Fuel remaining:");
+        title.setTextFill(Color.WHITE);
+        Label progressLabel = new Label("100000000");
+        progressLabel.setTranslateY(20);
+        progressLabel.setTextFill(Color.WHITE);
+        ProgressBar fuelBar = new ProgressBar(0.5);
+        fuelBar.setPrefSize(200,20);
+        fuelBar.setLayoutY(40);
+        root.getChildren().addAll(worldScene, title, fuelBar, progressLabel);
+
         //initial camera setting
-        scene.setCamera(camera);
+        worldScene.setCamera(camera);
         Rotate worldRotX = new Rotate(0, Rotate.X_AXIS);
         Rotate worldRotY = new Rotate(0, Rotate.Y_AXIS);
         camera.getTransforms().addAll(worldRotY, worldRotX);
