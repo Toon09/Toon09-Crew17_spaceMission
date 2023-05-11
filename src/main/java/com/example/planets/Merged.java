@@ -57,7 +57,6 @@ public class Merged extends Application {
         world.getChildren().addAll(path);
         ProgressBar fuel = new ProgressBar(0.5);
         fuel.setPrefSize(1500,1000);
-        scene.setCamera();
         //Group axis = buildAxes();
         //world.getChildren().addAll(axis);
         //background
