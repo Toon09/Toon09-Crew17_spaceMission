@@ -34,7 +34,7 @@ import java.util.TimerTask;
 //add used fuel meter
 
 public class Merged extends Application {
-    static Gravity0 model = new Gravity0(0, Math.PI / 2.0, new double[]{150,-200, 0}, new RK2()); /////////////
+    static Gravity0 model = new Gravity0(0, Math.PI / 2.0, new double[]{150,-200, 0}, new Euler()); /////////////
     private static int scale = 25;
     private static int smallScale = 25;
     private static int bigScale = 3000;
@@ -88,6 +88,7 @@ public class Merged extends Application {
                     System.exit(0);
                     break;
                 case DIGIT1:
+                    if(!lookAtEarth) {
                         world.getChildren().get(7).setVisible(true);
                         scale = smallScale;
                         lookAtEarth = true;
@@ -95,7 +96,7 @@ public class Merged extends Application {
                         lookAtSun = false;
                         lookatEverything = false;
                         lookAtSpaceship = false;
-
+                    }
                     break;
                 case DIGIT2:
                         world.getChildren().get(7).setVisible(true);
@@ -196,7 +197,7 @@ public class Merged extends Application {
                     counter++;
                 }
             }
-        },5,4000);
+        },5,40);
     }
 
     public static void main(String... args) {
@@ -407,9 +408,9 @@ public class Merged extends Application {
         rocketPathMaterial.setDiffuseColor(Color.GOLD);
         rocketPath.setMaterial(rocketPathMaterial);
 
-        ProgressBar fuel = new ProgressBar();
+        //ProgressBar fuel = new ProgressBar();
 
-        group.getChildren().addAll(sun, mercury, venus, earth, moon, mars, jupiter, saturn, titan, neptune, uranus, rocketBase, rocketPath, fuel);
+        group.getChildren().addAll(sun, mercury, venus, earth, moon, mars, jupiter, saturn, titan, neptune, uranus, rocketBase, rocketPath);
 
         return group;
     }
