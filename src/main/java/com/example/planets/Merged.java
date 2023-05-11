@@ -82,7 +82,9 @@ public class Merged extends Application {
                         System.out.println(model.getBody(11).getPos()[i] / scale);
                     }
                     System.out.println("------------------------------------------");
-                    System.out.println(model.getShip().getUsedFuel());
+                    System.out.println("camera at:");
+                    System.out.println("x: "+ camera.getTranslateX()+", y: "+camera.getTranslateY() +", z: "+camera.getTranslateZ());
+
                     break;
                 case P:
                     System.exit(0);
@@ -174,9 +176,9 @@ public class Merged extends Application {
                     camera.setTranslateZ(model.getBody(8).getPos()[2] / scale - 24000);
                 }
                 if (lookatEverything) {
-                    camera.setTranslateX(model.getBody(8).getPos()[0] / scale - 237755);
-                    camera.setTranslateY(model.getBody(8).getPos()[1] / scale + 115144);
-                    camera.setTranslateZ(model.getBody(8).getPos()[2] / scale - 471948);
+                    camera.setTranslateX(183608);
+                    camera.setTranslateY(-128907);
+                    camera.setTranslateZ(-484573);
                 }
                 if (lookAtSpaceship) {
                     camera.setTranslateX(model.getBody(11).getPos()[0] / scale + 1000);
