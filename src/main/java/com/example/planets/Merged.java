@@ -49,8 +49,6 @@ public class Merged extends Application {
         world.getChildren().addAll(path);
         ProgressBar fuel = new ProgressBar(0.5);
         fuel.setPrefSize(1500,1000);
-        //Group axis = buildAxes();
-        //world.getChildren().addAll(axis);
         //background
         scene.setFill(Color.BLACK);
         stage.setScene(scene);
@@ -172,7 +170,6 @@ public class Merged extends Application {
                     camera.setTranslateY(model.getBody(11).getPos()[1] / scale + 2000);
                     camera.setTranslateZ(model.getBody(11).getPos()[2] / scale - 24000);
                 }
-
 
             }
         }, 1, 1);
@@ -340,7 +337,6 @@ public class Merged extends Application {
         rocketBase.setMaterial(rocketBaseMaterial);
 
         // create the path of the rocket
-
         Cylinder rocketPath = new Cylinder(100, 1000);
         setPosition(rocketPath, 3);
         rocketPath.setRotate(90);
