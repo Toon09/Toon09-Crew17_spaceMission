@@ -247,12 +247,7 @@ public class Merged extends Application {
         //create the sun
         Sphere sun = new Sphere();
         setPosition(sun, 0);
-        sun.setRadius(planetSize);
-        //glow
-        Glow sunGlow = new Glow();
-        sunGlow.setLevel(1000);
-        //material for the sun
-        sun.setEffect(sunGlow);
+        sun.setRadius(planetSize);;
         PhongMaterial sunMaterial = new PhongMaterial();
         sunMaterial.setDiffuseMap(new Image("sunTexture.jpg"));
         sun.setMaterial(sunMaterial);
@@ -270,10 +265,6 @@ public class Merged extends Application {
         mercuryMaterial.setDiffuseMap(new Image("mercuryTexture.jpg"));
         mercury.setMaterial(mercuryMaterial);
 
-        // rotation for mercury
-
-        //rotation(mercury);
-
         //create venus
         Sphere venus = new Sphere();
         setPosition(venus, 2);
@@ -282,10 +273,6 @@ public class Merged extends Application {
         PhongMaterial venusMaterial = new PhongMaterial();
         venusMaterial.setDiffuseMap(new Image("venusTexture.jpg"));
         venus.setMaterial(venusMaterial);
-
-        // rotation for venus
-
-        //rotation(venus);
 
         //create earth
         Sphere earth = new Sphere();
@@ -296,10 +283,6 @@ public class Merged extends Application {
         earthMaterial.setDiffuseMap(new Image("earthTexture.jpg"));
         earth.setMaterial(earthMaterial);
 
-        // rotation for earth
-
-        //rotation(earth);
-
         //create moon
         Sphere moon = new Sphere();
         setPosition(moon, 4);
@@ -308,10 +291,6 @@ public class Merged extends Application {
         PhongMaterial moonMaterial = new PhongMaterial();
         moonMaterial.setDiffuseMap(new Image("moonTexture.jpg"));
         moon.setMaterial(moonMaterial);
-
-        // rotation for moon
-
-        //rotation(moon);
 
         //create mars
         Sphere mars = new Sphere();
@@ -322,10 +301,6 @@ public class Merged extends Application {
         marsMaterial.setDiffuseMap(new Image("marsTexture.png"));
         mars.setMaterial(marsMaterial);
 
-        // rotation for mars
-
-        //rotation(mars);
-
         //create jupiter
         Sphere jupiter = new Sphere();
         setPosition(jupiter, 6);
@@ -334,10 +309,6 @@ public class Merged extends Application {
         PhongMaterial jupiterMaterial = new PhongMaterial();
         jupiterMaterial.setDiffuseMap(new Image("jupiterTexture.jpg"));
         jupiter.setMaterial(jupiterMaterial);
-
-        // rotation for jupiter
-
-        //rotation(jupiter) ;
 
         //create saturn
         Sphere saturn = new Sphere();
@@ -348,9 +319,6 @@ public class Merged extends Application {
         saturnMaterial.setDiffuseMap(new Image("saturnTexture.jpg"));
         saturn.setMaterial(saturnMaterial);
 
-        // rotation for saturn
-
-        //rotation(saturn) ;
 
         //create titan
         Sphere titan = new Sphere();
@@ -361,10 +329,6 @@ public class Merged extends Application {
         titanMaterial.setDiffuseMap(new Image("titanTexture.jpg"));
         titan.setMaterial(titanMaterial);
 
-        // rotation for titan
-
-//        rotation(titan) ;
-
         //create neptune
         Sphere neptune = new Sphere();
         setPosition(neptune, 9);
@@ -373,10 +337,6 @@ public class Merged extends Application {
         PhongMaterial neptuneMaterial = new PhongMaterial();
         neptuneMaterial.setDiffuseMap(new Image("neptuneTexture.jpg"));
         neptune.setMaterial(neptuneMaterial);
-
-        // rotation for neptune
-
-        //rotation(neptune);
 
         //create uranus
         Sphere uranus = new Sphere();
@@ -387,9 +347,6 @@ public class Merged extends Application {
         uranusMaterial.setDiffuseMap(new Image("uranusTexture.jpg"));
         uranus.setMaterial(uranusMaterial);
 
-        // rotation for uranus
-
-        //rotation(uranus);
 
         // create the rocket
 
@@ -409,8 +366,6 @@ public class Merged extends Application {
         PhongMaterial rocketPathMaterial = new PhongMaterial();
         rocketPathMaterial.setDiffuseColor(Color.GOLD);
         rocketPath.setMaterial(rocketPathMaterial);
-
-        //ProgressBar fuel = new ProgressBar();
 
         group.getChildren().addAll(sun, mercury, venus, earth, moon, mars, jupiter, saturn, titan, neptune, uranus, rocketBase, rocketPath);
 
