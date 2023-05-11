@@ -3,15 +3,11 @@ package com.example.planets;
 import com.example.planets.BackEnd.CelestialEntities.CelestialBody;
 import com.example.planets.BackEnd.Models.Gravity0;
 import com.example.planets.BackEnd.NumericalMethods.*;
-import javafx.animation.Animation;
-import javafx.animation.Interpolator;
-import javafx.animation.RotateTransition;
 import javafx.application.Application;
 import javafx.geometry.Point3D;
 import javafx.scene.*;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
-import javafx.scene.effect.Glow;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.paint.Color;
@@ -20,10 +16,7 @@ import javafx.scene.shape.Box;
 import javafx.scene.shape.Cylinder;
 import javafx.scene.shape.Sphere;
 import javafx.scene.transform.Rotate;
-import javafx.scene.transform.Translate;
 import javafx.stage.Stage;
-import javafx.util.Duration;
-
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -37,10 +30,9 @@ import java.util.TimerTask;
 public class Merged extends Application {
     static Gravity0 model = new Gravity0(0, Math.PI / 2.0, new double[]{150,-200, 0}, new Euler()); /////////////
     private static int scale = 25;
-    private static int smallScale = 25;
-    private static int bigScale = 3000;
+    private static final int smallScale = 25;
+    private static final int bigScale = 3000;
     private static int counter = 0;
-    private int planetSize = 6371 / 2;
     private static boolean lookAtEarth = false;
     private static boolean lookAtTitan = false;
     private static boolean lookAtSun = false;
@@ -69,11 +61,10 @@ public class Merged extends Application {
         scene.setCamera(camera);
         Rotate worldRotX = new Rotate(0, Rotate.X_AXIS);
         Rotate worldRotY = new Rotate(0, Rotate.Y_AXIS);
-        Translate worldTransX = new Translate();
         camera.getTransforms().addAll(worldRotY, worldRotX);
         stage.addEventHandler(KeyEvent.KEY_PRESSED, event -> {
             switch (event.getCode()) {
-                case DIGIT0:
+                case DIGIT0 -> {
                     System.out.println("------------------------------------------");
                     System.out.println("titan at: ");
                     for (int i = 0; i < 3; i++) {
@@ -86,14 +77,11 @@ public class Merged extends Application {
                     }
                     System.out.println("------------------------------------------");
                     System.out.println("camera at:");
-                    System.out.println("x: "+ camera.getTranslateX()+", y: "+camera.getTranslateY() +", z: "+camera.getTranslateZ());
-
-                    break;
-                case P:
-                    System.exit(0);
-                    break;
-                case DIGIT1:
-                    if(!lookAtEarth) {
+                    System.out.println("x: " + camera.getTranslateX() + ", y: " + camera.getTranslateY() + ", z: " + camera.getTranslateZ());
+                }
+                case P -> System.exit(0);
+                case DIGIT1 -> {
+                    if (!lookAtEarth) {
                         world.getChildren().get(7).setVisible(true);
                         scale = smallScale;
                         lookAtEarth = true;
@@ -102,43 +90,42 @@ public class Merged extends Application {
                         lookatEverything = false;
                         lookAtSpaceship = false;
                     }
-                    break;
-                case DIGIT2:
-                        world.getChildren().get(7).setVisible(true);
-                        scale = smallScale;
-                        lookAtSun = true;
-                        lookAtTitan = false;
-                        lookAtEarth = false;
-                        lookatEverything = false;
-                        lookAtSpaceship = false;
-                    break;
-                case DIGIT3:
-                        world.getChildren().get(7).setVisible(true);
-                        scale = smallScale;
-                        lookAtTitan = true;
-                        lookAtSun = false;
-                        lookAtEarth = false;
-                        lookatEverything = false;
-                        lookAtSpaceship = false;
-                    break;
-                case DIGIT4:
-                        world.getChildren().get(7).setVisible(false);
-                        scale = bigScale;
-                        lookatEverything = true;
-                        lookAtSun = false;
-                        lookAtEarth = false;
-                        lookAtTitan = false;
-                        lookAtSpaceship = false;
-                    break;
-                case DIGIT5:
-
-                        lookAtSpaceship = true;
-                        scale = smallScale;
-                        lookatEverything = false;
-                        lookAtSun = false;
-                        lookAtEarth = false;
-                        lookAtTitan = false;
-                    break;
+                }
+                case DIGIT2 -> {
+                    world.getChildren().get(7).setVisible(true);
+                    scale = smallScale;
+                    lookAtSun = true;
+                    lookAtTitan = false;
+                    lookAtEarth = false;
+                    lookatEverything = false;
+                    lookAtSpaceship = false;
+                }
+                case DIGIT3 -> {
+                    world.getChildren().get(7).setVisible(true);
+                    scale = smallScale;
+                    lookAtTitan = true;
+                    lookAtSun = false;
+                    lookAtEarth = false;
+                    lookatEverything = false;
+                    lookAtSpaceship = false;
+                }
+                case DIGIT4 -> {
+                    world.getChildren().get(7).setVisible(false);
+                    scale = bigScale;
+                    lookatEverything = true;
+                    lookAtSun = false;
+                    lookAtEarth = false;
+                    lookAtTitan = false;
+                    lookAtSpaceship = false;
+                }
+                case DIGIT5 -> {
+                    lookAtSpaceship = true;
+                    scale = smallScale;
+                    lookatEverything = false;
+                    lookAtSun = false;
+                    lookAtEarth = false;
+                    lookAtTitan = false;
+                }
             }
         });
 
@@ -212,12 +199,6 @@ public class Merged extends Application {
         sphere.setTranslateZ(body.getPos()[2] / scale);
     }
 
-    public static void setPosition(Box box, CelestialBody body) {
-        box.setTranslateX(body.getPos()[0] / scale);
-        box.setTranslateY(body.getPos()[1] / scale);
-        box.setTranslateZ(body.getPos()[2] / scale);
-    }
-
     private void setPosition(Sphere sphere, int index) {
         sphere.setTranslateX(positions[index][0] / scale);
         sphere.setTranslateY(positions[index][1] / scale);
@@ -236,7 +217,7 @@ public class Merged extends Application {
         cylinder.setTranslateZ(positions[index][2] / scale);
     }
 
-    private static double[][] positions = {{0, 0, 0}, {7.83e6, 4.49e7, 2.87e6}, {-2.82e7, 1.04e8, 3.01e6},
+    private static final double[][] positions = {{0, 0, 0}, {7.83e6, 4.49e7, 2.87e6}, {-2.82e7, 1.04e8, 3.01e6},
             {-1.48e8, -2.78e7, 3.37e4}, {-1.48e8, -2.75e7, 7.02e4}, {-1.59e8, 1.89e8, 7.87e6},
             {6.93e8, 2.59e8, -1.66e7}, {1.25e9, -7.60e8, -3.67e7}, {1.25e9, 7.61e8, -3.63e7},
             {4.45e9, -3.98e8, -9.45e7}, {1.96e9, 2.19e9, -1.72e7}};
@@ -247,7 +228,8 @@ public class Merged extends Application {
         //create the sun
         Sphere sun = new Sphere();
         setPosition(sun, 0);
-        sun.setRadius(planetSize);;
+        int planetSize = 6371 / 2;
+        sun.setRadius(planetSize);
         PhongMaterial sunMaterial = new PhongMaterial();
         sunMaterial.setDiffuseMap(new Image("sunTexture.jpg"));
         sun.setMaterial(sunMaterial);
@@ -370,23 +352,6 @@ public class Merged extends Application {
         group.getChildren().addAll(sun, mercury, venus, earth, moon, mars, jupiter, saturn, titan, neptune, uranus, rocketBase, rocketPath);
 
         return group;
-    }
-
-    private static void rotation(Sphere sphere) {
-        RotateTransition rotate = new RotateTransition(Duration.seconds(10), sphere);
-        rotate.setByAngle(360);
-        rotate.setAxis(Rotate.Y_AXIS);
-        rotate.setInterpolator(Interpolator.LINEAR);
-        rotate.setCycleCount(Animation.INDEFINITE);
-        rotate.play();
-    }
-
-    private static void printLooks() {
-        System.out.println("looks at earth: " + lookAtEarth);
-        System.out.println("looks at sun: " + lookAtSun);
-        System.out.println("looks at titan: " + lookAtTitan);
-        System.out.println("looks at everything: " + lookatEverything);
-
     }
 
     private static void inicilizePath() {

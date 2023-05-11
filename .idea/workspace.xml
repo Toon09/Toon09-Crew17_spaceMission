@@ -4,7 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="bab05458-8716-4abd-8f37-31e577e5aaab" name="Changes" comment="GUI changes" />
+    <list default="true" id="bab05458-8716-4abd-8f37-31e577e5aaab" name="Changes" comment="GUI code cleanup">
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/planets/Merged.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/planets/Merged.java" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -148,6 +150,7 @@
       <workItem from="1679317911374" duration="1670000" />
       <workItem from="1679322438755" duration="983000" />
       <workItem from="1683209681075" duration="3407000" />
+      <workItem from="1683820709833" duration="360000" />
     </task>
     <task id="LOCAL-00001" summary="moving stuff">
       <created>1679322500707</created>
@@ -394,7 +397,21 @@
       <option name="project" value="LOCAL" />
       <updated>1683815559299</updated>
     </task>
-    <option name="localTasksCounter" value="36" />
+    <task id="LOCAL-00036" summary="GUI changes">
+      <created>1683820787926</created>
+      <option name="number" value="00036" />
+      <option name="presentableId" value="LOCAL-00036" />
+      <option name="project" value="LOCAL" />
+      <updated>1683820787926</updated>
+    </task>
+    <task id="LOCAL-00037" summary="GUI code cleanup">
+      <created>1683820991892</created>
+      <option name="number" value="00037" />
+      <option name="presentableId" value="LOCAL-00037" />
+      <option name="project" value="LOCAL" />
+      <updated>1683820991892</updated>
+    </task>
+    <option name="localTasksCounter" value="38" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -424,6 +441,7 @@
     <MESSAGE value="tesring" />
     <MESSAGE value="Numerical method functioning" />
     <MESSAGE value="GUI changes" />
-    <option name="LAST_COMMIT_MESSAGE" value="GUI changes" />
+    <MESSAGE value="GUI code cleanup" />
+    <option name="LAST_COMMIT_MESSAGE" value="GUI code cleanup" />
   </component>
 </project>
