@@ -30,9 +30,8 @@ public class Euler implements NumSolver {
     }
 
     @Override
-    public void setState(double[][][] state) {
+    public void innitState(double[][][] state) { }
 
-    }
 
     @Override
     public String getName() {

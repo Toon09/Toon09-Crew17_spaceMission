@@ -10,7 +10,7 @@ public class LeapFrog implements NumSolver{
     }
 
     @Override
-    public void setState(double[][][] state) {
+    public void innitState(double[][][] state) {
 
     }
 

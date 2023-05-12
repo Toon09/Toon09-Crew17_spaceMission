@@ -20,7 +20,7 @@ public interface NumSolver {
      *  arrays of length 3 that contain     [ 0:position, 1:velocity, 2:acceleration ]
      *  values of each coordinate in        [ 0:x, 1:y, 2:z ]
      */
-    void setState(double[][][] state);
+    void innitState(double[][][] state);
 
     /**
      * helps identify the specific numerical solver that is being used

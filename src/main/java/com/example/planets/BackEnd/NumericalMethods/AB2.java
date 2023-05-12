@@ -56,6 +56,10 @@ public class AB2 implements NumSolver {
     }
 
     @Override
+    public void innitState(double[][][] state) {
+
+    }
+
     public void setState(double[][][] state) {
 
     }

@@ -21,7 +21,7 @@ public class Spaceship extends CelestialBody {
 
 
 
-    public Spaceship(double mass, double[] pos, double[] vel, double theta, double phi, double[] addVel){
+    public Spaceship(double mass, double[] pos, double[] vel, double theta, double phi){
         super(mass, pos, vel);
         usedFuel = 0;
 
@@ -31,7 +31,6 @@ public class Spaceship extends CelestialBody {
         double z = Gravity0.radiuses[3] * Math.sin(phi);
         //add to its position
         this.addPos( new double[] { x, y, z } );
-        this.addVel(addVel);
     }
 
 
@@ -96,6 +95,12 @@ public class Spaceship extends CelestialBody {
         this.vel[0] += vel[0];
         this.vel[1] += vel[1];
         this.vel[2] += vel[2];
+    }
+
+    private void addAcc(double[] acc){
+        this.acc[0] += acc[0];
+        this.acc[1] += acc[1];
+        this.acc[2] += acc[2];
     }
 
 }

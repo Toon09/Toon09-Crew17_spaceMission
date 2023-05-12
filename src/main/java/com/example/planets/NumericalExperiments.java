@@ -24,6 +24,7 @@ class NumericalExperiments {
     + make a test folder and add folders inside with separated test cases for everything in here (pain)
 
     Grav0 line 68 is where the optimization can happen
+    + can get rid of acc in state optim array since the og acc can be used
 
     make sure the call in 68 copies mass and no other, that or use the mass from the model itself
     with 0 copies
@@ -54,7 +55,7 @@ class NumericalExperiments {
 
     public static void comparingToEachOther() {
         //experiment setup hyper parameters
-        double time = 10;
+        double time = 90;
         boolean isDay = true;
         int checkInterval = 1; //every how many days do you want it to print the values
         final int MARS = 4;
@@ -64,12 +65,12 @@ class NumericalExperiments {
 
 
         //new Gravity0(0, Math.PI / 2.0, new double[]{11, 11, 0}, new RK2());
-        models.add( new Gravity0( 0, Math.PI / 2.0, new double[]{11, 11, 0}, new FastRK2() ) );
+        models.add( new Gravity0( 0, Math.PI / 2.0, new FastRK2() ) );
         //models.add( new Gravity0( 0, Math.PI / 2.0, new double[]{11, 11, 0}, new RK4() ) );
 
 
         // benchmark model
-        Model3D benchmark = new Gravity0( 0, Math.PI / 2.0, new double[]{11, 11, 0}, new RK2() );
+        Model3D benchmark = new Gravity0( 0, Math.PI / 2.0, new RK2() );
 
         double testDt = 0.1;
         double benchmarkPrecision = 0.1;
@@ -87,14 +88,14 @@ class NumericalExperiments {
         for (int i = 0; i < time; i++) {
             //benchmark precision
             chrono[ chrono.length-1 ] = System.currentTimeMillis();
-            benchmark.updatePos(0.1, benchmarkPrecision, isDay);
+            benchmark.updatePos(1, benchmarkPrecision, isDay);
             chrono[ chrono.length-1 ] = System.currentTimeMillis() - chrono[ chrono.length-1 ];
 
             // update all models positions
             for (int j=0; j<models.size(); j++) {
                 //start count of how much each model took here
                 chrono[j] = System.currentTimeMillis();
-                models.get(j).updatePos(0.1, testDt, isDay);
+                models.get(j).updatePos(1, testDt, isDay);
                 //end count of how long each model here
                 chrono[j] = System.currentTimeMillis() - chrono[j];
             }
@@ -121,6 +122,7 @@ class NumericalExperiments {
 
                 //print benchmark data here
                 System.out.println("Benchmark time: " + chrono[ chrono.length-1 ] + "ms");
+                System.out.println("in sim time: " + benchmark.getTime() + "s");
                 System.out.println("\n\n");
             }
 
