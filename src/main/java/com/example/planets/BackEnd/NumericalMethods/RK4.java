@@ -10,17 +10,17 @@ public class RK4 implements NumSolver{
         double alpha = 1.0;
 
         //set up rk4
-        Model3D states1 = model.clone( new Euler() ); //doesn't copy spaceship
+        Model3D states1 = model.clone( new Euler() );
         states1.updatePos(alpha * dt, alpha * dt, false);
 
-        Model3D states2 = model.clone( new Euler() ); //doesn't copy spaceship
-        states1.updatePos(alpha * dt, alpha * dt, false);
+        Model3D states2 = states1.clone( new Euler() );
+        //states1.updatePos(alpha * dt, alpha * dt, false);
 
-        Model3D states3 = model.clone( new Euler() ); //doesn't copy spaceship
-        states1.updatePos(alpha * dt, alpha * dt, false);
+        Model3D states3 = states2.clone( new Euler() );
+        //states1.updatePos(alpha * dt, alpha * dt, false);
 
-        Model3D states4 = model.clone( new Euler() ); //doesn't copy spaceship
-        states1.updatePos(alpha * dt, alpha * dt, false);
+        Model3D states4 = states3.clone( new Euler() );
+        //states1.updatePos(alpha * dt, alpha * dt, false);
 
 
         //update position

@@ -143,8 +143,8 @@ public class Gravity0 implements Model3D {
     public void setAcc(int index, double[] acc){ bodies[index].setAcc(acc); }
     @Override
     public void addDt(double dt) { CelestialBody.addDt(dt); }
-    
 
+    
 
     //getters
     @Override
