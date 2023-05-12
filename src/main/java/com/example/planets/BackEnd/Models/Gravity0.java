@@ -37,7 +37,7 @@ public class Gravity0 implements Model3D {
 
     }
 
-    public Gravity0(double theta, double phi, double[] rocketVel, NumSolver numSolver){
+    public Gravity0(double theta, double phi, NumSolver numSolver){
 
         this.numSolver = numSolver;
 
@@ -45,7 +45,7 @@ public class Gravity0 implements Model3D {
         for(int i=0; i<this.bodies.length-1; i++){
             this.bodies[i] = new CelestialBody(names[i], mass[i], positions[i], velocity[i]) ;
         }
-        this.bodies[ this.bodies.length-1 ] = new Spaceship(50000, positions[3], velocity[3], 0, 0, rocketVel);
+        this.bodies[ this.bodies.length-1 ] = new Spaceship(50000, positions[3], velocity[3], 0, 0);
 
     }
 
@@ -69,7 +69,7 @@ public class Gravity0 implements Model3D {
         hDeriv(); //gets the acceleration at the starting point..
         //.. so that the velocity doesn't take the acc as 0 at the start
 
-        numSolver.setState( this.getState() ); //saves useful info to speed up model
+        numSolver.innitState( this.getState() ); //saves useful info to speed up model
 
         //uses the unit of days to calculate how long to run the simulation for
         if( days ){
@@ -91,9 +91,9 @@ public class Gravity0 implements Model3D {
 
         //every body
         for(int i=0; i<this.size(); i++){
-            result[i][0] = this.getAcc(i);
+            result[i][0] = this.getPos(i);
             result[i][1] = this.getVel(i);
-            result[i][2] = this.getPos(i);
+            result[i][2] = this.getAcc(i);
         }
 
         return result;
