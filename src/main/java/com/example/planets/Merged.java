@@ -10,7 +10,6 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.layout.Background;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.PhongMaterial;
 import javafx.scene.shape.Box;
@@ -29,7 +28,7 @@ import java.util.TimerTask;
 //fix the path ( problems with changing the scale )
 
 public class Merged extends Application {
-    static Gravity0 model = new Gravity0(0, Math.PI / 2.0, new double[]{150,-200, 0}, new Euler()); /////////////
+    static Gravity0 model = new Gravity0(0, Math.PI / 2.0, new double[]{150,-200, 0}, new RK2()); /////////////
     private static int scale = 25;
     private static final int smallScale = 25;
     private static final int bigScale = 3000;
