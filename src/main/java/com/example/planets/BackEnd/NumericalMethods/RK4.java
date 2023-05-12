@@ -1,34 +1,25 @@
 package com.example.planets.BackEnd.NumericalMethods;
 
-import com.example.planets.BackEnd.Models.*;
+import com.example.planets.BackEnd.Models.Model3D;
 
-public class RK2 implements NumSolver {
+public class RK4 implements NumSolver{
 
-    //for different variants of RK2
-    private double alpha = 2.0/3.0; //Ralston's method by default
-
-    public RK2(){}
-    public RK2(double alph){
-        this.alpha = alph;
-    }
-
-    
-
-
-    // THIS WAY WORKS BUT USES TOO MUCH SPACE AND TIME SINCE IT COPIES THE WHOLE MODEL EVERY TIME STEP (BAD)
+    //////
+    @Override
     public void step(Model3D model, double dt) {
+        double alpha = 1.0;
 
         //set up rk2
         Model3D states = model.clone( new Euler() ); //doesn't copy spaceship
-        states.updatePos(alpha * dt, alpha * dt, false); 
-        
+        states.updatePos(alpha * dt, alpha * dt, false);
+
 
         //update position
         for(int i=0; i<model.size(); i++){
 
             model.setPos(i, new double[] {  model.getPos(i)[0] + dt * ( (1-1/(2*alpha)) * model.getVel(i)[0] + (1/(2*alpha)) * states.getVel(i)[0] ),
-                                            model.getPos(i)[1] + dt * ( (1-1/(2*alpha)) * model.getVel(i)[1] + (1/(2*alpha)) * states.getVel(i)[1] ), 
-                                            model.getPos(i)[2] + dt * ( (1-1/(2*alpha)) * model.getVel(i)[2] + (1/(2*alpha)) * states.getVel(i)[2] )   } );
+                    model.getPos(i)[1] + dt * ( (1-1/(2*alpha)) * model.getVel(i)[1] + (1/(2*alpha)) * states.getVel(i)[1] ),
+                    model.getPos(i)[2] + dt * ( (1-1/(2*alpha)) * model.getVel(i)[2] + (1/(2*alpha)) * states.getVel(i)[2] )   } );
 
         }
 
@@ -37,9 +28,9 @@ public class RK2 implements NumSolver {
         for(int i=0; i<model.size(); i++){
 
             model.setVel(i, new double[] {  model.getVel(i)[0] + dt * ( (1-1/(2*alpha)) * model.getAcc(i)[0] + (1/(2*alpha)) * states.getAcc(i)[0] ),
-                                            model.getVel(i)[1] + dt * ( (1-1/(2*alpha)) * model.getAcc(i)[1] + (1/(2*alpha)) * states.getAcc(i)[1] ),
-                                            model.getVel(i)[2] + dt * ( (1-1/(2*alpha)) * model.getAcc(i)[2] + (1/(2*alpha)) * states.getAcc(i)[2] )    } );
-                                            
+                    model.getVel(i)[1] + dt * ( (1-1/(2*alpha)) * model.getAcc(i)[1] + (1/(2*alpha)) * states.getAcc(i)[1] ),
+                    model.getVel(i)[2] + dt * ( (1-1/(2*alpha)) * model.getAcc(i)[2] + (1/(2*alpha)) * states.getAcc(i)[2] )    } );
+
         }
 
         //update acceleration
@@ -60,12 +51,16 @@ public class RK2 implements NumSolver {
     }
 
     @Override
-    public void setState(double[][][] state) {} //empty since to test optimization
+    public void setState(double[][][] state) {
 
+    }
 
     @Override
     public String getName() {
-        return "RK2: alpha = " + alpha;
+        return "RK4";
     }
 
 }
+
+
+// double[][] arr = { {X,Y,Z}, {Vx,Vy,Vz} };

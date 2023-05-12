@@ -2,47 +2,42 @@ package com.example.planets;
 
 import com.example.planets.BackEnd.CelestialEntities.CelestialBody;
 import com.example.planets.BackEnd.Models.Gravity0;
-import com.example.planets.BackEnd.NumericalMethods.RK2;
-import javafx.animation.Animation;
-import javafx.animation.Interpolator;
-import javafx.animation.RotateTransition;
+import com.example.planets.BackEnd.NumericalMethods.*;
 import javafx.application.Application;
 import javafx.geometry.Point3D;
 import javafx.scene.*;
 import javafx.scene.control.Label;
-import javafx.scene.effect.Glow;
+import javafx.scene.control.ProgressBar;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.Background;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.PhongMaterial;
 import javafx.scene.shape.Box;
 import javafx.scene.shape.Cylinder;
 import javafx.scene.shape.Sphere;
 import javafx.scene.transform.Rotate;
-import javafx.scene.transform.Translate;
 import javafx.stage.Stage;
-import javafx.util.Duration;
-
 import java.util.Timer;
 import java.util.TimerTask;
 
 //ToDo
 //add a spaceship model
 //fix the spaceship camera
-//maybe add a camera on the whole solar systemw
+//maybe add a camera on the whole solar system - changed the look at everything so its further away, I think that's enough
 //add used fuel meter
+//fix the path ( problems with changing the scale )
 
 public class Merged extends Application {
-    static Gravity0 model = new Gravity0(0, Math.PI / 2.0, new double[]{150,-200, 0}, new RK2()); /////////////
+    static Gravity0 model = new Gravity0(0, Math.PI / 2.0, new double[]{150,-200, 0}, new Euler()); /////////////
     private static int scale = 25;
-    private static int smallScale = 25;
-    private static int bigScale = 3000;
+    private static final int smallScale = 25;
+    private static final int bigScale = 3000;
     private static int counter = 0;
-    private int planetSize = 6371 / 2;
     private static boolean lookAtEarth = false;
     private static boolean lookAtTitan = false;
     private static boolean lookAtSun = false;
-    private static boolean lookatEverything = false;
+    private static boolean lookAtEverything = false;
     private static boolean lookAtSpaceship = false;
     private static Box[] path = new Box[10000];
 
@@ -50,56 +45,39 @@ public class Merged extends Application {
     public void start(Stage stage) throws Exception {
         inicilizePath();
         //create a new group
+        Group root = new Group();
+
         Group world = createEnvironment();
-        Scene scene = new Scene(world, 1920, 1080, true);
+        SubScene worldScene = new SubScene(world, 1920, 1080, true, SceneAntialiasing.BALANCED);
+
+        Scene scene = new Scene(root, 1920, 1080, true);
         world.getChildren().addAll(path);
-        //Group axis = buildAxes();
-        //world.getChildren().addAll(axis);
         //background
+        worldScene.setFill(Color.BLACK);
         scene.setFill(Color.BLACK);
         stage.setScene(scene);
         Camera camera = new PerspectiveCamera();
         camera.setFarClip(4000);
         camera.setNearClip(1);
+
+        //label and progressbar to show the fuel
+        Label title = new Label("Fuel remaining:");
+        title.setTextFill(Color.WHITE);
+        Label progressLabel = new Label("100000000");
+        progressLabel.setTranslateY(20);
+        progressLabel.setTextFill(Color.WHITE);
+        ProgressBar fuelBar = new ProgressBar(0.5);
+        fuelBar.setPrefSize(200,20);
+        fuelBar.setLayoutY(40);
+        root.getChildren().addAll(worldScene, title, fuelBar, progressLabel);
         //initial camera setting
-        scene.setCamera(camera);
+        worldScene.setCamera(camera);
         Rotate worldRotX = new Rotate(0, Rotate.X_AXIS);
         Rotate worldRotY = new Rotate(0, Rotate.Y_AXIS);
-        Translate worldTransX = new Translate();
         camera.getTransforms().addAll(worldRotY, worldRotX);
         stage.addEventHandler(KeyEvent.KEY_PRESSED, event -> {
             switch (event.getCode()) {
-//                case LEFT:
-//                    worldRotY.setAngle(worldRotY.getAngle() - 20);
-//                    break;
-//                case RIGHT:
-//                    worldRotY.setAngle(worldRotY.getAngle() + 20);
-//                    break;
-//                case UP:
-//                    worldRotX.setAngle(worldRotX.getAngle() - 20);
-//                    break;
-//                case DOWN:
-//                    worldRotX.setAngle(worldRotX.getAngle() + 20);
-//                    break;
-//                case X: //shift/Control is for z
-//                    camera.setTranslateZ(camera.getTranslateZ() - 3500);
-//                    break;
-//                case Z:
-//                    camera.setTranslateZ(camera.getTranslateZ() + 3500);
-//                    break;
-//                case A:// a/d is x axis
-//                    camera.setTranslateX(camera.getTranslateX() - 1350);
-//                    break;
-//                case D:
-//                    camera.setTranslateX(camera.getTranslateX() + 1350);
-//                    break;
-//                case W:// w/s is for y axis
-//                    camera.setTranslateY(camera.getTranslateY() - 1350);
-//                    break;
-//                case S:
-//                    camera.setTranslateY(camera.getTranslateY() + 1350);
-//                    break;
-                case DIGIT0:
+                case DIGIT0 -> {
                     System.out.println("------------------------------------------");
                     System.out.println("titan at: ");
                     for (int i = 0; i < 3; i++) {
@@ -111,80 +89,56 @@ public class Merged extends Application {
                         System.out.println(model.getBody(11).getPos()[i] / scale);
                     }
                     System.out.println("------------------------------------------");
-                    System.out.println(model.getShip().getUSedFuel());
-                    break;
-                case P:
-                    System.exit(0);
-                    break;
-                case DIGIT1:
-//                    if (lookAtEarth) {
-//                        lookAtEarth = false;
-//                    } else {
+                    System.out.println("camera at:");
+                    System.out.println("x: " + camera.getTranslateX() + ", y: " + camera.getTranslateY() + ", z: " + camera.getTranslateZ());
+                }
+                case P -> System.exit(0);
+                case DIGIT1 -> {
+                    if (!lookAtEarth) {
                         world.getChildren().get(7).setVisible(true);
                         scale = smallScale;
                         lookAtEarth = true;
                         lookAtTitan = false;
                         lookAtSun = false;
-                        lookatEverything = false;
+                        lookAtEverything = false;
                         lookAtSpaceship = false;
-//                    }
-                    break;
-                case DIGIT2:
-//                    if (lookAtSun) {
-//                        lookAtSun = false;
-//                    } else {
-                        world.getChildren().get(7).setVisible(true);
-                        scale = smallScale;
-                        lookAtSun = true;
-                        lookAtTitan = false;
-                        lookAtEarth = false;
-                        lookatEverything = false;
-                        lookAtSpaceship = false;
-
-//                   }
-                    break;
-                case DIGIT3:
-//                    if (lookAtTitan) {
-//                        lookAtTitan = false;
-//                    } else {
-                        world.getChildren().get(7).setVisible(true);
-                        scale = smallScale;
-                        lookAtTitan = true;
-                        lookAtSun = false;
-                        lookAtEarth = false;
-                        lookatEverything = false;
-                        lookAtSpaceship = false;
-
-//                    }
-                    break;
-                case DIGIT4:
-//                    if (lookatEverything) {
-//                        world.getChildren().get(7).setVisible(true);
-//                        scale = smallScale;
-//                        lookatEverything = false;
-//                    } else {
-                        world.getChildren().get(7).setVisible(false);
-                        scale = bigScale;
-                        lookatEverything = true;
-                        lookAtSun = false;
-                        lookAtEarth = false;
-                        lookAtTitan = false;
-                        lookAtSpaceship = false;
-
- //                   }
-                    break;
-                case DIGIT5:
-                    if (lookAtSpaceship) {
-                        lookAtSpaceship = false;
-                    } else {
-                        lookAtSpaceship = true;
-                        scale = smallScale;
-                        lookatEverything = false;
-                        lookAtSun = false;
-                        lookAtEarth = false;
-                        lookAtTitan = false;
                     }
-                    break;
+                }
+                case DIGIT2 -> {
+                    world.getChildren().get(7).setVisible(true);
+                    scale = smallScale;
+                    lookAtSun = true;
+                    lookAtTitan = false;
+                    lookAtEarth = false;
+                    lookAtEverything = false;
+                    lookAtSpaceship = false;
+                }
+                case DIGIT3 -> {
+                    world.getChildren().get(7).setVisible(true);
+                    scale = smallScale;
+                    lookAtTitan = true;
+                    lookAtSun = false;
+                    lookAtEarth = false;
+                    lookAtEverything = false;
+                    lookAtSpaceship = false;
+                }
+                case DIGIT4 -> {
+                    world.getChildren().get(7).setVisible(false);
+                    scale = bigScale;
+                    lookAtEverything = true;
+                    lookAtSun = false;
+                    lookAtEarth = false;
+                    lookAtTitan = false;
+                    lookAtSpaceship = false;
+                }
+                case DIGIT5 -> {
+                    lookAtSpaceship = true;
+                    scale = smallScale;
+                    lookAtEverything = false;
+                    lookAtSun = false;
+                    lookAtEarth = false;
+                    lookAtTitan = false;
+                }
             }
         });
 
@@ -218,17 +172,16 @@ public class Merged extends Application {
                     camera.setTranslateY(model.getBody(8).getPos()[1] / scale + 2000);
                     camera.setTranslateZ(model.getBody(8).getPos()[2] / scale - 24000);
                 }
-                if (lookatEverything) {
-                    camera.setTranslateX(model.getBody(8).getPos()[0] / scale - 237755);
-                    camera.setTranslateY(model.getBody(8).getPos()[1] / scale + 115144);
-                    camera.setTranslateZ(model.getBody(8).getPos()[2] / scale - 471948);
+                if (lookAtEverything) {
+                    camera.setTranslateX(183608);
+                    camera.setTranslateY(-128907);
+                    camera.setTranslateZ(-(484573*2));
                 }
                 if (lookAtSpaceship) {
                     camera.setTranslateX(model.getBody(11).getPos()[0] / scale + 1000);
                     camera.setTranslateY(model.getBody(11).getPos()[1] / scale + 2000);
                     camera.setTranslateZ(model.getBody(11).getPos()[2] / scale - 24000);
                 }
-
 
             }
         }, 1, 1);
@@ -242,7 +195,7 @@ public class Merged extends Application {
                     counter++;
                 }
             }
-        },5,4000);
+        },5,40);
     }
 
     public static void main(String... args) {
@@ -253,12 +206,6 @@ public class Merged extends Application {
         sphere.setTranslateX(body.getPos()[0] / scale);
         sphere.setTranslateY(body.getPos()[1] / scale);
         sphere.setTranslateZ(body.getPos()[2] / scale);
-    }
-
-    public static void setPosition(Box box, CelestialBody body) {
-        box.setTranslateX(body.getPos()[0] / scale);
-        box.setTranslateY(body.getPos()[1] / scale);
-        box.setTranslateZ(body.getPos()[2] / scale);
     }
 
     private void setPosition(Sphere sphere, int index) {
@@ -279,7 +226,7 @@ public class Merged extends Application {
         cylinder.setTranslateZ(positions[index][2] / scale);
     }
 
-    private static double[][] positions = {{0, 0, 0}, {7.83e6, 4.49e7, 2.87e6}, {-2.82e7, 1.04e8, 3.01e6},
+    private static final double[][] positions = {{0, 0, 0}, {7.83e6, 4.49e7, 2.87e6}, {-2.82e7, 1.04e8, 3.01e6},
             {-1.48e8, -2.78e7, 3.37e4}, {-1.48e8, -2.75e7, 7.02e4}, {-1.59e8, 1.89e8, 7.87e6},
             {6.93e8, 2.59e8, -1.66e7}, {1.25e9, -7.60e8, -3.67e7}, {1.25e9, 7.61e8, -3.63e7},
             {4.45e9, -3.98e8, -9.45e7}, {1.96e9, 2.19e9, -1.72e7}};
@@ -290,12 +237,8 @@ public class Merged extends Application {
         //create the sun
         Sphere sun = new Sphere();
         setPosition(sun, 0);
+        int planetSize = 6371 / 2;
         sun.setRadius(planetSize);
-        //glow
-        Glow sunGlow = new Glow();
-        sunGlow.setLevel(1000);
-        //material for the sun
-        sun.setEffect(sunGlow);
         PhongMaterial sunMaterial = new PhongMaterial();
         sunMaterial.setDiffuseMap(new Image("sunTexture.jpg"));
         sun.setMaterial(sunMaterial);
@@ -313,10 +256,6 @@ public class Merged extends Application {
         mercuryMaterial.setDiffuseMap(new Image("mercuryTexture.jpg"));
         mercury.setMaterial(mercuryMaterial);
 
-        // rotation for mercury
-
-        //rotation(mercury);
-
         //create venus
         Sphere venus = new Sphere();
         setPosition(venus, 2);
@@ -325,10 +264,6 @@ public class Merged extends Application {
         PhongMaterial venusMaterial = new PhongMaterial();
         venusMaterial.setDiffuseMap(new Image("venusTexture.jpg"));
         venus.setMaterial(venusMaterial);
-
-        // rotation for venus
-
-        //rotation(venus);
 
         //create earth
         Sphere earth = new Sphere();
@@ -339,10 +274,6 @@ public class Merged extends Application {
         earthMaterial.setDiffuseMap(new Image("earthTexture.jpg"));
         earth.setMaterial(earthMaterial);
 
-        // rotation for earth
-
-        //rotation(earth);
-
         //create moon
         Sphere moon = new Sphere();
         setPosition(moon, 4);
@@ -352,22 +283,14 @@ public class Merged extends Application {
         moonMaterial.setDiffuseMap(new Image("moonTexture.jpg"));
         moon.setMaterial(moonMaterial);
 
-        // rotation for moon
-
-        //rotation(moon);
-
         //create mars
         Sphere mars = new Sphere();
         setPosition(mars, 5);
         mars.setRadius(planetSize);
-        //material for the mars
+        //material for the Mars
         PhongMaterial marsMaterial = new PhongMaterial();
         marsMaterial.setDiffuseMap(new Image("marsTexture.png"));
         mars.setMaterial(marsMaterial);
-
-        // rotation for mars
-
-        //rotation(mars);
 
         //create jupiter
         Sphere jupiter = new Sphere();
@@ -378,10 +301,6 @@ public class Merged extends Application {
         jupiterMaterial.setDiffuseMap(new Image("jupiterTexture.jpg"));
         jupiter.setMaterial(jupiterMaterial);
 
-        // rotation for jupiter
-
-        //rotation(jupiter) ;
-
         //create saturn
         Sphere saturn = new Sphere();
         setPosition(saturn, 7);
@@ -391,9 +310,6 @@ public class Merged extends Application {
         saturnMaterial.setDiffuseMap(new Image("saturnTexture.jpg"));
         saturn.setMaterial(saturnMaterial);
 
-        // rotation for saturn
-
-        //rotation(saturn) ;
 
         //create titan
         Sphere titan = new Sphere();
@@ -404,10 +320,6 @@ public class Merged extends Application {
         titanMaterial.setDiffuseMap(new Image("titanTexture.jpg"));
         titan.setMaterial(titanMaterial);
 
-        // rotation for titan
-
-//        rotation(titan) ;
-
         //create neptune
         Sphere neptune = new Sphere();
         setPosition(neptune, 9);
@@ -416,10 +328,6 @@ public class Merged extends Application {
         PhongMaterial neptuneMaterial = new PhongMaterial();
         neptuneMaterial.setDiffuseMap(new Image("neptuneTexture.jpg"));
         neptune.setMaterial(neptuneMaterial);
-
-        // rotation for neptune
-
-        //rotation(neptune);
 
         //create uranus
         Sphere uranus = new Sphere();
@@ -430,9 +338,6 @@ public class Merged extends Application {
         uranusMaterial.setDiffuseMap(new Image("uranusTexture.jpg"));
         uranus.setMaterial(uranusMaterial);
 
-        // rotation for uranus
-
-        //rotation(uranus);
 
         // create the rocket
 
@@ -444,7 +349,6 @@ public class Merged extends Application {
         rocketBase.setMaterial(rocketBaseMaterial);
 
         // create the path of the rocket
-
         Cylinder rocketPath = new Cylinder(100, 1000);
         setPosition(rocketPath, 3);
         rocketPath.setRotate(90);
@@ -453,27 +357,9 @@ public class Merged extends Application {
         rocketPathMaterial.setDiffuseColor(Color.GOLD);
         rocketPath.setMaterial(rocketPathMaterial);
 
-
         group.getChildren().addAll(sun, mercury, venus, earth, moon, mars, jupiter, saturn, titan, neptune, uranus, rocketBase, rocketPath);
 
         return group;
-    }
-
-    private static void rotation(Sphere sphere) {
-        RotateTransition rotate = new RotateTransition(Duration.seconds(10), sphere);
-        rotate.setByAngle(360);
-        rotate.setAxis(Rotate.Y_AXIS);
-        rotate.setInterpolator(Interpolator.LINEAR);
-        rotate.setCycleCount(Animation.INDEFINITE);
-        rotate.play();
-    }
-
-    private static void printLooks() {
-        System.out.println("looks at earth: " + lookAtEarth);
-        System.out.println("looks at sun: " + lookAtSun);
-        System.out.println("looks at titan: " + lookAtTitan);
-        System.out.println("looks at everything: " + lookatEverything);
-
     }
 
     private static void inicilizePath() {
