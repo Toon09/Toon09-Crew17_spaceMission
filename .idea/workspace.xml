@@ -4,10 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="bab05458-8716-4abd-8f37-31e577e5aaab" name="Changes" comment="innit vel in ship deleted">
+    <list default="true" id="bab05458-8716-4abd-8f37-31e577e5aaab" name="Changes" comment="GUI, progress bar, two labels, change of the scene structure ( adding a sub-scene ) and code cleanup">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/planets/BackEnd/Models/Gravity0.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/planets/BackEnd/Models/Gravity0.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/planets/BackEnd/NumericalMethods/RK4.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/planets/BackEnd/NumericalMethods/RK4.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/planets/BackEnd/CelestialEntities/Spaceship.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/planets/BackEnd/CelestialEntities/Spaceship.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/planets/Merged.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/planets/Merged.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/planets/BackEnd/CelestialEntities/Spaceship.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/planets/BackEnd/CelestialEntities/Spaceship.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -436,28 +437,7 @@
       <option name="project" value="LOCAL" />
       <updated>1683825248190</updated>
     </task>
-    <task id="LOCAL-00041" summary="innit vel in ship deleted">
-      <created>1683880199675</created>
-      <option name="number" value="00041" />
-      <option name="presentableId" value="LOCAL-00041" />
-      <option name="project" value="LOCAL" />
-      <updated>1683880199675</updated>
-    </task>
-    <task id="LOCAL-00042" summary="innit vel in ship deleted">
-      <created>1683880283906</created>
-      <option name="number" value="00042" />
-      <option name="presentableId" value="LOCAL-00042" />
-      <option name="project" value="LOCAL" />
-      <updated>1683880283906</updated>
-    </task>
-    <task id="LOCAL-00043" summary="innit vel in ship deleted">
-      <created>1683880307834</created>
-      <option name="number" value="00043" />
-      <option name="presentableId" value="LOCAL-00043" />
-      <option name="project" value="LOCAL" />
-      <updated>1683880307834</updated>
-    </task>
-    <option name="localTasksCounter" value="44" />
+    <option name="localTasksCounter" value="41" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -489,7 +469,6 @@
     <MESSAGE value="GUI changes" />
     <MESSAGE value="GUI code cleanup" />
     <MESSAGE value="GUI, progress bar, two labels, change of the scene structure ( adding a sub-scene ) and code cleanup" />
-    <MESSAGE value="innit vel in ship deleted" />
-    <option name="LAST_COMMIT_MESSAGE" value="innit vel in ship deleted" />
+    <option name="LAST_COMMIT_MESSAGE" value="GUI, progress bar, two labels, change of the scene structure ( adding a sub-scene ) and code cleanup" />
   </component>
 </project>

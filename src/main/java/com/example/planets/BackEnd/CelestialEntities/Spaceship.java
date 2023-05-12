@@ -16,6 +16,7 @@ public class Spaceship extends CelestialBody {
     Planning plan = new Planning();
     private final double maxSpeed = 2_500; //2,500 to 4,500 m/s (look up)
     private  final double maxForce = 3 * Math.pow(10, 7); // Newtons
+    private final double mass = 50000;
     public double getUsedFuel(){ return usedFuel; }
     // public void setFuel(double fuel){ this.fuel = fuel; }
 
@@ -24,7 +25,6 @@ public class Spaceship extends CelestialBody {
     public Spaceship(double mass, double[] pos, double[] vel, double theta, double phi){
         super(mass, pos, vel);
         usedFuel = 0;
-
         //positions
         double x = Gravity0.radiuses[3] * Math.cos(theta) * Math.cos(phi);
         double y = Gravity0.radiuses[3] * Math.sin(theta) * Math.cos(phi);
@@ -64,23 +64,19 @@ public class Spaceship extends CelestialBody {
      */
 
     //magnitute and thso evalue are saved inside the Planning class
-    public void accelerate(double dt){
-        double[] direction = plan.getNextDirection(); //gets all info of where it needs to go
+    public void accelerate(double x, double y, double z){
+        //double[] direction = plan.getNextDirection(); //gets all info of where it needs to go
         // change so it doesnt change order per time step
         // add a var thats called order than in the condition make it so that
         // it saves it and then its used here
 
         //calc the fuel loss (magnitute is necesary)
-        double magnitute = direction[3];
-        usedFuel += dt* Math.abs(magnitute);
+        //double magnitute = direction[3];
+       // usedFuel += dt* Math.abs(magnitute);
 
         //calc the velocity change if the force can still be applied
         // can apply other methods like RK2 and such here for more precision /////////////////////
-        if( magnitute*getMass() <= maxForce ){
-            addVel( new double[] {  direction[0]*magnitute*dt,
-                                    direction[1]*magnitute*dt,
-                                    direction[2]*magnitute*dt   });
-        }
+
 
     }
 

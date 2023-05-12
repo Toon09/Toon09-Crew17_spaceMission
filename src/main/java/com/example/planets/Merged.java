@@ -90,6 +90,9 @@ public class Merged extends Application {
                     System.out.println("------------------------------------------");
                     System.out.println("camera at:");
                     System.out.println("x: " + camera.getTranslateX() + ", y: " + camera.getTranslateY() + ", z: " + camera.getTranslateZ());
+                    System.out.println("------------------------------------------");
+                    System.out.println("Time is: ");
+                    System.out.println(model.getTime());
                 }
                 case P -> System.exit(0);
                 case DIGIT1 -> {
@@ -192,6 +195,9 @@ public class Merged extends Application {
                     path[counter].setTranslateY(model.getBody(11).getPos()[1] / scale);
                     path[counter].setTranslateZ(model.getBody(11).getPos()[2] / scale);
                     counter++;
+                }
+                if(model.getTime() == 10){
+                    //model.getShip().accelerate();
                 }
             }
         },5,40);
