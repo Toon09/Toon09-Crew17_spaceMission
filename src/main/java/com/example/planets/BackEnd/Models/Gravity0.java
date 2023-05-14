@@ -91,9 +91,17 @@ public class Gravity0 implements Model3D {
 
         //every body
         for(int i=0; i<this.size(); i++){
-            result[i][0] = this.getPos(i);
-            result[i][1] = this.getVel(i);
-            result[i][2] = this.getAcc(i);
+
+            for(int j=0; j<3; j++){
+                result[i][0][j] = this.getPos(i)[j];
+            }
+            for(int j=0; j<3; j++){
+                result[i][1][j] = this.getVel(i)[j];
+            }
+            for(int j=0; j<3; j++){
+                result[i][2][j] = this.getAcc(i)[j];
+            }
+
         }
 
         return result;
