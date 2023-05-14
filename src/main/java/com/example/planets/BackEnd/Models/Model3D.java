@@ -10,6 +10,11 @@ public interface Model3D {
     public void setPos(int index, double[] pos);
     public void setVel(int index, double[] vel);
     public void setAcc(int index, double[] acc);
+
+    /**
+     * Adds the time passed to the current count of the time
+     * @param dt
+     */
     public void addDt(double dt);
 
     public void setSolver(NumSolver numSolver);
@@ -24,9 +29,15 @@ public interface Model3D {
     //elements
     public CelestialBody getBody(int index);
     public Spaceship getShip();
+
+    /**
+     * @return amount of Celestial bodies (including spaceShips)
+     */
     public int size();
 
-    //derivs
+    /**
+     * Calculates highest derivative and saves the changes in-place to the value of it
+     */
     public void hDeriv();
     public Model3D clone(NumSolver numSolver);
 
@@ -41,8 +52,22 @@ public interface Model3D {
      */
     public double[][][] getState(); //returns all values of velicity and acceleration in an ordered format
 
-    //updating
+    /**
+     *
+     * @param time amount of units of time (in seconds or days depending on @days) that it wants to be run for
+     * @param dt time step (always in seconds) which will be using
+     * @param inDays true if you are imputting the amount of days to run for, false if in seconds
+     */
     public void updatePos(double time, double dt, boolean inDays);
 
-    
+    /**
+     * takes in 3D array of values and takes makes the model match the state given,
+     * input array @states must be in the following format:
+     *                                      [ represents each element in the model in the same order ]
+     *  arrays of length 3 that contain     [ 0:position, 1:velocity, 2:acceleration ]
+     *  values of each coordinate in        [ 0:x, 1:y, 2:z ]
+     *
+     * @param state a 3D array of values in the same format as described above
+     */
+    void setState(double[][][] state);
 }

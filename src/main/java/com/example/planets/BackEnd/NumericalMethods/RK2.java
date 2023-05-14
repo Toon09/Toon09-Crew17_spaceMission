@@ -59,8 +59,6 @@ public class RK2 implements NumSolver {
 
     }
 
-    @Override
-    public void innitState(double[][][] state) { }
 
 
     @Override

@@ -12,15 +12,6 @@ public interface NumSolver {
      */
     void step(Model3D model, double dt);
 
-    /**
-     * Saves the model in memory for storing useful data in memory and speeding up the calculation process,
-     * this needs to be done before you call the function step, but only once
-     * @param state a 3D double array that contains:
-     *                                      [ represents each element in the model in the same order ]
-     *  arrays of length 3 that contain     [ 0:position, 1:velocity, 2:acceleration ]
-     *  values of each coordinate in        [ 0:x, 1:y, 2:z ]
-     */
-    void innitState(double[][][] state);
 
     /**
      * helps identify the specific numerical solver that is being used

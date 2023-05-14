@@ -9,10 +9,6 @@ public class LeapFrog implements NumSolver{
 
     }
 
-    @Override
-    public void innitState(double[][][] state) {
-
-    }
 
     @Override
     public String getName() {

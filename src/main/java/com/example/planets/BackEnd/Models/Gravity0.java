@@ -57,19 +57,18 @@ public class Gravity0 implements Model3D {
             return null;
     }
 
+
     @Override
     public void setSolver(NumSolver numSolver) {
         this.numSolver = numSolver;
     }
 
 
-    //days is how many days to compute at a time
+
     @Override
     public void updatePos(double time, double dt, boolean days){
         hDeriv(); //gets the acceleration at the starting point..
         //.. so that the velocity doesn't take the acc as 0 at the start
-
-        numSolver.innitState( this.getState() ); //saves useful info to speed up model
 
         //uses the unit of days to calculate how long to run the simulation for
         if( days ){
@@ -91,22 +90,25 @@ public class Gravity0 implements Model3D {
 
         //every body
         for(int i=0; i<this.size(); i++){
-
-            for(int j=0; j<3; j++){
+            for(int j=0; j<3; j++)
                 result[i][0][j] = this.getPos(i)[j];
-            }
-            for(int j=0; j<3; j++){
+            for(int j=0; j<3; j++)
                 result[i][1][j] = this.getVel(i)[j];
-            }
-            for(int j=0; j<3; j++){
+            for(int j=0; j<3; j++)
                 result[i][2][j] = this.getAcc(i)[j];
-            }
 
         }
 
         return result;
+    }
+
+    @Override
+    public void setState(double[][][] state){
+        for(int i=0; i<bodies.length; i++)
+            bodies[i].setState(state[i]);
 
     }
+
 
     //make function that returns the rocket
     @Override

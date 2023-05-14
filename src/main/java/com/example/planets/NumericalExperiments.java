@@ -15,26 +15,13 @@ class NumericalExperiments {
     /*
     ToDo
     + finish setting up the engine for easy use and implementation
-    + optimize RK2 in a way that makes other methods easier to implement (AB4 or ode45 with RK)
-        -making func's take an array instead as an input and from there have each method have instances of the arrays
-        with the data they override as they are going thru it with the required data, instead of copying everything
-        each time its required could speed things up
-        -use this for LeapFrog, RK2 and RK4
     + write documentation
     + make a test folder and add folders inside with separated test cases for everything in here (pain)
+    + make lightweight versions of the classes that are extented by heavier ones we use normally
+    + fix AB2 to use same logic as F/_RK2
 
-    Grav0 line 68 is where the optimization can happen
-    + can get rid of acc in state optim array since the og acc can be used
+    make time to be saved per model only, not static in celestial body
 
-    make sure the call in 68 copies mass and no other, that or use the mass from the model itself
-    with 0 copies
-
-    check if you can avoid copying the position all together
-
-    change comparingToEachOther() to make it so that is saves the speed of each model as well
-
-
-    change setVel, setPos, setAcc in model to take 3 doubles instead of a new double[] for spedddd
     change time to run instead of in amount of days, to be in hours
      */
 
@@ -55,7 +42,7 @@ class NumericalExperiments {
 
     public static void comparingToEachOther() {
         //experiment setup hyper parameters
-        double time = 90;
+        double time = 20;
         boolean isDay = true;
         int checkInterval = 1; //every how many days do you want it to print the values
         final int MARS = 4;
@@ -65,7 +52,9 @@ class NumericalExperiments {
 
 
         //new Gravity0(0, Math.PI / 2.0, new double[]{11, 11, 0}, new RK2());
-        models.add( new Gravity0( 0, Math.PI / 2.0, new FastRK2() ) );
+        //models.add( new Gravity0( 0, Math.PI / 2.0, new Euler() ) );
+        //models.add( new Gravity0( 0, Math.PI / 2.0, new FastRK2() ) );
+        models.add( new Gravity0( 0, Math.PI / 2.0, new RK4() ) );
         //models.add( new Gravity0( 0, Math.PI / 2.0, new double[]{11, 11, 0}, new RK4() ) );
 
 
@@ -73,7 +62,7 @@ class NumericalExperiments {
         Model3D benchmark = new Gravity0( 0, Math.PI / 2.0, new RK2() );
 
         double testDt = 0.1;
-        double benchmarkPrecision = 0.1;
+        double benchmarkPrecision = 0.01/2;
 
         //test details
         System.out.println("target planet: MARS");
