@@ -11,7 +11,6 @@ public class CelestialBody {
     protected double[] pos = new double[3];
     protected double[] vel = new double[3];
     protected double[] acc = new double[]{0,0,0};
-    protected static double time = 0;
 
 
     public static double daysToSec(double days){
@@ -30,9 +29,7 @@ public class CelestialBody {
         return Math.sqrt( a*a + b*b + c*c );
     }
 
-    public CelestialBody(){
-        
-    }
+    public CelestialBody(){}
 
 
     public CelestialBody(double mass, double[] innitPos, double[] innitVel){
@@ -133,11 +130,9 @@ public class CelestialBody {
     public double[] getPos(){ return pos; }
     public double[] getVel(){ return vel; }
     public double[] getAcc(){ return acc; }
-    public static double getTime(){ return time; }
     public double getMass(){ return mass; }
     public double getRadius(){ return radius; }
     public String getName(){ return name; }
-    public static void addDt(double dt){ time += dt; }
 
     //setters
     public void setMass(double mass){ this.mass = mass; }

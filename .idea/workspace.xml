@@ -4,24 +4,21 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="bab05458-8716-4abd-8f37-31e577e5aaab" name="Changes" comment="getState only copies values, no references">
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_12_05_2023_10_31__Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_12_05_2023_10_31__Changes_.xml" afterDir="false" />
+    <list default="true" id="bab05458-8716-4abd-8f37-31e577e5aaab" name="Changes" comment="RK4 implemented and FRK2 finished, FRK2 needs check">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/planets/BackEnd/CelestialEntities/CelestialBody.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/planets/BackEnd/CelestialEntities/CelestialBody.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/planets/BackEnd/CelestialEntities/Spaceship.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/planets/BackEnd/CelestialEntities/Spaceship.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/planets/BackEnd/Models/Gravity0.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/planets/BackEnd/Models/Gravity0.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/planets/BackEnd/Models/Model3D.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/planets/BackEnd/Models/Model3D.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/planets/BackEnd/NumericalMethods/AB2.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/planets/BackEnd/NumericalMethods/AB2.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/planets/BackEnd/NumericalMethods/Euler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/planets/BackEnd/NumericalMethods/Euler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/planets/BackEnd/NumericalMethods/FastRK2.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/planets/BackEnd/NumericalMethods/FastRK2.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/planets/BackEnd/NumericalMethods/LeapFrog.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/planets/BackEnd/NumericalMethods/LeapFrog.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/planets/BackEnd/NumericalMethods/NumSolver.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/planets/BackEnd/NumericalMethods/NumSolver.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/planets/BackEnd/NumericalMethods/RK2.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/planets/BackEnd/NumericalMethods/RK2.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/planets/BackEnd/NumericalMethods/RK4.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/planets/BackEnd/NumericalMethods/RK4.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/planets/NumericalExperiments.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/planets/NumericalExperiments.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/planets/Merged.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/planets/Merged.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/planets/BackEnd/CelestialEntities/CelestialBody.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/planets/BackEnd/CelestialEntities/CelestialBody.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/com/example/planets/BackEnd/Models/Gravity0.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/planets/BackEnd/Models/Gravity0.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/example/planets/BackEnd/NumericalMethods/FastRK2.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/planets/BackEnd/NumericalMethods/FastRK2.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/example/planets/BackEnd/NumericalMethods/LeapFrog.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/planets/BackEnd/NumericalMethods/LeapFrog.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/example/planets/BackEnd/NumericalMethods/RK4.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/planets/BackEnd/NumericalMethods/RK4.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/planets/BackEnd/Models/Model3D.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/planets/BackEnd/Models/Model3D.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/planets/BackEnd/NumericalMethods/AB2.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/planets/BackEnd/NumericalMethods/AB2.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/planets/BackEnd/NumericalMethods/Euler.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/planets/BackEnd/NumericalMethods/Euler.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/planets/BackEnd/NumericalMethods/NumSolver.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/planets/BackEnd/NumericalMethods/NumSolver.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/planets/BackEnd/NumericalMethods/RK2.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/planets/BackEnd/NumericalMethods/RK2.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/planets/NumericalExperiments.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/planets/NumericalExperiments.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -90,7 +87,7 @@
       <recent name="C:\Users\suszw\Desktop\uni\year_1\Period4\plswork\src\main\java\com\example\planets" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.NumericalExperiments">
+  <component name="RunManager" selected="Application.Merged">
     <configuration name="GUI" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="com.example.planets.GUI" />
       <module name="Planets" />
@@ -145,8 +142,8 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.NumericalExperiments" />
         <item itemvalue="Application.Merged" />
+        <item itemvalue="Application.NumericalExperiments" />
         <item itemvalue="Application.GUI" />
         <item itemvalue="Application.Main" />
       </list>
@@ -458,7 +455,14 @@
       <option name="project" value="LOCAL" />
       <updated>1684066080547</updated>
     </task>
-    <option name="localTasksCounter" value="42" />
+    <task id="LOCAL-00042" summary="RK4 implemented and FRK2 finished, FRK2 needs check">
+      <created>1684072811990</created>
+      <option name="number" value="00042" />
+      <option name="presentableId" value="LOCAL-00042" />
+      <option name="project" value="LOCAL" />
+      <updated>1684072811990</updated>
+    </task>
+    <option name="localTasksCounter" value="43" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -491,6 +495,7 @@
     <MESSAGE value="GUI code cleanup" />
     <MESSAGE value="GUI, progress bar, two labels, change of the scene structure ( adding a sub-scene ) and code cleanup" />
     <MESSAGE value="getState only copies values, no references" />
-    <option name="LAST_COMMIT_MESSAGE" value="getState only copies values, no references" />
+    <MESSAGE value="RK4 implemented and FRK2 finished, FRK2 needs check" />
+    <option name="LAST_COMMIT_MESSAGE" value="RK4 implemented and FRK2 finished, FRK2 needs check" />
   </component>
 </project>

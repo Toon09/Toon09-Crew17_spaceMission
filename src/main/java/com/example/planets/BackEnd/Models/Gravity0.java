@@ -10,6 +10,8 @@ public class Gravity0 implements Model3D {
     private CelestialBody[] bodies;
     private NumSolver numSolver;
 
+    private double time = 0;
+
 
     public Gravity0(NumSolver numSolver){
         this.numSolver = numSolver;
@@ -152,7 +154,7 @@ public class Gravity0 implements Model3D {
     @Override
     public void setAcc(int index, double[] acc){ bodies[index].setAcc(acc); }
     @Override
-    public void addDt(double dt) { CelestialBody.addDt(dt); }
+    public void addDt(double dt) { time += dt; }
 
     
 
@@ -164,7 +166,7 @@ public class Gravity0 implements Model3D {
     @Override
     public double[] getAcc(int index){ return bodies[index].getAcc(); }
     @Override
-    public double getTime() { return CelestialBody.getTime(); }
+    public double getTime() { return time; }
 
     //upates all derivs
     @Override
