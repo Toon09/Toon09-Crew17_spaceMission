@@ -53,7 +53,7 @@ public class RK2 implements NumSolver {
         if( model.getShip().trajectoryChangeCondition(model) ){
             //the magnitutes and such can be saved in another class and this call can be emptied out
             //the values can be saved in an array of sorts
-            model.getShip().accelerate(dt);
+            //model.getShip().accelerate(dt);
         }
 
 
