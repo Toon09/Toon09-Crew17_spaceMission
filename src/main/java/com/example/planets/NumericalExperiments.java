@@ -23,6 +23,8 @@ class NumericalExperiments {
     make time to be saved per model only, not static in celestial body
 
     change time to run instead of in amount of days, to be in hours
+
+    change the way we chose initial conidtions to one that matches earths coordinate system in angles
      */
 
 
@@ -39,34 +41,36 @@ class NumericalExperiments {
 
     }
 
-
+    // change so that each solver can have its own dt and display it as well
     public static void comparingToEachOther() {
         //experiment setup hyper parameters
-        double time = 20;
+        double time = 30;
         boolean isDay = true;
         int checkInterval = 1; //every how many days do you want it to print the values
         final int MARS = 4;
 
-        //  testing models
-        ArrayList<Model3D> models = new ArrayList<Model3D>();
-
-
-        //new Gravity0(0, Math.PI / 2.0, new double[]{11, 11, 0}, new RK2());
-        //models.add( new Gravity0( 0, Math.PI / 2.0, new Euler() ) );
-        //models.add( new Gravity0( 0, Math.PI / 2.0, new FastRK2() ) );
-        models.add( new Gravity0( 0, Math.PI / 2.0, new RK4() ) );
-        //models.add( new Gravity0( 0, Math.PI / 2.0, new double[]{11, 11, 0}, new RK4() ) );
-
-
         // benchmark model
         Model3D benchmark = new Gravity0( 0, Math.PI / 2.0, new RK2() );
-
-        double testDt = 0.1;
         double benchmarkPrecision = 0.01/2;
+
+
+        //  testing models
+        ArrayList<Model3D> models = new ArrayList<Model3D>();
+        ArrayList<Double> steps = new ArrayList<Double>();
+
+        // add a model with the solver and next the step size its used with it
+        //models.add( new Gravity0( 0, Math.PI / 2.0, new Euler() ) );
+        //steps.add( 0.1 );
+
+        //models.add( new Gravity0( 0, Math.PI / 2.0, new FastRK2() ) );
+        //steps.add( 0.1 );
+
+        models.add( new Gravity0( 0, Math.PI / 2.0, new RK4() ) );
+        steps.add( 0.5 );
+
 
         //test details
         System.out.println("target planet: MARS");
-        System.out.println("test precision: " + testDt);
         System.out.println("benchmark precision: " + benchmarkPrecision);
         System.out.println("benchmark model: " + benchmark.getSolverName() + "\n");
 
@@ -84,13 +88,13 @@ class NumericalExperiments {
             for (int j=0; j<models.size(); j++) {
                 //start count of how much each model took here
                 chrono[j] = System.currentTimeMillis();
-                models.get(j).updatePos(1, testDt, isDay);
+                models.get(j).updatePos(1, steps.get(j), isDay);
                 //end count of how long each model here
                 chrono[j] = System.currentTimeMillis() - chrono[j];
             }
 
 
-            //calculae errors
+            //calculate errors
             for (int j = 0; j < models.size(); j++) {
                 errors[j][0] = benchmark.getBody(MARS).getPos()[0] - models.get(j).getBody(MARS).getPos()[0];
                 errors[j][1] = benchmark.getBody(MARS).getPos()[1] - models.get(j).getBody(MARS).getPos()[1];
@@ -104,15 +108,16 @@ class NumericalExperiments {
 
                 for (int j = 0; j < models.size(); j++) {
                     System.out.println( models.get(j).getSolverName() );
-                    System.out.println("Excution time: " + chrono[j] + "ms");
+                    System.out.println("Execution time: " + chrono[j] + "ms");
+                    System.out.println("step size: " + steps.get(j) + "s");
                     System.out.println("Error= X: " + errors[j][0] + "; Y: " + errors[j][1] + "; Z: " + errors[j][2] + "\n");
 
                 }
 
                 //print benchmark data here
                 System.out.println("Benchmark time: " + chrono[ chrono.length-1 ] + "ms");
-                System.out.println("in sim time: " + benchmark.getTime() + "s");
-                System.out.println("\n\n");
+                System.out.println("in sim time: " + Math.round( benchmark.getTime() ) + "s");
+                System.out.println("\n");
             }
 
 
@@ -120,6 +125,9 @@ class NumericalExperiments {
 
 
         }
+
+
+
         public static void excelTest() throws IOException {
             Gravity0 grav = new Gravity0(new Euler());
 

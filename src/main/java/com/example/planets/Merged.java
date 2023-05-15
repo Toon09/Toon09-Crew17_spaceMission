@@ -27,6 +27,12 @@ import java.util.TimerTask;
 //add used fuel meter
 //fix the path ( problems with changing the scale )
 
+// thingie to change step size in real time
+// have screen to chose solver & innit coniditions (have an option for our chosen coords)
+// have an actual sprite for the rocket lol
+// put names of planets on top of them????
+// when you close the window the program stops too
+
 public class Merged extends Application {
     static Gravity0 model = new Gravity0(0, Math.PI / 2.0, new RK2());
     private static int scale = 25;
