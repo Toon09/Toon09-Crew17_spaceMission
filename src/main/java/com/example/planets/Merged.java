@@ -34,7 +34,7 @@ import java.util.TimerTask;
 // when you close the window the program stops too
 
 public class Merged extends Application {
-    static Gravity0 model = new Gravity0(0, Math.PI / 2.0, new RK2());
+    static Gravity0 model = new Gravity0(0, Math.PI / 2.0, new RK4());
     private static int scale = 25;
     private static final int smallScale = 25;
     private static final int bigScale = 3000;
@@ -161,7 +161,7 @@ public class Merged extends Application {
         timer.schedule(new TimerTask() {
             @Override
             public void run() {
-                model.updatePos(0.1, 0.1, true);
+                model.updatePos(0.05, 1, true);
                 for (int i = 0; i < 12; i++) {
                     setPosition(world.getChildren().get(i), model.getBody(i));
                 }

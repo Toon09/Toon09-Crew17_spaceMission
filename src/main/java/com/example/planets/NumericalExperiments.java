@@ -48,8 +48,8 @@ class NumericalExperiments {
         final int MARS = 4;
 
         // benchmark model
-        Model3D benchmark = new Gravity0( 0, Math.PI / 2.0, new RK2() );
-        double benchmarkPrecision = 0.01/2;
+        Model3D benchmark = new Gravity0( 0, Math.PI / 2.0, new RK4() );
+        double benchmarkPrecision = 0.01;
 
 
         //  testing models
@@ -62,6 +62,9 @@ class NumericalExperiments {
 
         //models.add( new Gravity0( 0, Math.PI / 2.0, new FastRK2() ) );
         //steps.add( 0.1 );
+
+        models.add( new Gravity0( 0, Math.PI / 2.0, new RK4() ) );
+        steps.add( 0.25 );
 
         models.add( new Gravity0( 0, Math.PI / 2.0, new RK4() ) );
         steps.add( 0.5 );
@@ -121,6 +124,7 @@ class NumericalExperiments {
                 //print benchmark data here
                 System.out.println("Benchmark time: " + chrono[ chrono.length-1 ] + "ms");
                 System.out.println("in sim time: " + Math.round( benchmark.getTime() ) + "s");
+                System.out.println("benchmark step size: " + benchmarkPrecision);
                 System.out.println("\n");
             }
 
