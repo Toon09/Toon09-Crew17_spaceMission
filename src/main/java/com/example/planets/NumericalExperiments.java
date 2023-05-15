@@ -20,11 +20,9 @@ class NumericalExperiments {
     + make lightweight versions of the classes that are extented by heavier ones we use normally
     + fix AB2 to use same logic as F/_RK2
 
-    make time to be saved per model only, not static in celestial body
-
     change time to run instead of in amount of days, to be in hours
 
-    change the way we chose initial conidtions to one that matches earths coordinate system in angles
+    change the way we chose initial conditions to one that matches earths coordinate system in angles
      */
 
 
@@ -67,6 +65,12 @@ class NumericalExperiments {
 
         models.add( new Gravity0( 0, Math.PI / 2.0, new RK4() ) );
         steps.add( 0.5 );
+
+        models.add( new Gravity0( 0, Math.PI / 2.0, new RK4() ) );
+        steps.add( 0.75 );
+
+        models.add( new Gravity0( 0, Math.PI / 2.0, new RK4() ) );
+        steps.add( 1.0 );
 
 
         //test details
