@@ -17,12 +17,30 @@ class NumericalExperiments {
     + finish setting up the engine for easy use and implementation
     + write documentation
     + make a test folder and add folders inside with separated test cases for everything in here (pain)
-    + make lightweight versions of the classes that are extented by heavier ones we use normally
+    + make lightweight versions of the classes that are extended by heavier ones we use normally
     + fix AB2 to use same logic as F/_RK2
 
     change time to run instead of in amount of days, to be in hours
 
     change the way we chose initial conditions to one that matches earths coordinate system in angles
+
+    //for adaptive method
+    // https://youtu.be/6bHdFef1S60
+    // https://en.m.wikipedia.org/wiki/Adaptive_step_size
+
+    Runge Kutta Fehlberg (famous adaptive rk)
+    Cash - Karp rk fehlberg -> rk4&5
+
+    // RK6: https://youtu.be/soEj7YHrKyE
+
+    // https://youtube.com/playlist?list=PLYdroRCLMg5PhZqzEJJlyLo55-1Vdd4Bd [numerical methods]
+    // https://youtube.com/playlist?list=PLOIRBaljOV8je0oxFAyj2o6YLXcBX1rTZ [rocket trajectory]
+    // https://youtu.be/l_iZk4n5QFU [1h lecture o ntrajectory planning]
+
+    change for loop to be inside the step func in NumSolver so the step ize change of of dormatn prince doesnt destroy anything
+    have the length of execution be a parameter
+
+    -implement dormant prince with for loop inside
      */
 
 
@@ -31,6 +49,7 @@ class NumericalExperiments {
 
         comparingToEachOther();
     }
+
 
     public static void engineTest() {
         /*
@@ -49,7 +68,7 @@ class NumericalExperiments {
 
         // benchmark model
         Model3D benchmark = new Gravity0( 0, Math.PI / 2.0, new RK4() );
-        double benchmarkPrecision = 0.01;
+        double benchmarkPrecision = 1;
 
 
         //  testing models
@@ -60,25 +79,13 @@ class NumericalExperiments {
         //models.add( new Gravity0( 0, Math.PI / 2.0, new Euler() ) );
         //steps.add( 0.1 );
 
-        //models.add( new Gravity0( 0, Math.PI / 2.0, new FastRK2() ) );
-        //steps.add( 0.1 );
-
-        models.add( new Gravity0( 0, Math.PI / 2.0, new RK4() ) );
-        steps.add( 0.25 );
-
-        models.add( new Gravity0( 0, Math.PI / 2.0, new RK4() ) );
-        steps.add( 0.5 );
-
-        models.add( new Gravity0( 0, Math.PI / 2.0, new RK4() ) );
-        steps.add( 0.75 );
-
-        models.add( new Gravity0( 0, Math.PI / 2.0, new RK4() ) );
-        steps.add( 1.0 );
+        models.add( new Gravity0( 0, Math.PI / 2.0, new AB2() ) );
+        steps.add( 0.1 );
 
 
         //test details
         System.out.println("target planet: MARS");
-        System.out.println("benchmark precision: " + benchmarkPrecision);
+        System.out.println("benchmark precision: " + benchmarkPrecision + "s");
         System.out.println("benchmark model: " + benchmark.getSolverName() + "\n");
 
         double[][] errors = new double[models.size()][3];
@@ -116,6 +123,7 @@ class NumericalExperiments {
                 for (int j = 0; j < models.size(); j++) {
                     System.out.println( models.get(j).getSolverName() );
                     System.out.println("Execution time: " + chrono[j] + "ms");
+                    System.out.println("Sim time: " + models.get(j).getTime() + "s");
                     System.out.println("step size: " + steps.get(j) + "s");
                     System.out.println("Error= X: " + errors[j][0] + "; Y: " + errors[j][1] + "; Z: " + errors[j][2] + "\n");
 
@@ -124,7 +132,7 @@ class NumericalExperiments {
                 //print benchmark data here
                 System.out.println("Benchmark time: " + chrono[ chrono.length-1 ] + "ms");
                 System.out.println("in sim time: " + Math.round( benchmark.getTime() ) + "s");
-                System.out.println("benchmark step size: " + benchmarkPrecision);
+                System.out.println("benchmark step size: " + benchmarkPrecision + "s");
                 System.out.println("\n");
             }
 

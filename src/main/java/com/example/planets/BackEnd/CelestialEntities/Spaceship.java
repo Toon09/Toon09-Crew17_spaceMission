@@ -2,6 +2,7 @@ package com.example.planets.BackEnd.CelestialEntities;
 
 import com.example.planets.BackEnd.Models.Gravity0;
 import com.example.planets.BackEnd.Models.Model3D;
+import com.example.planets.BackEnd.Trajectory.Planning;
 
 /*
 add methods related to changing trajectory to another class that has an instance in this one

@@ -74,11 +74,11 @@ public class Gravity0 implements Model3D {
 
         //uses the unit of days to calculate how long to run the simulation for
         if( days ){
-            for(int i=0; i<CelestialBody.daysToSec(time)/dt; i++ )
+            for(int i=0; i<CelestialBody.daysToSec(time)/Math.abs(dt); i++ )
                 numSolver.step(this, dt);
         //uses seconds to calculate how long to run
         }else{
-            for(int i=0; i<time/dt; i++ )
+            for(int i=0; i<time/Math.abs(dt); i++ )
                 numSolver.step(this, dt);
             
         }

@@ -1,4 +1,4 @@
-package com.example.planets.BackEnd.CelestialEntities;
+package com.example.planets.BackEnd.Trajectory;
 
 import java.util.ArrayList;
 
