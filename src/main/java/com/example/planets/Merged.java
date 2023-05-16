@@ -34,6 +34,7 @@ import java.util.TimerTask;
 // put names of planets on top of them????
 // when you close the window the program stops too
 // add some sort of background
+// fix problem where size of trajectory points of ship doesn't fit the perspective given
 
 public class Merged extends Application {
     static Gravity0 model = new Gravity0(0, Math.PI / 2.0, new RK4());

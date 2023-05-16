@@ -2,11 +2,13 @@ package com.example.planets;
 
 import com.example.planets.BackEnd.Models.*;
 import com.example.planets.BackEnd.NumericalMethods.*;
+import com.example.planets.Data.DataGetter;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 import java.io.*;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Iterator;
 
 
@@ -19,6 +21,10 @@ class NumericalExperiments {
     + make a test folder and add folders inside with separated test cases for everything in here (pain)
     + make lightweight versions of the classes that are extended by heavier ones we use normally
     + fix AB2 to use same logic as F/_RK2
+    + make class dataGetter & have it use different data getting classes depending on termination of String (txt, xlsx, etc)
+
+    + https://youtu.be/l_iZk4n5QFU?t=569 [ hohmann transfer theory ]
+    + https://youtu.be/l_iZk4n5QFU?t=786 [ arbitrary impulse transfer ]
 
     change time to run instead of in amount of days, to be in hours
 
@@ -35,19 +41,25 @@ class NumericalExperiments {
 
     // https://youtube.com/playlist?list=PLYdroRCLMg5PhZqzEJJlyLo55-1Vdd4Bd [numerical methods]
     // https://youtube.com/playlist?list=PLOIRBaljOV8je0oxFAyj2o6YLXcBX1rTZ [rocket trajectory]
-    // https://youtu.be/l_iZk4n5QFU [1h lecture o ntrajectory planning]
+    // https://youtu.be/l_iZk4n5QFU [1h lecture on trajectory planning]
 
-    change for loop to be inside the step func in NumSolver so the step ize change of of dormatn prince doesnt destroy anything
+    change for loop to be inside the step func in NumSolver so the step ize change of of dormant prince doesnt destroy anything
     have the length of execution be a parameter
 
-    -implement dormant prince with for loop inside
+    -implement dormant prince with for loop inside & just change the dt you already have
      */
 
-
+    // https://ssd.jpl.nasa.gov/horizons/app.html#/ [ experiment data ]
     public static void main(String[] args) {
         // engineTest()
 
-        comparingToEachOther();
+        // comparingToEachOther();
+
+        DataGetter data = new DataGetter();
+
+        double[][] temp = data.getTxtExpData(0, "src/main/java/com/example/planets/Data/Mars_Data.txt");
+
+        System.out.println( Arrays.deepToString(temp) );
     }
 
 
@@ -139,74 +151,50 @@ class NumericalExperiments {
 
         }
 
-
-        }
-
+    }
 
 
-        public static void excelTest() throws IOException {
-            Gravity0 grav = new Gravity0(new Euler());
 
 
-            FileInputStream file = new FileInputStream(new File(
-                    "C:\\Users\\User\\Documents\\Div\\Toon09-Crew17_spaceMission\\src\\main\\java\\com\\example\\planets\\innit_Pos.xlsx"));
-            Workbook workbook = WorkbookFactory.create(file);
-            Sheet sheet = workbook.getSheetAt(0);
-            Iterator<Row> rowIterator = sheet.rowIterator();
-            int rows = sheet.getLastRowNum() + 1;
-            int columns = sheet.getRow(0).getLastCellNum();
-            String[][] data = new String[rows][columns];
-            int i = 0;
 
-            while (rowIterator.hasNext()) {
-                Row row = rowIterator.next();
-                Iterator<Cell> cellIterator = row.cellIterator();
-                int j = 0;
+    public static void excelTest() throws IOException {
+        Gravity0 grav = new Gravity0(new Euler());
 
-                while (cellIterator.hasNext()) {
-                    Cell cell = cellIterator.next();
-                    data[i][j] = cell.toString();
-                    System.out.print(data[i][j] + " ");
-                    j++;
-                }
 
-                i++;
+        FileInputStream file = new FileInputStream(new File(
+                "C:\\Users\\User\\Documents\\Div\\Toon09-Crew17_spaceMission\\src\\main\\java\\com\\example\\planets\\innit_Pos.xlsx"));
+        Workbook workbook = WorkbookFactory.create(file);
+        Sheet sheet = workbook.getSheetAt(0);
+        Iterator<Row> rowIterator = sheet.rowIterator();
+        int rows = sheet.getLastRowNum() + 1;
+        int columns = sheet.getRow(0).getLastCellNum();
+        String[][] data = new String[rows][columns];
+        int i = 0;
+
+        while (rowIterator.hasNext()) {
+            Row row = rowIterator.next();
+            Iterator<Cell> cellIterator = row.cellIterator();
+            int j = 0;
+
+            while (cellIterator.hasNext()) {
+                Cell cell = cellIterator.next();
+                data[i][j] = cell.toString();
+                System.out.print(data[i][j] + " ");
+                j++;
             }
 
-            workbook.close();
-
-            Double[][] data2 = new Double[rows][columns];
-            for(int k = 0; k < rows; k++) {
-                for (int l = 0; l < columns; l++) {
-                    data2[k][l] = Double.parseDouble(data[k][l]);
-                }
-            }
-
+            i++;
         }
 
-    public static double[][] LineGetData(int lineSelected, String filePath) {
-        try {
-            BufferedReader reader = new BufferedReader(new FileReader(filePath));
-            String line = null;
-            int currentLineNumber = 1;
-            while ((line = reader.readLine()) != null) {
-                if (currentLineNumber == lineSelected) {
-                    double X = Double.parseDouble(line.substring(51,73));
-                    double Y = Double.parseDouble(line.substring(75,97));
-                    double Z = Double.parseDouble(line.substring(99,121));
-                    double VX = Double.parseDouble(line.substring(123,145));
-                    double VY = Double.parseDouble(line.substring(147,169));
-                    double VZ = Double.parseDouble(line.substring(171,193));
-                    double [][] positionAndVelocity = {{X,Y,Z},{VX,VY,VZ}};
-                    return positionAndVelocity;
-                }
-                currentLineNumber++;
+        workbook.close();
+
+        Double[][] data2 = new Double[rows][columns];
+        for(int k = 0; k < rows; k++) {
+            for (int l = 0; l < columns; l++) {
+                data2[k][l] = Double.parseDouble(data[k][l]);
             }
-            reader.close();
-        } catch (IOException e) {
-            System.err.println("Error reading file: " + e.getMessage());
         }
-        return null;
+
     }
 
 
