@@ -38,7 +38,7 @@ public class Gravity0 implements Model3D {
         this.bodies = new CelestialBody[ positions.length+1 ];
         for(int i=0; i<bodies.length; i++){
             if( bodies[i] instanceof Spaceship ){
-                this.bodies[i] = (CelestialBody) ( (Spaceship)bodies[i] ).clone();
+                this.bodies[i] = (CelestialBody) new Spaceship(bodies[i].getMass(), bodies[i].getPos(), bodies[i].getVel());
             }else {
                 this.bodies[i] = new CelestialBody(bodies[i].getName(), bodies[i].getMass(), bodies[i].getPos(), bodies[i].getVel());
             }
@@ -60,7 +60,7 @@ public class Gravity0 implements Model3D {
         }
         this.bodies[ this.bodies.length-1 ] = new Spaceship(50000, positions[3], velocity[3], 0, 0);
 
-        this.getShip().makePlan(this); //
+        this.getShip().makePlan(this);
 
     }
 

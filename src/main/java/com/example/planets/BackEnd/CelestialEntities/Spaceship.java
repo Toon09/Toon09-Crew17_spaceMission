@@ -56,11 +56,9 @@ public class Spaceship extends CelestialBody {
     /**
      *
      * @param body
-     * @param plan
      */
-    private Spaceship(CelestialBody body, Planning plan){
+    private Spaceship(CelestialBody body){
         super( body.getName(), body.getMass(), body.getPos(), body.getVel());
-        this.plan = plan.clone();
         usedFuel = 0;
 
     }
@@ -134,6 +132,6 @@ public class Spaceship extends CelestialBody {
     public Spaceship clone() {
         CelestialBody temp = super.clone();
 
-        return new Spaceship(temp, this.plan);
+        return new Spaceship(temp);
     }
 }
