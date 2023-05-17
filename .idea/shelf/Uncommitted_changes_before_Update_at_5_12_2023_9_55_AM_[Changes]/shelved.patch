@@ -1,0 +1,643 @@
+Index: src/main/java/com/example/planets/Merged.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.example.planets;\r\n\r\nimport com.example.planets.BackEnd.CelestialEntities.CelestialBody;\r\nimport com.example.planets.BackEnd.Models.Gravity0;\r\nimport com.example.planets.BackEnd.NumericalMethods.*;\r\nimport javafx.application.Application;\r\nimport javafx.geometry.Point3D;\r\nimport javafx.scene.*;\r\nimport javafx.scene.control.Label;\r\nimport javafx.scene.control.ProgressBar;\r\nimport javafx.scene.image.Image;\r\nimport javafx.scene.input.KeyEvent;\r\nimport javafx.scene.layout.Background;\r\nimport javafx.scene.paint.Color;\r\nimport javafx.scene.paint.PhongMaterial;\r\nimport javafx.scene.shape.Box;\r\nimport javafx.scene.shape.Cylinder;\r\nimport javafx.scene.shape.Sphere;\r\nimport javafx.scene.transform.Rotate;\r\nimport javafx.stage.Stage;\r\nimport java.util.Timer;\r\nimport java.util.TimerTask;\r\n\r\n//ToDo\r\n//add a spaceship model\r\n//fix the spaceship camera\r\n//maybe add a camera on the whole solar system - changed the look at everything so its further away, I think that's enough\r\n//add used fuel meter\r\n//fix the path ( problems with changing the scale )\r\n\r\npublic class Merged extends Application {\r\n    static Gravity0 model = new Gravity0(0, Math.PI / 2.0, new double[]{150,-200, 0}, new Euler()); /////////////\r\n    private static int scale = 25;\r\n    private static final int smallScale = 25;\r\n    private static final int bigScale = 3000;\r\n    private static int counter = 0;\r\n    private static boolean lookAtEarth = false;\r\n    private static boolean lookAtTitan = false;\r\n    private static boolean lookAtSun = false;\r\n    private static boolean lookAtEverything = false;\r\n    private static boolean lookAtSpaceship = false;\r\n    private static Box[] path = new Box[10000];\r\n\r\n    @Override\r\n    public void start(Stage stage) throws Exception {\r\n        inicilizePath();\r\n        //create a new group\r\n        Group root = new Group();\r\n\r\n        Group world = createEnvironment();\r\n        SubScene worldScene = new SubScene(world, 1920, 1080, true, SceneAntialiasing.BALANCED);\r\n\r\n        Scene scene = new Scene(root, 1920, 1080, true);\r\n        world.getChildren().addAll(path);\r\n        //background\r\n        worldScene.setFill(Color.BLACK);\r\n        scene.setFill(Color.BLACK);\r\n        stage.setScene(scene);\r\n        Camera camera = new PerspectiveCamera();\r\n        camera.setFarClip(4000);\r\n        camera.setNearClip(1);\r\n\r\n        //label and progressbar to show the fuel\r\n        Label title = new Label(\"Fuel remaining:\");\r\n        title.setTextFill(Color.WHITE);\r\n        Label progressLabel = new Label(\"100000000\");\r\n        progressLabel.setTranslateY(20);\r\n        progressLabel.setTextFill(Color.WHITE);\r\n        ProgressBar fuelBar = new ProgressBar(0.5);\r\n        fuelBar.setPrefSize(200,20);\r\n        fuelBar.setLayoutY(40);\r\n        root.getChildren().addAll(worldScene, title, fuelBar, progressLabel);\r\n        //initial camera setting\r\n        worldScene.setCamera(camera);\r\n        Rotate worldRotX = new Rotate(0, Rotate.X_AXIS);\r\n        Rotate worldRotY = new Rotate(0, Rotate.Y_AXIS);\r\n        camera.getTransforms().addAll(worldRotY, worldRotX);\r\n        stage.addEventHandler(KeyEvent.KEY_PRESSED, event -> {\r\n            switch (event.getCode()) {\r\n                case DIGIT0 -> {\r\n                    System.out.println(\"------------------------------------------\");\r\n                    System.out.println(\"titan at: \");\r\n                    for (int i = 0; i < 3; i++) {\r\n                        System.out.println(model.getBody(8).getPos()[i] / scale);\r\n                    }\r\n                    System.out.println(\"------------------------------------------\");\r\n                    System.out.println(\"spaceship at: \");\r\n                    for (int i = 0; i < 3; i++) {\r\n                        System.out.println(model.getBody(11).getPos()[i] / scale);\r\n                    }\r\n                    System.out.println(\"------------------------------------------\");\r\n                    System.out.println(\"camera at:\");\r\n                    System.out.println(\"x: \" + camera.getTranslateX() + \", y: \" + camera.getTranslateY() + \", z: \" + camera.getTranslateZ());\r\n                }\r\n                case P -> System.exit(0);\r\n                case DIGIT1 -> {\r\n                    if (!lookAtEarth) {\r\n                        world.getChildren().get(7).setVisible(true);\r\n                        scale = smallScale;\r\n                        lookAtEarth = true;\r\n                        lookAtTitan = false;\r\n                        lookAtSun = false;\r\n                        lookAtEverything = false;\r\n                        lookAtSpaceship = false;\r\n                    }\r\n                }\r\n                case DIGIT2 -> {\r\n                    world.getChildren().get(7).setVisible(true);\r\n                    scale = smallScale;\r\n                    lookAtSun = true;\r\n                    lookAtTitan = false;\r\n                    lookAtEarth = false;\r\n                    lookAtEverything = false;\r\n                    lookAtSpaceship = false;\r\n                }\r\n                case DIGIT3 -> {\r\n                    world.getChildren().get(7).setVisible(true);\r\n                    scale = smallScale;\r\n                    lookAtTitan = true;\r\n                    lookAtSun = false;\r\n                    lookAtEarth = false;\r\n                    lookAtEverything = false;\r\n                    lookAtSpaceship = false;\r\n                }\r\n                case DIGIT4 -> {\r\n                    world.getChildren().get(7).setVisible(false);\r\n                    scale = bigScale;\r\n                    lookAtEverything = true;\r\n                    lookAtSun = false;\r\n                    lookAtEarth = false;\r\n                    lookAtTitan = false;\r\n                    lookAtSpaceship = false;\r\n                }\r\n                case DIGIT5 -> {\r\n                    lookAtSpaceship = true;\r\n                    scale = smallScale;\r\n                    lookAtEverything = false;\r\n                    lookAtSun = false;\r\n                    lookAtEarth = false;\r\n                    lookAtTitan = false;\r\n                }\r\n            }\r\n        });\r\n\r\n        world.setTranslateZ(world.getTranslateZ() + 100000);\r\n        worldRotX.setAngle(worldRotX.getAngle());\r\n        System.out.println(camera.getRotationAxis());\r\n        world.setRotationAxis(new Point3D(model.getBody(3).getPos()[0], model.getBody(3).getPos()[1], model.getBody(3).getPos()[2]));\r\n\r\n        stage.show();\r\n\r\n        Timer timer = new Timer();\r\n        timer.schedule(new TimerTask() {\r\n            @Override\r\n            public void run() {\r\n                model.updatePos(0.1, 0.1, true);\r\n                for (int i = 0; i < 12; i++) {\r\n                    setPosition(world.getChildren().get(i), model.getBody(i));\r\n                }\r\n                if (lookAtEarth) {\r\n                    camera.setTranslateX(model.getBody(3).getPos()[0] / scale + 1000);\r\n                    camera.setTranslateY(model.getBody(3).getPos()[1] / scale + 2000);\r\n                    camera.setTranslateZ(model.getBody(3).getPos()[2] / scale - 24000);\r\n                }\r\n                if (lookAtSun) {\r\n                    camera.setTranslateX(-model.getBody(0).getPos()[0] / scale);\r\n                    camera.setTranslateY(-model.getBody(0).getPos()[1] / scale);\r\n                    camera.setTranslateZ(model.getBody(0).getPos()[2] / scale - 360500);\r\n                }\r\n                if (lookAtTitan) {\r\n                    camera.setTranslateX(model.getBody(8).getPos()[0] / scale + 1000);\r\n                    camera.setTranslateY(model.getBody(8).getPos()[1] / scale + 2000);\r\n                    camera.setTranslateZ(model.getBody(8).getPos()[2] / scale - 24000);\r\n                }\r\n                if (lookAtEverything) {\r\n                    camera.setTranslateX(183608);\r\n                    camera.setTranslateY(-128907);\r\n                    camera.setTranslateZ(-(484573*2));\r\n                }\r\n                if (lookAtSpaceship) {\r\n                    camera.setTranslateX(model.getBody(11).getPos()[0] / scale + 1000);\r\n                    camera.setTranslateY(model.getBody(11).getPos()[1] / scale + 2000);\r\n                    camera.setTranslateZ(model.getBody(11).getPos()[2] / scale - 24000);\r\n                }\r\n\r\n            }\r\n        }, 1, 1);\r\n        timer.schedule(new TimerTask() {\r\n            @Override\r\n            public void run() {\r\n                if (counter < path.length) {\r\n                    path[counter].setTranslateX(model.getBody(11).getPos()[0] / scale);\r\n                    path[counter].setTranslateY(model.getBody(11).getPos()[1] / scale);\r\n                    path[counter].setTranslateZ(model.getBody(11).getPos()[2] / scale);\r\n                    counter++;\r\n                }\r\n            }\r\n        },5,40);\r\n    }\r\n\r\n    public static void main(String... args) {\r\n        launch(args);\r\n    }\r\n\r\n    public static void setPosition(Node sphere, CelestialBody body) {\r\n        sphere.setTranslateX(body.getPos()[0] / scale);\r\n        sphere.setTranslateY(body.getPos()[1] / scale);\r\n        sphere.setTranslateZ(body.getPos()[2] / scale);\r\n    }\r\n\r\n    private void setPosition(Sphere sphere, int index) {\r\n        sphere.setTranslateX(positions[index][0] / scale);\r\n        sphere.setTranslateY(positions[index][1] / scale);\r\n        sphere.setTranslateZ(positions[index][2] / scale);\r\n    }\r\n\r\n    private void setPosition(Box box, int index) {\r\n        box.setTranslateX(positions[index][0] / scale);\r\n        box.setTranslateY(positions[index][1] / scale);\r\n        box.setTranslateZ(positions[index][2] / scale);\r\n    }\r\n\r\n    private void setPosition(Cylinder cylinder, int index) {\r\n        cylinder.setTranslateX(positions[index][0] / scale);\r\n        cylinder.setTranslateY(positions[index][1] / scale);\r\n        cylinder.setTranslateZ(positions[index][2] / scale);\r\n    }\r\n\r\n    private static final double[][] positions = {{0, 0, 0}, {7.83e6, 4.49e7, 2.87e6}, {-2.82e7, 1.04e8, 3.01e6},\r\n            {-1.48e8, -2.78e7, 3.37e4}, {-1.48e8, -2.75e7, 7.02e4}, {-1.59e8, 1.89e8, 7.87e6},\r\n            {6.93e8, 2.59e8, -1.66e7}, {1.25e9, -7.60e8, -3.67e7}, {1.25e9, 7.61e8, -3.63e7},\r\n            {4.45e9, -3.98e8, -9.45e7}, {1.96e9, 2.19e9, -1.72e7}};\r\n\r\n    public Group createEnvironment() {\r\n        Group group = new Group();\r\n\r\n        //create the sun\r\n        Sphere sun = new Sphere();\r\n        setPosition(sun, 0);\r\n        int planetSize = 6371 / 2;\r\n        sun.setRadius(planetSize);\r\n        PhongMaterial sunMaterial = new PhongMaterial();\r\n        sunMaterial.setDiffuseMap(new Image(\"sunTexture.jpg\"));\r\n        sun.setMaterial(sunMaterial);\r\n        Label sunLabel = new Label(\"SUN\");\r\n        sunLabel.setTranslateX(0);\r\n        sunLabel.setTranslateY(planetSize + sun.getRadius());\r\n        sunLabel.setTranslateZ(0);\r\n\r\n        //create mercury\r\n        Sphere mercury = new Sphere();\r\n        setPosition(mercury, 1);\r\n        mercury.setRadius(planetSize);\r\n        //material for the mercury\r\n        PhongMaterial mercuryMaterial = new PhongMaterial();\r\n        mercuryMaterial.setDiffuseMap(new Image(\"mercuryTexture.jpg\"));\r\n        mercury.setMaterial(mercuryMaterial);\r\n\r\n        //create venus\r\n        Sphere venus = new Sphere();\r\n        setPosition(venus, 2);\r\n        venus.setRadius(planetSize);\r\n        //material for the venus\r\n        PhongMaterial venusMaterial = new PhongMaterial();\r\n        venusMaterial.setDiffuseMap(new Image(\"venusTexture.jpg\"));\r\n        venus.setMaterial(venusMaterial);\r\n\r\n        //create earth\r\n        Sphere earth = new Sphere();\r\n        earth.setRadius(planetSize);\r\n        setPosition(earth, 3);\r\n        //material for the earth\r\n        PhongMaterial earthMaterial = new PhongMaterial();\r\n        earthMaterial.setDiffuseMap(new Image(\"earthTexture.jpg\"));\r\n        earth.setMaterial(earthMaterial);\r\n\r\n        //create moon\r\n        Sphere moon = new Sphere();\r\n        setPosition(moon, 4);\r\n        moon.setRadius(500);\r\n        //material for the moon\r\n        PhongMaterial moonMaterial = new PhongMaterial();\r\n        moonMaterial.setDiffuseMap(new Image(\"moonTexture.jpg\"));\r\n        moon.setMaterial(moonMaterial);\r\n\r\n        //create mars\r\n        Sphere mars = new Sphere();\r\n        setPosition(mars, 5);\r\n        mars.setRadius(planetSize);\r\n        //material for the Mars\r\n        PhongMaterial marsMaterial = new PhongMaterial();\r\n        marsMaterial.setDiffuseMap(new Image(\"marsTexture.png\"));\r\n        mars.setMaterial(marsMaterial);\r\n\r\n        //create jupiter\r\n        Sphere jupiter = new Sphere();\r\n        setPosition(jupiter, 6);\r\n        jupiter.setRadius(planetSize);\r\n        //material for the jupiter\r\n        PhongMaterial jupiterMaterial = new PhongMaterial();\r\n        jupiterMaterial.setDiffuseMap(new Image(\"jupiterTexture.jpg\"));\r\n        jupiter.setMaterial(jupiterMaterial);\r\n\r\n        //create saturn\r\n        Sphere saturn = new Sphere();\r\n        setPosition(saturn, 7);\r\n        saturn.setRadius(planetSize);\r\n        //material for the saturn\r\n        PhongMaterial saturnMaterial = new PhongMaterial();\r\n        saturnMaterial.setDiffuseMap(new Image(\"saturnTexture.jpg\"));\r\n        saturn.setMaterial(saturnMaterial);\r\n\r\n\r\n        //create titan\r\n        Sphere titan = new Sphere();\r\n        setPosition(titan, 8);\r\n        titan.setRadius(planetSize);\r\n        //material for the titan\r\n        PhongMaterial titanMaterial = new PhongMaterial();\r\n        titanMaterial.setDiffuseMap(new Image(\"titanTexture.jpg\"));\r\n        titan.setMaterial(titanMaterial);\r\n\r\n        //create neptune\r\n        Sphere neptune = new Sphere();\r\n        setPosition(neptune, 9);\r\n        neptune.setRadius(planetSize);\r\n        //material for the neptune\r\n        PhongMaterial neptuneMaterial = new PhongMaterial();\r\n        neptuneMaterial.setDiffuseMap(new Image(\"neptuneTexture.jpg\"));\r\n        neptune.setMaterial(neptuneMaterial);\r\n\r\n        //create uranus\r\n        Sphere uranus = new Sphere();\r\n        setPosition(uranus, 10);\r\n        uranus.setRadius(planetSize);\r\n        //material for the uranus\r\n        PhongMaterial uranusMaterial = new PhongMaterial();\r\n        uranusMaterial.setDiffuseMap(new Image(\"uranusTexture.jpg\"));\r\n        uranus.setMaterial(uranusMaterial);\r\n\r\n\r\n        // create the rocket\r\n\r\n        Box rocketBase = new Box(1000, 500, 1000);\r\n        setPosition(rocketBase, 3);\r\n        rocketBase.setTranslateX(rocketBase.getTranslateX() + earth.getRadius() + 100);\r\n        PhongMaterial rocketBaseMaterial = new PhongMaterial();\r\n        rocketBaseMaterial.setDiffuseColor(Color.DARKVIOLET);\r\n        rocketBase.setMaterial(rocketBaseMaterial);\r\n\r\n        // create the path of the rocket\r\n        Cylinder rocketPath = new Cylinder(100, 1000);\r\n        setPosition(rocketPath, 3);\r\n        rocketPath.setRotate(90);\r\n        rocketPath.setTranslateX(rocketPath.getTranslateX() + earth.getRadius() + 100);\r\n        PhongMaterial rocketPathMaterial = new PhongMaterial();\r\n        rocketPathMaterial.setDiffuseColor(Color.GOLD);\r\n        rocketPath.setMaterial(rocketPathMaterial);\r\n\r\n        group.getChildren().addAll(sun, mercury, venus, earth, moon, mars, jupiter, saturn, titan, neptune, uranus, rocketBase, rocketPath);\r\n\r\n        return group;\r\n    }\r\n\r\n    private static void inicilizePath() {\r\n        for (int i = 0; i < path.length; i++) {\r\n            path[i] = new Box(800, 800, 800);\r\n        }\r\n    }\r\n\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/com/example/planets/Merged.java b/src/main/java/com/example/planets/Merged.java
+--- a/src/main/java/com/example/planets/Merged.java	(revision 31198f13b4050566db6e26e870af6e3bf9469fb7)
++++ b/src/main/java/com/example/planets/Merged.java	(date 1683878057387)
+@@ -2,42 +2,47 @@
+ 
+ import com.example.planets.BackEnd.CelestialEntities.CelestialBody;
+ import com.example.planets.BackEnd.Models.Gravity0;
+-import com.example.planets.BackEnd.NumericalMethods.*;
++import com.example.planets.BackEnd.NumericalMethods.RK2;
++import javafx.animation.Animation;
++import javafx.animation.Interpolator;
++import javafx.animation.RotateTransition;
+ import javafx.application.Application;
+ import javafx.geometry.Point3D;
+ import javafx.scene.*;
+ import javafx.scene.control.Label;
+-import javafx.scene.control.ProgressBar;
++import javafx.scene.effect.Glow;
+ import javafx.scene.image.Image;
+ import javafx.scene.input.KeyEvent;
+-import javafx.scene.layout.Background;
+ import javafx.scene.paint.Color;
+ import javafx.scene.paint.PhongMaterial;
+ import javafx.scene.shape.Box;
+ import javafx.scene.shape.Cylinder;
+ import javafx.scene.shape.Sphere;
+ import javafx.scene.transform.Rotate;
++import javafx.scene.transform.Translate;
+ import javafx.stage.Stage;
++import javafx.util.Duration;
++
+ import java.util.Timer;
+ import java.util.TimerTask;
+ 
+ //ToDo
+ //add a spaceship model
+ //fix the spaceship camera
+-//maybe add a camera on the whole solar system - changed the look at everything so its further away, I think that's enough
++//maybe add a camera on the whole solar system
+ //add used fuel meter
+-//fix the path ( problems with changing the scale )
+ 
+ public class Merged extends Application {
+-    static Gravity0 model = new Gravity0(0, Math.PI / 2.0, new double[]{150,-200, 0}, new Euler()); /////////////
++    static Gravity0 model = new Gravity0(0, Math.PI / 2.0, new double[]{150,-200, 0}, new RK2()); /////////////
+     private static int scale = 25;
+-    private static final int smallScale = 25;
+-    private static final int bigScale = 3000;
++    private static int smallScale = 25;
++    private static int bigScale = 3000;
+     private static int counter = 0;
++    private int planetSize = 6371 / 2;
+     private static boolean lookAtEarth = false;
+     private static boolean lookAtTitan = false;
+     private static boolean lookAtSun = false;
+-    private static boolean lookAtEverything = false;
++    private static boolean lookatEverything = false;
+     private static boolean lookAtSpaceship = false;
+     private static Box[] path = new Box[10000];
+ 
+@@ -45,39 +50,56 @@
+     public void start(Stage stage) throws Exception {
+         inicilizePath();
+         //create a new group
+-        Group root = new Group();
+-
+         Group world = createEnvironment();
+-        SubScene worldScene = new SubScene(world, 1920, 1080, true, SceneAntialiasing.BALANCED);
+-
+-        Scene scene = new Scene(root, 1920, 1080, true);
++        Scene scene = new Scene(world, 1920, 1080, true);
+         world.getChildren().addAll(path);
++        //Group axis = buildAxes();
++        //world.getChildren().addAll(axis);
+         //background
+-        worldScene.setFill(Color.BLACK);
+         scene.setFill(Color.BLACK);
+         stage.setScene(scene);
+         Camera camera = new PerspectiveCamera();
+         camera.setFarClip(4000);
+         camera.setNearClip(1);
+-
+-        //label and progressbar to show the fuel
+-        Label title = new Label("Fuel remaining:");
+-        title.setTextFill(Color.WHITE);
+-        Label progressLabel = new Label("100000000");
+-        progressLabel.setTranslateY(20);
+-        progressLabel.setTextFill(Color.WHITE);
+-        ProgressBar fuelBar = new ProgressBar(0.5);
+-        fuelBar.setPrefSize(200,20);
+-        fuelBar.setLayoutY(40);
+-        root.getChildren().addAll(worldScene, title, fuelBar, progressLabel);
+         //initial camera setting
+-        worldScene.setCamera(camera);
++        scene.setCamera(camera);
+         Rotate worldRotX = new Rotate(0, Rotate.X_AXIS);
+         Rotate worldRotY = new Rotate(0, Rotate.Y_AXIS);
++        Translate worldTransX = new Translate();
+         camera.getTransforms().addAll(worldRotY, worldRotX);
+         stage.addEventHandler(KeyEvent.KEY_PRESSED, event -> {
+             switch (event.getCode()) {
+-                case DIGIT0 -> {
++//                case LEFT:
++//                    worldRotY.setAngle(worldRotY.getAngle() - 20);
++//                    break;
++//                case RIGHT:
++//                    worldRotY.setAngle(worldRotY.getAngle() + 20);
++//                    break;
++//                case UP:
++//                    worldRotX.setAngle(worldRotX.getAngle() - 20);
++//                    break;
++//                case DOWN:
++//                    worldRotX.setAngle(worldRotX.getAngle() + 20);
++//                    break;
++//                case X: //shift/Control is for z
++//                    camera.setTranslateZ(camera.getTranslateZ() - 3500);
++//                    break;
++//                case Z:
++//                    camera.setTranslateZ(camera.getTranslateZ() + 3500);
++//                    break;
++//                case A:// a/d is x axis
++//                    camera.setTranslateX(camera.getTranslateX() - 1350);
++//                    break;
++//                case D:
++//                    camera.setTranslateX(camera.getTranslateX() + 1350);
++//                    break;
++//                case W:// w/s is for y axis
++//                    camera.setTranslateY(camera.getTranslateY() - 1350);
++//                    break;
++//                case S:
++//                    camera.setTranslateY(camera.getTranslateY() + 1350);
++//                    break;
++                case DIGIT0:
+                     System.out.println("------------------------------------------");
+                     System.out.println("titan at: ");
+                     for (int i = 0; i < 3; i++) {
+@@ -89,56 +111,80 @@
+                         System.out.println(model.getBody(11).getPos()[i] / scale);
+                     }
+                     System.out.println("------------------------------------------");
+-                    System.out.println("camera at:");
+-                    System.out.println("x: " + camera.getTranslateX() + ", y: " + camera.getTranslateY() + ", z: " + camera.getTranslateZ());
+-                }
+-                case P -> System.exit(0);
+-                case DIGIT1 -> {
+-                    if (!lookAtEarth) {
++                    //System.out.println(model.getShip().getUSedFuel());
++                    break;
++                case P:
++                    System.exit(0);
++                    break;
++                case DIGIT1:
++//                    if (lookAtEarth) {
++//                        lookAtEarth = false;
++//                    } else {
+                         world.getChildren().get(7).setVisible(true);
+                         scale = smallScale;
+                         lookAtEarth = true;
+                         lookAtTitan = false;
+                         lookAtSun = false;
+-                        lookAtEverything = false;
++                        lookatEverything = false;
+                         lookAtSpaceship = false;
+-                    }
+-                }
+-                case DIGIT2 -> {
+-                    world.getChildren().get(7).setVisible(true);
+-                    scale = smallScale;
+-                    lookAtSun = true;
+-                    lookAtTitan = false;
+-                    lookAtEarth = false;
+-                    lookAtEverything = false;
+-                    lookAtSpaceship = false;
+-                }
+-                case DIGIT3 -> {
+-                    world.getChildren().get(7).setVisible(true);
+-                    scale = smallScale;
+-                    lookAtTitan = true;
+-                    lookAtSun = false;
+-                    lookAtEarth = false;
+-                    lookAtEverything = false;
+-                    lookAtSpaceship = false;
+-                }
+-                case DIGIT4 -> {
+-                    world.getChildren().get(7).setVisible(false);
+-                    scale = bigScale;
+-                    lookAtEverything = true;
+-                    lookAtSun = false;
+-                    lookAtEarth = false;
+-                    lookAtTitan = false;
+-                    lookAtSpaceship = false;
+-                }
+-                case DIGIT5 -> {
+-                    lookAtSpaceship = true;
+-                    scale = smallScale;
+-                    lookAtEverything = false;
+-                    lookAtSun = false;
+-                    lookAtEarth = false;
+-                    lookAtTitan = false;
+-                }
++//                    }
++                    break;
++                case DIGIT2:
++//                    if (lookAtSun) {
++//                        lookAtSun = false;
++//                    } else {
++                        world.getChildren().get(7).setVisible(true);
++                        scale = smallScale;
++                        lookAtSun = true;
++                        lookAtTitan = false;
++                        lookAtEarth = false;
++                        lookatEverything = false;
++                        lookAtSpaceship = false;
++
++//                   }
++                    break;
++                case DIGIT3:
++//                    if (lookAtTitan) {
++//                        lookAtTitan = false;
++//                    } else {
++                        world.getChildren().get(7).setVisible(true);
++                        scale = smallScale;
++                        lookAtTitan = true;
++                        lookAtSun = false;
++                        lookAtEarth = false;
++                        lookatEverything = false;
++                        lookAtSpaceship = false;
++
++//                    }
++                    break;
++                case DIGIT4:
++//                    if (lookatEverything) {
++//                        world.getChildren().get(7).setVisible(true);
++//                        scale = smallScale;
++//                        lookatEverything = false;
++//                    } else {
++                        world.getChildren().get(7).setVisible(false);
++                        scale = bigScale;
++                        lookatEverything = true;
++                        lookAtSun = false;
++                        lookAtEarth = false;
++                        lookAtTitan = false;
++                        lookAtSpaceship = false;
++
++ //                   }
++                    break;
++                case DIGIT5:
++                    if (lookAtSpaceship) {
++                        lookAtSpaceship = false;
++                    } else {
++                        lookAtSpaceship = true;
++                        scale = smallScale;
++                        lookatEverything = false;
++                        lookAtSun = false;
++                        lookAtEarth = false;
++                        lookAtTitan = false;
++                    }
++                    break;
+             }
+         });
+ 
+@@ -172,10 +218,10 @@
+                     camera.setTranslateY(model.getBody(8).getPos()[1] / scale + 2000);
+                     camera.setTranslateZ(model.getBody(8).getPos()[2] / scale - 24000);
+                 }
+-                if (lookAtEverything) {
+-                    camera.setTranslateX(183608);
+-                    camera.setTranslateY(-128907);
+-                    camera.setTranslateZ(-(484573*2));
++                if (lookatEverything) {
++                    camera.setTranslateX(model.getBody(8).getPos()[0] / scale - 237755);
++                    camera.setTranslateY(model.getBody(8).getPos()[1] / scale + 115144);
++                    camera.setTranslateZ(model.getBody(8).getPos()[2] / scale - 471948);
+                 }
+                 if (lookAtSpaceship) {
+                     camera.setTranslateX(model.getBody(11).getPos()[0] / scale + 1000);
+@@ -183,6 +229,7 @@
+                     camera.setTranslateZ(model.getBody(11).getPos()[2] / scale - 24000);
+                 }
+ 
++
+             }
+         }, 1, 1);
+         timer.schedule(new TimerTask() {
+@@ -195,7 +242,7 @@
+                     counter++;
+                 }
+             }
+-        },5,40);
++        },5,4000);
+     }
+ 
+     public static void main(String... args) {
+@@ -208,6 +255,12 @@
+         sphere.setTranslateZ(body.getPos()[2] / scale);
+     }
+ 
++    public static void setPosition(Box box, CelestialBody body) {
++        box.setTranslateX(body.getPos()[0] / scale);
++        box.setTranslateY(body.getPos()[1] / scale);
++        box.setTranslateZ(body.getPos()[2] / scale);
++    }
++
+     private void setPosition(Sphere sphere, int index) {
+         sphere.setTranslateX(positions[index][0] / scale);
+         sphere.setTranslateY(positions[index][1] / scale);
+@@ -226,7 +279,7 @@
+         cylinder.setTranslateZ(positions[index][2] / scale);
+     }
+ 
+-    private static final double[][] positions = {{0, 0, 0}, {7.83e6, 4.49e7, 2.87e6}, {-2.82e7, 1.04e8, 3.01e6},
++    private static double[][] positions = {{0, 0, 0}, {7.83e6, 4.49e7, 2.87e6}, {-2.82e7, 1.04e8, 3.01e6},
+             {-1.48e8, -2.78e7, 3.37e4}, {-1.48e8, -2.75e7, 7.02e4}, {-1.59e8, 1.89e8, 7.87e6},
+             {6.93e8, 2.59e8, -1.66e7}, {1.25e9, -7.60e8, -3.67e7}, {1.25e9, 7.61e8, -3.63e7},
+             {4.45e9, -3.98e8, -9.45e7}, {1.96e9, 2.19e9, -1.72e7}};
+@@ -237,8 +290,12 @@
+         //create the sun
+         Sphere sun = new Sphere();
+         setPosition(sun, 0);
+-        int planetSize = 6371 / 2;
+         sun.setRadius(planetSize);
++        //glow
++        Glow sunGlow = new Glow();
++        sunGlow.setLevel(1000);
++        //material for the sun
++        sun.setEffect(sunGlow);
+         PhongMaterial sunMaterial = new PhongMaterial();
+         sunMaterial.setDiffuseMap(new Image("sunTexture.jpg"));
+         sun.setMaterial(sunMaterial);
+@@ -256,6 +313,10 @@
+         mercuryMaterial.setDiffuseMap(new Image("mercuryTexture.jpg"));
+         mercury.setMaterial(mercuryMaterial);
+ 
++        // rotation for mercury
++
++        //rotation(mercury);
++
+         //create venus
+         Sphere venus = new Sphere();
+         setPosition(venus, 2);
+@@ -265,6 +326,10 @@
+         venusMaterial.setDiffuseMap(new Image("venusTexture.jpg"));
+         venus.setMaterial(venusMaterial);
+ 
++        // rotation for venus
++
++        //rotation(venus);
++
+         //create earth
+         Sphere earth = new Sphere();
+         earth.setRadius(planetSize);
+@@ -274,6 +339,10 @@
+         earthMaterial.setDiffuseMap(new Image("earthTexture.jpg"));
+         earth.setMaterial(earthMaterial);
+ 
++        // rotation for earth
++
++        //rotation(earth);
++
+         //create moon
+         Sphere moon = new Sphere();
+         setPosition(moon, 4);
+@@ -283,15 +352,23 @@
+         moonMaterial.setDiffuseMap(new Image("moonTexture.jpg"));
+         moon.setMaterial(moonMaterial);
+ 
++        // rotation for moon
++
++        //rotation(moon);
++
+         //create mars
+         Sphere mars = new Sphere();
+         setPosition(mars, 5);
+         mars.setRadius(planetSize);
+-        //material for the Mars
++        //material for the mars
+         PhongMaterial marsMaterial = new PhongMaterial();
+         marsMaterial.setDiffuseMap(new Image("marsTexture.png"));
+         mars.setMaterial(marsMaterial);
+ 
++        // rotation for mars
++
++        //rotation(mars);
++
+         //create jupiter
+         Sphere jupiter = new Sphere();
+         setPosition(jupiter, 6);
+@@ -301,6 +378,10 @@
+         jupiterMaterial.setDiffuseMap(new Image("jupiterTexture.jpg"));
+         jupiter.setMaterial(jupiterMaterial);
+ 
++        // rotation for jupiter
++
++        //rotation(jupiter) ;
++
+         //create saturn
+         Sphere saturn = new Sphere();
+         setPosition(saturn, 7);
+@@ -310,6 +391,9 @@
+         saturnMaterial.setDiffuseMap(new Image("saturnTexture.jpg"));
+         saturn.setMaterial(saturnMaterial);
+ 
++        // rotation for saturn
++
++        //rotation(saturn) ;
+ 
+         //create titan
+         Sphere titan = new Sphere();
+@@ -320,6 +404,10 @@
+         titanMaterial.setDiffuseMap(new Image("titanTexture.jpg"));
+         titan.setMaterial(titanMaterial);
+ 
++        // rotation for titan
++
++//        rotation(titan) ;
++
+         //create neptune
+         Sphere neptune = new Sphere();
+         setPosition(neptune, 9);
+@@ -329,6 +417,10 @@
+         neptuneMaterial.setDiffuseMap(new Image("neptuneTexture.jpg"));
+         neptune.setMaterial(neptuneMaterial);
+ 
++        // rotation for neptune
++
++        //rotation(neptune);
++
+         //create uranus
+         Sphere uranus = new Sphere();
+         setPosition(uranus, 10);
+@@ -338,6 +430,9 @@
+         uranusMaterial.setDiffuseMap(new Image("uranusTexture.jpg"));
+         uranus.setMaterial(uranusMaterial);
+ 
++        // rotation for uranus
++
++        //rotation(uranus);
+ 
+         // create the rocket
+ 
+@@ -349,6 +444,7 @@
+         rocketBase.setMaterial(rocketBaseMaterial);
+ 
+         // create the path of the rocket
++
+         Cylinder rocketPath = new Cylinder(100, 1000);
+         setPosition(rocketPath, 3);
+         rocketPath.setRotate(90);
+@@ -357,11 +453,29 @@
+         rocketPathMaterial.setDiffuseColor(Color.GOLD);
+         rocketPath.setMaterial(rocketPathMaterial);
+ 
++
+         group.getChildren().addAll(sun, mercury, venus, earth, moon, mars, jupiter, saturn, titan, neptune, uranus, rocketBase, rocketPath);
+ 
+         return group;
+     }
+ 
++    private static void rotation(Sphere sphere) {
++        RotateTransition rotate = new RotateTransition(Duration.seconds(10), sphere);
++        rotate.setByAngle(360);
++        rotate.setAxis(Rotate.Y_AXIS);
++        rotate.setInterpolator(Interpolator.LINEAR);
++        rotate.setCycleCount(Animation.INDEFINITE);
++        rotate.play();
++    }
++
++    private static void printLooks() {
++        System.out.println("looks at earth: " + lookAtEarth);
++        System.out.println("looks at sun: " + lookAtSun);
++        System.out.println("looks at titan: " + lookAtTitan);
++        System.out.println("looks at everything: " + lookatEverything);
++
++    }
++
+     private static void inicilizePath() {
+         for (int i = 0; i < path.length; i++) {
+             path[i] = new Box(800, 800, 800);
+Index: .idea/workspace.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project version=\"4\">\r\n  <component name=\"AutoImportSettings\">\r\n    <option name=\"autoReloadType\" value=\"SELECTIVE\" />\r\n  </component>\r\n  <component name=\"ChangeListManager\">\r\n    <list default=\"true\" id=\"bab05458-8716-4abd-8f37-31e577e5aaab\" name=\"Changes\" comment=\"GUI, progress bar, two labels, change of the scene structure ( adding a sub-scene ) and code cleanup\">\r\n      <change afterPath=\"$PROJECT_DIR$/src/main/resources/cosmosTexture.jpg\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/.idea/workspace.xml\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/.idea/workspace.xml\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/main/java/com/example/planets/Merged.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/main/java/com/example/planets/Merged.java\" afterDir=\"false\" />\r\n    </list>\r\n    <option name=\"SHOW_DIALOG\" value=\"false\" />\r\n    <option name=\"HIGHLIGHT_CONFLICTS\" value=\"true\" />\r\n    <option name=\"HIGHLIGHT_NON_ACTIVE_CHANGELIST\" value=\"false\" />\r\n    <option name=\"LAST_RESOLUTION\" value=\"IGNORE\" />\r\n  </component>\r\n  <component name=\"FileTemplateManagerImpl\">\r\n    <option name=\"RECENT_TEMPLATES\">\r\n      <list>\r\n        <option value=\"Class\" />\r\n      </list>\r\n    </option>\r\n  </component>\r\n  <component name=\"Git.Settings\">\r\n    <option name=\"RECENT_GIT_ROOT_PATH\" value=\"$PROJECT_DIR$\" />\r\n  </component>\r\n  <component name=\"MarkdownSettingsMigration\">\r\n    <option name=\"stateVersion\" value=\"1\" />\r\n  </component>\r\n  <component name=\"MavenImportPreferences\">\r\n    <option name=\"generalSettings\">\r\n      <MavenGeneralSettings>\r\n        <option name=\"mavenHome\" value=\"Use Maven wrapper\" />\r\n        <option name=\"useMavenConfig\" value=\"true\" />\r\n      </MavenGeneralSettings>\r\n    </option>\r\n  </component>\r\n  <component name=\"ProjectId\" id=\"2NCWcLuYHhcwt20P03l2liympkF\" />\r\n  <component name=\"ProjectLevelVcsManager\" settingsEditedManually=\"true\" />\r\n  <component name=\"ProjectViewState\">\r\n    <option name=\"hideEmptyMiddlePackages\" value=\"true\" />\r\n    <option name=\"showLibraryContents\" value=\"true\" />\r\n  </component>\r\n  <component name=\"PropertiesComponent\"><![CDATA[{\n  \"keyToString\": {\n    \"RunOnceActivity.OpenProjectViewOnStart\": \"true\",\n    \"RunOnceActivity.ShowReadmeOnStart\": \"true\",\n    \"SHARE_PROJECT_CONFIGURATION_FILES\": \"true\",\n    \"WebServerToolWindowFactoryState\": \"false\",\n    \"full.screen.before.presentation.mode\": \"false\",\n    \"git-widget-placeholder\": \"main\",\n    \"last_opened_file_path\": \"C:/Users/suszw/Desktop/uni/year_1/Period 5/Toon09-Crew17_spaceMission/src/main/resources\",\n    \"node.js.detected.package.eslint\": \"true\",\n    \"node.js.detected.package.tslint\": \"true\",\n    \"node.js.selected.package.eslint\": \"(autodetect)\",\n    \"node.js.selected.package.tslint\": \"(autodetect)\",\n    \"project.structure.last.edited\": \"Project\",\n    \"project.structure.proportion\": \"0.0\",\n    \"project.structure.side.proportion\": \"0.0\",\n    \"settings.editor.selected.configurable\": \"configurable.group.editor\",\n    \"vue.rearranger.settings.migration\": \"true\"\n  }\n}]]></component>\r\n  <component name=\"RecentsManager\">\r\n    <key name=\"CopyFile.RECENT_KEYS\">\r\n      <recent name=\"C:\\Users\\suszw\\Desktop\\uni\\year_1\\Period 5\\Toon09-Crew17_spaceMission\\src\\main\\resources\" />\r\n      <recent name=\"C:\\Users\\sirap\\IdeaProjects\\Toon09-Crew17_spaceMission\\src\\main\\java\\com\\example\\planets\" />\r\n      <recent name=\"C:\\Users\\suszw\\Desktop\\uni\\year_1\\Period4\\Data stuctures\\Planets\" />\r\n    </key>\r\n    <key name=\"MoveFile.RECENT_KEYS\">\r\n      <recent name=\"C:\\Users\\sirap\\IdeaProjects\\Toon09-Crew17_spaceMission\\src\\main\\java\\com\\example\\planets\" />\r\n      <recent name=\"C:\\Users\\suszw\\Desktop\\uni\\year_1\\Period4\\plswork\\src\\main\" />\r\n      <recent name=\"C:\\Users\\suszw\\Desktop\\uni\\year_1\\Period4\\plswork\\src\\resources\\com\" />\r\n      <recent name=\"C:\\Users\\suszw\\Desktop\\uni\\year_1\\Period4\\plswork\\src\\resources\" />\r\n      <recent name=\"C:\\Users\\suszw\\Desktop\\uni\\year_1\\Period4\\plswork\\src\\main\\java\\com\\example\\planets\" />\r\n    </key>\r\n  </component>\r\n  <component name=\"RunManager\" selected=\"Application.Merged\">\r\n    <configuration name=\"GUI\" type=\"Application\" factoryName=\"Application\" temporary=\"true\" nameIsGenerated=\"true\">\r\n      <option name=\"MAIN_CLASS_NAME\" value=\"com.example.planets.GUI\" />\r\n      <module name=\"Planets\" />\r\n      <extension name=\"coverage\">\r\n        <pattern>\r\n          <option name=\"PATTERN\" value=\"com.example.planets.*\" />\r\n          <option name=\"ENABLED\" value=\"true\" />\r\n        </pattern>\r\n      </extension>\r\n      <method v=\"2\">\r\n        <option name=\"Make\" enabled=\"true\" />\r\n      </method>\r\n    </configuration>\r\n    <configuration name=\"Main\" type=\"Application\" factoryName=\"Application\" temporary=\"true\" nameIsGenerated=\"true\">\r\n      <option name=\"MAIN_CLASS_NAME\" value=\"com.example.planets.Main\" />\r\n      <module name=\"Planets\" />\r\n      <extension name=\"coverage\">\r\n        <pattern>\r\n          <option name=\"PATTERN\" value=\"com.example.planets.*\" />\r\n          <option name=\"ENABLED\" value=\"true\" />\r\n        </pattern>\r\n      </extension>\r\n      <method v=\"2\">\r\n        <option name=\"Make\" enabled=\"true\" />\r\n      </method>\r\n    </configuration>\r\n    <configuration name=\"Merged\" type=\"Application\" factoryName=\"Application\" temporary=\"true\" nameIsGenerated=\"true\">\r\n      <option name=\"MAIN_CLASS_NAME\" value=\"com.example.planets.Merged\" />\r\n      <module name=\"Planets\" />\r\n      <extension name=\"coverage\">\r\n        <pattern>\r\n          <option name=\"PATTERN\" value=\"com.example.planets.*\" />\r\n          <option name=\"ENABLED\" value=\"true\" />\r\n        </pattern>\r\n      </extension>\r\n      <method v=\"2\">\r\n        <option name=\"Make\" enabled=\"true\" />\r\n      </method>\r\n    </configuration>\r\n    <configuration name=\"NumericalExperiments\" type=\"Application\" factoryName=\"Application\" temporary=\"true\" nameIsGenerated=\"true\">\r\n      <option name=\"MAIN_CLASS_NAME\" value=\"com.example.planets.NumericalExperiments\" />\r\n      <module name=\"Planets\" />\r\n      <extension name=\"coverage\">\r\n        <pattern>\r\n          <option name=\"PATTERN\" value=\"com.example.planets.*\" />\r\n          <option name=\"ENABLED\" value=\"true\" />\r\n        </pattern>\r\n      </extension>\r\n      <method v=\"2\">\r\n        <option name=\"Make\" enabled=\"true\" />\r\n      </method>\r\n    </configuration>\r\n    <recent_temporary>\r\n      <list>\r\n        <item itemvalue=\"Application.Merged\" />\r\n        <item itemvalue=\"Application.NumericalExperiments\" />\r\n        <item itemvalue=\"Application.GUI\" />\r\n        <item itemvalue=\"Application.Main\" />\r\n      </list>\r\n    </recent_temporary>\r\n  </component>\r\n  <component name=\"SpellCheckerSettings\" RuntimeDictionaries=\"0\" Folders=\"0\" CustomDictionaries=\"0\" DefaultDictionary=\"application-level\" UseSingleDictionary=\"true\" transferred=\"true\" />\r\n  <component name=\"TaskManager\">\r\n    <task active=\"true\" id=\"Default\" summary=\"Default task\">\r\n      <changelist id=\"bab05458-8716-4abd-8f37-31e577e5aaab\" name=\"Changes\" comment=\"\" />\r\n      <created>1679168628679</created>\r\n      <option name=\"number\" value=\"Default\" />\r\n      <option name=\"presentableId\" value=\"Default\" />\r\n      <updated>1679168628679</updated>\r\n      <workItem from=\"1679168629899\" duration=\"5702000\" />\r\n      <workItem from=\"1679174718563\" duration=\"10631000\" />\r\n      <workItem from=\"1679251843900\" duration=\"2627000\" />\r\n      <workItem from=\"1679265969801\" duration=\"3586000\" />\r\n      <workItem from=\"1679314405554\" duration=\"1248000\" />\r\n      <workItem from=\"1679317911374\" duration=\"1670000\" />\r\n      <workItem from=\"1679322438755\" duration=\"983000\" />\r\n      <workItem from=\"1683209681075\" duration=\"3407000\" />\r\n      <workItem from=\"1683820709833\" duration=\"618000\" />\r\n    </task>\r\n    <task id=\"LOCAL-00001\" summary=\"moving stuff\">\r\n      <created>1679322500707</created>\r\n      <option name=\"number\" value=\"00001\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00001\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1679322500707</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00002\" summary=\"re start\">\r\n      <created>1679396370529</created>\r\n      <option name=\"number\" value=\"00002\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00002\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1679396370529</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00003\" summary=\"re start\">\r\n      <created>1679396767097</created>\r\n      <option name=\"number\" value=\"00003\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00003\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1679396767097</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00004\" summary=\"re start\">\r\n      <created>1679405320081</created>\r\n      <option name=\"number\" value=\"00004\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00004\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1679405320082</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00005\" summary=\"re start\">\r\n      <created>1679412035915</created>\r\n      <option name=\"number\" value=\"00005\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00005\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1679412035915</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00006\" summary=\"re start\">\r\n      <created>1679413177924</created>\r\n      <option name=\"number\" value=\"00006\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00006\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1679413177924</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00007\" summary=\"re start\">\r\n      <created>1679427027346</created>\r\n      <option name=\"number\" value=\"00007\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00007\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1679427027346</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00008\" summary=\"added rotation and fixed marsTexture\">\r\n      <created>1679490585539</created>\r\n      <option name=\"number\" value=\"00008\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00008\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1679490585539</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00009\" summary=\"mars texture\">\r\n      <created>1679490816450</created>\r\n      <option name=\"number\" value=\"00009\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00009\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1679490816450</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00010\" summary=\"cleaning up the code in Merged/GUI\">\r\n      <created>1679493435545</created>\r\n      <option name=\"number\" value=\"00010\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00010\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1679493435545</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00011\" summary=\"moving violet rocket, working on rocketPath\">\r\n      <created>1679496927385</created>\r\n      <option name=\"number\" value=\"00011\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00011\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1679496927385</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00012\" summary=\"moving violet rocket, working on rocketPath\">\r\n      <created>1679497005165</created>\r\n      <option name=\"number\" value=\"00012\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00012\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1679497005165</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00013\" summary=\"cleaning up the code in Merged/GUI\">\r\n      <created>1679569477025</created>\r\n      <option name=\"number\" value=\"00013\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00013\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1679569477025</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00014\" summary=\"added cameras for titan sun earth and buttons for them\">\r\n      <created>1679576740525</created>\r\n      <option name=\"number\" value=\"00014\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00014\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1679576740525</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00015\" summary=\"orbits and stuff\">\r\n      <created>1679580574710</created>\r\n      <option name=\"number\" value=\"00015\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00015\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1679580574710</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00016\" summary=\"path I guess\">\r\n      <created>1679606392813</created>\r\n      <option name=\"number\" value=\"00016\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00016\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1679606392813</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00017\" summary=\"path I guess\">\r\n      <created>1679606407748</created>\r\n      <option name=\"number\" value=\"00017\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00017\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1679606407748</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00018\" summary=\"tesring\">\r\n      <created>1682932589486</created>\r\n      <option name=\"number\" value=\"00018\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00018\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1682932589486</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00019\" summary=\"tesring\">\r\n      <created>1682932644345</created>\r\n      <option name=\"number\" value=\"00019\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00019\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1682932644345</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00020\" summary=\"tesring\">\r\n      <created>1683042945595</created>\r\n      <option name=\"number\" value=\"00020\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00020\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1683042945595</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00021\" summary=\"Numerical method functioning\">\r\n      <created>1683046465497</created>\r\n      <option name=\"number\" value=\"00021\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00021\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1683046465497</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00022\" summary=\"Numerical method functioning\">\r\n      <created>1683046502523</created>\r\n      <option name=\"number\" value=\"00022\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00022\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1683046502523</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00023\" summary=\"Numerical method functioning\">\r\n      <created>1683209942449</created>\r\n      <option name=\"number\" value=\"00023\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00023\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1683209942449</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00024\" summary=\"Numerical method functioning\">\r\n      <created>1683209998874</created>\r\n      <option name=\"number\" value=\"00024\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00024\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1683209998874</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00025\" summary=\"Numerical method functioning\">\r\n      <created>1683211157129</created>\r\n      <option name=\"number\" value=\"00025\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00025\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1683211157129</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00026\" summary=\"Numerical method functioning\">\r\n      <created>1683211389013</created>\r\n      <option name=\"number\" value=\"00026\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00026\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1683211389014</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00027\" summary=\"Numerical method functioning\">\r\n      <created>1683211421495</created>\r\n      <option name=\"number\" value=\"00027\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00027\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1683211421495</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00028\" summary=\"Numerical method functioning\">\r\n      <created>1683212098274</created>\r\n      <option name=\"number\" value=\"00028\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00028\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1683212098274</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00029\" summary=\"Numerical method functioning\">\r\n      <created>1683212530050</created>\r\n      <option name=\"number\" value=\"00029\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00029\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1683212530050</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00030\" summary=\"Numerical method functioning\">\r\n      <created>1683212658327</created>\r\n      <option name=\"number\" value=\"00030\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00030\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1683212658327</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00031\" summary=\"Numerical method functioning\">\r\n      <created>1683213041955</created>\r\n      <option name=\"number\" value=\"00031\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00031\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1683213041955</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00032\" summary=\"GUI changes\">\r\n      <created>1683813020788</created>\r\n      <option name=\"number\" value=\"00032\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00032\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1683813020788</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00033\" summary=\"GUI changes\">\r\n      <created>1683813213738</created>\r\n      <option name=\"number\" value=\"00033\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00033\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1683813213738</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00034\" summary=\"GUI changes\">\r\n      <created>1683813799190</created>\r\n      <option name=\"number\" value=\"00034\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00034\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1683813799190</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00035\" summary=\"GUI changes\">\r\n      <created>1683815559299</created>\r\n      <option name=\"number\" value=\"00035\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00035\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1683815559299</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00036\" summary=\"GUI changes\">\r\n      <created>1683820787926</created>\r\n      <option name=\"number\" value=\"00036\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00036\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1683820787926</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00037\" summary=\"GUI code cleanup\">\r\n      <created>1683820991892</created>\r\n      <option name=\"number\" value=\"00037\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00037\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1683820991892</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00038\" summary=\"GUI code cleanup\">\r\n      <created>1683821263559</created>\r\n      <option name=\"number\" value=\"00038\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00038\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1683821263559</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00039\" summary=\"GUI, progress bar, two labels, change of the scene structure ( adding a sub-scene ) and code cleanup\">\r\n      <created>1683824678386</created>\r\n      <option name=\"number\" value=\"00039\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00039\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1683824678386</updated>\r\n    </task>\r\n    <option name=\"localTasksCounter\" value=\"40\" />\r\n    <servers />\r\n  </component>\r\n  <component name=\"TypeScriptGeneratedFilesManager\">\r\n    <option name=\"version\" value=\"3\" />\r\n  </component>\r\n  <component name=\"Vcs.Log.Tabs.Properties\">\r\n    <option name=\"TAB_STATES\">\r\n      <map>\r\n        <entry key=\"MAIN\">\r\n          <value>\r\n            <State />\r\n          </value>\r\n        </entry>\r\n      </map>\r\n    </option>\r\n  </component>\r\n  <component name=\"VcsManagerConfiguration\">\r\n    <MESSAGE value=\"moving stuff\" />\r\n    <MESSAGE value=\"re start\" />\r\n    <MESSAGE value=\"added rotation and fixed marsTexture\" />\r\n    <MESSAGE value=\"mars texture\" />\r\n    <MESSAGE value=\"cleaning up the code in Merged/GUI\" />\r\n    <MESSAGE value=\"moving violet rocket, working on rocketPath\" />\r\n    <MESSAGE value=\"added cameras for titan sun earth and buttons for them\" />\r\n    <MESSAGE value=\"orbits and stuff\" />\r\n    <MESSAGE value=\"path I guess\" />\r\n    <MESSAGE value=\"tesring\" />\r\n    <MESSAGE value=\"Numerical method functioning\" />\r\n    <MESSAGE value=\"GUI changes\" />\r\n    <MESSAGE value=\"GUI code cleanup\" />\r\n    <MESSAGE value=\"GUI, progress bar, two labels, change of the scene structure ( adding a sub-scene ) and code cleanup\" />\r\n    <option name=\"LAST_COMMIT_MESSAGE\" value=\"GUI, progress bar, two labels, change of the scene structure ( adding a sub-scene ) and code cleanup\" />\r\n  </component>\r\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/workspace.xml b/.idea/workspace.xml
+--- a/.idea/workspace.xml	(revision 31198f13b4050566db6e26e870af6e3bf9469fb7)
++++ b/.idea/workspace.xml	(date 1683878057709)
+@@ -4,10 +4,10 @@
+     <option name="autoReloadType" value="SELECTIVE" />
+   </component>
+   <component name="ChangeListManager">
+-    <list default="true" id="bab05458-8716-4abd-8f37-31e577e5aaab" name="Changes" comment="GUI, progress bar, two labels, change of the scene structure ( adding a sub-scene ) and code cleanup">
+-      <change afterPath="$PROJECT_DIR$/src/main/resources/cosmosTexture.jpg" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
++    <list default="true" id="bab05458-8716-4abd-8f37-31e577e5aaab" name="Changes" comment="Numerical method functioning">
+       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/planets/Merged.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/planets/Merged.java" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/target/classes/com/example/planets/Merged$3.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/planets/Merged$3.class" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/target/classes/com/example/planets/Merged.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/planets/Merged.class" afterDir="false" />
+     </list>
+     <option name="SHOW_DIALOG" value="false" />
+     <option name="HIGHLIGHT_CONFLICTS" value="true" />
+@@ -41,29 +41,28 @@
+     <option name="hideEmptyMiddlePackages" value="true" />
+     <option name="showLibraryContents" value="true" />
+   </component>
+-  <component name="PropertiesComponent"><![CDATA[{
+-  "keyToString": {
+-    "RunOnceActivity.OpenProjectViewOnStart": "true",
+-    "RunOnceActivity.ShowReadmeOnStart": "true",
+-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+-    "WebServerToolWindowFactoryState": "false",
+-    "full.screen.before.presentation.mode": "false",
+-    "git-widget-placeholder": "main",
+-    "last_opened_file_path": "C:/Users/suszw/Desktop/uni/year_1/Period 5/Toon09-Crew17_spaceMission/src/main/resources",
+-    "node.js.detected.package.eslint": "true",
+-    "node.js.detected.package.tslint": "true",
+-    "node.js.selected.package.eslint": "(autodetect)",
+-    "node.js.selected.package.tslint": "(autodetect)",
+-    "project.structure.last.edited": "Project",
+-    "project.structure.proportion": "0.0",
+-    "project.structure.side.proportion": "0.0",
+-    "settings.editor.selected.configurable": "configurable.group.editor",
+-    "vue.rearranger.settings.migration": "true"
++  <component name="PropertiesComponent">{
++  &quot;keyToString&quot;: {
++    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
++    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
++    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
++    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
++    &quot;full.screen.before.presentation.mode&quot;: &quot;false&quot;,
++    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
++    &quot;last_opened_file_path&quot;: &quot;C:/Users/sirap/IdeaProjects/Toon09-Crew17_spaceMission/src/main/java/com/example/planets&quot;,
++    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
++    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
++    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
++    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
++    &quot;project.structure.last.edited&quot;: &quot;Project&quot;,
++    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
++    &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;,
++    &quot;settings.editor.selected.configurable&quot;: &quot;configurable.group.editor&quot;,
++    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+   }
+-}]]></component>
++}</component>
+   <component name="RecentsManager">
+     <key name="CopyFile.RECENT_KEYS">
+-      <recent name="C:\Users\suszw\Desktop\uni\year_1\Period 5\Toon09-Crew17_spaceMission\src\main\resources" />
+       <recent name="C:\Users\sirap\IdeaProjects\Toon09-Crew17_spaceMission\src\main\java\com\example\planets" />
+       <recent name="C:\Users\suszw\Desktop\uni\year_1\Period4\Data stuctures\Planets" />
+     </key>
+@@ -153,7 +152,6 @@
+       <workItem from="1679317911374" duration="1670000" />
+       <workItem from="1679322438755" duration="983000" />
+       <workItem from="1683209681075" duration="3407000" />
+-      <workItem from="1683820709833" duration="618000" />
+     </task>
+     <task id="LOCAL-00001" summary="moving stuff">
+       <created>1679322500707</created>
+@@ -372,63 +370,7 @@
+       <option name="project" value="LOCAL" />
+       <updated>1683213041955</updated>
+     </task>
+-    <task id="LOCAL-00032" summary="GUI changes">
+-      <created>1683813020788</created>
+-      <option name="number" value="00032" />
+-      <option name="presentableId" value="LOCAL-00032" />
+-      <option name="project" value="LOCAL" />
+-      <updated>1683813020788</updated>
+-    </task>
+-    <task id="LOCAL-00033" summary="GUI changes">
+-      <created>1683813213738</created>
+-      <option name="number" value="00033" />
+-      <option name="presentableId" value="LOCAL-00033" />
+-      <option name="project" value="LOCAL" />
+-      <updated>1683813213738</updated>
+-    </task>
+-    <task id="LOCAL-00034" summary="GUI changes">
+-      <created>1683813799190</created>
+-      <option name="number" value="00034" />
+-      <option name="presentableId" value="LOCAL-00034" />
+-      <option name="project" value="LOCAL" />
+-      <updated>1683813799190</updated>
+-    </task>
+-    <task id="LOCAL-00035" summary="GUI changes">
+-      <created>1683815559299</created>
+-      <option name="number" value="00035" />
+-      <option name="presentableId" value="LOCAL-00035" />
+-      <option name="project" value="LOCAL" />
+-      <updated>1683815559299</updated>
+-    </task>
+-    <task id="LOCAL-00036" summary="GUI changes">
+-      <created>1683820787926</created>
+-      <option name="number" value="00036" />
+-      <option name="presentableId" value="LOCAL-00036" />
+-      <option name="project" value="LOCAL" />
+-      <updated>1683820787926</updated>
+-    </task>
+-    <task id="LOCAL-00037" summary="GUI code cleanup">
+-      <created>1683820991892</created>
+-      <option name="number" value="00037" />
+-      <option name="presentableId" value="LOCAL-00037" />
+-      <option name="project" value="LOCAL" />
+-      <updated>1683820991892</updated>
+-    </task>
+-    <task id="LOCAL-00038" summary="GUI code cleanup">
+-      <created>1683821263559</created>
+-      <option name="number" value="00038" />
+-      <option name="presentableId" value="LOCAL-00038" />
+-      <option name="project" value="LOCAL" />
+-      <updated>1683821263559</updated>
+-    </task>
+-    <task id="LOCAL-00039" summary="GUI, progress bar, two labels, change of the scene structure ( adding a sub-scene ) and code cleanup">
+-      <created>1683824678386</created>
+-      <option name="number" value="00039" />
+-      <option name="presentableId" value="LOCAL-00039" />
+-      <option name="project" value="LOCAL" />
+-      <updated>1683824678386</updated>
+-    </task>
+-    <option name="localTasksCounter" value="40" />
++    <option name="localTasksCounter" value="32" />
+     <servers />
+   </component>
+   <component name="TypeScriptGeneratedFilesManager">
+@@ -457,9 +399,6 @@
+     <MESSAGE value="path I guess" />
+     <MESSAGE value="tesring" />
+     <MESSAGE value="Numerical method functioning" />
+-    <MESSAGE value="GUI changes" />
+-    <MESSAGE value="GUI code cleanup" />
+-    <MESSAGE value="GUI, progress bar, two labels, change of the scene structure ( adding a sub-scene ) and code cleanup" />
+-    <option name="LAST_COMMIT_MESSAGE" value="GUI, progress bar, two labels, change of the scene structure ( adding a sub-scene ) and code cleanup" />
++    <option name="LAST_COMMIT_MESSAGE" value="Numerical method functioning" />
+   </component>
+ </project>
+\ No newline at end of file
