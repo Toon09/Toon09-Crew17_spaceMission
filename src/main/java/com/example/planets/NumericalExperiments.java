@@ -88,8 +88,8 @@ class NumericalExperiments {
         //models.add( new Gravity0( 0, Math.PI / 2.0, new Euler() ) );
         //steps.add( 0.1 );
 
-        models.add( new Gravity0( 0, 0, new RK3() ) );
-        steps.add( 1.0 );
+        models.add( new Gravity0( 0, 0, new AB2() ) );
+        steps.add( 0.1 );
 
 
         //test details
