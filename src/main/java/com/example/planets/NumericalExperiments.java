@@ -79,7 +79,7 @@ class NumericalExperiments {
 
         // benchmark model
         Model3D benchmark = new Gravity0( 0, Math.PI / 2.0, new RK4() );
-        double benchmarkPrecision = 1.0;
+        double benchmarkPrecision = 0.1;
 
 
         //  testing models
@@ -90,7 +90,7 @@ class NumericalExperiments {
         //models.add( new Gravity0( 0, Math.PI / 2.0, new Euler() ) );
         //steps.add( 0.1 );
 
-        models.add( new Gravity0( 0, 0, new RK4() ) );
+        models.add( new Gravity0( 0, 0, new AB2() ) );
         steps.add( 0.1 );
 
 
