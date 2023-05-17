@@ -129,10 +129,6 @@ public interface Model3D {
      */
     public double[][][] getState();
 
-    /**
-     * @return returns the model currently being used by the model
-     */
-    public NumSolver getSolver();
 
     // ####################################################################### operations
 
@@ -148,6 +144,13 @@ public interface Model3D {
      * @return perfect copy of another model with a specified numerical solver
      */
     public Model3D clone(NumSolver numSolver);
+
+    /**
+     * Makes a copy (no references, only values) of the object, it also lets you
+     *      decide which numerical solver should this copy have
+     * @return perfect copy of another model with the same numerical solver
+     */
+    public Model3D clone();
 
     /**
      *

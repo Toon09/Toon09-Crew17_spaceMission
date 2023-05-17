@@ -180,10 +180,6 @@ public class Gravity0 implements Model3D {
     public double[] getAcc(int index){ return bodies[index].getAcc(); }
     @Override
     public double getTime() { return time; }
-    @Override
-    public NumSolver getSolver(){
-        return numSolver;
-    }
 
 
     //upates all derivs
@@ -233,6 +229,11 @@ public class Gravity0 implements Model3D {
     @Override
     public Model3D clone(NumSolver numSolver) {
         return new Gravity0(this.bodies, numSolver);
+    }
+
+    @Override
+    public Model3D clone() {
+        return new Gravity0(this.bodies, this.numSolver);
     }
 
     public static double[][] positions = { { 0, 0, 0 }, { 7.83e6, 4.49e7, 2.87e6 }, { -2.82e7, 1.04e8, 3.01e6 },

@@ -8,11 +8,11 @@ public class Hohmann {
     Model3D model;
 
     /**
-     * sets up everything
+     * sets up everything h
      * @param model all information of the system (planets, etc)
      */
     public Hohmann(Model3D model){
-        this.model = model.clone( new RK4() ); //////////////////////////////// make so you can get the solver from the model
+        this.model = model.clone( ); //////////////////////////////// make so you can get the solver from the model
     }
 
 }
