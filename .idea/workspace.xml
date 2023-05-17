@@ -4,10 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="bab05458-8716-4abd-8f37-31e577e5aaab" name="Changes" comment="GUI, progress bar, two labels, change of the scene structure ( adding a sub-scene ) and code cleanup">
+    <list default="true" id="bab05458-8716-4abd-8f37-31e577e5aaab" name="Changes" comment="Re-organized info in comments">
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/planets/BackEnd/NumericalMethods/RK3.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/planets/Merged.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/planets/Merged.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/example/planets/Merged.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/planets/Merged.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/planets/BackEnd/NumericalMethods/RK4.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/planets/BackEnd/NumericalMethods/RK4.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/planets/NumericalExperiments.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/planets/NumericalExperiments.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/planets/NumericalExperiments.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/planets/NumericalExperiments.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -23,6 +25,7 @@
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="UPDATE_TYPE" value="REBASE" />
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
@@ -75,7 +78,7 @@
       <recent name="C:\Users\suszw\Desktop\uni\year_1\Period4\plswork\src\main\java\com\example\planets" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.Merged">
+  <component name="RunManager" selected="Application.NumericalExperiments">
     <configuration name="GUI" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="com.example.planets.GUI" />
       <module name="Planets" />
@@ -130,8 +133,8 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.Merged" />
         <item itemvalue="Application.NumericalExperiments" />
+        <item itemvalue="Application.Merged" />
         <item itemvalue="Application.GUI" />
         <item itemvalue="Application.Main" />
       </list>
@@ -155,48 +158,6 @@
       <workItem from="1683209681075" duration="3407000" />
       <workItem from="1683820709833" duration="618000" />
       <workItem from="1683841240613" duration="1723000" />
-    </task>
-    <task id="LOCAL-00001" summary="moving stuff">
-      <created>1679322500707</created>
-      <option name="number" value="00001" />
-      <option name="presentableId" value="LOCAL-00001" />
-      <option name="project" value="LOCAL" />
-      <updated>1679322500707</updated>
-    </task>
-    <task id="LOCAL-00002" summary="re start">
-      <created>1679396370529</created>
-      <option name="number" value="00002" />
-      <option name="presentableId" value="LOCAL-00002" />
-      <option name="project" value="LOCAL" />
-      <updated>1679396370529</updated>
-    </task>
-    <task id="LOCAL-00003" summary="re start">
-      <created>1679396767097</created>
-      <option name="number" value="00003" />
-      <option name="presentableId" value="LOCAL-00003" />
-      <option name="project" value="LOCAL" />
-      <updated>1679396767097</updated>
-    </task>
-    <task id="LOCAL-00004" summary="re start">
-      <created>1679405320081</created>
-      <option name="number" value="00004" />
-      <option name="presentableId" value="LOCAL-00004" />
-      <option name="project" value="LOCAL" />
-      <updated>1679405320082</updated>
-    </task>
-    <task id="LOCAL-00005" summary="re start">
-      <created>1679412035915</created>
-      <option name="number" value="00005" />
-      <option name="presentableId" value="LOCAL-00005" />
-      <option name="project" value="LOCAL" />
-      <updated>1679412035915</updated>
-    </task>
-    <task id="LOCAL-00006" summary="re start">
-      <created>1679413177924</created>
-      <option name="number" value="00006" />
-      <option name="presentableId" value="LOCAL-00006" />
-      <option name="project" value="LOCAL" />
-      <updated>1679413177924</updated>
     </task>
     <task id="LOCAL-00007" summary="re start">
       <created>1679427027346</created>
@@ -436,7 +397,112 @@
       <option name="project" value="LOCAL" />
       <updated>1683825248190</updated>
     </task>
-    <option name="localTasksCounter" value="41" />
+    <task id="LOCAL-00041" summary="getState only copies values, no references">
+      <created>1684066080547</created>
+      <option name="number" value="00041" />
+      <option name="presentableId" value="LOCAL-00041" />
+      <option name="project" value="LOCAL" />
+      <updated>1684066080547</updated>
+    </task>
+    <task id="LOCAL-00042" summary="RK4 implemented and FRK2 finished, FRK2 needs check">
+      <created>1684072811990</created>
+      <option name="number" value="00042" />
+      <option name="presentableId" value="LOCAL-00042" />
+      <option name="project" value="LOCAL" />
+      <updated>1684072811990</updated>
+    </task>
+    <task id="LOCAL-00043" summary="documentation and time keeping in individual models added">
+      <created>1684074107540</created>
+      <option name="number" value="00043" />
+      <option name="presentableId" value="LOCAL-00043" />
+      <option name="project" value="LOCAL" />
+      <updated>1684074107540</updated>
+    </task>
+    <task id="LOCAL-00044" summary="change experiment set up and added ideas for GUI in merged">
+      <created>1684146917387</created>
+      <option name="number" value="00044" />
+      <option name="presentableId" value="LOCAL-00044" />
+      <option name="project" value="LOCAL" />
+      <updated>1684146917387</updated>
+    </task>
+    <task id="LOCAL-00045" summary="Experimenting with several RK4 step sizes">
+      <created>1684147326265</created>
+      <option name="number" value="00045" />
+      <option name="presentableId" value="LOCAL-00045" />
+      <option name="project" value="LOCAL" />
+      <updated>1684147326265</updated>
+    </task>
+    <task id="LOCAL-00046" summary="finished experiemnts &amp; added RK4 with step=0.1 to GUI">
+      <created>1684153776736</created>
+      <option name="number" value="00046" />
+      <option name="presentableId" value="LOCAL-00046" />
+      <option name="project" value="LOCAL" />
+      <updated>1684153776736</updated>
+    </task>
+    <task id="LOCAL-00047" summary="more stuff to do in merged">
+      <created>1684153884320</created>
+      <option name="number" value="00047" />
+      <option name="presentableId" value="LOCAL-00047" />
+      <option name="project" value="LOCAL" />
+      <updated>1684153884320</updated>
+    </task>
+    <task id="LOCAL-00048" summary="added Ralstons RK4 and tested AB2">
+      <created>1684241892598</created>
+      <option name="number" value="00048" />
+      <option name="presentableId" value="LOCAL-00048" />
+      <option name="project" value="LOCAL" />
+      <updated>1684241892598</updated>
+    </task>
+    <task id="LOCAL-00049" summary="Re-organizing data and adding to the todo list &amp; testing DataGetter.java">
+      <created>1684247216097</created>
+      <option name="number" value="00049" />
+      <option name="presentableId" value="LOCAL-00049" />
+      <option name="project" value="LOCAL" />
+      <updated>1684247216097</updated>
+    </task>
+    <task id="LOCAL-00050" summary="Doc for planning and structuring">
+      <created>1684318846415</created>
+      <option name="number" value="00050" />
+      <option name="presentableId" value="LOCAL-00050" />
+      <option name="project" value="LOCAL" />
+      <updated>1684318846416</updated>
+    </task>
+    <task id="LOCAL-00051" summary="Doc and further structuring for the trajectory planning">
+      <created>1684321561872</created>
+      <option name="number" value="00051" />
+      <option name="presentableId" value="LOCAL-00051" />
+      <option name="project" value="LOCAL" />
+      <updated>1684321561872</updated>
+    </task>
+    <task id="LOCAL-00052" summary="Doc and further structuring for the trajectory planning">
+      <created>1684321742477</created>
+      <option name="number" value="00052" />
+      <option name="presentableId" value="LOCAL-00052" />
+      <option name="project" value="LOCAL" />
+      <updated>1684321742477</updated>
+    </task>
+    <task id="LOCAL-00053" summary="Fixed dependency issue, cant copy planning from models">
+      <created>1684323132353</created>
+      <option name="number" value="00053" />
+      <option name="presentableId" value="LOCAL-00053" />
+      <option name="project" value="LOCAL" />
+      <updated>1684323132353</updated>
+    </task>
+    <task id="LOCAL-00054" summary="set up to test AB2">
+      <created>1684323752252</created>
+      <option name="number" value="00054" />
+      <option name="presentableId" value="LOCAL-00054" />
+      <option name="project" value="LOCAL" />
+      <updated>1684323752252</updated>
+    </task>
+    <task id="LOCAL-00055" summary="Re-organized info in comments">
+      <created>1684323887502</created>
+      <option name="number" value="00055" />
+      <option name="presentableId" value="LOCAL-00055" />
+      <option name="project" value="LOCAL" />
+      <updated>1684323887502</updated>
+    </task>
+    <option name="localTasksCounter" value="56" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -454,9 +520,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="moving stuff" />
-    <MESSAGE value="re start" />
-    <MESSAGE value="added rotation and fixed marsTexture" />
     <MESSAGE value="mars texture" />
     <MESSAGE value="cleaning up the code in Merged/GUI" />
     <MESSAGE value="moving violet rocket, working on rocketPath" />
@@ -468,6 +531,20 @@
     <MESSAGE value="GUI changes" />
     <MESSAGE value="GUI code cleanup" />
     <MESSAGE value="GUI, progress bar, two labels, change of the scene structure ( adding a sub-scene ) and code cleanup" />
-    <option name="LAST_COMMIT_MESSAGE" value="GUI, progress bar, two labels, change of the scene structure ( adding a sub-scene ) and code cleanup" />
+    <MESSAGE value="getState only copies values, no references" />
+    <MESSAGE value="RK4 implemented and FRK2 finished, FRK2 needs check" />
+    <MESSAGE value="documentation and time keeping in individual models added" />
+    <MESSAGE value="change experiment set up and added ideas for GUI in merged" />
+    <MESSAGE value="Experimenting with several RK4 step sizes" />
+    <MESSAGE value="finished experiemnts &amp; added RK4 with step=0.1 to GUI" />
+    <MESSAGE value="more stuff to do in merged" />
+    <MESSAGE value="added Ralstons RK4 and tested AB2" />
+    <MESSAGE value="Re-organizing data and adding to the todo list &amp; testing DataGetter.java" />
+    <MESSAGE value="Doc for planning and structuring" />
+    <MESSAGE value="Doc and further structuring for the trajectory planning" />
+    <MESSAGE value="Fixed dependency issue, cant copy planning from models" />
+    <MESSAGE value="set up to test AB2" />
+    <MESSAGE value="Re-organized info in comments" />
+    <option name="LAST_COMMIT_MESSAGE" value="Re-organized info in comments" />
   </component>
 </project>

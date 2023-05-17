@@ -11,7 +11,6 @@ public class CelestialBody {
     protected double[] pos = new double[3];
     protected double[] vel = new double[3];
     protected double[] acc = new double[]{0,0,0};
-    protected static double time = 0;
 
 
     public static double daysToSec(double days){
@@ -30,9 +29,7 @@ public class CelestialBody {
         return Math.sqrt( a*a + b*b + c*c );
     }
 
-    public CelestialBody(){
-        
-    }
+    public CelestialBody(){}
 
 
     public CelestialBody(double mass, double[] innitPos, double[] innitVel){
@@ -50,11 +47,12 @@ public class CelestialBody {
         setVel(innitVel);
 
     }
+
     // constructor for csv file
     public CelestialBody( String name,String x1,String x2,String x3,String v1,String v2,String v3,String m){
         this.name = name;
         setMass(Double.parseDouble(m));
-        setradius(0);
+        setRadius(0);
         this.pos[0] = Double.parseDouble(x1);
         this.pos[1] = Double.parseDouble(x2);
         this.pos[2] = Double.parseDouble(x3);
@@ -103,14 +101,20 @@ public class CelestialBody {
     }
 
 
-    public CelestialBody(String name, double mass, double radius, double[] innitPos, double[] innitVel, double[] innitAcc){
-        this.name = name;
-        setMass(mass);
-        setradius(radius);
-        setPos(innitPos);
-        setVel(innitVel);
-        setAcc(innitAcc);
 
+    /**
+     * takes 2D array and sets the velocity, positions anda ccelerations given in it as the models own,
+     * must be in the following format:
+     *  arrays of length 3 that contain     [ 0:position, 1:velocity, 2:acceleration ]
+     *  values of each coordinate in        [ 0:x, 1:y, 2:z ]
+     *
+     * @param state array containing positions, velocities and accelerations to be set
+     *              in the format given above
+     */
+    public void setState(double[][] state){
+        setPos( state[0] );
+        setVel( state[1] );
+        setAcc( state[2] );
     }
 
 
@@ -118,15 +122,13 @@ public class CelestialBody {
     public double[] getPos(){ return pos; }
     public double[] getVel(){ return vel; }
     public double[] getAcc(){ return acc; }
-    public static double getTime(){ return time; }
     public double getMass(){ return mass; }
-    public double getradius(){ return radius; }
+    public double getRadius(){ return radius; }
     public String getName(){ return name; }
-    public static void addDt(double dt){ time += dt; }
 
     //setters
     public void setMass(double mass){ this.mass = mass; }
-    public void setradius(double radius){ this.radius = radius; }
+    public void setRadius(double radius){ this.radius = radius; }
     public void setName(String name){ this.name = name; }
     public void setPos(double[] pos){
         this.pos[0] = pos[0];
@@ -174,4 +176,9 @@ public class CelestialBody {
         return true;
     }
 
+
+    /////////////////////////////// IMPLEMENT
+    public CelestialBody clone() {
+        return new CelestialBody(this.getName(), this.getMass(), this.getPos(), this.getVel());
+    }
 }

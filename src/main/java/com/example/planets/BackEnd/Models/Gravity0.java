@@ -10,7 +10,13 @@ public class Gravity0 implements Model3D {
     private CelestialBody[] bodies;
     private NumSolver numSolver;
 
+    private double time = 0;
 
+
+    /**
+     * Only generates planets to run simulation of the solar system itself
+     * @param numSolver type of numerical solver to be used
+     */
     public Gravity0(NumSolver numSolver){
         this.numSolver = numSolver;
 
@@ -21,23 +27,30 @@ public class Gravity0 implements Model3D {
 
     }
 
-    
-    public Gravity0(CelestialBody[] bodies, NumSolver numSolver){
+    /**
+     * THis constructor is mainly used in the copy function, it doesn't need
+     * @param bodies
+     * @param numSolver
+     */
+    private Gravity0(CelestialBody[] bodies, NumSolver numSolver){
         this.numSolver = numSolver;
 
         this.bodies = new CelestialBody[ positions.length+1 ];
         for(int i=0; i<bodies.length; i++){
             if( bodies[i] instanceof Spaceship ){
-                this.bodies[i] = new Spaceship(bodies[i].getMass(), bodies[i].getPos(), bodies[i].getVel());
+                this.bodies[i] = (CelestialBody) new Spaceship(bodies[i].getMass(), bodies[i].getPos(), bodies[i].getVel());
             }else {
                 this.bodies[i] = new CelestialBody(bodies[i].getName(), bodies[i].getMass(), bodies[i].getPos(), bodies[i].getVel());
             }
 
         }
 
+        // this.getShip().makePlan(this);
+        // this constructor is mainly used for copies
+
     }
 
-    public Gravity0(double theta, double phi, double[] rocketVel, NumSolver numSolver){
+    public Gravity0(double theta, double phi, NumSolver numSolver){
 
         this.numSolver = numSolver;
 
@@ -45,7 +58,9 @@ public class Gravity0 implements Model3D {
         for(int i=0; i<this.bodies.length-1; i++){
             this.bodies[i] = new CelestialBody(names[i], mass[i], positions[i], velocity[i]) ;
         }
-        this.bodies[ this.bodies.length-1 ] = new Spaceship(50000, positions[3], velocity[3], 0, 0, rocketVel);
+        this.bodies[ this.bodies.length-1 ] = new Spaceship(50000, positions[3], velocity[3], 0, 0);
+
+        this.getShip().makePlan(this);
 
     }
 
@@ -57,27 +72,26 @@ public class Gravity0 implements Model3D {
             return null;
     }
 
+
     @Override
     public void setSolver(NumSolver numSolver) {
         this.numSolver = numSolver;
     }
 
 
-    //days is how many days to compute at a time
+
     @Override
     public void updatePos(double time, double dt, boolean days){
         hDeriv(); //gets the acceleration at the starting point..
         //.. so that the velocity doesn't take the acc as 0 at the start
 
-        numSolver.setState( this.getState() ); //saves useful info to speed up model
-
         //uses the unit of days to calculate how long to run the simulation for
         if( days ){
-            for(int i=0; i<CelestialBody.daysToSec(time)/dt; i++ )
+            for(int i=0; i<CelestialBody.daysToSec(time)/Math.abs(dt); i++ )
                 numSolver.step(this, dt);
         //uses seconds to calculate how long to run
         }else{
-            for(int i=0; i<time/dt; i++ )
+            for(int i=0; i<time/Math.abs(dt); i++ )
                 numSolver.step(this, dt);
             
         }
@@ -91,14 +105,25 @@ public class Gravity0 implements Model3D {
 
         //every body
         for(int i=0; i<this.size(); i++){
-            result[i][0] = this.getAcc(i);
-            result[i][1] = this.getVel(i);
-            result[i][2] = this.getPos(i);
+            for(int j=0; j<3; j++)
+                result[i][0][j] = this.getPos(i)[j];
+            for(int j=0; j<3; j++)
+                result[i][1][j] = this.getVel(i)[j];
+            for(int j=0; j<3; j++)
+                result[i][2][j] = this.getAcc(i)[j];
+
         }
 
         return result;
+    }
+
+    @Override
+    public void setState(double[][][] state){
+        for(int i=0; i<bodies.length; i++)
+            bodies[i].setState(state[i]);
 
     }
+
 
     //make function that returns the rocket
     @Override
@@ -142,9 +167,9 @@ public class Gravity0 implements Model3D {
     @Override
     public void setAcc(int index, double[] acc){ bodies[index].setAcc(acc); }
     @Override
-    public void addDt(double dt) { CelestialBody.addDt(dt); }
-    
+    public void addDt(double dt) { time += dt; }
 
+    
 
     //getters
     @Override
@@ -154,7 +179,8 @@ public class Gravity0 implements Model3D {
     @Override
     public double[] getAcc(int index){ return bodies[index].getAcc(); }
     @Override
-    public double getTime() { return CelestialBody.getTime(); }
+    public double getTime() { return time; }
+
 
     //upates all derivs
     @Override
@@ -203,6 +229,11 @@ public class Gravity0 implements Model3D {
     @Override
     public Model3D clone(NumSolver numSolver) {
         return new Gravity0(this.bodies, numSolver);
+    }
+
+    @Override
+    public Model3D clone() {
+        return new Gravity0(this.bodies, this.numSolver);
     }
 
     public static double[][] positions = { { 0, 0, 0 }, { 7.83e6, 4.49e7, 2.87e6 }, { -2.82e7, 1.04e8, 3.01e6 },

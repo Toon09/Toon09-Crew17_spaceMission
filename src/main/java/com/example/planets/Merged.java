@@ -27,8 +27,17 @@ import java.util.TimerTask;
 //add used fuel meter
 //fix the path ( problems with changing the scale )
 
+// rotate textures of the planets to face the actual direction they are supposed to
+// thingie to change step size in real time
+// have screen to chose solver & innit coniditions (have an option for our chosen coords)
+// have an actual sprite for the rocket lol
+// put names of planets on top of them????
+// when you close the window the program stops too
+// add some sort of background
+// fix problem where size of trajectory points of ship doesn't fit the perspective given
+
 public class Merged extends Application {
-    static Gravity0 model = new Gravity0(0, Math.PI / 2.0, new double[]{150,-200, 0}, new RK2()); /////////////
+    static Gravity0 model = new Gravity0(0, Math.PI / 2.0, new RK4());
     private static int scale = 25;
     private static final int smallScale = 25;
     private static final int bigScale = 3000;
@@ -90,6 +99,9 @@ public class Merged extends Application {
                     System.out.println("------------------------------------------");
                     System.out.println("camera at:");
                     System.out.println("x: " + camera.getTranslateX() + ", y: " + camera.getTranslateY() + ", z: " + camera.getTranslateZ());
+                    System.out.println("------------------------------------------");
+                    System.out.println("Time is: ");
+                    System.out.println(model.getTime());
                 }
                 case P -> System.exit(0);
                 case DIGIT1 -> {
@@ -152,7 +164,7 @@ public class Merged extends Application {
         timer.schedule(new TimerTask() {
             @Override
             public void run() {
-                model.updatePos(0.1, 0.1, true);
+                model.updatePos(0.05, 1, true);
                 for (int i = 0; i < 12; i++) {
                     setPosition(world.getChildren().get(i), model.getBody(i));
                 }
@@ -192,6 +204,9 @@ public class Merged extends Application {
                     path[counter].setTranslateY(model.getBody(11).getPos()[1] / scale);
                     path[counter].setTranslateZ(model.getBody(11).getPos()[2] / scale);
                     counter++;
+                }
+                if(model.getTime() == 10){
+                    //model.getShip().accelerate();
                 }
             }
         },5,40);
