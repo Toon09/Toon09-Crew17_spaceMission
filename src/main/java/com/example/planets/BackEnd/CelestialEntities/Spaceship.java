@@ -15,9 +15,10 @@ public class Spaceship extends CelestialBody {
     private double usedFuel;
     //has all the information of where to go and such
     Planning plan;
-    private final double maxSpeed = 2_500; //2,500 to 4,500 m/s (look up)
+    private final double maxSpeed = 11000; //2,500 to 4,500 m/s (look up) according to falcon 9
     private  final double maxForce = 3 * Math.pow(10, 7); // Newtons
     private final double mass = 50000;
+    private final double fuelConsumption = 1451.5; //This fuel consumption is based on the falcon 9 maximum fuel consumption, so at max acceleration the consumption is this one.
     public double getUsedFuel(){ return usedFuel; }
     // public void setFuel(double fuel){ this.fuel = fuel; }
 
@@ -93,7 +94,7 @@ public class Spaceship extends CelestialBody {
      */
 
     //magnitute and thso evalue are saved inside the Planning class
-    public void accelerate(double x, double y, double z){
+    public void accelerate(double x, double y, double z, double percentage){
         //double[] direction = plan.getNextDirection(); //gets all info of where it needs to go
         // change so it doesnt change order per time step
         // add a var thats called order than in the condition make it so that
@@ -105,8 +106,12 @@ public class Spaceship extends CelestialBody {
 
         //calc the velocity change if the force can still be applied
         // can apply other methods like RK2 and such here for more precision /////////////////////
+        useFuel(percentage);
 
+    }
 
+    public void useFuel(double percentage) {
+        usedFuel += percentage*fuelConsumption;
     }
 
     private void addPos(double[] pos){
