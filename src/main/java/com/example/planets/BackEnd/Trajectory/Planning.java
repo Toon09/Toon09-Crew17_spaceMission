@@ -10,7 +10,7 @@ import java.util.ArrayList;
     they take the model as an input and start from a specified planet, this is so we can reuse code
     for the way back.
 
-    THe output of the trajectory must be a ArrayList<double[][]> in the same format as "maneuverPoints"
+    The output of the trajectory must be a ArrayList<double[][]> in the same format as "maneuverPoints"
  */
 public class Planning {
     //count of how many stages located in "maneuverPoints" have been executed so far
@@ -53,7 +53,6 @@ public class Planning {
         Hohmann plan = new Hohmann(model);
 
     }
-
 
 
     /**

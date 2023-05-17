@@ -23,8 +23,7 @@ class NumericalExperiments {
     + fix AB2 to use same logic as F/_RK2
     + make class dataGetter
 
-    + https://youtu.be/l_iZk4n5QFU?t=569 [ hohmann transfer theory ]
-    + https://youtu.be/l_iZk4n5QFU?t=786 [ arbitrary impulse transfer ]
+
 
     change time to run instead of in amount of days, to be in hours ?
 
@@ -41,7 +40,6 @@ class NumericalExperiments {
 
     // https://youtube.com/playlist?list=PLYdroRCLMg5PhZqzEJJlyLo55-1Vdd4Bd [numerical methods]
     // https://youtube.com/playlist?list=PLOIRBaljOV8je0oxFAyj2o6YLXcBX1rTZ [rocket trajectory]
-    // https://youtu.be/l_iZk4n5QFU [1h lecture on trajectory planning]
 
     change for loop to be inside the step func in NumSolver so the step ize change of of dormant prince doesnt destroy anything
     have the length of execution be a parameter

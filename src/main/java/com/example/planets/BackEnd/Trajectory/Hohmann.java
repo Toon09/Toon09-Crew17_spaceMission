@@ -5,6 +5,12 @@ import com.example.planets.BackEnd.NumericalMethods.RK4;
 
 import java.util.ArrayList;
 
+/*
+    // https://youtu.be/l_iZk4n5QFU [1h lecture on trajectory planning]
+
+    + https://youtu.be/l_iZk4n5QFU?t=569 [ Hohmann transfer theory ]
+    + https://youtu.be/l_iZk4n5QFU?t=786 [ arbitrary impulse transfer ]
+ */
 public class Hohmann {
 
     Model3D model;
