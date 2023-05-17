@@ -53,7 +53,7 @@ class NumericalExperiments {
     public static void main(String[] args) {
         // engineTest()
 
-        // comparingToEachOther();
+         comparingToEachOther();
 
         DataGetter data = new DataGetter();
         double[][] temp = data.getTxtExpData(0, "src/main/java/com/example/planets/Data/Mars_Data.txt");
@@ -90,8 +90,8 @@ class NumericalExperiments {
         //models.add( new Gravity0( 0, Math.PI / 2.0, new Euler() ) );
         //steps.add( 0.1 );
 
-        models.add( new Gravity0( 0, Math.PI / 2.0, new AB2() ) );
-        steps.add( 0.1 );
+        models.add( new Gravity0( 0, Math.PI / 2.0, new RK4() ) );
+        steps.add( 1.0 );
 
 
         //test details

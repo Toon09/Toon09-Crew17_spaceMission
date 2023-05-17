@@ -14,7 +14,7 @@ could apply decorator for trying different types of engines and debug quick
 public class Spaceship extends CelestialBody {
     private double usedFuel;
     //has all the information of where to go and such
-    Planning plan = new Planning();
+    Planning plan;
     private final double maxSpeed = 2_500; //2,500 to 4,500 m/s (look up)
     private  final double maxForce = 3 * Math.pow(10, 7); // Newtons
     private final double mass = 50000;
@@ -22,7 +22,14 @@ public class Spaceship extends CelestialBody {
     // public void setFuel(double fuel){ this.fuel = fuel; }
 
 
-
+    /**
+     *
+     * @param mass
+     * @param pos
+     * @param vel
+     * @param theta
+     * @param phi
+     */
     public Spaceship(double mass, double[] pos, double[] vel, double theta, double phi){
         super(mass, pos, vel);
         usedFuel = 0;
@@ -35,9 +42,32 @@ public class Spaceship extends CelestialBody {
     }
 
 
+    /**
+     *
+     * @param mass
+     * @param pos
+     * @param vel
+     */
     public Spaceship(double mass, double[] pos, double[] vel){
         super(mass, pos, vel);
         usedFuel = 0;
+    }
+
+    /**
+     *
+     * @param body
+     * @param plan
+     */
+    private Spaceship(CelestialBody body, Planning plan){
+        super( body.getName(), body.getMass(), body.getPos(), body.getVel());
+        this.plan = plan.clone();
+        usedFuel = 0;
+
+    }
+
+
+    public void makePlan(Model3D model){
+        plan = new Planning(model);
     }
 
 
@@ -99,4 +129,11 @@ public class Spaceship extends CelestialBody {
         this.acc[2] += acc[2];
     }
 
+
+
+    public Spaceship clone() {
+        CelestialBody temp = super.clone();
+
+        return new Spaceship(temp, this.plan);
+    }
 }

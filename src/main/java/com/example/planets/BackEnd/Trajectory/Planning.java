@@ -1,20 +1,25 @@
 package com.example.planets.BackEnd.Trajectory;
 
+import com.example.planets.BackEnd.Models.Model3D;
+
 import java.util.ArrayList;
 
+
 /*
-this class is where all the information about where the ship will go and all is saved
+    Here we save the output from the classes that generate the trajectories
+    they take the model as an input and start from a specified planet, this is so we can reuse code
+    for the way back.
+
+    THe output of the trajectory must be a ArrayList<double[][]> in the same format as "maneuverPoints"
  */
-
-
 public class Planning {
-    //stages in which rocket has had to accelerate and such
-    static private int countOfStages = 0;
+    //count of how many stages located in "maneuverPoints" have been executed so far
+    private int countOfStages = 0;
 
     // this arrayList contains 2D arrays of:
     // first dimension  [ 0:start of time interval, 1:end of interval ] //times to start and stop accelerating
     // second dimension [ 0:acc. in x, 1:acc. in y, 2:acc. in z ]
-    private static ArrayList<double[][]> maneuverPoints;
+    private ArrayList<double[][]> maneuverPoints;
 
     /**
      * increases the count to access the next maneuverPoint that needs to be executed
@@ -42,10 +47,30 @@ public class Planning {
     /**
      * As soon as its made it generates the trajectory using Hohmann transfers, in the future more methods
      */
-    public Planning(){
+    public Planning(Model3D model){
+        this.maneuverPoints = new ArrayList<double[][]>();
 
         // have hohmann transfer shenanigans here
 
     }
 
+
+
+    /**
+     * this constructor is for the copy function
+     * @param maneuverPoints the 2D array containing all information calculated for the trajectory
+     * @param countOfStages the current stage of the planning the spaceship is at
+     */
+    private Planning(ArrayList<double[][]> maneuverPoints, int countOfStages){
+        this.maneuverPoints = new ArrayList<double[][]>( maneuverPoints.size() );
+        this.maneuverPoints.addAll( maneuverPoints );
+
+        this.countOfStages = countOfStages;
+    }
+
+
+    @Override
+    public Planning clone() {
+        return new Planning(maneuverPoints, countOfStages);
+    }
 }

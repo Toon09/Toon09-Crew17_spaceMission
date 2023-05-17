@@ -47,6 +47,7 @@ public class CelestialBody {
         setVel(innitVel);
 
     }
+
     // constructor for csv file
     public CelestialBody( String name,String x1,String x2,String x3,String v1,String v2,String v3,String m){
         this.name = name;
@@ -100,15 +101,6 @@ public class CelestialBody {
     }
 
 
-    public CelestialBody(String name, double mass, double radius, double[] innitPos, double[] innitVel, double[] innitAcc){
-        this.name = name;
-        setMass(mass);
-        setRadius(radius);
-        setPos(innitPos);
-        setVel(innitVel);
-        setAcc(innitAcc);
-
-    }
 
     /**
      * takes 2D array and sets the velocity, positions anda ccelerations given in it as the models own,
@@ -184,4 +176,9 @@ public class CelestialBody {
         return true;
     }
 
+
+    /////////////////////////////// IMPLEMENT
+    public CelestialBody clone() {
+        return new CelestialBody(this.getName(), this.getMass(), this.getPos(), this.getVel());
+    }
 }

@@ -129,6 +129,11 @@ public interface Model3D {
      */
     public double[][][] getState();
 
+    /**
+     * @return returns the model currently being used by the model
+     */
+    public NumSolver getSolver();
+
     // ####################################################################### operations
 
     /**
