@@ -4,6 +4,7 @@ import com.example.planets.BackEnd.CelestialEntities.CelestialBody;
 import com.example.planets.BackEnd.Models.Gravity0;
 import com.example.planets.BackEnd.NumericalMethods.*;
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.geometry.Point3D;
 import javafx.scene.*;
 import javafx.scene.control.Label;
@@ -17,6 +18,7 @@ import javafx.scene.shape.Cylinder;
 import javafx.scene.shape.Sphere;
 import javafx.scene.transform.Rotate;
 import javafx.stage.Stage;
+
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -27,14 +29,18 @@ import java.util.TimerTask;
 //add used fuel meter
 //fix the path ( problems with changing the scale )
 
+//ToDo Actual
 // rotate textures of the planets to face the actual direction they are supposed to
 // thingie to change step size in real time
 // have screen to chose solver & innit coniditions (have an option for our chosen coords)
 // have an actual sprite for the rocket lol
 // put names of planets on top of them????
-// when you close the window the program stops too
 // add some sort of background
 // fix problem where size of trajectory points of ship doesn't fit the perspective given
+
+// done from ToDo Actual
+// when you close the window the program stops too - DONE
+
 
 public class Merged extends Application {
     static Gravity0 model = new Gravity0(0, Math.PI / 2.0, new RK4());
@@ -151,6 +157,10 @@ public class Merged extends Application {
                     lookAtTitan = false;
                 }
             }
+
+            //stage.setOnCloseRequest(e -> Platform.exit());
+
+
         });
 
         world.setTranslateZ(world.getTranslateZ() + 100000);
@@ -159,6 +169,13 @@ public class Merged extends Application {
         world.setRotationAxis(new Point3D(model.getBody(3).getPos()[0], model.getBody(3).getPos()[1], model.getBody(3).getPos()[2]));
 
         stage.show();
+        stage.setOnCloseRequest(e ->
+        {
+            System.out.println("Closing");
+            Platform.exit() ;
+            stage.close();
+            System.exit(0) ;
+        });
 
         Timer timer = new Timer();
         timer.schedule(new TimerTask() {
