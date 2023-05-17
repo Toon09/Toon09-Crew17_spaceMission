@@ -53,7 +53,11 @@ public class RK4 implements NumSolver{
         if( model.getShip().trajectoryChangeCondition(model) ){
             //the magnitudes and such can be saved in another class and this call can be emptied out
             //the values can be saved in an array of sorts
-            //model.getShip().accelerate(dt);
+            //model.getShip().accelerate(dt*0.5); where 0.5 is 50%
+            
+            //When accelerating we need to specify what percentage of the thrust we are using
+            //This percentage also depends on the step size.
+            //
         }
 
     }
