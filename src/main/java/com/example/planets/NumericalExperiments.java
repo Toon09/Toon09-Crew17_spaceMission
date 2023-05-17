@@ -21,12 +21,12 @@ class NumericalExperiments {
     + make a test folder and add folders inside with separated test cases for everything in here (pain)
     + make lightweight versions of the classes that are extended by heavier ones we use normally
     + fix AB2 to use same logic as F/_RK2
-    + make class dataGetter & have it use different data getting classes depending on termination of String (txt, xlsx, etc)
+    + make class dataGetter
 
     + https://youtu.be/l_iZk4n5QFU?t=569 [ hohmann transfer theory ]
     + https://youtu.be/l_iZk4n5QFU?t=786 [ arbitrary impulse transfer ]
 
-    change time to run instead of in amount of days, to be in hours
+    change time to run instead of in amount of days, to be in hours ?
 
     change the way we chose initial conditions to one that matches earths coordinate system in angles
 
@@ -56,7 +56,6 @@ class NumericalExperiments {
         // comparingToEachOther();
 
         DataGetter data = new DataGetter();
-
         double[][] temp = data.getTxtExpData(0, "src/main/java/com/example/planets/Data/Mars_Data.txt");
 
         System.out.println( Arrays.deepToString(temp) );
