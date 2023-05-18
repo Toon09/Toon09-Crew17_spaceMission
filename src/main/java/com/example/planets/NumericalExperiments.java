@@ -77,8 +77,8 @@ class NumericalExperiments {
         final int TARGET = 4;
 
         // benchmark model
-        Model3D benchmark = new Gravity0( 0, Math.PI / 2.0, new RK4() );
-        double benchmarkPrecision = 0.1;
+        Model3D benchmark = new Gravity0( 0, Math.PI / 2.0, new Euler() );
+        double benchmarkPrecision = 0.01;
 
 
         //  testing models
@@ -89,8 +89,8 @@ class NumericalExperiments {
         //models.add( new Gravity0( 0, Math.PI / 2.0, new Euler() ) );
         //steps.add( 0.1 );
 
-        models.add( new Gravity0( 0, 0, new RK3() ) );
-        steps.add( 1.0 );
+        models.add( new Gravity0( 0, 0, new RK4() ) );
+        steps.add( 0.1 );
 
 
         //test details
@@ -135,6 +135,11 @@ class NumericalExperiments {
                     System.out.println("Execution time: " + chrono[j] + "ms");
                     System.out.println("Sim time: " + models.get(j).getTime() + "s");
                     System.out.println("step size: " + steps.get(j) + "s");
+
+                    System.out.println("Acc= x:" + models.get(j).getBody(TARGET).getAcc()[0] +
+                            "; y:" + models.get(j).getBody(TARGET).getAcc()[1] +
+                            "; z:" + models.get(j).getBody(TARGET).getAcc()[2]);
+
                     System.out.println("Error= X: " + errors[j][0] + "; Y: " + errors[j][1] + "; Z: " + errors[j][2] + "\n");
 
                 }
@@ -156,17 +161,31 @@ class NumericalExperiments {
 
     // ############################################################################## EXPERIMENT SET UP
 
+    /*
+    Sun
+    Mercury
+    Venus
+    Earth
+    Moon
+    Mars
+    Jupiter
+    Saturn
+    Titan
+    Neptune
+    Uranus
+     */
+
     public static void experimentSetUp(){
         // experiment setup hyper parameters
-        double time = 30;
-        boolean isDay = true;
+        double time = 60;
+        boolean isDay = false;
         int checkInterval = 1; //every how many days do you want it to print the values
 
         // target body
-        final int TARGET = 0; //4=mars
+        final int TARGET = 5; //5=mars
         final String DATA_ORIGIN = "NASA_Horizons";
-        final String TARGET_FILE = "ExpData/ExpMars.txt";
-        final String SUN = "ExpData/ExpSun.txt";
+        final String TARGET_FILE =  "ExpData/ExpMars.txt"; // "ExpData/ExpMars.txt"
+        final String SUN = "ExpData/ExpSun.txt"; // "ExpData/ExpSun.txt"
 
 
         //  testing models
@@ -174,8 +193,8 @@ class NumericalExperiments {
         ArrayList<Double> steps = new ArrayList<Double>();
 
         // models
-        models.add( new Gravity0( 0, 0, new Euler() ) ); //, DATA_ORIGIN
-        steps.add( 0.1 );
+        models.add( new Gravity0( 0, 0, new RK4(), DATA_ORIGIN ) ); //, DATA_ORIGIN
+        steps.add( 0.0001 );
 
         //benchmark
         DataGetter dataGetter = new DataGetter();
@@ -193,7 +212,6 @@ class NumericalExperiments {
         for (int i = 0; i < time; i++) {
             // getting benchmark data
             benchmark = dataGetter.getTxtExpData(i+1, TARGET_FILE);
-            sunData = dataGetter.getTxtExpData(i+1, SUN);
 
             //centering benchmark data with sun
             for(int j=0; j<benchmark.length; j++)
@@ -204,7 +222,7 @@ class NumericalExperiments {
             for (int j=0; j<models.size(); j++) {
                 //start count of how much each model took here
                 chrono[j] = System.currentTimeMillis();
-                models.get(j).updatePos(1, steps.get(j), isDay);
+                models.get(j).updatePos(1, steps.get(j), isDay); ////////////////// NO RUN
                 //end count of how long each model here
                 chrono[j] = System.currentTimeMillis() - chrono[j];
             }
@@ -228,6 +246,11 @@ class NumericalExperiments {
                     System.out.println("Sim time: " + models.get(j).getTime() + "s");
                     System.out.println("step size: " + steps.get(j) + "s");
 
+
+                    System.out.println("Model acc= x:" + models.get(j).getBody(TARGET).getAcc()[0] +
+                            "; y:" + models.get(j).getBody(TARGET).getAcc()[1] +
+                            "; z:" + models.get(j).getBody(TARGET).getAcc()[2]);
+
                     System.out.println("Model pos= X: " + models.get(j).getBody(TARGET).getPos()[0] + //delete after
                             "; Y: " + models.get(j).getBody(TARGET).getPos()[1] +
                             "; Z: " + models.get(j).getBody(TARGET).getPos()[2]);
@@ -239,9 +262,7 @@ class NumericalExperiments {
 
                 }
 
-                System.out.println("Sun pos= X:" + sunData[0][0] + "; Y: " + sunData[0][1] + "; Z: " + sunData[0][2]); // delete
-                System.out.println("Target pos= X:" + (benchmark[0][0]+sunData[0][0]) + "; Y: " + (benchmark[0][1]+sunData[0][1]) + "; Z: " + (benchmark[0][2]+sunData[0][2])); // delete
-                System.out.println("Benchmark pos= X:" + benchmark[0][0] + "; Y: " + benchmark[0][1] + "; Z: " + benchmark[0][2] + "\n");
+                System.out.println("Target pos= X:" + benchmark[0][0] + "; Y: " + benchmark[0][1] + "; Z: " + benchmark[0][2] + "\n");
 
             }
 

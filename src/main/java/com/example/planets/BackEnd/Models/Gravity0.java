@@ -67,33 +67,22 @@ public class Gravity0 implements Model3D {
      * @param folderName
      */
     public Gravity0(double theta, double phi, NumSolver numSolver, String folderName){
-
         this.numSolver = numSolver;
 
         DataGetter dataGet = new DataGetter();
         //double[][] sun = dataGet.getTxtExpData(0, folderName + "/Sun.txt"); //data for the sun to center
         double[][] data;
         // save coors of the sun and do data-sun for all
-
-        this.bodies = new CelestialBody[ positions.length+1 ];
-        for(int i=0; i<this.bodies.length-1; i++){
+        bodies = new CelestialBody[ positions.length+1 ];
+        for(int i=0; i<bodies.length-1; i++){
             // getting data for the planet
             data = dataGet.getTxtExpData(0, folderName + "/" + names[i] + ".txt"); //gets only first state
 
-            // centering data around the sun
-            for(int j=0; j<data.length; j++)
-                for(int k=0; k<data[j].length; k++)
-                    data[j][k] = data[j][k];// - sun[j][k];
-
             // creating bodies with said data
-            this.bodies[i] = new CelestialBody(names[i], mass[i], data[0], data[1]) ;
+            this.bodies[i] = new CelestialBody(names[i], mass[i], data[0], data[1]);
         }
 
         data = dataGet.getTxtExpData(0, folderName + "/Earth.txt");
-        // centering data around the sun
-        for(int j=0; j<data.length; j++)
-            for(int k=0; k<data[j].length; k++)
-                data[j][k] = data[j][k];// - sun[j][k];
 
         this.bodies[ this.bodies.length-1 ] = new Spaceship(50000, data[0], data[1], theta, phi);
 
@@ -200,14 +189,14 @@ public class Gravity0 implements Model3D {
             bodies[i].setAcc(new double[] {0,0,0}); //reset to 0
 
             for(int j=0; j<bodies.length; j++){
-                if( j==i || bodies[j] instanceof  Spaceship ){ continue; } //|| bodies[j] instanceof  Spaceship
+                if( j==i || bodies[j] instanceof Spaceship ){ continue; }
 
                 //calc distance between 2
                 dist = CelestialBody.getDistance(bodies[i], bodies[j]);
                 dist = dist*dist*dist;
 
                 //adding in dims
-                bodies[i].setAcc(new double[]{ bodies[i].getAcc()[0] + G*bodies[j].getMass()* (bodies[j].getPos()[0] - bodies[i].getPos()[0])/dist, 
+                bodies[i].setAcc(new double[]{ bodies[i].getAcc()[0] + G*bodies[j].getMass()* (bodies[j].getPos()[0] - bodies[i].getPos()[0])/dist,
                                                bodies[i].getAcc()[1] + G*bodies[j].getMass()* (bodies[j].getPos()[1] - bodies[i].getPos()[1])/dist,
                                                bodies[i].getAcc()[2] + G*bodies[j].getMass()* (bodies[j].getPos()[2] - bodies[i].getPos()[2])/dist  });
 
