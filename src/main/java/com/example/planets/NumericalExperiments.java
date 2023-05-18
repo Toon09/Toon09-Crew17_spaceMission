@@ -51,10 +51,10 @@ class NumericalExperiments {
     public static void main(String[] args) {
         // engineTest()
 
-         comparingToEachOther();
+        // comparingToEachOther();
 
         DataGetter data = new DataGetter();
-        double[][] temp = data.getTxtExpData(0, "src/main/java/com/example/planets/Data/Mars_Data.txt");
+        double[][] temp = data.getTxtExpData(0, "src/main/java/com/example/planets/Data/MARS_DATA.txt");
 
         System.out.println( Arrays.deepToString(temp) );
     }
@@ -147,6 +147,72 @@ class NumericalExperiments {
 
 
         }
+
+    }
+
+
+    public static void experimentSetUp(){
+        //experiment setup hyper parameters
+        double time = 30;
+        boolean isDay = true;
+        int checkInterval = 1; //every how many days do you want it to print the values
+        final int MARS = 4;
+
+        //  testing models
+        ArrayList<Model3D> models = new ArrayList<Model3D>();
+        ArrayList<Double> steps = new ArrayList<Double>();
+
+        // models
+        models.add( new Gravity0( 0, 0, new RK3() ) );
+        steps.add( 1.0 );
+
+        //benchmark
+        DataGetter dateGetter = new DataGetter();
+        double[][] benchmark = new double[2][3];
+
+        // model data
+        double[][] errors = new double[models.size()][3];
+        double[] chrono = new double[models.size()+1]; //last index is the benchmark
+
+        // main loop
+        for (int i = 0; i < time; i++) {
+
+            // update all models positions
+            for (int j=0; j<models.size(); j++) {
+                //start count of how much each model took here
+                chrono[j] = System.currentTimeMillis();
+                models.get(j).updatePos(1, steps.get(j), isDay);
+                //end count of how long each model here
+                chrono[j] = System.currentTimeMillis() - chrono[j];
+            }
+
+
+            //calculate errors
+            for (int j = 0; j < models.size(); j++) {
+                errors[j][0] = benchmark[0][0] - models.get(j).getBody(MARS).getPos()[0];
+                errors[j][1] = benchmark[0][1] - models.get(j).getBody(MARS).getPos()[1];
+                errors[j][2] = benchmark[0][2] - models.get(j).getBody(MARS).getPos()[2];
+            }
+
+
+            //prints
+            if ((i + 1) % checkInterval == 0) {
+                System.out.println("Day: " + (i + 1) + "\n");
+
+                for (int j = 0; j < models.size(); j++) {
+                    System.out.println( models.get(j).getSolverName() );
+                    System.out.println("Execution time: " + chrono[j] + "ms");
+                    System.out.println("Sim time: " + models.get(j).getTime() + "s");
+                    System.out.println("step size: " + steps.get(j) + "s");
+                    System.out.println("Error= X: " + errors[j][0] + "; Y: " + errors[j][1] + "; Z: " + errors[j][2] + "\n");
+
+                }
+
+            }
+
+
+        }
+
 
     }
 
