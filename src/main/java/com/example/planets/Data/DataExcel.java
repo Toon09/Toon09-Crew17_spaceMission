@@ -10,7 +10,7 @@ import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.ss.usermodel.WorkbookFactory;
-public class DataGiver {
+public class DataExcel {
     //
 // Source code recreated from a .class file by IntelliJ IDEA
 // (powered by FernFlower decompiler)
@@ -20,7 +20,7 @@ public class DataGiver {
 
 
 
-        public DataGiver() {
+        public DataExcel() {
         }
 
         public static void main(String[] args) throws IOException {

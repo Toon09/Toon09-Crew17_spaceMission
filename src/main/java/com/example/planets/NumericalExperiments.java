@@ -21,7 +21,7 @@ class NumericalExperiments {
     + make a test folder and add folders inside with separated test cases for everything in here (pain)
     + make lightweight versions of the classes that are extended by heavier ones we use normally
 
-    + make gravity constructor that gets data from all planets
+    + make gravity constructor that gets data from all planets inside NASA_Horizons folder
 
     change time to run instead of in amount of days, to be in hours ?
 
@@ -51,10 +51,7 @@ class NumericalExperiments {
 
         // comparingToEachOther();
 
-        // experimentSetUp();
-
-        DataGetter data = new DataGetter();
-        System.out.println(Arrays.deepToString(data.getTxtExpData(0, "ExpData/MARS_DATA.txt")));
+        experimentSetUp();
 
 
     }
