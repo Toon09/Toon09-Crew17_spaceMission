@@ -10,9 +10,9 @@ public class GetDataTXT {
         try {
             BufferedReader reader = new BufferedReader(new FileReader(filePath));
             String line = null;
-            int currentLineNumber = 52; // first line after all the summary is done and the data starts
+            int currentLineNumber = 0; // first line after all the summary is done and the data starts
             while ((line = reader.readLine()) != null) {
-                if (currentLineNumber == lineSelected) {
+                if (currentLineNumber == lineSelected + 50) {
                     double X = Double.parseDouble(line.substring(51,73));
                     double Y = Double.parseDouble(line.substring(75,97));
                     double Z = Double.parseDouble(line.substring(99,121));

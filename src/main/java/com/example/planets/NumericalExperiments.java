@@ -54,7 +54,7 @@ class NumericalExperiments {
         // comparingToEachOther();
 
         DataGetter data = new DataGetter();
-        double[][] temp = data.getTxtExpData(0, "src/main/java/com/example/planets/Data/MARS_DATA.txt");
+        double[][] temp = data.getTxtExpData(0, "MARS_DATA.txt");
 
         System.out.println( Arrays.deepToString(temp) );
     }
