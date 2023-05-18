@@ -20,10 +20,8 @@ class NumericalExperiments {
     + write documentation
     + make a test folder and add folders inside with separated test cases for everything in here (pain)
     + make lightweight versions of the classes that are extended by heavier ones we use normally
-    + fix AB2 to use same logic as F/_RK2
-    + make class dataGetter
 
-
+    + make gravity constructor that gets data from all planets
 
     change time to run instead of in amount of days, to be in hours ?
 
@@ -53,10 +51,12 @@ class NumericalExperiments {
 
         // comparingToEachOther();
 
-        DataGetter data = new DataGetter();
-        double[][] temp = data.getTxtExpData(0, "MARS_DATA.txt");
+        // experimentSetUp();
 
-        System.out.println( Arrays.deepToString(temp) );
+        DataGetter data = new DataGetter();
+        System.out.println(Arrays.deepToString(data.getTxtExpData(0, "ExpData/MARS_DATA.txt")));
+
+
     }
 
 
@@ -73,7 +73,7 @@ class NumericalExperiments {
         double time = 30;
         boolean isDay = true;
         int checkInterval = 1; //every how many days do you want it to print the values
-        final int MARS = 4;
+        final int TARGET = 4;
 
         // benchmark model
         Model3D benchmark = new Gravity0( 0, Math.PI / 2.0, new RK4() );
@@ -93,7 +93,7 @@ class NumericalExperiments {
 
 
         //test details
-        System.out.println("target planet: MARS");
+        System.out.println("target planet: TARGET");
         System.out.println("benchmark precision: " + benchmarkPrecision + "s");
         System.out.println("benchmark model: " + benchmark.getSolverName() + "\n");
 
@@ -119,9 +119,9 @@ class NumericalExperiments {
 
             //calculate errors
             for (int j = 0; j < models.size(); j++) {
-                errors[j][0] = benchmark.getBody(MARS).getPos()[0] - models.get(j).getBody(MARS).getPos()[0];
-                errors[j][1] = benchmark.getBody(MARS).getPos()[1] - models.get(j).getBody(MARS).getPos()[1];
-                errors[j][2] = benchmark.getBody(MARS).getPos()[2] - models.get(j).getBody(MARS).getPos()[2];
+                errors[j][0] = benchmark.getBody(TARGET).getPos()[0] - models.get(j).getBody(TARGET).getPos()[0];
+                errors[j][1] = benchmark.getBody(TARGET).getPos()[1] - models.get(j).getBody(TARGET).getPos()[1];
+                errors[j][2] = benchmark.getBody(TARGET).getPos()[2] - models.get(j).getBody(TARGET).getPos()[2];
             }
 
 
@@ -156,7 +156,11 @@ class NumericalExperiments {
         double time = 30;
         boolean isDay = true;
         int checkInterval = 1; //every how many days do you want it to print the values
-        final int MARS = 4;
+
+        // target
+        final int TARGET = 4;
+        final String TARGET_FILE = "ExpData/MARS_DATA.txt";
+
 
         //  testing models
         ArrayList<Model3D> models = new ArrayList<Model3D>();
@@ -167,7 +171,7 @@ class NumericalExperiments {
         steps.add( 1.0 );
 
         //benchmark
-        DataGetter dateGetter = new DataGetter();
+        DataGetter dataGetter = new DataGetter();
         double[][] benchmark = new double[2][3];
 
         // model data
@@ -176,6 +180,8 @@ class NumericalExperiments {
 
         // main loop
         for (int i = 0; i < time; i++) {
+            // getting benchmark data
+            benchmark = dataGetter.getTxtExpData(i, TARGET_FILE);
 
             // update all models positions
             for (int j=0; j<models.size(); j++) {
@@ -189,9 +195,9 @@ class NumericalExperiments {
 
             //calculate errors
             for (int j = 0; j < models.size(); j++) {
-                errors[j][0] = benchmark[0][0] - models.get(j).getBody(MARS).getPos()[0];
-                errors[j][1] = benchmark[0][1] - models.get(j).getBody(MARS).getPos()[1];
-                errors[j][2] = benchmark[0][2] - models.get(j).getBody(MARS).getPos()[2];
+                errors[j][0] = benchmark[0][0] - models.get(j).getBody(TARGET).getPos()[0];
+                errors[j][1] = benchmark[0][1] - models.get(j).getBody(TARGET).getPos()[1];
+                errors[j][2] = benchmark[0][2] - models.get(j).getBody(TARGET).getPos()[2];
             }
 
 

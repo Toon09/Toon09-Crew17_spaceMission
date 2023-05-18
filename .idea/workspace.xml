@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="bab05458-8716-4abd-8f37-31e577e5aaab" name="Changes" comment="experiment setup made">
+    <list default="true" id="bab05458-8716-4abd-8f37-31e577e5aaab" name="Changes" comment="Data txt getter">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/planets/Data/DataGetter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/planets/Data/DataGetter.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/planets/Data/GetDataTXT.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/planets/Data/GetDataTXT.java" afterDir="false" />
@@ -71,11 +71,11 @@
       <recent name="C:\Users\suszw\Desktop\uni\year_1\Period4\Data stuctures\Planets" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\sirap\IdeaProjects\Toon09-Crew17_spaceMission\src\main\java\com\example\planets\Data\ExpData" />
+      <recent name="C:\Users\sirap\IdeaProjects\Toon09-Crew17_spaceMission\src\main\java\com\example\planets\Data\NASA_Horizons" />
       <recent name="C:\Users\sirap\IdeaProjects\Toon09-Crew17_spaceMission\src\main\java\com\example\planets" />
       <recent name="C:\Users\suszw\Desktop\uni\year_1\Period4\plswork\src\main" />
       <recent name="C:\Users\suszw\Desktop\uni\year_1\Period4\plswork\src\resources\com" />
-      <recent name="C:\Users\suszw\Desktop\uni\year_1\Period4\plswork\src\resources" />
-      <recent name="C:\Users\suszw\Desktop\uni\year_1\Period4\plswork\src\main\java\com\example\planets" />
     </key>
   </component>
   <component name="RunManager" selected="Application.NumericalExperiments">
@@ -158,13 +158,6 @@
       <workItem from="1683209681075" duration="3407000" />
       <workItem from="1683820709833" duration="618000" />
       <workItem from="1683841240613" duration="1723000" />
-    </task>
-    <task id="LOCAL-00008" summary="added rotation and fixed marsTexture">
-      <created>1679490585539</created>
-      <option name="number" value="00008" />
-      <option name="presentableId" value="LOCAL-00008" />
-      <option name="project" value="LOCAL" />
-      <updated>1679490585539</updated>
     </task>
     <task id="LOCAL-00009" summary="mars texture">
       <created>1679490816450</created>
@@ -502,7 +495,14 @@
       <option name="project" value="LOCAL" />
       <updated>1684408810589</updated>
     </task>
-    <option name="localTasksCounter" value="57" />
+    <task id="LOCAL-00057" summary="Data txt getter">
+      <created>1684409202400</created>
+      <option name="number" value="00057" />
+      <option name="presentableId" value="LOCAL-00057" />
+      <option name="project" value="LOCAL" />
+      <updated>1684409202400</updated>
+    </task>
+    <option name="localTasksCounter" value="58" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -520,7 +520,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="cleaning up the code in Merged/GUI" />
     <MESSAGE value="moving violet rocket, working on rocketPath" />
     <MESSAGE value="added cameras for titan sun earth and buttons for them" />
     <MESSAGE value="orbits and stuff" />
@@ -545,6 +544,7 @@
     <MESSAGE value="set up to test AB2" />
     <MESSAGE value="Re-organized info in comments" />
     <MESSAGE value="experiment setup made" />
-    <option name="LAST_COMMIT_MESSAGE" value="experiment setup made" />
+    <MESSAGE value="Data txt getter" />
+    <option name="LAST_COMMIT_MESSAGE" value="Data txt getter" />
   </component>
 </project>

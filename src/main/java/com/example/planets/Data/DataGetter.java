@@ -15,9 +15,9 @@ public class DataGetter {
      *          output units must be in Km/s
      *          Vector labels: on
      *          CSV Format: off
-     *          Object summary: on
+     *          Object summary: off
      * @param line line from where the data starts in the file (ignoring summary at start)
-     * @param fileName name of the file, it must be inside the Data folder
+     * @param fileName name of the file, it must be inside this package
      * @return 2D array of doubles with positions and velocities of the object of which the data has been generated found in
      *      the NASA simulation, this data is in the following format.
      *  First dimension  [ 0:x, 1:y, 2:z ]

@@ -12,7 +12,7 @@ public class GetDataTXT {
             String line = null;
             int currentLineNumber = 0; // first line after all the summary is done and the data starts
             while ((line = reader.readLine()) != null) {
-                if (currentLineNumber == lineSelected + 50) {
+                if (currentLineNumber == lineSelected + 26) {
                     double X = Double.parseDouble(line.substring(51,73));
                     double Y = Double.parseDouble(line.substring(75,97));
                     double Z = Double.parseDouble(line.substring(99,121));
