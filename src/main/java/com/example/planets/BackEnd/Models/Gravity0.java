@@ -3,6 +3,9 @@ package com.example.planets.BackEnd.Models;
 import com.example.planets.BackEnd.CelestialEntities.CelestialBody;
 import com.example.planets.BackEnd.NumericalMethods.NumSolver;
 import com.example.planets.BackEnd.CelestialEntities.Spaceship;
+import com.example.planets.Data.DataGetter;
+
+import java.util.Arrays;
 
 
 public class Gravity0 implements Model3D {
@@ -14,23 +17,9 @@ public class Gravity0 implements Model3D {
 
 
     /**
-     * Only generates planets to run simulation of the solar system itself
-     * @param numSolver type of numerical solver to be used
-     */
-    public Gravity0(NumSolver numSolver){
-        this.numSolver = numSolver;
-
-        this.bodies = new CelestialBody[ positions.length ];
-        for(int i=0; i<this.bodies.length; i++){
-            this.bodies[i] = new CelestialBody(names[i], mass[i], positions[i], velocity[i]) ;
-        }
-
-    }
-
-    /**
      * THis constructor is mainly used in the copy function, it doesn't need
-     * @param bodies
-     * @param numSolver
+     * @param bodies 1D array of CelestialBodies which is used to copy each one of them
+     * @param numSolver type of numerical solver to be used
      */
     private Gravity0(CelestialBody[] bodies, NumSolver numSolver){
         this.numSolver = numSolver;
@@ -45,11 +34,15 @@ public class Gravity0 implements Model3D {
 
         }
 
-        // this.getShip().makePlan(this);
-        // this constructor is mainly used for copies
-
     }
 
+    /**
+     * Constructor made to also have a singular spaceship in the model, starting at the surface
+     *      of the earth as specified by the parameters @param theta and @param phi
+     * @param theta
+     * @param phi
+     * @param numSolver type of numerical solver to be used
+     */
     public Gravity0(double theta, double phi, NumSolver numSolver){
 
         this.numSolver = numSolver;
@@ -58,7 +51,51 @@ public class Gravity0 implements Model3D {
         for(int i=0; i<this.bodies.length-1; i++){
             this.bodies[i] = new CelestialBody(names[i], mass[i], positions[i], velocity[i]) ;
         }
-        this.bodies[ this.bodies.length-1 ] = new Spaceship(50000, positions[3], velocity[3], 0, 0);
+        this.bodies[ this.bodies.length-1 ] = new Spaceship(50000, positions[3], velocity[3], theta, phi);
+
+        this.getShip().makePlan(this);
+
+    }
+
+
+    /**
+     * Constructor made to also have a singular spaceship in the model, starting at the surface
+     *      of the earth as specified by the parameters @param theta and @param phi
+     * @param theta
+     * @param phi
+     * @param numSolver type of numerical solver to be used
+     * @param folderName
+     */
+    public Gravity0(double theta, double phi, NumSolver numSolver, String folderName){
+
+        this.numSolver = numSolver;
+
+        DataGetter dataGet = new DataGetter();
+        //double[][] sun = dataGet.getTxtExpData(0, folderName + "/Sun.txt"); //data for the sun to center
+        double[][] data;
+        // save coors of the sun and do data-sun for all
+
+        this.bodies = new CelestialBody[ positions.length+1 ];
+        for(int i=0; i<this.bodies.length-1; i++){
+            // getting data for the planet
+            data = dataGet.getTxtExpData(0, folderName + "/" + names[i] + ".txt"); //gets only first state
+
+            // centering data around the sun
+            for(int j=0; j<data.length; j++)
+                for(int k=0; k<data[j].length; k++)
+                    data[j][k] = data[j][k];// - sun[j][k];
+
+            // creating bodies with said data
+            this.bodies[i] = new CelestialBody(names[i], mass[i], data[0], data[1]) ;
+        }
+
+        data = dataGet.getTxtExpData(0, folderName + "/Earth.txt");
+        // centering data around the sun
+        for(int j=0; j<data.length; j++)
+            for(int k=0; k<data[j].length; k++)
+                data[j][k] = data[j][k];// - sun[j][k];
+
+        this.bodies[ this.bodies.length-1 ] = new Spaceship(50000, data[0], data[1], theta, phi);
 
         this.getShip().makePlan(this);
 
@@ -77,8 +114,6 @@ public class Gravity0 implements Model3D {
     public void setSolver(NumSolver numSolver) {
         this.numSolver = numSolver;
     }
-
-
 
     @Override
     public void updatePos(double time, double dt, boolean days){
@@ -131,33 +166,6 @@ public class Gravity0 implements Model3D {
     @Override
     public int size(){ return bodies.length; }
 
-    //only for 1 body
-    public void addBody(CelestialBody body){
-        CelestialBody[] temp = new CelestialBody[ this.bodies.length + 1 ];
-        for(int i=0; i<this.bodies.length; i++){
-            temp[i] = this.bodies[i];
-        }
-        temp[temp.length-1] = body;
-
-        this.bodies = temp;
-    }
-
-    //for a set of bodies
-    public void addBody(CelestialBody[] Nbody){
-        CelestialBody[] temp = new CelestialBody[ this.bodies.length + Nbody.length ];
-
-        for(int i=0; i<bodies.length; i++){
-            temp[i] = bodies[i];
-        }
-
-        for(int i=bodies.length; i<temp.length; i++){
-            temp[i] = Nbody[i-bodies.length];
-        }
-
-        bodies = temp;
-    }
-
-    
 
     //setters
     @Override
@@ -182,7 +190,7 @@ public class Gravity0 implements Model3D {
     public double getTime() { return time; }
 
 
-    //upates all derivs
+    //updates all derivs
     @Override
     public void hDeriv() {
         //must sum up all values of gravities with all other bodies
@@ -236,23 +244,23 @@ public class Gravity0 implements Model3D {
         return new Gravity0(this.bodies, this.numSolver);
     }
 
-    public static double[][] positions = { { 0, 0, 0 }, { 7.83e6, 4.49e7, 2.87e6 }, { -2.82e7, 1.04e8, 3.01e6 },
+    public final static double[][] positions = { { 0, 0, 0 }, { 7.83e6, 4.49e7, 2.87e6 }, { -2.82e7, 1.04e8, 3.01e6 },
             { -1.48e8, -2.78e7, 3.37e4 }, { -1.48e8, -2.75e7, 7.02e4 }, { -1.59e8, 1.89e8, 7.87e6 },
             { 6.93e8, 2.59e8, -1.66e7 }, { 1.25e9, -7.60e8, -3.67e7 }, { 1.25e9, -7.61e8, -3.63e7 },
             { 4.45e9, -3.98e8, -9.45e7 }, { 1.96e9, 2.19e9, -1.72e7 } };
 
-    public static double[][] velocity = { { 0, 0, 0 }, { -5.75e1, 1.15e1, 6.22e0 }, { -3.40e1, -8.97e0, 1.84e0 },
+    public final static double[][] velocity = { { 0, 0, 0 }, { -5.75e1, 1.15e1, 6.22e0 }, { -3.40e1, -8.97e0, 1.84e0 },
             { 5.05e0, -2.94e1, 1.71e-3 }, { 4.34e0, -3.00e1, -1.16e-2 }, { -1.77e1, -1.35e1, 1.52e-1 },
             { -4.71e0, 1.29e1, 5.22e-2 }, { 4.47e0, 8.24e0, -3.21e-1 }, { 9.00e0, 1.11e1, -2.25e0 },
             { 4.48e-1, 5.45e0, -1.23e-1 }, { -5.13e0, 4.22e0, 8.21e-2 } };
 
-    public static double[] mass = { 1.99e30, 3.30e23, 4.87e24, 5.97e24, 7.35e22, 6.42e23,
+    public final static double[] mass = { 1.99e30, 3.30e23, 4.87e24, 5.97e24, 7.35e22, 6.42e23,
                                     1.90e27, 5.68e26, 1.35e23, 1.02e26, 8.68e25 };
 
-    public static double[] radiuses = { 696340, 2439.7, 6051.8, 6371, 1737.4, 3390, 69911,
+    public final static double[] radiuses = { 696340, 2439.7, 6051.8, 6371, 1737.4, 3390, 69911,
                                     58232, 2574.7, 24622, 25362 };
 
-    public static String[] names = {"sun", "Mercury", "Venus", "Earth", "Moon", "Mars", "Jupiter",
+    public final static String[] names = {"Sun", "Mercury", "Venus", "Earth", "Moon", "Mars", "Jupiter",
                                      "Saturn", "Titan", "Neptune", "Uranus"};
 
 

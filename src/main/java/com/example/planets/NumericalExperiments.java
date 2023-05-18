@@ -22,6 +22,11 @@ class NumericalExperiments {
     + make lightweight versions of the classes that are extended by heavier ones we use normally
 
     + make gravity constructor that gets data from all planets inside NASA_Horizons folder
+    + must take in name of folder from which the data comes
+
+
+    + check cosntructor in grav for folders & fix comment
+    + you must always download the data for the sun, since its centered around the sun
 
     change time to run instead of in amount of days, to be in hours ?
 
@@ -47,12 +52,11 @@ class NumericalExperiments {
 
     // https://ssd.jpl.nasa.gov/horizons/app.html#/ [ experiment data ]
     public static void main(String[] args) {
-        // engineTest()
+        //engineTest()
 
-        // comparingToEachOther();
+        //comparingToEachOther();
 
         experimentSetUp();
-
 
     }
 
@@ -74,7 +78,7 @@ class NumericalExperiments {
 
         // benchmark model
         Model3D benchmark = new Gravity0( 0, Math.PI / 2.0, new RK4() );
-        double benchmarkPrecision = 1.0;
+        double benchmarkPrecision = 0.1;
 
 
         //  testing models
@@ -137,8 +141,11 @@ class NumericalExperiments {
 
                 //print benchmark data here
                 System.out.println("Benchmark time: " + chrono[ chrono.length-1 ] + "ms");
-                System.out.println("in sim time: " + Math.round( benchmark.getTime() ) + "s");
-                System.out.println("benchmark step size: " + benchmarkPrecision + "s");
+                System.out.println("In sim time: " + Math.round( benchmark.getTime() ) + "s");
+                System.out.println("Benchmark step size: " + benchmarkPrecision + "s");
+                System.out.println("Benchmark data= x:" + benchmark.getBody(TARGET).getPos()[0] +
+                                                  "; y:" + benchmark.getBody(TARGET).getPos()[1] +
+                                                  "; z:" + benchmark.getBody(TARGET).getPos()[2]);
                 System.out.println("\n");
             }
 
@@ -147,16 +154,19 @@ class NumericalExperiments {
 
     }
 
+    // ############################################################################## EXPERIMENT SET UP
 
     public static void experimentSetUp(){
-        //experiment setup hyper parameters
+        // experiment setup hyper parameters
         double time = 30;
         boolean isDay = true;
         int checkInterval = 1; //every how many days do you want it to print the values
 
-        // target
-        final int TARGET = 4;
-        final String TARGET_FILE = "ExpData/MARS_DATA.txt";
+        // target body
+        final int TARGET = 0; //4=mars
+        final String DATA_ORIGIN = "NASA_Horizons";
+        final String TARGET_FILE = "ExpData/ExpMars.txt";
+        final String SUN = "ExpData/ExpSun.txt";
 
 
         //  testing models
@@ -164,21 +174,31 @@ class NumericalExperiments {
         ArrayList<Double> steps = new ArrayList<Double>();
 
         // models
-        models.add( new Gravity0( 0, 0, new RK3() ) );
-        steps.add( 1.0 );
+        models.add( new Gravity0( 0, 0, new Euler() ) ); //, DATA_ORIGIN
+        steps.add( 0.1 );
 
         //benchmark
         DataGetter dataGetter = new DataGetter();
         double[][] benchmark = new double[2][3];
+        double[][] sunData = new double[2][3];
 
         // model data
         double[][] errors = new double[models.size()][3];
         double[] chrono = new double[models.size()+1]; //last index is the benchmark
 
+        // innit position:
+        System.out.println(); //////// comments
+
         // main loop
         for (int i = 0; i < time; i++) {
             // getting benchmark data
-            benchmark = dataGetter.getTxtExpData(i, TARGET_FILE);
+            benchmark = dataGetter.getTxtExpData(i+1, TARGET_FILE);
+            sunData = dataGetter.getTxtExpData(i+1, SUN);
+
+            //centering benchmark data with sun
+            for(int j=0; j<benchmark.length; j++)
+                for (int k=0; k<benchmark[j].length; k++)
+                        benchmark[j][k] = benchmark[j][k];// - sunData[j][k];
 
             // update all models positions
             for (int j=0; j<models.size(); j++) {
@@ -207,10 +227,22 @@ class NumericalExperiments {
                     System.out.println("Execution time: " + chrono[j] + "ms");
                     System.out.println("Sim time: " + models.get(j).getTime() + "s");
                     System.out.println("step size: " + steps.get(j) + "s");
-                    System.out.println("Error= X: " + errors[j][0] + "; Y: " + errors[j][1] + "; Z: " + errors[j][2] + "\n");
+
+                    System.out.println("Model pos= X: " + models.get(j).getBody(TARGET).getPos()[0] + //delete after
+                            "; Y: " + models.get(j).getBody(TARGET).getPos()[1] +
+                            "; Z: " + models.get(j).getBody(TARGET).getPos()[2]);
+
+                    System.out.println("Error= X: " + errors[j][0] + "; Y: " + errors[j][1] + "; Z: " + errors[j][2]);
+                    System.out.println("Error magnitude= " +  Math.sqrt(errors[j][0]*errors[j][0]
+                            + errors[j][1]*errors[j][1] + errors[j][2]*errors[j][2]) + " km\n");
+
 
                 }
 
+                System.out.println("Sun pos= X:" + sunData[0][0] + "; Y: " + sunData[0][1] + "; Z: " + sunData[0][2]); // delete
+                System.out.println("Target pos= X:" + (benchmark[0][0]+sunData[0][0]) + "; Y: " + (benchmark[0][1]+sunData[0][1]) + "; Z: " + (benchmark[0][2]+sunData[0][2])); // delete
+                System.out.println("Benchmark pos= X:" + benchmark[0][0] + "; Y: " + benchmark[0][1] + "; Z: " + benchmark[0][2] + "\n");
+
             }
 
 
@@ -223,45 +255,6 @@ class NumericalExperiments {
 
 
 
-    public static void excelTest() throws IOException {
-        Gravity0 grav = new Gravity0(new Euler());
-
-
-        FileInputStream file = new FileInputStream(new File(
-                "C:\\Users\\User\\Documents\\Div\\Toon09-Crew17_spaceMission\\src\\main\\java\\com\\example\\planets\\innit_Pos.xlsx"));
-        Workbook workbook = WorkbookFactory.create(file);
-        Sheet sheet = workbook.getSheetAt(0);
-        Iterator<Row> rowIterator = sheet.rowIterator();
-        int rows = sheet.getLastRowNum() + 1;
-        int columns = sheet.getRow(0).getLastCellNum();
-        String[][] data = new String[rows][columns];
-        int i = 0;
-
-        while (rowIterator.hasNext()) {
-            Row row = rowIterator.next();
-            Iterator<Cell> cellIterator = row.cellIterator();
-            int j = 0;
-
-            while (cellIterator.hasNext()) {
-                Cell cell = cellIterator.next();
-                data[i][j] = cell.toString();
-                System.out.print(data[i][j] + " ");
-                j++;
-            }
-
-            i++;
-        }
-
-        workbook.close();
-
-        Double[][] data2 = new Double[rows][columns];
-        for(int k = 0; k < rows; k++) {
-            for (int l = 0; l < columns; l++) {
-                data2[k][l] = Double.parseDouble(data[k][l]);
-            }
-        }
-
-    }
 
 
 }
