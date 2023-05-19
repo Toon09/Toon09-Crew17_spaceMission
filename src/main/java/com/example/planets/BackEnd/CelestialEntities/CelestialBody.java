@@ -21,10 +21,16 @@ public class CelestialBody {
         return sec/(60*60*24);
     }
 
-    public static double getDistance(CelestialBody body1, CelestialBody body2){
-        double a = ( body1.getPos()[0] - body2.getPos()[0] );
-        double b = ( body1.getPos()[1] - body2.getPos()[1] );
-        double c = ( body1.getPos()[2] - body2.getPos()[2] );
+    /**
+     * Uses pythagorian theorem to calculate the distance between this body
+     *      and another which is specified as @param body2
+     * @param body2
+     * @return
+     */
+    public double getDistance(CelestialBody body2){
+        double a = ( this.getPos()[0] - body2.getPos()[0] );
+        double b = ( this.getPos()[1] - body2.getPos()[1] );
+        double c = ( this.getPos()[2] - body2.getPos()[2] );
 
         return Math.sqrt( a*a + b*b + c*c );
     }
@@ -60,41 +66,19 @@ public class CelestialBody {
         this.vel[0] = Double.parseDouble(v1);
         this.vel[1] = Double.parseDouble(v2);
         this.vel[2] = Double.parseDouble(v3);
-        
-        switch(name){
-            case "Sun":
-                this.radius = 696340;
-                break;
-            case "Mercury":
-                this.radius = 2439.7;
-                break;
-            case "Venus":
-                this.radius = 6051.8;
-                break;
-            case "Earth":
-                this.radius = 6371;
-                break;
-            case "Mars":
-                this.radius = 3389.5;
-                break;
-            case "Jupiter":
-                this.radius = 69911;
-                break;
-            case "Saturn":
-                this.radius = 58232;
-                break;
-            case "Uranus":
-                this.radius = 25362;
-                break;
-            case "Neptune":
-                this.radius = 24622;
-                break;
-            case "Pluto":
-                this.radius = 1188.3;
-                break;
-            default:
-                this.radius = 0;
-                break;
+
+        switch (name) {
+            case "Sun" -> this.radius = 696340;
+            case "Mercury" -> this.radius = 2439.7;
+            case "Venus" -> this.radius = 6051.8;
+            case "Earth" -> this.radius = 6371;
+            case "Mars" -> this.radius = 3389.5;
+            case "Jupiter" -> this.radius = 69911;
+            case "Saturn" -> this.radius = 58232;
+            case "Uranus" -> this.radius = 25362;
+            case "Neptune" -> this.radius = 24622;
+            case "Pluto" -> this.radius = 1188.3;
+            default -> this.radius = 0;
         }
 
 

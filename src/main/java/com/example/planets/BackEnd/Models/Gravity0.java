@@ -192,7 +192,7 @@ public class Gravity0 implements Model3D {
                 if( j==i || bodies[j] instanceof Spaceship ){ continue; }
 
                 //calc distance between 2
-                dist = CelestialBody.getDistance(bodies[i], bodies[j]);
+                dist = bodies[i].getDistance(bodies[j]);
                 dist = dist*dist*dist;
 
                 //adding in dims

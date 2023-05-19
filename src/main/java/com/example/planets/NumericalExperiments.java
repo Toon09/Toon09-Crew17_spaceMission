@@ -22,6 +22,10 @@ class NumericalExperiments {
         gradient descend
         genetic alg
 
+    + make test class with 1 diff eq & 3 different starting positions (1 per dim)
+        - only 1 body in this classses
+        - have them to test out stuff
+
     + finish setting up the engine for easy use and implementation
     + write documentation
     + make a test folder and add folders inside with separated test cases for everything in here (pain)
