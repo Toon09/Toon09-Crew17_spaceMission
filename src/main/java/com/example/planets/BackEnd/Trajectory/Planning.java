@@ -24,7 +24,7 @@ public class Planning {
     /**
      * increases the count to access the next maneuverPoint that needs to be checked and executed
      */
-    public void getNextDirection(){
+    public void nextDirection(){
         if(countOfStages < maneuverPoints.size())
             countOfStages++;
 

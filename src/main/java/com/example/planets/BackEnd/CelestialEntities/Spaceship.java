@@ -70,49 +70,34 @@ public class Spaceship extends CelestialBody {
     }
 
 
-    //will check for the points where the trajectory will be changed
     public boolean trajectoryChangeCondition(Model3D system) {
+        // if this is true, then accelerate(double dt) happens
+        // as soon as its false call the method plan.nextDirection()
+        // this allows for the info of the next stage to be looked at
+        // with the plan.getCurrent()
+
+        // do plan.getCurrent() to get the info you need
+        // plan.getCurrent()[0] gives an array with 2 things:
+        // [0:start of time interval, 1:end of time interval]
+
         return false;
 
     }
 
 
-    //give the magnitute of the velocity and tbe direction (normalized) in which the aircraft needs to travel
-    //if there's some way to use something other than acceleration and magnitute to calculate it
-    //give Raul a call and he can add it
 
-    /*
-    calc velocity for each with v[i] + 1/m * Isp
+    public void accelerate(double dt){
+        // from plan get current direction & accelerate in those
 
-    Isp is the instantaneous impulse, integral can be calced with RK4 or so
-    make it so the integrator can be changed easily
+        // do plan.getCurrent() to get the info you need
+        // plan.getCurrent()[1] gives an array with 3 things:
+        // [0:acc in x, 1:acc in y, 2:acc in z]
 
-    Isp is integral of force over time (bery small) with max force being 3*10^7 N
-
-    Amount of fuel used is proportional to force ||F|| * 1m
-    so 1 second exerting force ||F|| its ||F|| amount of fuel
-     */
-
-    //magnitute and thso evalue are saved inside the Planning class
-    public void accelerate(double x, double y, double z, double percentage){
-        //double[] direction = plan.getNextDirection(); //gets all info of where it needs to go
-        // change so it doesnt change order per time step
-        // add a var thats called order than in the condition make it so that
-        // it saves it and then its used here
-
-        //calc the fuel loss (magnitute is necesary)
-        //double magnitute = direction[3];
-       // usedFuel += dt* Math.abs(magnitute);
-
-        //calc the velocity change if the force can still be applied
-        // can apply other methods like RK2 and such here for more precision /////////////////////
-        useFuel(percentage);
+        //useFuel(percentage);
 
     }
 
-    public void useFuel(double percentage) {
-        usedFuel += percentage*fuelConsumption;
-    }
+    public void useFuel(double percentage) { usedFuel += percentage*fuelConsumption; }
 
     private void addPos(double[] pos){
         this.pos[0] += pos[0];
@@ -132,11 +117,10 @@ public class Spaceship extends CelestialBody {
         this.acc[2] += acc[2];
     }
 
-
-
     public Spaceship clone() {
         CelestialBody temp = super.clone();
 
         return new Spaceship(temp);
     }
+
 }

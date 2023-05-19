@@ -16,29 +16,27 @@ class NumericalExperiments {
 
     /*
     ToDo
+    + ENGINE
+    + TRAJECT: https://www.sciencedirect.com/science/article/pii/S037604211830191X
+        hill climb
+        gradient descend
+        genetic alg
+
     + finish setting up the engine for easy use and implementation
     + write documentation
     + make a test folder and add folders inside with separated test cases for everything in here (pain)
     + make lightweight versions of the classes that are extended by heavier ones we use normally
 
-    + make gravity constructor that gets data from all planets inside NASA_Horizons folder
-    + must take in name of folder from which the data comes
+    ++++++++ MAKE TAYLOR RK'S TO CHECK PRECISION [ https://www.cfm.brown.edu/people/sg/AM35odes.pdf ]
+            do one RK4 per deriv. that appears in expression, or think it out
+    +++++ change model so that it uses polar coordinates (test, not garantee to fix personal life)
 
-
-    + check cosntructor in grav for folders & fix comment
-    + you must always download the data for the sun, since its centered around the sun
-
-    change time to run instead of in amount of days, to be in hours ?
 
     change the way we chose initial conditions to one that matches earths coordinate system in angles
 
     //for adaptive method
     // https://youtu.be/6bHdFef1S60
     // https://en.m.wikipedia.org/wiki/Adaptive_step_size
-
-    Runge Kutta Fehlberg (famous adaptive rk)
-    Cash - Karp rk fehlberg -> rk4&5
-
     // RK6: https://youtu.be/soEj7YHrKyE
 
     // https://youtube.com/playlist?list=PLYdroRCLMg5PhZqzEJJlyLo55-1Vdd4Bd [numerical methods]
@@ -177,8 +175,8 @@ class NumericalExperiments {
 
     public static void experimentSetUp(){
         // experiment setup hyper parameters
-        double time = 60;
-        boolean isDay = false;
+        double time = 360;
+        boolean isDay = true;
         int checkInterval = 1; //every how many days do you want it to print the values
 
         // target body
@@ -193,8 +191,14 @@ class NumericalExperiments {
         ArrayList<Double> steps = new ArrayList<Double>();
 
         // models
+        models.add( new Gravity0( 0, 0, new AB2(), DATA_ORIGIN ) ); //, DATA_ORIGIN
+        steps.add( 0.1 );
+
         models.add( new Gravity0( 0, 0, new RK4(), DATA_ORIGIN ) ); //, DATA_ORIGIN
-        steps.add( 0.0001 );
+        steps.add( 1.0 );
+
+        models.add( new Gravity0( 0, 0, new RalstonsRK4(), DATA_ORIGIN ) ); //, DATA_ORIGIN
+        steps.add( 1.0 );
 
         //benchmark
         DataGetter dataGetter = new DataGetter();
@@ -211,7 +215,7 @@ class NumericalExperiments {
         // main loop
         for (int i = 0; i < time; i++) {
             // getting benchmark data
-            benchmark = dataGetter.getTxtExpData(i+1, TARGET_FILE);
+            benchmark = dataGetter.getTxtExpData(i+2, TARGET_FILE);
 
             //centering benchmark data with sun
             for(int j=0; j<benchmark.length; j++)
@@ -241,21 +245,16 @@ class NumericalExperiments {
                 System.out.println("Day: " + (i + 1) + "\n");
 
                 for (int j = 0; j < models.size(); j++) {
-                    System.out.println( models.get(j).getSolverName() );
-                    System.out.println("Execution time: " + chrono[j] + "ms");
-                    System.out.println("Sim time: " + models.get(j).getTime() + "s");
+                    System.out.print( models.get(j).getSolverName() );
+                    System.out.println("\t\t ::: Execution time: " + chrono[j] + "ms");
+                    //System.out.println("Sim time: " + models.get(j).getTime() + "s");
                     System.out.println("step size: " + steps.get(j) + "s");
-
-
-                    System.out.println("Model acc= x:" + models.get(j).getBody(TARGET).getAcc()[0] +
-                            "; y:" + models.get(j).getBody(TARGET).getAcc()[1] +
-                            "; z:" + models.get(j).getBody(TARGET).getAcc()[2]);
 
                     System.out.println("Model pos= X: " + models.get(j).getBody(TARGET).getPos()[0] + //delete after
                             "; Y: " + models.get(j).getBody(TARGET).getPos()[1] +
                             "; Z: " + models.get(j).getBody(TARGET).getPos()[2]);
 
-                    System.out.println("Error= X: " + errors[j][0] + "; Y: " + errors[j][1] + "; Z: " + errors[j][2]);
+                    //System.out.println("Error= X: " + errors[j][0] + "; Y: " + errors[j][1] + "; Z: " + errors[j][2]);
                     System.out.println("Error magnitude= " +  Math.sqrt(errors[j][0]*errors[j][0]
                             + errors[j][1]*errors[j][1] + errors[j][2]*errors[j][2]) + " km\n");
 
