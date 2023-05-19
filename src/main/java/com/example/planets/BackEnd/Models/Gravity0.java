@@ -3,6 +3,7 @@ package com.example.planets.BackEnd.Models;
 import com.example.planets.BackEnd.CelestialEntities.CelestialBody;
 import com.example.planets.BackEnd.NumericalMethods.NumSolver;
 import com.example.planets.BackEnd.CelestialEntities.Spaceship;
+import com.example.planets.BackEnd.NumericalMethods.RK4;
 import com.example.planets.Data.DataGetter;
 
 import java.util.Arrays;
@@ -38,35 +39,32 @@ public class Gravity0 implements Model3D {
 
     /**
      * Constructor made to also have a singular spaceship in the model, starting at the surface
-     *      of the earth as specified by the parameters @param theta and @param phi
-     * @param theta
-     * @param phi
+     *      of the earth as specified by the parameters @param longitude and @param latitude
+     * @param longitude
+     * @param latitude
      * @param numSolver type of numerical solver to be used
      */
-    public Gravity0(double theta, double phi, NumSolver numSolver){
-
+    public Gravity0(double longitude, double latitude, NumSolver numSolver){
         this.numSolver = numSolver;
 
         this.bodies = new CelestialBody[ positions.length+1 ];
         for(int i=0; i<this.bodies.length-1; i++){
             this.bodies[i] = new CelestialBody(names[i], mass[i], positions[i], velocity[i]) ;
         }
-        this.bodies[ this.bodies.length-1 ] = new Spaceship(50000, positions[3], velocity[3], theta, phi);
-
-        this.getShip().makePlan(this);
+        this.bodies[ this.bodies.length-1 ] = new Spaceship(50000, positions[3], velocity[3], longitude, latitude);
 
     }
 
 
     /**
      * Constructor made to also have a singular spaceship in the model, starting at the surface
-     *      of the earth as specified by the parameters @param theta and @param phi
-     * @param theta
-     * @param phi
+     *      of the earth as specified by the parameters @param longitude and @param latitude
+     * @param longitude
+     * @param latitude
      * @param numSolver type of numerical solver to be used
      * @param folderName
      */
-    public Gravity0(double theta, double phi, NumSolver numSolver, String folderName){
+    public Gravity0(double longitude, double latitude, NumSolver numSolver, String folderName){
         this.numSolver = numSolver;
 
         DataGetter dataGet = new DataGetter();
@@ -84,10 +82,31 @@ public class Gravity0 implements Model3D {
 
         data = dataGet.getTxtExpData(0, folderName + "/Earth.txt");
 
-        this.bodies[ this.bodies.length-1 ] = new Spaceship(50000, data[0], data[1], theta, phi);
+        this.bodies[ this.bodies.length-1 ] = new Spaceship(50000, data[0], data[1], longitude, latitude);
 
-        this.getShip().makePlan(this);
+    }
 
+
+    /**
+     * creates a model of the solar system along with a plan to get to a specified planet
+     * using a specified number of stages
+     * Uses the positions of the planets to be at april 1st of 2023
+     * @param longitude
+     * @param latitude
+     * @param numSolver
+     * @param targetPlanet
+     * @param numberOfStages
+     */
+    public Gravity0(double longitude, double latitude, NumSolver numSolver, String targetPlanet, int numberOfStages, int maxDays){
+        this.numSolver = numSolver;
+
+        this.bodies = new CelestialBody[ positions.length+1 ];
+        for(int i=0; i<this.bodies.length-1; i++){
+            this.bodies[i] = new CelestialBody(names[i], mass[i], positions[i], velocity[i]) ;
+        }
+        this.bodies[ this.bodies.length-1 ] = new Spaceship(50000, positions[3], velocity[3], longitude, latitude);
+
+        this.getShip().makePlan(this, targetPlanet, numberOfStages, maxDays);
     }
 
     @Override

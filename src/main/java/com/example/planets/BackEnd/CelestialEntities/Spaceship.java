@@ -28,20 +28,19 @@ public class Spaceship extends CelestialBody {
      * @param mass
      * @param pos
      * @param vel
-     * @param theta
-     * @param phi
+     * @param longitude
+     * @param latitude
      */
-    public Spaceship(double mass, double[] pos, double[] vel, double theta, double phi){
+    public Spaceship(double mass, double[] pos, double[] vel, double longitude, double latitude){
         super(mass, pos, vel);
         usedFuel = 0;
         //positions
-        double x = Gravity0.radiuses[3] * Math.cos(theta) * Math.cos(phi);
-        double y = Gravity0.radiuses[3] * Math.sin(theta) * Math.cos(phi);
-        double z = Gravity0.radiuses[3] * Math.sin(phi);
+        double x = Gravity0.radiuses[3] * Math.cos(longitude) * Math.cos(latitude);
+        double y = Gravity0.radiuses[3] * Math.sin(longitude) * Math.cos(latitude);
+        double z = Gravity0.radiuses[3] * Math.sin(latitude);
         //add to its position
         this.addPos( new double[] { x, y, z } );
     }
-
 
     /**
      *
@@ -54,6 +53,7 @@ public class Spaceship extends CelestialBody {
         usedFuel = 0;
     }
 
+
     /**
      *
      * @param body
@@ -65,12 +65,17 @@ public class Spaceship extends CelestialBody {
     }
 
 
-    public void makePlan(Model3D model){
-        plan = new Planning(model);
+    public void makePlan(Model3D model, String targetPlanet, int numberOfStages, int maxDays){
+        plan = new Planning(model, targetPlanet, numberOfStages, maxDays);
+    }
+
+    public CelestialBody getTarget(){
+        return plan.getTarget();
     }
 
 
     public boolean trajectoryChangeCondition(Model3D system) {
+        if(plan == null){ return false; }
         // if this is true, then accelerate(double dt) happens
         // as soon as its false call the method plan.nextDirection()
         // this allows for the info of the next stage to be looked at
@@ -87,8 +92,10 @@ public class Spaceship extends CelestialBody {
 
 
     public void accelerate(double dt){
+        if(plan == null){ return; }
+
         // from plan get current direction & accelerate in those
-        double[][] acc1 = plan.getCurrent();
+        //double[] acc1 = plan.getCurrent();
         //time = endPoint - startPoint
         //double[] goalAcc;
         // for(int = 0; i < time / dt; i++) {

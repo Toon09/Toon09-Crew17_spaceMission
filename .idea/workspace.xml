@@ -4,12 +4,20 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="bab05458-8716-4abd-8f37-31e577e5aaab" name="Changes" comment="changed distance function">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/planets/BackEnd/Models/TestModel1.java" afterDir="false" />
+    <list default="true" id="bab05458-8716-4abd-8f37-31e577e5aaab" name="Changes" comment="changed planning and added trajectory">
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/planets/BackEnd/Trajectory/SteepestAscent/SteepestAscent.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/planets/BackEnd/Trajectory/TrajectoryPlanner.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/planets/BackEnd/Trajectory/Hohmann.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/planets/BackEnd/Trajectory/Hohmann.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/planets/BackEnd/CelestialEntities/Spaceship.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/planets/BackEnd/CelestialEntities/Spaceship.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/planets/BackEnd/Models/Gravity0.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/planets/BackEnd/Models/Gravity0.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/planets/BackEnd/Trajectory/Hohmann.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/planets/BackEnd/Trajectory/Planning.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/planets/BackEnd/Trajectory/Planning.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/planets/Merged.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/planets/Merged.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/planets/NumericalExperiments.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/planets/NumericalExperiments.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/planets/BackEnd/CelestialEntities/CelestialBody.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/planets/BackEnd/CelestialEntities/CelestialBody.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/planets/BackEnd/CelestialEntities/Spaceship.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/planets/BackEnd/CelestialEntities/Spaceship.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/planets/BackEnd/Models/Gravity0.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/planets/BackEnd/Models/Gravity0.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/planets/NumericalExperiments.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/planets/NumericalExperiments.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -71,14 +79,14 @@
       <recent name="C:\Users\suszw\Desktop\uni\year_1\Period4\Data stuctures\Planets" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\sirap\IdeaProjects\Toon09-Crew17_spaceMission\src\main\java\com\example\planets\BackEnd\Trajectory" />
       <recent name="C:\Users\sirap\IdeaProjects\Toon09-Crew17_spaceMission\src\main\java\com\example\planets\Data\ExpData" />
       <recent name="C:\Users\sirap\IdeaProjects\Toon09-Crew17_spaceMission\src\main\java\com\example\planets\Data\NASA_Horizons" />
       <recent name="C:\Users\sirap\IdeaProjects\Toon09-Crew17_spaceMission\src\main\java\com\example\planets" />
       <recent name="C:\Users\suszw\Desktop\uni\year_1\Period4\plswork\src\main" />
-      <recent name="C:\Users\suszw\Desktop\uni\year_1\Period4\plswork\src\resources\com" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.Merged">
+  <component name="RunManager" selected="Application.NumericalExperiments">
     <configuration name="Merged" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="com.example.planets.Merged" />
       <module name="Planets" />
@@ -107,8 +115,8 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.Merged" />
         <item itemvalue="Application.NumericalExperiments" />
+        <item itemvalue="Application.Merged" />
       </list>
     </recent_temporary>
   </component>
@@ -130,13 +138,6 @@
       <workItem from="1683209681075" duration="3407000" />
       <workItem from="1683820709833" duration="618000" />
       <workItem from="1683841240613" duration="1723000" />
-    </task>
-    <task id="LOCAL-00015" summary="orbits and stuff">
-      <created>1679580574710</created>
-      <option name="number" value="00015" />
-      <option name="presentableId" value="LOCAL-00015" />
-      <option name="project" value="LOCAL" />
-      <updated>1679580574710</updated>
     </task>
     <task id="LOCAL-00016" summary="path I guess">
       <created>1679606392813</created>
@@ -474,7 +475,14 @@
       <option name="project" value="LOCAL" />
       <updated>1684493446426</updated>
     </task>
-    <option name="localTasksCounter" value="64" />
+    <task id="LOCAL-00064" summary="changed planning and added trajectory">
+      <created>1684496430186</created>
+      <option name="number" value="00064" />
+      <option name="presentableId" value="LOCAL-00064" />
+      <option name="project" value="LOCAL" />
+      <updated>1684496430186</updated>
+    </task>
+    <option name="localTasksCounter" value="65" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -492,7 +500,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="GUI changes" />
     <MESSAGE value="GUI code cleanup" />
     <MESSAGE value="GUI, progress bar, two labels, change of the scene structure ( adding a sub-scene ) and code cleanup" />
     <MESSAGE value="getState only copies values, no references" />
@@ -517,7 +524,8 @@
     <MESSAGE value="engine comments added" />
     <MESSAGE value="removed extra var in spaceship" />
     <MESSAGE value="changed distance function" />
-    <option name="LAST_COMMIT_MESSAGE" value="changed distance function" />
+    <MESSAGE value="changed planning and added trajectory" />
+    <option name="LAST_COMMIT_MESSAGE" value="changed planning and added trajectory" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -526,15 +534,6 @@
           <url>file://$PROJECT_DIR$/src/main/java/com/example/planets/Merged.java</url>
           <line>183</line>
           <option name="timeStamp" value="2" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-method">
-          <url>file://$PROJECT_DIR$/src/main/java/com/example/planets/BackEnd/Models/Gravity0.java</url>
-          <line>68</line>
-          <properties class="com.example.planets.BackEnd.Models.Gravity0" method="&lt;init&gt;">
-            <option name="EMULATED" value="true" />
-            <option name="WATCH_EXIT" value="false" />
-          </properties>
-          <option name="timeStamp" value="3" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

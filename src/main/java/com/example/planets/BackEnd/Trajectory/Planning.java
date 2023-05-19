@@ -1,6 +1,8 @@
 package com.example.planets.BackEnd.Trajectory;
 
+import com.example.planets.BackEnd.CelestialEntities.CelestialBody;
 import com.example.planets.BackEnd.Models.Model3D;
+import com.example.planets.BackEnd.Trajectory.SteepestAscent.SteepestAscent;
 
 import java.util.ArrayList;
 
@@ -19,6 +21,9 @@ public class Planning {
     // this arrayList contains 2D arrays of:
     //[ 0:start of time interval, 1:end of interval, 2:acc. in x, 3:acc. in y, 4:acc. in z ]
     private ArrayList<double[]> maneuverPoints;
+    private CelestialBody target;
+
+    private TrajectoryPlanner planner;
 
     /**
      * increases the count to access the next maneuverPoint that needs to be checked and executed
@@ -42,25 +47,44 @@ public class Planning {
     }
 
 
-    public Planning(Model3D model){
-        this.maneuverPoints = new ArrayList<double[]>();
+    /**
+     *
+     * @param model
+     * @param targetPlanet
+     * @param numberOfStages
+     * @param maxDays
+     */
+    public Planning(Model3D model, String targetPlanet, int numberOfStages, int maxDays){
+        this.maneuverPoints = new ArrayList<double[]>(numberOfStages);
 
-        // have hohmann transfer shenanigans here
-        Hohmann plan = new Hohmann(model);
+        // get target and save it
+        for(int i=0; i<model.size(); i++){
+            if( model.getBody(i).getName().equalsIgnoreCase(targetPlanet) ){
+                target = model.getBody(i);
+            }
+
+        }
+
+        //creates planner and gets trajectory
+        planner = new SteepestAscent(model, target);
+        maneuverPoints = planner.getTrajectory();
 
     }
 
 
     /**
      * this constructor is for the copy function
-     * @param maneuverPoints the 2D array containing all information calculated for the trajectory
-     * @param countOfStages the current stage of the planning the spaceship is at
+     * @param maneuverPoints the 1D array containing all information calculated for the trajectory
      */
     private Planning(ArrayList<double[]> maneuverPoints, int countOfStages){
         this.maneuverPoints = new ArrayList<double[]>( maneuverPoints.size() );
         this.maneuverPoints.addAll( maneuverPoints );
 
         this.countOfStages = countOfStages;
+    }
+
+    public CelestialBody getTarget(){
+        return target;
     }
 
 

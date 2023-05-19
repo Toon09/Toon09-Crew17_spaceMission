@@ -1,5 +1,6 @@
 package com.example.planets;
 
+import com.example.planets.BackEnd.CelestialEntities.CelestialBody;
 import com.example.planets.BackEnd.Models.*;
 import com.example.planets.BackEnd.NumericalMethods.*;
 import com.example.planets.Data.DataGetter;
@@ -57,9 +58,11 @@ class NumericalExperiments {
     public static void main(String[] args) {
         //engineTest()
 
-        //comparingToEachOther();
+        comparingToEachOther();
 
-        experimentSetUp();
+        //experimentSetUp();
+
+        //trajectoryTesting()
 
     }
 
@@ -71,17 +74,23 @@ class NumericalExperiments {
 
     }
 
-    // change so that each solver can have its own dt and display it as well
+    // ############################################################################## COMPARING SOLVER SET UP
+
+    /*
+    in RK4
+    1.5 to 1.6 saves 7 seconds of real time execution on a whole year in sim (360 days)
+    1.0 to 1.5 saves 180 seconds of real time execution on a whole year in sim (360 days)
+     */
     public static void comparingToEachOther() {
         //experiment setup hyper parameters
         double time = 30;
         boolean isDay = true;
         int checkInterval = 1; //every how many days do you want it to print the values
-        final int TARGET = 4;
+        final int TARGET = 7;
 
         // benchmark model
-        Model3D benchmark = new Gravity0( 0, Math.PI / 2.0, new Euler() );
-        double benchmarkPrecision = 0.01;
+        Model3D benchmark = new Gravity0( 0, Math.PI / 2.0, new RK4() );
+        double benchmarkPrecision = 0.1;
 
 
         //  testing models
@@ -93,8 +102,16 @@ class NumericalExperiments {
         //steps.add( 0.1 );
 
         models.add( new Gravity0( 0, 0, new RK4() ) );
-        steps.add( 0.1 );
+        steps.add( 1.0 );
 
+        models.add( new Gravity0( 0, 0, new RK4() ) );
+        steps.add( 1.25 );
+
+        models.add( new Gravity0( 0, 0, new RK4() ) );
+        steps.add( 1.5 );
+
+        models.add( new Gravity0( 0, 0, new RK4() ) );
+        steps.add( 1.6 );
 
         //test details
         System.out.println("target planet: TARGET");
@@ -104,7 +121,7 @@ class NumericalExperiments {
         double[][] errors = new double[models.size()][3];
         double[] chrono = new double[models.size()+1]; //last index is the benchmark
 
-        //using mars
+        // sim loop
         for (int i = 0; i < time; i++) {
             //benchmark precision
             chrono[ chrono.length-1 ] = System.currentTimeMillis();
@@ -138,12 +155,12 @@ class NumericalExperiments {
                     System.out.println("Execution time: " + chrono[j] + "ms");
                     System.out.println("Sim time: " + models.get(j).getTime() + "s");
                     System.out.println("step size: " + steps.get(j) + "s");
-
-                    System.out.println("Acc= x:" + models.get(j).getBody(TARGET).getAcc()[0] +
-                            "; y:" + models.get(j).getBody(TARGET).getAcc()[1] +
-                            "; z:" + models.get(j).getBody(TARGET).getAcc()[2]);
-
-                    System.out.println("Error= X: " + errors[j][0] + "; Y: " + errors[j][1] + "; Z: " + errors[j][2] + "\n");
+                    System.out.println("Error= X: " + errors[j][0] + "; Y: " + errors[j][1] + "; Z: " + errors[j][2]);
+                    double sum = 0.0;
+                    for(int k=0; k<3; k++)
+                        sum += errors[j][k]*errors[j][k];
+                    sum = Math.sqrt(sum);
+                    System.out.println("Error magnitude: " + sum + "km\n");
 
                 }
 
@@ -151,9 +168,12 @@ class NumericalExperiments {
                 System.out.println("Benchmark time: " + chrono[ chrono.length-1 ] + "ms");
                 System.out.println("In sim time: " + Math.round( benchmark.getTime() ) + "s");
                 System.out.println("Benchmark step size: " + benchmarkPrecision + "s");
-                System.out.println("Benchmark data= x:" + benchmark.getBody(TARGET).getPos()[0] +
-                                                  "; y:" + benchmark.getBody(TARGET).getPos()[1] +
-                                                  "; z:" + benchmark.getBody(TARGET).getPos()[2]);
+                double sum =0.0;
+                for(int k=0; k<chrono.length; k++){
+                    sum += chrono[k];
+                }
+
+                System.out.println("Total run time of this interval: " + sum + "ms");
                 System.out.println("\n");
             }
 
@@ -277,9 +297,72 @@ class NumericalExperiments {
     }
 
 
+    // ############################################################################## TRAJECTORY MAKING SET UP
+    public static void trajectoryTesting(){
+        // set up hyper parameters
+        int time = 7; // max number of days for a sim to reach goal
+        String target = "moon"; // the moon
+        int numberOfStages = 3;
+        double updatePeriod = 0.5; // period on which it shows the positions (in unit of days)
+
+        // models
+        ArrayList<Model3D> models = new ArrayList<Model3D>();
+        ArrayList<Double> steps = new ArrayList<Double>();
+
+        // to print how long the planning takes
+        double chrono = 0.0;
+
+        //where the rock starts
+        double latitude = 0.0;
+        double longitude = 0.0;
+
+        // make trajectory
+        chrono = System.currentTimeMillis();
+        models.add( new Gravity0( longitude, latitude, new RK4(), target, numberOfStages, time ) );
+        chrono = System.currentTimeMillis() - chrono;
+        steps.add( 1.0 );
+
+        System.out.println("Planning took: " + chrono + "ms");
+
+        double[] error = new double[] {0.0, 0.0, 0.0};
+        double errorMagnitude = 0.0;
+
+        // trajectory is already done, run sim and check time step
+        System.out.println("Showing planning");
+        for(int i=0; i<time/updatePeriod; i++){
+            models.get(0).updatePos( updatePeriod, 1.0, true ); // every half a day
+            CelestialBody targetBody = models.get(0).getShip().getTarget();
+
+            System.out.println("Time intervals passed: " + time);
+            System.out.println("Time interval of: " + updatePeriod + " * Days");
+
+            System.out.println("Sim time: " + models.get(0).getTime() + "s");
+
+            System.out.println("Target position= X:" + targetBody.getPos()[0] +
+                                "; Y:" + targetBody.getPos()[1] + "; Z:" + targetBody.getPos()[2]);
+
+            System.out.println("Ship position= X:" + models.get(0).getShip().getPos()[0] +
+                                "; Y:" + models.get(0).getShip().getPos()[1] +
+                                "; Z:" + models.get(0).getShip().getPos()[2]);
+
+            for(int j=0; j<error.length; j++)
+                error[j] = targetBody.getPos()[j] - models.get(0).getShip().getPos()[j];
+            errorMagnitude = Math.sqrt( error[0]*error[0] + error[1]*error[1] + error[2]*error[2] );
+
+            System.out.println("Error= X:" + error[0] + "; Y:" + error[1] + "; Z:" + error[2]);
+            System.out.println("Error magnitude: " + errorMagnitude + "km");
 
 
 
+
+        }
+
+
+    }
+
+
+
+    // ############################################################################## NUM SOLVER ACCURACY CHECK SET UP
 
 
 }

@@ -181,7 +181,7 @@ public class Merged extends Application {
         timer.schedule(new TimerTask() {
             @Override
             public void run() {
-                model.updatePos(0.05, 1.0, true);
+                model.updatePos(0.05, 1.6, true);
                 for (int i = 0; i < 12; i++) {
                     setPosition(world.getChildren().get(i), model.getBody(i));
                 }
