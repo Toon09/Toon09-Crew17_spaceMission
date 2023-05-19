@@ -16,8 +16,9 @@ public class Spaceship extends CelestialBody {
     //has all the information of where to go and such
     Planning plan;
     private final double maxSpeed = 11000; //2,500 to 4,500 m/s (look up) according to falcon 9
+    private final double accRate = 10;
     private  final double maxForce = 3 * Math.pow(10, 7); // Newtons
-    private final double fuelConsumption = 1451.5; //This fuel consumption is based on the falcon 9 maximum fuel consumption, so at max acceleration the consumption is this one.
+    private final double fuelConsumption = 1451.5; //kg  This fuel consumption is based on the falcon 9 maximum fuel consumption, so at max acceleration the consumption is this one.
     public double getUsedFuel(){ return usedFuel; }
     // public void setFuel(double fuel){ this.fuel = fuel; }
 
@@ -87,6 +88,14 @@ public class Spaceship extends CelestialBody {
 
     public void accelerate(double dt){
         // from plan get current direction & accelerate in those
+        double[][] acc1 = plan.getCurrent();
+        //time = endPoint - startPoint
+        //double[] goalAcc;
+        // for(int = 0; i < time / dt; i++) {
+            // currAccX, Y, Z = vel[0, 1, 2];
+            // accRateX, Y, Z (goalAcc - currAcc) / time
+            // addVel(new double[]{accRateX, Y, Z});
+        // }
 
         // do plan.getCurrent() to get the info you need
         // plan.getCurrent()[1] gives an array with 3 things:

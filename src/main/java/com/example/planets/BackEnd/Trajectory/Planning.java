@@ -31,7 +31,8 @@ public class Planning {
 
     /**
      * Gets the current maneuver that needs to be executed in the following format:
-     *      first dimension  [ 0:start of time interval, 1:end of interval, 2:acc. in x, 3:acc. in y, 4:acc. in z ]
+     *      first dimension  [ , 1:end of interva0:start of time intervall ] //times to start and stop accelerating
+     *      second dimension [ 0:acc. in x, 1:acc. in y, 2:acc. in z ]
      * @return a 2D array in the format described above, if all maneuvers have been executed, then it returns null
      */
     public double[] getCurrent(){
