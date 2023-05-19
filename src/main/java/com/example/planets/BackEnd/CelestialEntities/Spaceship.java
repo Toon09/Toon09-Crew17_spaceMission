@@ -17,7 +17,6 @@ public class Spaceship extends CelestialBody {
     Planning plan;
     private final double maxSpeed = 11000; //2,500 to 4,500 m/s (look up) according to falcon 9
     private  final double maxForce = 3 * Math.pow(10, 7); // Newtons
-    private final double mass = 50000;
     private final double fuelConsumption = 1451.5; //This fuel consumption is based on the falcon 9 maximum fuel consumption, so at max acceleration the consumption is this one.
     public double getUsedFuel(){ return usedFuel; }
     // public void setFuel(double fuel){ this.fuel = fuel; }
