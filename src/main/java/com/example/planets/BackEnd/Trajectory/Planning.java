@@ -17,9 +17,8 @@ public class Planning {
     private int countOfStages = 0;
 
     // this arrayList contains 2D arrays of:
-    // first dimension  [ 0:start of time interval, 1:end of interval ] //times to start and stop accelerating
-    // second dimension [ 0:acc. in x, 1:acc. in y, 2:acc. in z ]
-    private ArrayList<double[][]> maneuverPoints;
+    //[ 0:start of time interval, 1:end of interval, 2:acc. in x, 3:acc. in y, 4:acc. in z ]
+    private ArrayList<double[]> maneuverPoints;
 
     /**
      * increases the count to access the next maneuverPoint that needs to be checked and executed
@@ -32,22 +31,18 @@ public class Planning {
 
     /**
      * Gets the current maneuver that needs to be executed in the following format:
-     *      first dimension  [ 0:start of time interval, 1:end of interval ] //times to start and stop accelerating
-     *      second dimension [ 0:acc. in x, 1:acc. in y, 2:acc. in z ]
+     *      first dimension  [ 0:start of time interval, 1:end of interval, 2:acc. in x, 3:acc. in y, 4:acc. in z ]
      * @return a 2D array in the format described above, if all maneuvers have been executed, then it returns null
      */
-    public double[][] getCurrent(){
+    public double[] getCurrent(){
         if( countOfStages >= maneuverPoints.size() )
             return null;
         return maneuverPoints.get(countOfStages);
     }
 
 
-    /**
-     * As soon as its made it generates the trajectory using Hohmann transfers, in the future more methods
-     */
     public Planning(Model3D model){
-        this.maneuverPoints = new ArrayList<double[][]>();
+        this.maneuverPoints = new ArrayList<double[]>();
 
         // have hohmann transfer shenanigans here
         Hohmann plan = new Hohmann(model);
@@ -60,8 +55,8 @@ public class Planning {
      * @param maneuverPoints the 2D array containing all information calculated for the trajectory
      * @param countOfStages the current stage of the planning the spaceship is at
      */
-    private Planning(ArrayList<double[][]> maneuverPoints, int countOfStages){
-        this.maneuverPoints = new ArrayList<double[][]>( maneuverPoints.size() );
+    private Planning(ArrayList<double[]> maneuverPoints, int countOfStages){
+        this.maneuverPoints = new ArrayList<double[]>( maneuverPoints.size() );
         this.maneuverPoints.addAll( maneuverPoints );
 
         this.countOfStages = countOfStages;
