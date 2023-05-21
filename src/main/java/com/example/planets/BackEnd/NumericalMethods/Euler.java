@@ -27,15 +27,17 @@ public class Euler implements NumSolver {
         //adds time
         model.addDt(dt);
 
-    }
+        // letting the ship do its plans (works for many ships)
+        for(int i=0; i< model.getAmountOfShips(); i++){
+            model.getShip(i).executePlans(model.getTime(), dt);
+        }
 
+    }
 
     @Override
     public String getName() {
         return "Euler";
     }
-
-
 
 
 }

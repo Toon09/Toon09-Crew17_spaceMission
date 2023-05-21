@@ -4,6 +4,7 @@ import com.example.planets.BackEnd.CelestialEntities.CelestialBody;
 import com.example.planets.BackEnd.NumericalMethods.NumSolver;
 import com.example.planets.BackEnd.CelestialEntities.Spaceship;
 import com.example.planets.BackEnd.NumericalMethods.RK4;
+import com.example.planets.BackEnd.Trajectory.Cost.CostFunction;
 import com.example.planets.Data.DataGetter;
 
 import java.util.Arrays;
@@ -12,13 +13,15 @@ import java.util.Arrays;
 public class Gravity0 implements Model3D {
     public static final double G = 6.6743 * Math.pow(10, -20);
     private CelestialBody[] bodies;
+    private int spaceShipStart = 0;
+    private int amountOfShips = 0;
     private NumSolver numSolver;
 
     private double time = 0;
 
 
     /**
-     * THis constructor is mainly used in the copy function, it doesn't need
+     * This constructor is mainly used in the copy function, it doesn't need
      * @param bodies 1D array of CelestialBodies which is used to copy each one of them
      * @param numSolver type of numerical solver to be used
      */
@@ -29,6 +32,7 @@ public class Gravity0 implements Model3D {
         for(int i=0; i<bodies.length; i++){
             if( bodies[i] instanceof Spaceship ){
                 this.bodies[i] = (CelestialBody) new Spaceship(bodies[i].getMass(), bodies[i].getPos(), bodies[i].getVel());
+                spaceShipStart = i;
             }else {
                 this.bodies[i] = new CelestialBody(bodies[i].getName(), bodies[i].getMass(), bodies[i].getPos(), bodies[i].getVel());
             }
@@ -49,7 +53,8 @@ public class Gravity0 implements Model3D {
 
         this.bodies = new CelestialBody[ positions.length+1 ];
         for(int i=0; i<this.bodies.length-1; i++){
-            this.bodies[i] = new CelestialBody(names[i], mass[i], positions[i], velocity[i]) ;
+            this.bodies[i] = new CelestialBody(names[i], mass[i], positions[i], velocity[i]);
+            spaceShipStart = i;
         }
         this.bodies[ this.bodies.length-1 ] = new Spaceship(50000, positions[3], velocity[3], longitude, latitude);
 
@@ -78,6 +83,7 @@ public class Gravity0 implements Model3D {
 
             // creating bodies with said data
             this.bodies[i] = new CelestialBody(names[i], mass[i], data[0], data[1]);
+            spaceShipStart = i;
         }
 
         data = dataGet.getTxtExpData(0, folderName + "/Earth.txt");
@@ -97,18 +103,41 @@ public class Gravity0 implements Model3D {
      * @param targetPlanet
      * @param numberOfStages
      */
-    public Gravity0(double longitude, double latitude, NumSolver numSolver, String targetPlanet, int numberOfStages, int maxDays){
+    public Gravity0(double longitude, double latitude, NumSolver numSolver, String targetPlanet,
+                    int numberOfStages, int maxDays, CostFunction cost){
         this.numSolver = numSolver;
 
         this.bodies = new CelestialBody[ positions.length+1 ];
         for(int i=0; i<this.bodies.length-1; i++){
-            this.bodies[i] = new CelestialBody(names[i], mass[i], positions[i], velocity[i]) ;
+            this.bodies[i] = new CelestialBody(names[i], mass[i], positions[i], velocity[i]);
+            spaceShipStart = i;
         }
-        this.bodies[ this.bodies.length-1 ] = new Spaceship(50000, positions[3], velocity[3], longitude, latitude);
+        this.bodies[ this.bodies.length-1 ] = new Spaceship(50000, positions[3], velocity[3],
+                                        longitude, latitude, cost);
 
         this.getShip().makePlan(this, targetPlanet, numberOfStages, maxDays);
     }
 
+    @Override
+    public void addShips(int numShips){
+        // ships are always added at the end of array
+        CelestialBody[] newBodies = new CelestialBody[bodies.length + numShips];
+
+        for(int i=0; i<bodies.length; i++)
+            newBodies[i] = bodies[i];
+
+        for(int i= bodies.length; i< bodies.length+numShips; i++)
+            newBodies[i] = getShip().clone();
+
+        amountOfShips += numShips;
+
+        bodies = newBodies;
+    }
+
+    /**
+     * returns last ship on the array, the rest are not "main" ships ############## CHANGE THIS
+     * @return
+     */
     @Override
     public Spaceship getShip(){
         if(this.getBody( this.size() -1) instanceof  Spaceship)
@@ -117,6 +146,18 @@ public class Gravity0 implements Model3D {
             return null;
     }
 
+    @Override
+    public Spaceship getShip(int index){
+        if(spaceShipStart == 0)
+            return getShip();
+        else
+            return (Spaceship) bodies[spaceShipStart+index]; //spaceShipStart indicates start of all spaceship instances
+    }
+
+    @Override
+    public int getAmountOfShips() {
+        return amountOfShips;
+    }
 
     @Override
     public void setSolver(NumSolver numSolver) {

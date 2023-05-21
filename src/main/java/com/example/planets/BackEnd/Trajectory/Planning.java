@@ -3,6 +3,7 @@ package com.example.planets.BackEnd.Trajectory;
 import com.example.planets.BackEnd.CelestialEntities.CelestialBody;
 import com.example.planets.BackEnd.Models.Model3D;
 import com.example.planets.BackEnd.Trajectory.SteepestAscent.SteepestAscent;
+import com.example.planets.BackEnd.Trajectory.SteepestAscent.TrajectoryPlanner;
 
 import java.util.ArrayList;
 
@@ -31,6 +32,8 @@ public class Planning {
     public void nextDirection(){
         if(countOfStages < maneuverPoints.size())
             countOfStages++;
+        else
+            countOfStages=0;
 
     }
 
@@ -41,8 +44,6 @@ public class Planning {
      * @return a 2D array in the format described above, if all maneuvers have been executed, then it returns null
      */
     public double[] getCurrent(){
-        if( countOfStages >= maneuverPoints.size() )
-            return null;
         return maneuverPoints.get(countOfStages);
     }
 
@@ -57,16 +58,13 @@ public class Planning {
     public Planning(Model3D model, String targetPlanet, int numberOfStages, int maxDays){
         this.maneuverPoints = new ArrayList<double[]>(numberOfStages);
 
-        // get target and save it
-        for(int i=0; i<model.size(); i++){
-            if( model.getBody(i).getName().equalsIgnoreCase(targetPlanet) ){
+        for(int i=0; i<model.size(); i++)
+            if( targetPlanet.equalsIgnoreCase(model.getBody(i).getName()) )
                 target = model.getBody(i);
-            }
-
-        }
 
         //creates planner and gets trajectory
-        planner = new SteepestAscent(model, target);
+        planner = new SteepestAscent(model, numberOfStages, targetPlanet);
+
         maneuverPoints = planner.getTrajectory();
 
     }
@@ -87,9 +85,14 @@ public class Planning {
         return target;
     }
 
+    public void setState(ArrayList<double[]> state){
+        maneuverPoints = state;
+    }
+
 
     @Override
     public Planning clone() {
         return new Planning(maneuverPoints, countOfStages);
     }
+
 }

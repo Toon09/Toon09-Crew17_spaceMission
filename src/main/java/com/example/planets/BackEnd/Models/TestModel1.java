@@ -66,6 +66,9 @@ public class TestModel1 implements Model3D{
     @Override
     public Spaceship getShip() { return null; }
 
+    @Override
+    public Spaceship getShip(int index) { return null; }
+
     /// functionality
 
     @Override
@@ -73,6 +76,14 @@ public class TestModel1 implements Model3D{
 
     @Override
     public void addDt(double dt) { time += dt; }
+
+    @Override
+    public void addShips(int numShips) {}
+
+    @Override
+    public int getAmountOfShips() {
+        return 0;
+    }
 
     @Override
     public void hDeriv() {

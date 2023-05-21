@@ -45,12 +45,9 @@ public class RK3 implements NumSolver{
         //adds time
         model.addDt(dt);
 
-        // update for trajectory changes of ship
-        // trajectory changes, right after current acc is calculated
-        if( model.getShip().trajectoryChangeCondition(model) ){
-            //the magnitudes and such can be saved in another class and this call can be emptied out
-            //the values can be saved in an array of sorts
-            //model.getShip().accelerate(dt);
+        // letting the ship do its plans (works for many ships)
+        for(int i=0; i< model.getAmountOfShips(); i++){
+            model.getShip(i).executePlans(model.getTime(), dt);
         }
 
     }

@@ -2,7 +2,10 @@ package com.example.planets.BackEnd.CelestialEntities;
 
 import com.example.planets.BackEnd.Models.Gravity0;
 import com.example.planets.BackEnd.Models.Model3D;
+import com.example.planets.BackEnd.Trajectory.Cost.CostFunction;
 import com.example.planets.BackEnd.Trajectory.Planning;
+
+import java.util.ArrayList;
 
 /*
 add methods related to changing trajectory to another class that has an instance in this one
@@ -15,6 +18,8 @@ public class Spaceship extends CelestialBody {
     private double usedFuel;
     //has all the information of where to go and such
     Planning plan;
+    CostFunction costFunc;
+    double cost=0.0;
     private final double maxSpeed = 11000; //2,500 to 4,500 m/s (look up) according to falcon 9
     private final double accRate = 10;
     private  final double maxForce = 3 * Math.pow(10, 7); // Newtons
@@ -22,6 +27,27 @@ public class Spaceship extends CelestialBody {
     public double getUsedFuel(){ return usedFuel; }
     // public void setFuel(double fuel){ this.fuel = fuel; }
 
+
+    /**
+     *
+     * @param mass
+     * @param pos
+     * @param vel
+     * @param longitude
+     * @param latitude
+     * @param costFunc
+     */
+    public Spaceship(double mass, double[] pos, double[] vel, double longitude, double latitude, CostFunction costFunc){
+        super(mass, pos, vel);
+        usedFuel = 0;
+        this.costFunc = costFunc;
+        //positions
+        double x = Gravity0.radiuses[3] * Math.cos(longitude) * Math.cos(latitude);
+        double y = Gravity0.radiuses[3] * Math.sin(longitude) * Math.cos(latitude);
+        double z = Gravity0.radiuses[3] * Math.sin(latitude);
+        //add to its position
+        this.addPos( new double[] { x, y, z } );
+    }
 
     /**
      *
@@ -58,8 +84,9 @@ public class Spaceship extends CelestialBody {
      *
      * @param body
      */
-    private Spaceship(CelestialBody body){
+    private Spaceship(CelestialBody body, CostFunction costFunc){
         super( body.getName(), body.getMass(), body.getPos(), body.getVel());
+        this.costFunc = costFunc;
         usedFuel = 0;
 
     }
@@ -73,9 +100,23 @@ public class Spaceship extends CelestialBody {
         return plan.getTarget();
     }
 
+    public void setPlan(ArrayList<double[]> state){
+        plan.setState(state);
+    }
 
-    public boolean trajectoryChangeCondition(Model3D system) {
-        if(plan == null){ return false; }
+    public void executePlans(double time, double dt){
+        if( plan == null )
+            return;
+
+        calcCost(getTarget(), dt, getUsedFuel());
+
+        if( trajectoryChangeCondition(time) )
+            accelerate(time);
+
+    }
+
+
+    public boolean trajectoryChangeCondition(double time) {
         // if this is true, then accelerate(double dt) happens
         // as soon as its false call the method plan.nextDirection()
         // this allows for the info of the next stage to be looked at
@@ -91,9 +132,7 @@ public class Spaceship extends CelestialBody {
 
 
 
-    public void accelerate(Gravity0 model){
-        if(plan == null){ return; }
-        double time = model.getTime();
+    public void accelerate(double time){
         if(time >= plan.getCurrent()[1]){
             usedFuel+=(getForce()/maxForce)*fuelConsumption*(plan.getCurrent()[1]-plan.getCurrent()[0]);
             plan.nextDirection();
@@ -123,6 +162,10 @@ public class Spaceship extends CelestialBody {
 
     }
 
+    private void calcCost(CelestialBody target, double dt, double fuel){
+        cost += costFunc.calcCost(fuel, target) * dt;
+    }
+
     //public void useFuel(double percentage) { usedFuel += percentage*fuelConsumption; }
 
     private void addPos(double[] pos){
@@ -146,7 +189,7 @@ public class Spaceship extends CelestialBody {
     public Spaceship clone() {
         CelestialBody temp = super.clone();
 
-        return new Spaceship(temp);
+        return new Spaceship(temp, costFunc);
     }
 
 }

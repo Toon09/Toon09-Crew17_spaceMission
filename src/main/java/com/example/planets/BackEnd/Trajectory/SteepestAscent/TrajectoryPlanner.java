@@ -1,4 +1,4 @@
-package com.example.planets.BackEnd.Trajectory;
+package com.example.planets.BackEnd.Trajectory.SteepestAscent;
 
 //this interface must be implemented by all methods which optimize the trajectory of the ship
 

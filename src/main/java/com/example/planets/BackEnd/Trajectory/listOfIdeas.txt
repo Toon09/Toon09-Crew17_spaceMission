@@ -1,0 +1,130 @@
+this file consist of my todo's
+    as well as some of my own brainstorming of how things are added
+    -no particular order since its for personal use
+
+
+############ make it so that cost function is added in everything that needs to be (clone, constructors)
+
+
+- instead of constructor have clone + add ships method, each ship is a clone of the og at the start with different state
+- have an input in grav0 that allows to select cost function as an object
+    - have a folder in Trajectory with different cost functions
+- replace all nonsense in NumSolvers about spaceships witha single WELL NAME func that does all ship stuff
+    -if theres a plan, calc cost & do accelerating
+
+- add trajectory calc on the way bac kas well, but instead do it from the point of view of the ship that just arrived
+    and run the model from there to back only
+    -so clone model after you finish the calc of the way there
+    -now calc the way back with those as starting points
+
+-do initial conditions shenanigans with both
+
+############################################################## Steepest ascend / hill climb
+
+https://youtu.be/GL28VbiFkD0 [general idea]
+finds local maximum
+
+"like climbing the everest with thick fog and amnesia"
+
+    GENERAL:
+1-guess value
+2-move around it & find way where its going up (higher value = more optimal)
+3-stop if you cant find more optimal point
+
+        PRECISE EVALUATION OF GRADIENT (how alg. actually moves)
+
+if you allow several spaceships to launch at once you can do the changes required for RK4
+    and more
+    - make sure to add a setPlan method so that it doesnt recursively die
+    - enables particle swarm sim ?? idk what it is but sounds like it
+    - have a constructor that does the same as the one that has plannig does
+        but doesnt make the planning, must do setPlanning with plan.getWhole plan (think of better name)
+        and make small variations to this to make an RK4 or so for the gradient
+    - once gradient is calculated you know where next step is
+
++ rebuild GRAVITY0 as to allow for several spaceships to be returned and so
+    - save start index of spaceships & how many there are
+    - do for loop of cost actions execution inside of NumSolvers (dt * costfunc -> try to make it small af)
+
+make it so that the cost function is an input of some sort so you can pick and chose
+
+save values of prev computations and use taylor approximations to speed up this process
+    -can even use RK-N methods if you save cleverly, altho that can be more complicated
+    -there must be a change in each direction for there to be a step size
+    -make sure theres always at least a very small change in parameters (if its too small round off errors)
+    -at start go in a direction at random and use a singular trapezoid (preferably pointing at target)
+        +from there on go to execute AB-N steps to calculate next step
+        +maybe combine with taylor series to get even better results
+
+can try to evaluate the drive to know in which direction to move, or can just move randomly and keep closer guesses
+    + if you add momentum to where its going, could be faster
+
+with both ways you can (after you are done) re-start and check if you can get a better solution from another start point
+    + remember best solution and its paring innit state
+    + remember already done states so you dont re-do them
+    + make sure the innit state is far from previous one
+
+        FUNC IDEAS
+
+optimal function can be ( gravity(d) (increases the closer) - f(d) (decreases with closer) ) / fuel consumed
+    d=distance
+
+    cost(d, fuelConsumed) = [ gravity - f(d) ] / fuelConsumed
+
+    f(d) needs to be constructed in such a way that grav. - f(x) has a maximum at 150km away or such
+
+find way to correlate distance with the different values that need to be optimized
+
+stop sim after a year per iteration max (find way to cut a sim as fast as possible and give it a low val)
+                low val can be a function of how long it took to be cut off
+
+add discontinuity around 15km +- orbit of desire
+add input of how long it should take max
+add planet of desire as input as well
+
+gradient descent backwards
+- x1_n+1 = x1_n + step * f_x1(x1,...,xn) -> derivative in respect to the var
+- you must calculate gradient & minimize function evals since they take minutes
+
+step of ascend = try to make big when function is changing slow in general & small when its changing faster
+
+
+        FUNC VALUE GIVEN (1D)
+the evaluation of this funct will be the highest couple values added together
+                /////// SOMETHING THAT TRANSLATES TO BEING IN INTERVAL FOR A LONG TIME, adding up vals of Cost
+        integral of func where ship is going is the val to maxim
+        if the integral is inside the range let it stay a bit longer ????
+
+https://youtu.be/qGdbh9O9TFY [steepest ascend]
+
+https://youtu.be/sdSj2s52CV0
+https://youtu.be/LQbBGpiw1Pc
+
+
+        TO TEST & IMPLEMENT
+-have flight to the moon which is closer and give it 7 days
+-add as default in planning the details of this to visualize in Merged.java
+-generalize for n maneuver points and make it a hyper parameter
+
+Have this in another function & the getTrajectory just returns it
+1-Take swarm step (allows for gradient calc)
+2-get best or calculate gradient and take controlled step in that dir
+3-repeat until certain amount of iterations or specified reward limit of some sort
+4-save winning plan
+
+############################################################## Heuristic search
+
+Heuristic search techniques:
+-Way to do calculated guesses to get good enough solutions to problems
+-its not a global solution alg.
+
+
+############################################################## Gradient Descent
+
+############################################################## stocastic hill climbing
+
+############################################################## https://en.wikipedia.org/wiki/Walrasian_auction
+
+
+
+ps ive written 1,984 lines of code on this project (so far and that i havent deleted) wuuujuuu

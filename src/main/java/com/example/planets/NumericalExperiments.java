@@ -3,6 +3,7 @@ package com.example.planets;
 import com.example.planets.BackEnd.CelestialEntities.CelestialBody;
 import com.example.planets.BackEnd.Models.*;
 import com.example.planets.BackEnd.NumericalMethods.*;
+import com.example.planets.BackEnd.Trajectory.Cost.Cost1;
 import com.example.planets.Data.DataGetter;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
@@ -26,12 +27,21 @@ class NumericalExperiments {
         return interval of time velocity
 
     + make test class with 1 diff eq & 3 different starting positions (1 per dim)
-        - only 1 body in this classses
+        - only 1 body in this classes
         - have them to test out stuff
+        - look up solved diff eq for this body to have
 
+    + make list of famous space stations and allow people to launch from those sites
+        - run simulations from each one of them and make it so that the result is saved and is
+            accessed when you launch from that location
+        - have a boolean so that it calculates the trajectory and saves it,
+            or if the location is not even close to an already known one, then re-calculate it
     + write documentation
     + make a test folder and add folders inside with separated test cases for everything in here (pain)
-    + make lightweight versions of the classes that are extended by heavier ones we use normally
+
+    +++ in experiment setup change add appart from printing writing in a text file
+        but instead make it a csv and write in the format, make the first line be the names of stuff
+
 
     ++++++++ MAKE TAYLOR RK'S TO CHECK PRECISION [ https://www.cfm.brown.edu/people/sg/AM35odes.pdf ]
             do one RK4 per deriv. that appears in expression, or think it out
@@ -62,7 +72,9 @@ class NumericalExperiments {
 
         //experimentSetUp();
 
-        //trajectoryTesting()
+        //trajectoryTesting();
+
+        //testingAccuracyOfSolvers();
 
     }
 
@@ -318,21 +330,24 @@ class NumericalExperiments {
 
         // make trajectory
         chrono = System.currentTimeMillis();
-        models.add( new Gravity0( longitude, latitude, new RK4(), target, numberOfStages, time ) );
+        models.add( new Gravity0( longitude, latitude, new RK4(), target, numberOfStages, time, new Cost1() ) );
         chrono = System.currentTimeMillis() - chrono;
         steps.add( 1.0 );
 
-        System.out.println("Planning took: " + chrono + "ms");
+        System.out.println("Planning took: " + chrono + "ms\n\n\n");
+
 
         double[] error = new double[] {0.0, 0.0, 0.0};
         double errorMagnitude = 0.0;
 
+        System.out.println("Showing travel");
+
         // trajectory is already done, run sim and check time step
-        System.out.println("Showing planning");
         for(int i=0; i<time/updatePeriod; i++){
             models.get(0).updatePos( updatePeriod, 1.0, true ); // every half a day
             CelestialBody targetBody = models.get(0).getShip().getTarget();
 
+            System.out.println("Target: " + target);
             System.out.println("Time intervals passed: " + time);
             System.out.println("Time interval of: " + updatePeriod + " * Days");
 
@@ -350,7 +365,7 @@ class NumericalExperiments {
             errorMagnitude = Math.sqrt( error[0]*error[0] + error[1]*error[1] + error[2]*error[2] );
 
             System.out.println("Error= X:" + error[0] + "; Y:" + error[1] + "; Z:" + error[2]);
-            System.out.println("Error magnitude: " + errorMagnitude + "km");
+            System.out.println("Error magnitude: " + errorMagnitude + "km\n\n");
 
 
 
@@ -363,6 +378,96 @@ class NumericalExperiments {
 
 
     // ############################################################################## NUM SOLVER ACCURACY CHECK SET UP
+    public static void testingAccuracyOfSolvers() {
+        //experiment setup hyper parameters
+        double time = 30;
+        boolean isDay = true;
+        int checkInterval = 1; //every how many days do you want it to print the values
+        final int TARGET = 7;
 
+        // benchmark model
+
+        /////////////////// make benchmark a precise function eval
+        /// make it a function inside of the class itself
+
+
+        //  testing models
+        ArrayList<Model3D> models = new ArrayList<Model3D>();
+        ArrayList<Double> steps = new ArrayList<Double>();
+
+        // add a model with the solver and next the step size its used with it
+        //models.add( new Gravity0( 0, Math.PI / 2.0, new Euler() ) );
+        //steps.add( 0.1 );
+
+        models.add( new TestModel1( new RK4() ) );
+        steps.add( 0.1 );
+
+        models.add( new TestModel1( new RK3() ) );
+        steps.add( 0.1);
+
+        models.add( new TestModel1( new RK2() ) );
+        steps.add( 0.1 );
+
+        models.add( new TestModel1( new Euler() ) );
+        steps.add( 0.1 );
+
+
+        double[][] errors = new double[models.size()][3];
+        double[] chrono = new double[models.size()]; //last index is the benchmark
+
+        // sim loop
+        for (int i = 0; i < time; i++) {
+            //benchmark
+            // make benchmark just a precise eval of the method thats going to be in each class
+
+            // update all models positions
+            for (int j=0; j<models.size(); j++) {
+                //start count of how much each model took here
+                chrono[j] = System.currentTimeMillis();
+                models.get(j).updatePos(1, steps.get(j), isDay);
+                //end count of how long each model here
+                chrono[j] = System.currentTimeMillis() - chrono[j];
+            }
+
+
+            //calculate errors
+            for (int j = 0; j < models.size(); j++) {
+                //errors[j][0] = benchmark.getBody(TARGET).getPos()[0] - models.get(j).getBody(TARGET).getPos()[0];
+                //errors[j][1] = benchmark.getBody(TARGET).getPos()[1] - models.get(j).getBody(TARGET).getPos()[1];
+                //errors[j][2] = benchmark.getBody(TARGET).getPos()[2] - models.get(j).getBody(TARGET).getPos()[2];
+            }
+
+
+            //prints
+            if ((i + 1) % checkInterval == 0) {
+                System.out.println("Day: " + (i + 1) + "\n");
+
+                for (int j = 0; j < models.size(); j++) {
+                    System.out.println( models.get(j).getSolverName() );
+                    System.out.println("Execution time: " + chrono[j] + "ms");
+                    System.out.println("Sim time: " + models.get(j).getTime() + "s");
+                    System.out.println("step size: " + steps.get(j) + "s");
+                    System.out.println("Error= X: " + errors[j][0] + "; Y: " + errors[j][1] + "; Z: " + errors[j][2]);
+                    double sum = 0.0;
+                    for(int k=0; k<3; k++)
+                        sum += errors[j][k]*errors[j][k];
+                    sum = Math.sqrt(sum);
+                    System.out.println("Error magnitude: " + sum + "km\n");
+
+                }
+
+                double sum = 0.0;
+                for(int k=0; k<chrono.length; k++){
+                    sum += chrono[k];
+                }
+
+                System.out.println("Total run time of this interval: " + sum + "ms");
+                System.out.println("\n");
+            }
+
+
+        }
+
+    }
 
 }

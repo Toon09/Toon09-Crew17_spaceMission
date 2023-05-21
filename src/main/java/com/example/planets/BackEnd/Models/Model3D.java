@@ -51,6 +51,18 @@ public interface Model3D {
      */
     public void addDt(double dt);
 
+    /**
+     * Adds a number of ships specified, these ships are an exact copy to the one that already exists
+     * @param numShips number of ships to be added (without counting already existing ship)
+     */
+    public void addShips(int numShips);
+
+    /**
+     *
+     * @return
+     */
+    public int getAmountOfShips();
+
     // ####################################################################### getters
 
     /**
@@ -112,6 +124,12 @@ public interface Model3D {
      * @return returns 1 spaceship from the model
      */
     public Spaceship getShip();
+
+    /**
+     * Gets a specific spaceship from the model, identified by the index
+     * @return returns a spaceship from the model
+     */
+    public Spaceship getShip(int index);
 
     /**
      * @return amount of Celestial bodies (including spaceShips)
