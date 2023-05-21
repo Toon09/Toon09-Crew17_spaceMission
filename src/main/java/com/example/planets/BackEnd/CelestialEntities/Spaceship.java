@@ -95,7 +95,7 @@ public class Spaceship extends CelestialBody {
         if(plan == null){ return; }
         double time = model.getTime();
         if(time >= plan.getCurrent()[1]){
-            usedFuel+=fuelConsumption*(plan.getCurrent()[1]-plan.getCurrent()[0]);
+            usedFuel+=(getForce()/maxForce)*fuelConsumption*(plan.getCurrent()[1]-plan.getCurrent()[0]);
             plan.nextDirection();
         }
         if(time>= plan.getCurrent()[0]){
@@ -119,11 +119,11 @@ public class Spaceship extends CelestialBody {
         // plan.getCurrent()[1] gives an array with 3 things:
         // [0:acc in x, 1:acc in y, 2:acc in z]
 
-        useFuel(getForce()/maxForce);
+        //useFuel(getForce()/maxForce);
 
     }
 
-    public void useFuel(double percentage) { usedFuel += percentage*fuelConsumption; }
+    //public void useFuel(double percentage) { usedFuel += percentage*fuelConsumption; }
 
     private void addPos(double[] pos){
         this.pos[0] += pos[0];
