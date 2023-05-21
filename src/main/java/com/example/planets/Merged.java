@@ -186,7 +186,7 @@ public class Merged extends Application {
                 for (int i = 0; i < 12; i++) {
                     setPosition(world.getChildren().get(i), model.getBody(i));
                 }
-                fuelUsed.setText(Double.toString(model.getShip().getUsedFuel()));
+               // fuelUsed.setText(Double.toString(model.getShip().getUsedFuel()));
                 if (lookAtEarth) {
                     camera.setTranslateX(model.getBody(3).getPos()[0] / scale + 1000);
                     camera.setTranslateY(model.getBody(3).getPos()[1] / scale + 2000);
