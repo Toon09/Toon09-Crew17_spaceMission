@@ -3,15 +3,10 @@ package com.example.planets;
 import com.example.planets.BackEnd.CelestialEntities.CelestialBody;
 import com.example.planets.BackEnd.Models.*;
 import com.example.planets.BackEnd.NumericalMethods.*;
-import com.example.planets.BackEnd.Trajectory.Cost.Cost1;
+import com.example.planets.BackEnd.Trajectory.Cost.PlanetaryRing;
 import com.example.planets.Data.DataGetter;
-import org.apache.poi.ss.usermodel.*;
-import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
-import java.io.*;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Iterator;
 
 
 class NumericalExperiments {
@@ -330,7 +325,7 @@ class NumericalExperiments {
 
         // make trajectory
         chrono = System.currentTimeMillis();
-        models.add( new Gravity0( longitude, latitude, new RK4(), target, numberOfStages, time, new Cost1() ) );
+        models.add( new Gravity0( longitude, latitude, new RK4(), target, numberOfStages, time, new PlanetaryRing() ) );
         chrono = System.currentTimeMillis() - chrono;
         steps.add( 1.0 );
 
