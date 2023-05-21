@@ -91,9 +91,19 @@ public class Spaceship extends CelestialBody {
 
 
 
-    public void accelerate(double dt){
+    public void accelerate(Gravity0 model){
         if(plan == null){ return; }
-
+        double time = model.getTime();
+        if(time >= plan.getCurrent()[1]){
+            plan.nextDirection();
+        }
+        if(time>= plan.getCurrent()[0]){
+            double [] current = getAcc();
+            for (int i =0; i<current.length; i++){
+                current[i]+=plan.getCurrent()[i+2];
+            }
+            setAcc(current);
+        }
         // from plan get current direction & accelerate in those
         //double[] acc1 = plan.getCurrent();
         //time = endPoint - startPoint
