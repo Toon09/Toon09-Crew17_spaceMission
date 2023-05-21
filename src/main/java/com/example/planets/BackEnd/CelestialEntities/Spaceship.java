@@ -108,9 +108,9 @@ public class Spaceship extends CelestialBody {
         //double[] acc1 = plan.getCurrent();
         //time = endPoint - startPoint
         //double[] goalAcc;
+        // currAccX, Y, Z = vel[0, 1, 2];
+        // accRateX, Y, Z (goalAcc - currAcc) / time
         // for(int = 0; i < time / dt; i++) {
-            // currAccX, Y, Z = vel[0, 1, 2];
-            // accRateX, Y, Z (goalAcc - currAcc) / time
             // addVel(new double[]{accRateX, Y, Z});
         // }
 
@@ -118,7 +118,7 @@ public class Spaceship extends CelestialBody {
         // plan.getCurrent()[1] gives an array with 3 things:
         // [0:acc in x, 1:acc in y, 2:acc in z]
 
-        //useFuel(percentage);
+        useFuel(getForce()/maxForce);
 
     }
 

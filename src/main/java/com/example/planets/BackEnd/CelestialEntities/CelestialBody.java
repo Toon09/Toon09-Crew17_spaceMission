@@ -106,6 +106,10 @@ public class CelestialBody {
     public double[] getPos(){ return pos; }
     public double[] getVel(){ return vel; }
     public double[] getAcc(){ return acc; }
+    public double getForce() {
+        double[] acc = getAcc();
+        return Math.sqrt(acc[0]*acc[0] + acc[1]*acc[1] + acc[2]*acc[2])*mass;
+    }
     public double getMass(){ return mass; }
     public double getRadius(){ return radius; }
     public String getName(){ return name; }
