@@ -75,15 +75,15 @@ public class Merged extends Application {
         camera.setNearClip(1);
 
         //label and progressbar to show the fuel
-        Label title = new Label("Fuel remaining:");
-        title.setTextFill(Color.WHITE);
-        Label progressLabel = new Label("100000000");
+        Label fuelUsed = new Label("Fuel used:");
+        fuelUsed.setTextFill(Color.WHITE);
+        Label progressLabel = new Label("0");
         progressLabel.setTranslateY(20);
         progressLabel.setTextFill(Color.WHITE);
         ProgressBar fuelBar = new ProgressBar(0.5);
         fuelBar.setPrefSize(200,20);
         fuelBar.setLayoutY(40);
-        root.getChildren().addAll(worldScene, title, fuelBar, progressLabel);
+        root.getChildren().addAll(worldScene, fuelUsed, fuelBar, progressLabel);
         //initial camera setting
         worldScene.setCamera(camera);
         Rotate worldRotX = new Rotate(0, Rotate.X_AXIS);
@@ -182,9 +182,11 @@ public class Merged extends Application {
             @Override
             public void run() {
                 model.updatePos(0.05, 1.6, true);
+
                 for (int i = 0; i < 12; i++) {
                     setPosition(world.getChildren().get(i), model.getBody(i));
                 }
+                fuelUsed.setText(Double.toString(model.getShip().getUsedFuel()));
                 if (lookAtEarth) {
                     camera.setTranslateX(model.getBody(3).getPos()[0] / scale + 1000);
                     camera.setTranslateY(model.getBody(3).getPos()[1] / scale + 2000);
@@ -222,9 +224,7 @@ public class Merged extends Application {
                     path[counter].setTranslateZ(model.getBody(11).getPos()[2] / scale);
                     counter++;
                 }
-                if(model.getTime() == 10){
-                    //model.getShip().accelerate();
-                }
+
             }
         },5,40);
     }
