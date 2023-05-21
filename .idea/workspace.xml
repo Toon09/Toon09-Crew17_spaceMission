@@ -4,10 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="bab05458-8716-4abd-8f37-31e577e5aaab" name="Changes" comment="Added whole trajecotry making and usage structure as well as ideas to generate them">
+    <list default="true" id="bab05458-8716-4abd-8f37-31e577e5aaab" name="Changes" comment="renamed an unimplemented method based on whats supposed to be (not yet done)">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/planets/BackEnd/Trajectory/Cost/Cost1.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/planets/BackEnd/Trajectory/Cost/PlanetaryRing.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/planets/NumericalExperiments.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/planets/NumericalExperiments.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/planets/BackEnd/Trajectory/listOfIdeas.txt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/planets/BackEnd/Trajectory/listOfIdeas.txt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -128,13 +127,6 @@
       <workItem from="1683209681075" duration="3407000" />
       <workItem from="1683820709833" duration="618000" />
       <workItem from="1683841240613" duration="1723000" />
-    </task>
-    <task id="LOCAL-00017" summary="path I guess">
-      <created>1679606407748</created>
-      <option name="number" value="00017" />
-      <option name="presentableId" value="LOCAL-00017" />
-      <option name="project" value="LOCAL" />
-      <updated>1679606407748</updated>
     </task>
     <task id="LOCAL-00018" summary="tesring">
       <created>1682932589486</created>
@@ -472,7 +464,14 @@
       <option name="project" value="LOCAL" />
       <updated>1684700842463</updated>
     </task>
-    <option name="localTasksCounter" value="66" />
+    <task id="LOCAL-00066" summary="renamed an unimplemented method based on whats supposed to be (not yet done)">
+      <created>1684701682768</created>
+      <option name="number" value="00066" />
+      <option name="presentableId" value="LOCAL-00066" />
+      <option name="project" value="LOCAL" />
+      <updated>1684701682768</updated>
+    </task>
+    <option name="localTasksCounter" value="67" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -490,7 +489,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="GUI, progress bar, two labels, change of the scene structure ( adding a sub-scene ) and code cleanup" />
     <MESSAGE value="getState only copies values, no references" />
     <MESSAGE value="RK4 implemented and FRK2 finished, FRK2 needs check" />
     <MESSAGE value="documentation and time keeping in individual models added" />
@@ -515,7 +513,8 @@
     <MESSAGE value="changed distance function" />
     <MESSAGE value="changed planning and added trajectory" />
     <MESSAGE value="Added whole trajecotry making and usage structure as well as ideas to generate them" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added whole trajecotry making and usage structure as well as ideas to generate them" />
+    <MESSAGE value="renamed an unimplemented method based on whats supposed to be (not yet done)" />
+    <option name="LAST_COMMIT_MESSAGE" value="renamed an unimplemented method based on whats supposed to be (not yet done)" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
