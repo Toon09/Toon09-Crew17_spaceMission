@@ -95,6 +95,7 @@ public class Spaceship extends CelestialBody {
         if(plan == null){ return; }
         double time = model.getTime();
         if(time >= plan.getCurrent()[1]){
+            usedFuel+=fuelConsumption*(plan.getCurrent()[1]-plan.getCurrent()[0]);
             plan.nextDirection();
         }
         if(time>= plan.getCurrent()[0]){
