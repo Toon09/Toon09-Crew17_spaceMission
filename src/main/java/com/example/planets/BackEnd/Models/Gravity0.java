@@ -14,7 +14,7 @@ public class Gravity0 implements Model3D {
     public static final double G = 6.6743 * Math.pow(10, -20);
     private CelestialBody[] bodies;
     private int spaceShipStart = 0;
-    private int amountOfShips = 0;
+    private int amountOfShips = 1;
     private NumSolver numSolver;
 
     private double time = 0;

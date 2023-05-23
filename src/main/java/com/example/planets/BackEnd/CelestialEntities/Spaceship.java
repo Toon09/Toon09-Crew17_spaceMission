@@ -109,9 +109,7 @@ public class Spaceship extends CelestialBody {
             return;
 
         calcCost(getTarget(), dt, getUsedFuel());
-
-        if( trajectoryChangeCondition(time) )
-            accelerate(time);
+        accelerate(time);
 
     }
 
@@ -133,6 +131,7 @@ public class Spaceship extends CelestialBody {
 
 
     public void accelerate(double time){
+        System.out.println("acc");
         if(time >= plan.getCurrent()[1]){
             usedFuel+=(getForce()/maxForce)*fuelConsumption*(plan.getCurrent()[1]-plan.getCurrent()[0]);
             plan.nextDirection();
@@ -159,7 +158,6 @@ public class Spaceship extends CelestialBody {
         // [0:acc in x, 1:acc in y, 2:acc in z]
 
         //useFuel(getForce()/maxForce);
-
     }
 
     private void calcCost(CelestialBody target, double dt, double fuel){
