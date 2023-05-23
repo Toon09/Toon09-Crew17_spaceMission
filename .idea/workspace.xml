@@ -4,45 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="bab05458-8716-4abd-8f37-31e577e5aaab" name="Changes" comment="renamed an unimplemented method based on whats supposed to be (not yet done)">
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_22_03_2023_14_43__Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_22_03_2023_14_43__Changes_.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_23_03_2023_11_42__Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_23_03_2023_11_42__Changes_.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_23_03_2023_17_37__Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_23_03_2023_17_37__Changes_.xml" afterDir="false" />
+    <list default="true" id="bab05458-8716-4abd-8f37-31e577e5aaab" name="Changes" comment="added stuff">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/planets/BackEnd/CelestialEntities/Spaceship.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/planets/BackEnd/CelestialEntities/Spaceship.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/planets/BackEnd/Models/Gravity0.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/planets/BackEnd/Models/Gravity0.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/planets/BackEnd/Models/TestModel1.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/planets/BackEnd/Models/TestModel2.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/planets/BackEnd/Models/TestModel3.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/planets/NumericalExperiments.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/planets/NumericalExperiments.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/example/planets/BackEnd/CelestialEntities/CelestialBody.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/example/planets/BackEnd/CelestialEntities/Spaceship.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/example/planets/BackEnd/Models/Gravity0.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/example/planets/BackEnd/Models/Model3D.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/example/planets/BackEnd/NumericalMethods/AB2.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/example/planets/BackEnd/NumericalMethods/Euler.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/example/planets/BackEnd/NumericalMethods/LeapFrog.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/example/planets/BackEnd/NumericalMethods/NumSolver.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/example/planets/BackEnd/NumericalMethods/RK2.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/example/planets/BackEnd/NumericalMethods/RK4.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/example/planets/Merged$1.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/example/planets/Merged$2.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/example/planets/Merged$3.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/example/planets/Merged.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/example/planets/NumericalExperiments.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/example/planets/hello-view.fxml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/earthTexture.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/jupiterTexture.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/marsTexture.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/mercuryTexture.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/module-info.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/moonTexture.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/neptuneTexture.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/saturnTexture.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/sunTexture.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/titanTexture.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/uranusTexture.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/venusTexture.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/planets/BackEnd/Trajectory/Cost/PlanetaryRing.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/planets/BackEnd/Trajectory/Cost/PlanetaryRing.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/planets/Merged.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/planets/Merged.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -112,7 +79,7 @@
       <recent name="C:\Users\suszw\Desktop\uni\year_1\Period4\plswork\src\main" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.NumericalExperiments">
+  <component name="RunManager" selected="Application.Merged">
     <configuration name="Merged" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="com.example.planets.Merged" />
       <module name="Planets" />
@@ -141,8 +108,8 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.NumericalExperiments" />
         <item itemvalue="Application.Merged" />
+        <item itemvalue="Application.NumericalExperiments" />
       </list>
     </recent_temporary>
   </component>
@@ -164,13 +131,6 @@
       <workItem from="1683209681075" duration="3407000" />
       <workItem from="1683820709833" duration="618000" />
       <workItem from="1683841240613" duration="1723000" />
-    </task>
-    <task id="LOCAL-00018" summary="tesring">
-      <created>1682932589486</created>
-      <option name="number" value="00018" />
-      <option name="presentableId" value="LOCAL-00018" />
-      <option name="project" value="LOCAL" />
-      <updated>1682932589486</updated>
     </task>
     <task id="LOCAL-00019" summary="tesring">
       <created>1682932644345</created>
@@ -508,7 +468,14 @@
       <option name="project" value="LOCAL" />
       <updated>1684701682768</updated>
     </task>
-    <option name="localTasksCounter" value="67" />
+    <task id="LOCAL-00067" summary="added stuff">
+      <created>1684838251671</created>
+      <option name="number" value="00067" />
+      <option name="presentableId" value="LOCAL-00067" />
+      <option name="project" value="LOCAL" />
+      <updated>1684838251672</updated>
+    </task>
+    <option name="localTasksCounter" value="68" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -526,7 +493,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="getState only copies values, no references" />
     <MESSAGE value="RK4 implemented and FRK2 finished, FRK2 needs check" />
     <MESSAGE value="documentation and time keeping in individual models added" />
     <MESSAGE value="change experiment set up and added ideas for GUI in merged" />
@@ -551,17 +517,7 @@
     <MESSAGE value="changed planning and added trajectory" />
     <MESSAGE value="Added whole trajecotry making and usage structure as well as ideas to generate them" />
     <MESSAGE value="renamed an unimplemented method based on whats supposed to be (not yet done)" />
-    <option name="LAST_COMMIT_MESSAGE" value="renamed an unimplemented method based on whats supposed to be (not yet done)" />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/example/planets/Merged.java</url>
-          <line>183</line>
-          <option name="timeStamp" value="2" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
+    <MESSAGE value="added stuff" />
+    <option name="LAST_COMMIT_MESSAGE" value="added stuff" />
   </component>
 </project>

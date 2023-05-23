@@ -9,6 +9,6 @@ public class PlanetaryRing implements CostFunction{
      */
     @Override
     public double calcCost(double fuel, CelestialBody target) {
-        return 1;
+        return 0;
     }
 }

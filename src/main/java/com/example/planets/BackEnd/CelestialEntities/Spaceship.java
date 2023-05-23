@@ -105,30 +105,13 @@ public class Spaceship extends CelestialBody {
     }
 
     public void executePlans(double time, double dt){
-        if( plan == null )
-            return;
 
-        calcCost(getTarget(), dt, getUsedFuel());
-
-        accelerate(time);
-
-    }
-
-
-    public boolean trajectoryChangeCondition(double time) {
-        // if this is true, then accelerate(double dt) happens
-        // as soon as its false call the method plan.nextDirection()
-        // this allows for the info of the next stage to be looked at
-        // with the plan.getCurrent()
-
-        // do plan.getCurrent() to get the info you need
-        // plan.getCurrent()[0] gives an array with 2 things:
-        // [0:start of time interval, 1:end of time interval]
-
-        return false;
+        if( plan != null ){
+            calcCost(getTarget(), dt, getUsedFuel());
+            accelerate(time);
+        }
 
     }
-
 
 
     public void accelerate(double time){

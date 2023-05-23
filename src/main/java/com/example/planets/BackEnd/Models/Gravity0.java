@@ -55,10 +55,10 @@ public class Gravity0 implements Model3D {
         this.bodies = new CelestialBody[ positions.length+1 ];
         for(int i=0; i<this.bodies.length-1; i++){
             this.bodies[i] = new CelestialBody(names[i], mass[i], positions[i], velocity[i]);
-            spaceShipStart = i;
+            spaceShipStart = i+1;
         }
         this.bodies[ this.bodies.length-1 ] = new Spaceship(50000, positions[3], velocity[3], longitude, latitude);
-        //amountOfShips=1;
+        amountOfShips=1;
 
     }
 
@@ -85,13 +85,13 @@ public class Gravity0 implements Model3D {
 
             // creating bodies with said data
             this.bodies[i] = new CelestialBody(names[i], mass[i], data[0], data[1]);
-            spaceShipStart = i;
+            spaceShipStart = i+1;
         }
 
         data = dataGet.getTxtExpData(0, folderName + "/Earth.txt");
 
         this.bodies[ this.bodies.length-1 ] = new Spaceship(50000, data[0], data[1], longitude, latitude);
-        //amountOfShips=1;
+        amountOfShips=1;
 
     }
 
@@ -113,7 +113,7 @@ public class Gravity0 implements Model3D {
         this.bodies = new CelestialBody[ positions.length+1 ];
         for(int i=0; i<this.bodies.length-1; i++){
             this.bodies[i] = new CelestialBody(names[i], mass[i], positions[i], velocity[i]);
-            spaceShipStart = i;
+            spaceShipStart = i+1;
         }
         this.bodies[ this.bodies.length-1 ] = new Spaceship(50000, positions[3], velocity[3],
                                         longitude, latitude, cost);
@@ -134,7 +134,6 @@ public class Gravity0 implements Model3D {
             newBodies[i] = getShip().clone();
 
         amountOfShips += numShips;
-
         bodies = newBodies;
     }
 
