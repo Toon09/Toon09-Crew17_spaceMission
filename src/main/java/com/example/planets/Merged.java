@@ -153,7 +153,7 @@ public class Merged extends Application {
             @Override
             public void run() {
                 model.updatePos(0.1, 0.1, true);
-                for (int i = 0; i < 11; i++) {
+                for (int i = 0; i < 12; i++) {
                     setPosition(world.getChildren().get(i), model.getBody(i));
                 }
                 fuel.setTranslateX(camera.getTranslateX()+300);
@@ -351,7 +351,7 @@ public class Merged extends Application {
         rocketBase.setMaterial(rocketBaseMaterial);
 
         // create the path of the rocket
-        Cylinder rocketPath = new Cylinder(100, 1000);
+        Cylinder rocketPath = new Cylinder(200, 2000);
         setPosition(rocketPath, 3);
         rocketPath.setRotate(90);
         rocketPath.setTranslateX(rocketPath.getTranslateX() + earth.getRadius() + 100);
