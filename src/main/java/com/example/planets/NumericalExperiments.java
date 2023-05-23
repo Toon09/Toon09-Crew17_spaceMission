@@ -69,7 +69,7 @@ class NumericalExperiments {
 
         //trajectoryTesting();
 
-        testingAccuracyOfSolvers();
+        //testingAccuracyOfSolvers();
 
     }
 
@@ -363,6 +363,8 @@ class NumericalExperiments {
             System.out.println("Error magnitude: " + errorMagnitude + "km\n\n");
 
 
+
+
         }
 
 
@@ -391,9 +393,6 @@ class NumericalExperiments {
         // add a model with the solver and next the step size its used with it
         //models.add( new Gravity0( 0, Math.PI / 2.0, new Euler() ) );
         //steps.add( 0.1 );
-    /*
-
-
 
         models.add( new TestModel1( new RK4() ) );
         steps.add( 0.1 );
@@ -419,7 +418,7 @@ class NumericalExperiments {
         models.add( new TestModel2( new RK2() ) );
         steps.add( 0.1 );
 
-*/
+
         double[][] errors = new double[models.size()][3];
         double[] chrono = new double[models.size()]; //last index is the benchmark
 
@@ -440,9 +439,9 @@ class NumericalExperiments {
 
             //calculate errors
             for (int j = 0; j < models.size(); j++) {
-                //errors[j][0] = benchmark.getBody(TARGET).getPos()[0] - models.get(j).getBody(TARGET).getPos()[0];
-                //errors[j][1] = benchmark.getBody(TARGET).getPos()[1] - models.get(j).getBody(TARGET).getPos()[1];
-                //errors[j][2] = benchmark.getBody(TARGET).getPos()[2] - models.get(j).getBody(TARGET).getPos()[2];
+                // errors[j][0] = benchmark.getBody(TARGET).getPos()[0] - models.get(j).getBody(TARGET).getPos()[0];
+                // errors[j][1] = benchmark.getBody(TARGET).getPos()[1] - models.get(j).getBody(TARGET).getPos()[1];
+                // errors[j][2] = benchmark.getBody(TARGET).getPos()[2] - models.get(j).getBody(TARGET).getPos()[2];
             }
 
 
