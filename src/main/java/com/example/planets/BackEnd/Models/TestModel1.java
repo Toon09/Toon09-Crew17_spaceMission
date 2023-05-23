@@ -87,7 +87,9 @@ public class TestModel1 implements Model3D{
 
     @Override
     public void hDeriv() {
-
+        bodies[0].setAcc(new double{Math.cos(getTime()) - getAcc()[0]/3,
+                                    Math.cos(getTime()) - getAcc()[1]/3,
+                                    Math.cos(getTime()) - getAcc()[2]/3});
     }
 
     @Override
@@ -102,7 +104,20 @@ public class TestModel1 implements Model3D{
 
     @Override
     public void updatePos(double time, double dt, boolean inDays) {
+        hDeriv();
+        if( inDays ){
+            for(int i=0; i<CelestialBody.daysToSec(time)/Math.abs(dt); i++ )
+                numSolver.step(this, dt);
+        //uses seconds to calculate how long to run
+        }else{
+            for(int i=0; i<time/Math.abs(dt); i++ )
+                numSolver.step(this, dt);
+            
+        }
+    }
 
+    public double actualValue(double t) {
+        return 9/10*Math.sin(t) + 3/10*(Math.cos(t) - Math.exp(-t/3));
     }
 
 }

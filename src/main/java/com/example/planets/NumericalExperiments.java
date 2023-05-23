@@ -63,13 +63,13 @@ class NumericalExperiments {
     public static void main(String[] args) {
         //engineTest()
 
-        comparingToEachOther();
+        //comparingToEachOther();
 
         //experimentSetUp();
 
         //trajectoryTesting();
 
-        //testingAccuracyOfSolvers();
+        testingAccuracyOfSolvers();
 
     }
 
@@ -406,6 +406,18 @@ class NumericalExperiments {
         models.add( new TestModel1( new Euler() ) );
         steps.add( 0.1 );
 
+        models.add( new TestModel2( new Euler() ) );
+        steps.add( 0.1 );
+
+        models.add( new TestModel2( new RK4() ) );
+        steps.add( 0.1 );
+
+        models.add( new TestModel2( new RK3() ) );
+        steps.add( 0.1 );
+
+        models.add( new TestModel2( new RK2() ) );
+        steps.add( 0.1 );
+
 
         double[][] errors = new double[models.size()][3];
         double[] chrono = new double[models.size()]; //last index is the benchmark
@@ -427,9 +439,9 @@ class NumericalExperiments {
 
             //calculate errors
             for (int j = 0; j < models.size(); j++) {
-                //errors[j][0] = benchmark.getBody(TARGET).getPos()[0] - models.get(j).getBody(TARGET).getPos()[0];
-                //errors[j][1] = benchmark.getBody(TARGET).getPos()[1] - models.get(j).getBody(TARGET).getPos()[1];
-                //errors[j][2] = benchmark.getBody(TARGET).getPos()[2] - models.get(j).getBody(TARGET).getPos()[2];
+                errors[j][0] = benchmark.getBody(TARGET).getPos()[0] - models.get(j).getBody(TARGET).getPos()[0];
+                errors[j][1] = benchmark.getBody(TARGET).getPos()[1] - models.get(j).getBody(TARGET).getPos()[1];
+                errors[j][2] = benchmark.getBody(TARGET).getPos()[2] - models.get(j).getBody(TARGET).getPos()[2];
             }
 
 
