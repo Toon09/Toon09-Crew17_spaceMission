@@ -4,14 +4,13 @@ import com.example.planets.BackEnd.CelestialEntities.CelestialBody;
 import com.example.planets.BackEnd.Models.Gravity0;
 import com.example.planets.BackEnd.NumericalMethods.*;
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.geometry.Point3D;
 import javafx.scene.*;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.PhongMaterial;
 import javafx.scene.shape.Box;
@@ -19,6 +18,7 @@ import javafx.scene.shape.Cylinder;
 import javafx.scene.shape.Sphere;
 import javafx.scene.transform.Rotate;
 import javafx.stage.Stage;
+
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -29,8 +29,21 @@ import java.util.TimerTask;
 //add used fuel meter
 //fix the path ( problems with changing the scale )
 
+//ToDo Actual
+// rotate textures of the planets to face the actual direction they are supposed to
+// thingie to change step size in real time
+// have screen to chose solver & innit coniditions (have an option for our chosen coords)
+// have an actual sprite for the rocket lol
+// put names of planets on top of them????
+// add some sort of background
+// fix problem where size of trajectory points of ship doesn't fit the perspective given
+
+// done from ToDo Actual
+// when you close the window the program stops too - DONE
+
+
 public class Merged extends Application {
-    static Gravity0 model = new Gravity0(0, Math.PI / 2.0, new Euler());
+    static Gravity0 model = new Gravity0(0, Math.PI / 2.0, new RK4());
     private static int scale = 25;
     private static final int smallScale = 25;
     private static final int bigScale = 3000;
@@ -53,8 +66,6 @@ public class Merged extends Application {
 
         Scene scene = new Scene(root, 1920, 1080, true);
         world.getChildren().addAll(path);
-        ProgressBar fuel = new ProgressBar(0.5);
-        fuel.setPrefSize(1500,1000);
         //background
         worldScene.setFill(Color.BLACK);
         scene.setFill(Color.BLACK);
@@ -63,12 +74,16 @@ public class Merged extends Application {
         camera.setFarClip(4000);
         camera.setNearClip(1);
 
-        Label label = new Label("aniusia");
-
-        ProgressBar progressBar = new ProgressBar(0.5);
-
-        root.getChildren().addAll(worldScene, label, progressBar);
-
+        //label and progressbar to show the fuel
+        Label fuelUsed = new Label("Fuel used:");
+        fuelUsed.setTextFill(Color.WHITE);
+        Label progressLabel = new Label("0");
+        progressLabel.setTranslateY(20);
+        progressLabel.setTextFill(Color.WHITE);
+        ProgressBar fuelBar = new ProgressBar(0.5);
+        fuelBar.setPrefSize(200,20);
+        fuelBar.setLayoutY(40);
+        root.getChildren().addAll(worldScene, fuelUsed, fuelBar, progressLabel);
         //initial camera setting
         worldScene.setCamera(camera);
         Rotate worldRotX = new Rotate(0, Rotate.X_AXIS);
@@ -90,6 +105,9 @@ public class Merged extends Application {
                     System.out.println("------------------------------------------");
                     System.out.println("camera at:");
                     System.out.println("x: " + camera.getTranslateX() + ", y: " + camera.getTranslateY() + ", z: " + camera.getTranslateZ());
+                    System.out.println("------------------------------------------");
+                    System.out.println("Time is: ");
+                    System.out.println(model.getTime());
                 }
                 case P -> System.exit(0);
                 case DIGIT1 -> {
@@ -139,6 +157,10 @@ public class Merged extends Application {
                     lookAtTitan = false;
                 }
             }
+
+            //stage.setOnCloseRequest(e -> Platform.exit());
+
+
         });
 
         world.setTranslateZ(world.getTranslateZ() + 100000);
@@ -147,18 +169,24 @@ public class Merged extends Application {
         world.setRotationAxis(new Point3D(model.getBody(3).getPos()[0], model.getBody(3).getPos()[1], model.getBody(3).getPos()[2]));
 
         stage.show();
+        stage.setOnCloseRequest(e ->
+        {
+            System.out.println("Closing");
+            Platform.exit() ;
+            stage.close();
+            System.exit(0) ;
+        });
 
         Timer timer = new Timer();
         timer.schedule(new TimerTask() {
             @Override
             public void run() {
-                model.updatePos(0.1, 0.1, true);
+                model.updatePos(0.05, 1.6, true);
+
                 for (int i = 0; i < 12; i++) {
                     setPosition(world.getChildren().get(i), model.getBody(i));
                 }
-                fuel.setTranslateX(camera.getTranslateX()+300);
-                fuel.setTranslateY(camera.getTranslateY()+300);
-                //fuel.setTranslateZ(camera.getTranslateZ()+50);
+               // fuelUsed.setText(Double.toString(model.getShip().getUsedFuel()));
                 if (lookAtEarth) {
                     camera.setTranslateX(model.getBody(3).getPos()[0] / scale + 1000);
                     camera.setTranslateY(model.getBody(3).getPos()[1] / scale + 2000);
@@ -196,6 +224,7 @@ public class Merged extends Application {
                     path[counter].setTranslateZ(model.getBody(11).getPos()[2] / scale);
                     counter++;
                 }
+
             }
         },5,40);
     }
@@ -351,7 +380,7 @@ public class Merged extends Application {
         rocketBase.setMaterial(rocketBaseMaterial);
 
         // create the path of the rocket
-        Cylinder rocketPath = new Cylinder(200, 2000);
+        Cylinder rocketPath = new Cylinder(100, 1000);
         setPosition(rocketPath, 3);
         rocketPath.setRotate(90);
         rocketPath.setTranslateX(rocketPath.getTranslateX() + earth.getRadius() + 100);
