@@ -35,6 +35,7 @@ public class Gravity0 implements Model3D {
                 spaceShipStart = i;
             }else {
                 this.bodies[i] = new CelestialBody(bodies[i].getName(), bodies[i].getMass(), bodies[i].getPos(), bodies[i].getVel());
+                //amountOfShips=1;
             }
 
         }
@@ -57,6 +58,7 @@ public class Gravity0 implements Model3D {
             spaceShipStart = i;
         }
         this.bodies[ this.bodies.length-1 ] = new Spaceship(50000, positions[3], velocity[3], longitude, latitude);
+        //amountOfShips=1;
 
     }
 
@@ -89,6 +91,7 @@ public class Gravity0 implements Model3D {
         data = dataGet.getTxtExpData(0, folderName + "/Earth.txt");
 
         this.bodies[ this.bodies.length-1 ] = new Spaceship(50000, data[0], data[1], longitude, latitude);
+        //amountOfShips=1;
 
     }
 
@@ -115,6 +118,7 @@ public class Gravity0 implements Model3D {
         this.bodies[ this.bodies.length-1 ] = new Spaceship(50000, positions[3], velocity[3],
                                         longitude, latitude, cost);
 
+        //amountOfShips=1;
         this.getShip().makePlan(this, targetPlanet, numberOfStages, maxDays);
     }
 

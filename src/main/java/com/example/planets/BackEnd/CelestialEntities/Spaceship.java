@@ -110,8 +110,7 @@ public class Spaceship extends CelestialBody {
 
         calcCost(getTarget(), dt, getUsedFuel());
 
-        if( trajectoryChangeCondition(time) )
-            accelerate(time);
+        accelerate(time);
 
     }
 
