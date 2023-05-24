@@ -7,6 +7,7 @@ import java.util.ArrayList;
 
 public class SteepestAscent implements TrajectoryPlanner {
 
+    private final int gradientOrder = 3; // must be odd number since og ship is used
     private final int numbOfSteps = 100;
     private final int numbOfStages;
     private Model3D model;
@@ -40,16 +41,23 @@ public class SteepestAscent implements TrajectoryPlanner {
         // if its acc is going over too much
 
         //make copy of copy lol
-        Model3D optimizer;
+        Model3D optimizer = model.clone();
 
-        int gradientOrder = 3; // must be odd number since og ship is used
+        ArrayList<double[]> state = new ArrayList<double[]>(numbOfStages);
+
+        state.add( new double[]{0,0,  0,0,0} );
+        state.add( new double[]{0,0,  0,0,0} );
+
+        optimizer.getShip().setPlan( state );
 
         for(int count=0; count<numbOfSteps; count++){
             // clone of initial condition
             optimizer = model.clone();
 
-            // 5 parmeters per stage and in each you calculate a derivative around the last ship
+            // "gradientOrder" parmeters per stage and in each you calculate a derivative around the last ship
             optimizer.addShips( (gradientOrder-1)*5*numbOfStages );
+
+            // set states
 
             // you calc the deriv
 

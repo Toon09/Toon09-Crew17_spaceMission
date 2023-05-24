@@ -9,7 +9,7 @@ this file consist of my todo's
 - instead of constructor have clone + add ships method, each ship is a clone of the og at the start with different state
 - have an input in grav0 that allows to select cost function as an object
     - have a folder in Trajectory with different cost functions
-- replace all nonsense in NumSolvers about spaceships witha single WELL NAME func that does all ship stuff
+- replace all nonsense in NumSolvers about spaceships with a single WELL NAME func that does all ship stuff
     -if theres a plan, calc cost & do accelerating
 
 - add trajectory calc on the way bac kas well, but instead do it from the point of view of the ship that just arrived
@@ -98,7 +98,6 @@ the evaluation of this funct will be the highest couple values added together
 https://youtu.be/qGdbh9O9TFY [steepest ascend]
 
 https://youtu.be/sdSj2s52CV0
-https://youtu.be/LQbBGpiw1Pc
 
 
         TO TEST & IMPLEMENT

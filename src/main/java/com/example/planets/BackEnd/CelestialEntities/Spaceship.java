@@ -101,6 +101,9 @@ public class Spaceship extends CelestialBody {
     }
 
     public void setPlan(ArrayList<double[]> state){
+        if( plan == null )
+            plan = new Planning();
+
         plan.setState(state);
     }
 

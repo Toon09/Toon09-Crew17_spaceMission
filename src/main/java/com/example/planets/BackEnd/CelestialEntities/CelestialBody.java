@@ -13,19 +13,30 @@ public class CelestialBody {
     protected double[] acc = new double[]{0,0,0};
 
 
+    /**
+     * converts a number of days to seconds
+     * @param days number of days thats wants to be known in seconds, can be fractional
+     * @return amount of seconds in those days
+     */
     public static double daysToSec(double days){
-        return days*60*60*24;
-    }
-
-    public static long secToDays(long sec){
-        return sec/(60*60*24);
+        return days*60.0*60.0*24.0;
     }
 
     /**
-     * Uses pythagorian theorem to calculate the distance between this body
+     * converts a number of seconds to an amount in days
+     * @param sec the number of seconds that wants to be not known in days
+     * @return number representing the amount in days, its fractional in case
+     *      the seconds dont add up exactly to a precise number of days
+     */
+    public static double secToDays(double sec){
+        return sec/(60.0*60.0*24.0);
+    }
+
+    /**
+     * Uses pythagorean theorem to calculate the distance between this body
      *      and another which is specified as @param body2
-     * @param body2
-     * @return
+     * @param body2 the other CelestialBody whose distance you want to be calculated too
+     * @return double representing the Euclidean distance
      */
     public double getDistance(CelestialBody body2){
         double a = ( this.getPos()[0] - body2.getPos()[0] );
@@ -34,8 +45,6 @@ public class CelestialBody {
 
         return Math.sqrt( a*a + b*b + c*c );
     }
-
-    public CelestialBody(){}
 
 
     public CelestialBody(double mass, double[] innitPos, double[] innitVel){

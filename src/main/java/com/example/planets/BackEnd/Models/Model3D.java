@@ -58,15 +58,15 @@ public interface Model3D {
     public void addShips(int numShips);
 
     /**
-     *
-     * @return
+     * returns how many instances of SpaceShip are inside the model
+     * @return integer that represents the amount of spaceShips
      */
     public int getAmountOfShips();
 
     // ####################################################################### getters
 
     /**
-     * Returns a 3D array of positions from an object identified by an index, the format is the following:
+     * Returns a 3D array of positions from an object identified by an index, the format is the following :
      *      [0:x, 1:y, 2:z]
      * @param index index that refers to the celestial body whose positions needs to be accessed
      * @return a 3D array of positions of the object specified in the format shown above
@@ -74,7 +74,7 @@ public interface Model3D {
     public double[] getPos(int index);
 
     /**
-     * Returns a 3D array of velocities from an object identified by an index, the format is the following:
+     * Returns a 3D array of velocities from an object identified by an index, the format is the following :
      *      [0:x, 1:y, 2:z]
      * @param index index that refers to the celestial body whose velocities needs to be accessed
      * @return a 3D array of velocities of the object specified in the format shown above
@@ -132,6 +132,7 @@ public interface Model3D {
     public Spaceship getShip(int index);
 
     /**
+     * returns the amount of entities that extend CelestialBody.java that are being simulated
      * @return amount of Celestial bodies (including spaceShips)
      */
     public int size();

@@ -15,16 +15,11 @@ class NumericalExperiments {
     ToDo
     + ENGINE
     + TRAJECTORY: https://www.sciencedirect.com/science/article/pii/S037604211830191X
-        hill climb
+        hill climbXX
         gradient descend
         genetic alg
-        ###
-        return interval of time velocity
 
-    + make test class with 1 diff eq & 3 different starting positions (1 per dim)
-        - only 1 body in this classes
-        - have them to test out stuff
-        - look up solved diff eq for this body to have
+    + make setup to test swarm step
 
     + make list of famous space stations and allow people to launch from those sites
         - run simulations from each one of them and make it so that the result is saved and is
@@ -67,7 +62,7 @@ class NumericalExperiments {
 
         //experimentSetUp();
 
-        //trajectoryTesting();
+        trajectoryTesting();
 
         //testingAccuracyOfSolvers();
 
@@ -247,7 +242,7 @@ class NumericalExperiments {
         // main loop
         for (int i = 0; i < time; i++) {
             // getting benchmark data
-            benchmark = dataGetter.getTxtExpData(i+2, TARGET_FILE);
+            benchmark = dataGetter.getTxtExpData(i+1, TARGET_FILE);
 
             //centering benchmark data with sun
             for(int j=0; j<benchmark.length; j++)
@@ -361,9 +356,6 @@ class NumericalExperiments {
 
             System.out.println("Error= X:" + error[0] + "; Y:" + error[1] + "; Z:" + error[2]);
             System.out.println("Error magnitude: " + errorMagnitude + "km\n\n");
-
-
-
 
         }
 

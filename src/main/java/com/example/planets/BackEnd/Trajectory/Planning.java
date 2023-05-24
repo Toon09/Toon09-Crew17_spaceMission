@@ -69,6 +69,8 @@ public class Planning {
 
     }
 
+    public Planning(){ }
+
 
     /**
      * this constructor is for the copy function
