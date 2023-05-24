@@ -137,10 +137,7 @@ public class Gravity0 implements Model3D {
         bodies = newBodies;
     }
 
-    /**
-     * returns last ship on the array, the rest are not "main" ships ############## CHANGE THIS
-     * @return
-     */
+
     @Override
     public Spaceship getShip(){
         if(this.getBody( this.size() -1) instanceof  Spaceship)

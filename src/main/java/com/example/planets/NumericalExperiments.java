@@ -13,6 +13,8 @@ class NumericalExperiments {
 
     /*
     ToDo
+    + change the trajectory from ArrayList<double[]> to double[][]
+
     + ENGINE
     + TRAJECTORY: https://www.sciencedirect.com/science/article/pii/S037604211830191X
         hill climbXX

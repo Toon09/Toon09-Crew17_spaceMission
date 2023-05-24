@@ -63,7 +63,7 @@ public class Planning {
                 target = model.getBody(i);
 
         //creates planner and gets trajectory
-        planner = new SteepestAscent(model, numberOfStages, targetPlanet);
+        planner = new SteepestAscent(model, numberOfStages, targetPlanet, maxDays);
 
         maneuverPoints = planner.getTrajectory();
 

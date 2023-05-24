@@ -23,10 +23,9 @@ public class Spaceship extends CelestialBody {
     private final double maxSpeed = 11000; //2,500 to 4,500 m/s (look up) according to falcon 9
     private final double accRate = 10;
     private  final double maxForce = 3 * Math.pow(10, 7); // Newtons
-    private final double fuelConsumption = 1451.5; //kg  This fuel consumption is based on the falcon 9 maximum fuel consumption, so at max acceleration the consumption is this one.
+    private final double fuelConsumption = 1451.5; //kg this fuel consumption is based on the falcon 9 maximum fuel consumption, so at max acceleration the consumption is this one.
     public double getUsedFuel(){ return usedFuel; }
     // public void setFuel(double fuel){ this.fuel = fuel; }
-
 
     /**
      *
@@ -49,6 +48,7 @@ public class Spaceship extends CelestialBody {
         this.addPos( new double[] { x, y, z } );
     }
 
+
     /**
      *
      * @param mass
@@ -68,6 +68,7 @@ public class Spaceship extends CelestialBody {
         this.addPos( new double[] { x, y, z } );
     }
 
+
     /**
      *
      * @param mass
@@ -81,8 +82,10 @@ public class Spaceship extends CelestialBody {
 
 
     /**
-     *
-     * @param body
+     * constructor used in the clone method
+     * @param body CelestialBody that contains all the physical information the previous ship had
+     * @param costFunc specifies how the body will calculate its cost for the cost function used in the
+     *                 trajectory calculation
      */
     private Spaceship(CelestialBody body, CostFunction costFunc){
         super( body.getName(), body.getMass(), body.getPos(), body.getVel());
@@ -92,14 +95,30 @@ public class Spaceship extends CelestialBody {
     }
 
 
+    /**
+     * Generates the plans that the spaceship will execute to be able to get to its traget and back
+     * @param model entity that extends Model3D
+     * @param targetPlanet name that was assigned to the entity of type CelestialBody
+     * @param numberOfStages the amount of times the rocket will thrust
+     * @param maxDays the maximum amount of days that the travel can go on for (on the way back and forward)
+     */
     public void makePlan(Model3D model, String targetPlanet, int numberOfStages, int maxDays){
         plan = new Planning(model, targetPlanet, numberOfStages, maxDays);
     }
 
+
+    /**
+     * @return entity of CelestialBody that the spaceShip wants to go to, if there is any.
+     */
     public CelestialBody getTarget(){
         return plan.getTarget();
     }
 
+
+    /**
+     * @param state takes in an ArrayList of double arrays that makes it the new
+     *              set of maneuvers that the SpaceShip will execute
+     */
     public void setPlan(ArrayList<double[]> state){
         if( plan == null )
             plan = new Planning();
@@ -107,6 +126,12 @@ public class Spaceship extends CelestialBody {
         plan.setState(state);
     }
 
+
+    /**
+     * executes all functions that need to be executed during the ships flight
+     * @param time the time that has passed until now from the start from the simulation in seconds
+     * @param dt the time step that is being used to calculate the changes in the model with the numerical solvers
+     */
     public void executePlans(double time, double dt){
 
         if( plan != null ){
@@ -117,9 +142,12 @@ public class Spaceship extends CelestialBody {
     }
 
 
+    /**
+     * @param time the time that has passed until now from the start from the simulation in seconds
+     */
     public void accelerate(double time){
         if(time >= plan.getCurrent()[1]){
-            usedFuel+=(getForce()/maxForce)*fuelConsumption*(plan.getCurrent()[1]-plan.getCurrent()[0]);
+            usedFuel += (getForce()/maxForce)*fuelConsumption*(plan.getCurrent()[1]-plan.getCurrent()[0]);
             plan.nextDirection();
         }
         if(time>= plan.getCurrent()[0]){
@@ -129,52 +157,40 @@ public class Spaceship extends CelestialBody {
             }
             setAcc(current);
         }
-        // from plan get current direction & accelerate in those
-        //double[] acc1 = plan.getCurrent();
-        //time = endPoint - startPoint
-        //double[] goalAcc;
-        // currAccX, Y, Z = vel[0, 1, 2];
-        // accRateX, Y, Z (goalAcc - currAcc) / time
-        // for(int = 0; i < time / dt; i++) {
-            // addVel(new double[]{accRateX, Y, Z});
-        // }
-
-        // do plan.getCurrent() to get the info you need
-        // plan.getCurrent()[1] gives an array with 3 things:
-        // [0:acc in x, 1:acc in y, 2:acc in z]
-
-        //useFuel(getForce()/maxForce);
 
     }
 
+
+    /**
+     * adds the cost given by the cost function to the one that we already have
+     * @param target the target CelestialBody that wants to be reached
+     * @param dt the time step that is being used to calculate the changes in the model with the numerical solvers
+     * @param fuel the fuel that has been consumed so far
+     */
     private void calcCost(CelestialBody target, double dt, double fuel){
         cost += costFunc.calcCost(fuel, target) * dt;
     }
 
-    //public void useFuel(double percentage) { usedFuel += percentage*fuelConsumption; }
 
+    /**
+     * @param pos adds the specified array of doubles to the position, must be in the following format:
+     *            [0:x, 1:y, 2:z]
+     */
     private void addPos(double[] pos){
         this.pos[0] += pos[0];
         this.pos[1] += pos[1];
         this.pos[2] += pos[2];
     }
 
-    private void addVel(double[] vel){
-        this.vel[0] += vel[0];
-        this.vel[1] += vel[1];
-        this.vel[2] += vel[2];
-    }
 
-    private void addAcc(double[] acc){
-        this.acc[0] += acc[0];
-        this.acc[1] += acc[1];
-        this.acc[2] += acc[2];
-    }
-
+    /**
+     * @return an identical copy of this entity
+     */
     public Spaceship clone() {
         CelestialBody temp = super.clone();
 
         return new Spaceship(temp, costFunc);
     }
+
 
 }

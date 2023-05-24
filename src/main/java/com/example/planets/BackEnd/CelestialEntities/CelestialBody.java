@@ -47,6 +47,13 @@ public class CelestialBody {
     }
 
 
+    /**
+     * creates an entity of this class
+     * @param mass how much mass the object has in Kg
+     * @param innitPos in Km and in the following format:
+     *                 [0:x, 1:y, 2:z]
+     * @param innitVel in Km and in the same format as the position
+     */
     public CelestialBody(double mass, double[] innitPos, double[] innitVel){
         setMass(mass);
         setPos(innitPos);
@@ -55,6 +62,14 @@ public class CelestialBody {
 
     }
 
+    /**
+     *
+     * @param name String name that is attached to this object
+     * @param mass how much mass the object has in Kg
+     * @param innitPos in Km and in the following format:
+     *      *                 [0:x, 1:y, 2:z]
+     * @param innitVel in Km and in the same format as the position
+     */
     public CelestialBody(String name, double mass, double[] innitPos, double[] innitVel){
         this.name = name;
         setMass(mass);
@@ -62,37 +77,6 @@ public class CelestialBody {
         setVel(innitVel);
 
     }
-
-    // constructor for csv file
-    public CelestialBody( String name,String x1,String x2,String x3,String v1,String v2,String v3,String m){
-        this.name = name;
-        setMass(Double.parseDouble(m));
-        setRadius(0);
-        this.pos[0] = Double.parseDouble(x1);
-        this.pos[1] = Double.parseDouble(x2);
-        this.pos[2] = Double.parseDouble(x3);
-
-        this.vel[0] = Double.parseDouble(v1);
-        this.vel[1] = Double.parseDouble(v2);
-        this.vel[2] = Double.parseDouble(v3);
-
-        switch (name) {
-            case "Sun" -> this.radius = 696340;
-            case "Mercury" -> this.radius = 2439.7;
-            case "Venus" -> this.radius = 6051.8;
-            case "Earth" -> this.radius = 6371;
-            case "Mars" -> this.radius = 3389.5;
-            case "Jupiter" -> this.radius = 69911;
-            case "Saturn" -> this.radius = 58232;
-            case "Uranus" -> this.radius = 25362;
-            case "Neptune" -> this.radius = 24622;
-            case "Pluto" -> this.radius = 1188.3;
-            default -> this.radius = 0;
-        }
-
-
-    }
-
 
 
     /**
@@ -112,29 +96,79 @@ public class CelestialBody {
 
 
     //getters
+
+    /**
+     * @return a 1D array of doubles that contain the position in Km in the following format:
+     *      [ 0:x, 1:y, 2:z ]
+     */
     public double[] getPos(){ return pos; }
+
+    /**
+     * @return a 1D array of doubles that contain the velocity in Km/s in the following format:
+     *      [ 0:x, 1:y, 2:z ]
+     */
     public double[] getVel(){ return vel; }
+
+    /**
+     * @return a 1D array of doubles that contain the acceleration in Km/s^2 in the following format:
+     *      [ 0:x, 1:y, 2:z ]
+     */
     public double[] getAcc(){ return acc; }
-    public double getForce() { return Math.sqrt(acc[0]*acc[0] + acc[1]*acc[1] + acc[2]*acc[2])*mass;
-    }
+
+    /**
+     * guys wtf you are adding the acceleration the planets give as part of how much the engine can
+     *  accelerate
+     * @return ?????
+     */
+    public double getForce() { return Math.sqrt(acc[0]*acc[0] + acc[1]*acc[1] + acc[2]*acc[2])*mass; }
+
+    /**
+     * @return mass in Kg
+     */
     public double getMass(){ return mass; }
-    public double getRadius(){ return radius; }
+
+    // public double getRadius(){ return radius; }
+
+    /**
+     * @return name assigned to planet, if any was assigned to it
+     */
     public String getName(){ return name; }
 
     //setters
-    public void setMass(double mass){ this.mass = mass; }
-    public void setRadius(double radius){ this.radius = radius; }
-    public void setName(String name){ this.name = name; }
+
+    /**
+     * @param mass mass that is going to replace the one that entity currently has
+     */
+    private void setMass(double mass){ this.mass = mass; }
+    // public void setRadius(double radius){ this.radius = radius; }
+
+    /**
+     * Changes the current position to one that is specified as a 1D array of doubles
+     *  in this format: [0:x, 1:y, 2:z]
+     * @param pos 1D array in the following format
+     */
     public void setPos(double[] pos){
         this.pos[0] = pos[0];
         this.pos[1] = pos[1];
         this.pos[2] = pos[2];
     }
+
+    /**
+     * Changes the current velocity to one that is specified as a 1D array of doubles
+     *  in this format: [0:x, 1:y, 2:z]
+     * @param vel 1D array in the following format
+     */
     public void setVel(double[] vel){
         this.vel[0] = vel[0];
         this.vel[1] = vel[1];
         this.vel[2] = vel[2];
     }
+
+    /**
+     * Changes the current acceleration to one that is specified as a 1D array of doubles
+     *  in this format: [0:x, 1:y, 2:z]
+     * @param acc 1D array in the following format
+     */
     public void setAcc(double[] acc){
         this.acc[0] = acc[0];
         this.acc[1] = acc[1];
@@ -176,4 +210,5 @@ public class CelestialBody {
     public CelestialBody clone() {
         return new CelestialBody(this.getName(), this.getMass(), this.getPos(), this.getVel());
     }
+
 }
