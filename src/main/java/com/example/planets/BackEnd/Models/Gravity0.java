@@ -25,19 +25,22 @@ public class Gravity0 implements Model3D {
      * @param bodies 1D array of CelestialBodies which is used to copy each one of them
      * @param numSolver type of numerical solver to be used
      */
-    private Gravity0(CelestialBody[] bodies, NumSolver numSolver){
+    private Gravity0(CelestialBody[] bodies, NumSolver numSolver, int amountOfShips){
         this.numSolver = numSolver;
 
-        this.bodies = new CelestialBody[ positions.length+1 ];
+        if(amountOfShips==0)
+            amountOfShips=1;
+
+        this.bodies = new CelestialBody[ positions.length+amountOfShips ]; // error with when there are ships and no ships
         for(int i=0; i<bodies.length; i++){
             if( bodies[i] instanceof Spaceship ){
                 this.bodies[i] = (CelestialBody) new Spaceship(bodies[i].getMass(), bodies[i].getPos(), bodies[i].getVel());
                 spaceShipStart = i;
             }else {
                 this.bodies[i] = new CelestialBody(bodies[i].getName(), bodies[i].getMass(), bodies[i].getPos(), bodies[i].getVel());
-                //amountOfShips=1;
-            }
 
+            }
+        this.amountOfShips = amountOfShips;
         }
 
     }
@@ -285,12 +288,12 @@ public class Gravity0 implements Model3D {
 
     @Override
     public Model3D clone(NumSolver numSolver) {
-        return new Gravity0(this.bodies, numSolver);
+        return new Gravity0(this.bodies, numSolver, amountOfShips);
     }
 
     @Override
     public Model3D clone() {
-        return new Gravity0(this.bodies, this.numSolver);
+        return new Gravity0(this.bodies, this.numSolver, amountOfShips);
     }
 
     public final static double[][] positions = { { 0, 0, 0 }, { 7.83e6, 4.49e7, 2.87e6 }, { -2.82e7, 1.04e8, 3.01e6 },

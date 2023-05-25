@@ -3,6 +3,7 @@ package com.example.planets.BackEnd.CelestialEntities;
 import com.example.planets.BackEnd.Models.Gravity0;
 import com.example.planets.BackEnd.Models.Model3D;
 import com.example.planets.BackEnd.Trajectory.Cost.CostFunction;
+import com.example.planets.BackEnd.Trajectory.Cost.PlanetaryRing;
 import com.example.planets.BackEnd.Trajectory.Planning;
 
 import java.util.ArrayList;
@@ -18,7 +19,7 @@ public class Spaceship extends CelestialBody {
     private double usedFuel;
     //has all the information of where to go and such
     Planning plan;
-    CostFunction costFunc;
+    CostFunction costFunc = new PlanetaryRing();
     double cost=0.0;
     private final double maxSpeed = 11000; //2,500 to 4,500 m/s (look up) according to falcon 9
     private final double accRate = 10;
@@ -119,11 +120,19 @@ public class Spaceship extends CelestialBody {
      * @param state takes in an ArrayList of double arrays that makes it the new
      *              set of maneuvers that the SpaceShip will execute
      */
-    public void setPlan(ArrayList<double[]> state){
+    public void setPlan(double[][] state){
         if( plan == null )
             plan = new Planning();
 
         plan.setState(state);
+    }
+
+    public double getCost(){
+        return cost;
+    }
+
+    public double[][] getPlan(){
+        return plan.getAll();
     }
 
 
@@ -146,14 +155,25 @@ public class Spaceship extends CelestialBody {
      * @param time the time that has passed until now from the start from the simulation in seconds
      */
     public void accelerate(double time){
-        if(time >= plan.getCurrent()[1]){
-            usedFuel += (getForce()/maxForce)*fuelConsumption*(plan.getCurrent()[1]-plan.getCurrent()[0]);
+        if( time >= plan.getCurrent()[1]  ){
+            // in getForce get value of the acc given in plan
+            //make plan just give acc & fuel consumption be 1 (in requirements)
+            //plans are being set equal and copied by reference, not value
+            double force = 0.0;
+            for (int i=0; i<3; i++)
+                force += plan.getCurrent()[i+2]*plan.getCurrent()[i+2];
+
+            force = Math.sqrt(force);
+
+            usedFuel += (force/maxForce)*fuelConsumption*(plan.getCurrent()[1]-plan.getCurrent()[0]);
             plan.nextDirection();
+
+            System.out.println("the fuel added: " + (force/maxForce)*fuelConsumption*(plan.getCurrent()[1]-plan.getCurrent()[0]));
         }
-        if(time>= plan.getCurrent()[0]){
+        if(time >= plan.getCurrent()[0] && time <= plan.getCurrent()[1]){
             double [] current = getAcc();
             for (int i =0; i<current.length; i++){
-                current[i]+=plan.getCurrent()[i+2];
+                current[i]+= getAcc()[i] + plan.getCurrent()[i+2];
             }
             setAcc(current);
         }

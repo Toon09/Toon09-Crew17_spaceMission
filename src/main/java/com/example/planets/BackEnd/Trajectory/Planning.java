@@ -21,7 +21,8 @@ public class Planning {
 
     // this arrayList contains 2D arrays of:
     //[ 0:start of time interval, 1:end of interval, 2:acc. in x, 3:acc. in y, 4:acc. in z ]
-    private ArrayList<double[]> maneuverPoints;
+    // a different maneuver of these on each diemnsion
+    private double[][] maneuverPoints;
     private CelestialBody target;
 
     private TrajectoryPlanner planner;
@@ -30,21 +31,32 @@ public class Planning {
      * increases the count to access the next maneuverPoint that needs to be checked and executed
      */
     public void nextDirection(){
-        if(countOfStages < maneuverPoints.size())
-            countOfStages++;
-        else
-            countOfStages=0;
+        countOfStages++;
+        if(countOfStages >= maneuverPoints.length){
+            countOfStages = 0;
+            System.out.println("PPPPPPPPEEEEEEEEEEEEEEPPPPPPPPPPPPPPPEEEEEEEE reseted");
+        }
+
+
 
     }
 
     /**
      * Gets the current maneuver that needs to be executed in the following format:
-     *      first dimension  [ , 1:end of interva0:start of time intervall ] //times to start and stop accelerating
+     *      first dimension  [0:start of time interval, 1:end of interval ] //times to start and stop accelerating
      *      second dimension [ 0:acc. in x, 1:acc. in y, 2:acc. in z ]
      * @return a 2D array in the format described above, if all maneuvers have been executed, then it returns null
      */
     public double[] getCurrent(){
-        return maneuverPoints.get(countOfStages);
+        return maneuverPoints[countOfStages];
+    }
+
+    /**
+     *
+     * @return
+     */
+    public double[][] getAll(){
+        return maneuverPoints;
     }
 
 
@@ -56,7 +68,7 @@ public class Planning {
      * @param maxDays
      */
     public Planning(Model3D model, String targetPlanet, int numberOfStages, int maxDays){
-        this.maneuverPoints = new ArrayList<double[]>(numberOfStages);
+        this.maneuverPoints = new double[numberOfStages][5];
 
         for(int i=0; i<model.size(); i++)
             if( targetPlanet.equalsIgnoreCase(model.getBody(i).getName()) )
@@ -76,9 +88,8 @@ public class Planning {
      * this constructor is for the copy function
      * @param maneuverPoints the 1D array containing all information calculated for the trajectory
      */
-    private Planning(ArrayList<double[]> maneuverPoints, int countOfStages){
-        this.maneuverPoints = new ArrayList<double[]>( maneuverPoints.size() );
-        this.maneuverPoints.addAll( maneuverPoints );
+    private Planning(double[][] maneuverPoints, int countOfStages){
+        this.maneuverPoints = maneuverPoints;
 
         this.countOfStages = countOfStages;
     }
@@ -87,7 +98,7 @@ public class Planning {
         return target;
     }
 
-    public void setState(ArrayList<double[]> state){
+    public void setState(double[][] state){
         maneuverPoints = state;
     }
 

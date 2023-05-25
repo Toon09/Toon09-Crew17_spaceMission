@@ -33,6 +33,13 @@ public class TestModel3 implements Model3D{
 
     }
 
+    private TestModel3(CelestialBody[] bodies, NumSolver numSolver){
+        this.bodies = new CelestialBody[1];
+        this.bodies[0] = bodies[0].clone();
+
+        this.numSolver = numSolver;
+    }
+
     // setters
     @Override
     public void setPos(int index, double[] pos) { bodies[index].setPos(pos); }
@@ -58,7 +65,20 @@ public class TestModel3 implements Model3D{
     public String getSolverName() { return numSolver.getName(); }
     @Override
     public double[][][] getState() {
-        return new double[][][] { {bodies[0].getPos()}, {bodies[0].getVel()}, {bodies[0].getAcc()} };
+        double[][][] result = new double[this.size()][3/*0:pos, 1:vel, 2:acc*/][3/*x,y,z*/];
+
+        //every body
+        for(int i=0; i<this.size(); i++){
+            for(int j=0; j<3; j++)
+                result[i][0][j] = this.getPos(i)[j];
+            for(int j=0; j<3; j++)
+                result[i][1][j] = this.getVel(i)[j];
+            for(int j=0; j<3; j++)
+                result[i][2][j] = this.getAcc(i)[j];
+
+        }
+
+        return result;
     }
     @Override
     public CelestialBody getBody(int index) { return bodies[0]; }
@@ -94,12 +114,12 @@ public class TestModel3 implements Model3D{
 
     @Override
     public Model3D clone(NumSolver numSolver) {
-        return null;
+        return new TestModel3(this.bodies, numSolver);
     }
 
     @Override
     public Model3D clone() {
-        return null;
+        return new TestModel3(this.bodies, numSolver);
     }
 
     @Override
@@ -116,7 +136,7 @@ public class TestModel3 implements Model3D{
         }
     }
 
-    public double actualValue(double t) {
+    public double getActualValue(double t) {
         return t*(3 - 2*Math.log(t));
     }
 

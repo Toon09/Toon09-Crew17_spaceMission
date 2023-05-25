@@ -115,12 +115,6 @@ public class CelestialBody {
      */
     public double[] getAcc(){ return acc; }
 
-    /**
-     * guys wtf you are adding the acceleration the planets give as part of how much the engine can
-     *  accelerate
-     * @return ?????
-     */
-    public double getForce() { return Math.sqrt(acc[0]*acc[0] + acc[1]*acc[1] + acc[2]*acc[2])*mass; }
 
     /**
      * @return mass in Kg

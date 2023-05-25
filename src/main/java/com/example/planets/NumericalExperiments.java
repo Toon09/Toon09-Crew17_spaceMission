@@ -10,11 +10,15 @@ import java.util.ArrayList;
 
 
 class NumericalExperiments {
+    /*
+    - do trajectory
+    - do test of engine
+    - do experiment set up
+     */
 
     /*
     ToDo
-    + change the trajectory from ArrayList<double[]> to double[][]
-
+    + change the trajectory from ArrayList<double[]> to double[][]\
     + ENGINE
     + TRAJECTORY: https://www.sciencedirect.com/science/article/pii/S037604211830191X
         hill climbXX
@@ -58,23 +62,70 @@ class NumericalExperiments {
 
     // https://ssd.jpl.nasa.gov/horizons/app.html#/ [ experiment data ]
     public static void main(String[] args) {
-        //engineTest()
+        //engineTest();
 
         //comparingToEachOther();
 
-        //experimentSetUp();
+        //comparingToNasaData();
 
-        trajectoryTesting();
+        //trajectoryTesting();
 
-        //testingAccuracyOfSolvers();
+        testingAccuracyOfSolvers();
 
     }
 
 
     public static void engineTest() {
-        /*
-        +write a method to add points to the planning so the engine can be tested with these
-         */
+
+        // write and launch 2 ships
+        // 1 with engine 1 without & check difference
+        double time = 6*30*60;
+        boolean isDay = false;
+        int checkInterval = 60; //every how many days do you want it to print the values
+        final int TARGET = 7;
+
+        // benchmark model
+        Model3D model = new Gravity0( 0, 0, new RK4() );
+        double dt = 1.6;
+
+        model.addShips(1); //ship that will be unchanged
+
+        double[][] plan = new double[][] {{0,30*60,
+                    11,11,11},
+                {3*30*60,4*30*60,
+                        -11,-11,-11}};
+
+        model.getShip().setPlan( plan );
+
+        System.out.println("initializing test: \nIn days?: " + isDay + "\nTime interval: "+checkInterval+"s or day\n\n");
+
+        double[] pos1 = new double[3];
+        double[] pos2 = new double[3];
+
+        for(int i=0; i<time; i++){
+            model.updatePos(1.0, dt, isDay );
+
+            if( (i+1)%checkInterval == 0 ){
+                System.out.println("time stamp: " + (i+1)/60);
+
+                pos1 = model.getShip().getPos();
+                pos2 = model.getShip(0).getPos();
+
+                System.out.println("Ship with engine plan:");
+                System.out.println("X: " + pos1[0] + "; Y: " + pos1[1] + "; Z: " + pos1[2]);
+                System.out.println("Ship with NO engine plan:");
+                System.out.println("X: " + pos2[0] + "; Y: " + pos2[1] + "; Z: " + pos2[2] + "\n");
+
+                System.out.println("Difference of both: ");
+                System.out.println("X: " + (pos1[0]-pos2[0]) + "; Y: " + (pos1[1]-pos2[1]) + "; Z: " + (pos1[2]-pos2[2]));
+
+                System.out.println("fuel: " + model.getShip().getUsedFuel());
+
+                System.out.println("\n\n");
+            }
+
+
+        }
 
     }
 
@@ -94,7 +145,7 @@ class NumericalExperiments {
 
         // benchmark model
         Model3D benchmark = new Gravity0( 0, Math.PI / 2.0, new RK4() );
-        double benchmarkPrecision = 0.1;
+        double benchmarkPrecision = 1.6;
 
 
         //  testing models
@@ -105,17 +156,11 @@ class NumericalExperiments {
         //models.add( new Gravity0( 0, Math.PI / 2.0, new Euler() ) );
         //steps.add( 0.1 );
 
-        models.add( new Gravity0( 0, 0, new RK4() ) );
-        steps.add( 1.0 );
+        models.add( new Gravity0( 0, 0, new LeapFrog() ) );
+        steps.add( 0.1 );
 
-        models.add( new Gravity0( 0, 0, new RK4() ) );
-        steps.add( 1.25 );
-
-        models.add( new Gravity0( 0, 0, new RK4() ) );
-        steps.add( 1.5 );
-
-        models.add( new Gravity0( 0, 0, new RK4() ) );
-        steps.add( 1.6 );
+        models.add( new Gravity0( 0, 0, new Euler() ) );
+        steps.add( 0.1 );
 
         //test details
         System.out.println("target planet: TARGET");
@@ -202,7 +247,7 @@ class NumericalExperiments {
     Uranus
      */
 
-    public static void experimentSetUp(){
+    public static void comparingToNasaData(){
         // experiment setup hyper parameters
         double time = 360;
         boolean isDay = true;
@@ -220,7 +265,7 @@ class NumericalExperiments {
         ArrayList<Double> steps = new ArrayList<Double>();
 
         // models
-        models.add( new Gravity0( 0, 0, new AB2(), DATA_ORIGIN ) ); //, DATA_ORIGIN
+        models.add( new Gravity0( 0, 0, new LeapFrog(), DATA_ORIGIN ) ); //, DATA_ORIGIN
         steps.add( 0.1 );
 
         models.add( new Gravity0( 0, 0, new RK4(), DATA_ORIGIN ) ); //, DATA_ORIGIN
@@ -369,24 +414,15 @@ class NumericalExperiments {
     // ############################################################################## NUM SOLVER ACCURACY CHECK SET UP
     public static void testingAccuracyOfSolvers() {
         //experiment setup hyper parameters
-        double time = 30;
-        boolean isDay = true;
-        int checkInterval = 1; //every how many days do you want it to print the values
-        final int TARGET = 7;
-
-        // benchmark model
-
-        /////////////////// make benchmark a precise function eval
-        /// make it a function inside of the class itself
-
+        double time = 300;
+        boolean isDay = false;
+        int checkInterval = 15; //every how many days do you want it to print the values
 
         //  testing models
         ArrayList<Model3D> models = new ArrayList<Model3D>();
         ArrayList<Double> steps = new ArrayList<Double>();
 
-        // add a model with the solver and next the step size its used with it
-        //models.add( new Gravity0( 0, Math.PI / 2.0, new Euler() ) );
-        //steps.add( 0.1 );
+        //////// test model 1
 
         models.add( new TestModel1( new RK4() ) );
         steps.add( 0.1 );
@@ -400,20 +436,11 @@ class NumericalExperiments {
         models.add( new TestModel1( new Euler() ) );
         steps.add( 0.1 );
 
-        models.add( new TestModel2( new Euler() ) );
-        steps.add( 0.1 );
-
-        models.add( new TestModel2( new RK4() ) );
-        steps.add( 0.1 );
-
-        models.add( new TestModel2( new RK3() ) );
-        steps.add( 0.1 );
-
-        models.add( new TestModel2( new RK2() ) );
+        models.add( new TestModel1( new LeapFrog() ) );
         steps.add( 0.1 );
 
 
-        double[][] errors = new double[models.size()][3];
+        double[] errors = new double[models.size()];
         double[] chrono = new double[models.size()]; //last index is the benchmark
 
         // sim loop
@@ -433,9 +460,12 @@ class NumericalExperiments {
 
             //calculate errors
             for (int j = 0; j < models.size(); j++) {
-                // errors[j][0] = benchmark.getBody(TARGET).getPos()[0] - models.get(j).getBody(TARGET).getPos()[0];
-                // errors[j][1] = benchmark.getBody(TARGET).getPos()[1] - models.get(j).getBody(TARGET).getPos()[1];
-                // errors[j][2] = benchmark.getBody(TARGET).getPos()[2] - models.get(j).getBody(TARGET).getPos()[2];
+                if( models.get(j) instanceof TestModel1 )
+                    errors[j] = ( (TestModel1)models.get(j) ).getActualValue(models.get(j).getTime()) - models.get(j).getBody(0).getPos()[0];
+                if( models.get(j) instanceof TestModel2 )
+                    errors[j] = ( (TestModel2)models.get(j) ).getActualValue(models.get(j).getTime()) - models.get(j).getBody(0).getPos()[0];
+                if( models.get(j) instanceof TestModel3 )
+                    errors[j] = ( (TestModel3)models.get(j) ).getActualValue(models.get(j).getTime()) - models.get(j).getBody(0).getPos()[0];
             }
 
 
@@ -448,12 +478,8 @@ class NumericalExperiments {
                     System.out.println("Execution time: " + chrono[j] + "ms");
                     System.out.println("Sim time: " + models.get(j).getTime() + "s");
                     System.out.println("step size: " + steps.get(j) + "s");
-                    System.out.println("Error= X: " + errors[j][0] + "; Y: " + errors[j][1] + "; Z: " + errors[j][2]);
-                    double sum = 0.0;
-                    for(int k=0; k<3; k++)
-                        sum += errors[j][k]*errors[j][k];
-                    sum = Math.sqrt(sum);
-                    System.out.println("Error magnitude: " + sum + "km\n");
+                    System.out.println("Error= " + errors[j]);
+                    System.out.println("\n");
 
                 }
 

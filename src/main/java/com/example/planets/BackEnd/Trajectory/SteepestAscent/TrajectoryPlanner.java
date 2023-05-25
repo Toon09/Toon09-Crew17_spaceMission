@@ -10,6 +10,6 @@ public interface TrajectoryPlanner {
      *
      * @return
      */
-    public ArrayList<double[]> getTrajectory();
+    public double[][] getTrajectory();
 
 }
