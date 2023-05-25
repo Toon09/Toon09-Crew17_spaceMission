@@ -12,23 +12,21 @@ public class RK2 implements NumSolver {
         this.alpha = alph;
     }
 
-    
+    double[][][] pk1;
 
+    Model3D vk1;
 
-    // THIS WAY WORKS BUT USES TOO MUCH SPACE AND TIME SINCE IT COPIES THE WHOLE MODEL EVERY TIME STEP (BAD)
     public void step(Model3D model, double dt) {
 
-        //set up rk2
-        Model3D states = model.clone( new Euler() ); //doesn't copy spaceship
-        states.updatePos(alpha * dt, alpha * dt, false); 
+        RKsetUpVals(model, dt);
         
 
         //update position
         for(int i=0; i<model.size(); i++){
 
-            model.setPos(i, new double[] {  model.getPos(i)[0] + dt * ( (1-1/(2*alpha)) * model.getVel(i)[0] + (1/(2*alpha)) * states.getVel(i)[0] ),
-                                            model.getPos(i)[1] + dt * ( (1-1/(2*alpha)) * model.getVel(i)[1] + (1/(2*alpha)) * states.getVel(i)[1] ), 
-                                            model.getPos(i)[2] + dt * ( (1-1/(2*alpha)) * model.getVel(i)[2] + (1/(2*alpha)) * states.getVel(i)[2] )   } );
+            model.setPos(i, new double[] {  model.getPos(i)[0] + dt * ( (1.0-1.0/(2.0*alpha)) * model.getVel(i)[0] + (1.0/(2.0*alpha)) * pk1[i][1][0] ),
+                                            model.getPos(i)[1] + dt * ( (1.0-1.0/(2.0*alpha)) * model.getVel(i)[1] + (1.0/(2.0*alpha)) * pk1[i][1][1] ),
+                                            model.getPos(i)[2] + dt * ( (1.0-1.0/(2.0*alpha)) * model.getVel(i)[2] + (1.0/(2.0*alpha)) * pk1[i][1][2] )   } );
 
         }
 
@@ -36,9 +34,9 @@ public class RK2 implements NumSolver {
         //update vel
         for(int i=0; i<model.size(); i++){
 
-            model.setVel(i, new double[] {  model.getVel(i)[0] + dt * ( (1-1/(2*alpha)) * model.getAcc(i)[0] + (1/(2*alpha)) * states.getAcc(i)[0] ),
-                                            model.getVel(i)[1] + dt * ( (1-1/(2*alpha)) * model.getAcc(i)[1] + (1/(2*alpha)) * states.getAcc(i)[1] ),
-                                            model.getVel(i)[2] + dt * ( (1-1/(2*alpha)) * model.getAcc(i)[2] + (1/(2*alpha)) * states.getAcc(i)[2] )    } );
+            model.setVel(i, new double[] {  model.getVel(i)[0] + dt * ( (1.0-1.0/(2.0*alpha)) * model.getAcc(i)[0] + (1.0/(2.0*alpha)) * vk1.getAcc(i)[0] ),
+                                            model.getVel(i)[1] + dt * ( (1.0-1.0/(2.0*alpha)) * model.getAcc(i)[1] + (1.0/(2.0*alpha)) * vk1.getAcc(i)[1] ),
+                                            model.getVel(i)[2] + dt * ( (1.0-1.0/(2.0*alpha)) * model.getAcc(i)[2] + (1.0/(2.0*alpha)) * vk1.getAcc(i)[2] )    } );
                                             
         }
 
@@ -53,6 +51,30 @@ public class RK2 implements NumSolver {
             model.getShip(i).executePlans(model.getTime(), dt);
         }
 
+
+    }
+
+    private void RKsetUpVals(Model3D model, double dt){
+        pk1 = model.getState();
+
+        //pk2 do half a step with vals of pk1
+        for(int i=0; i<pk1.length; i++){ //loops thru all planets
+            for(int j=0;j <2; j++)
+                for( int k=0; k<3; k++ ) // all dimensions
+                    pk1[i][j][k] = pk1[i][j][k] + alpha * dt * pk1[i][j+1][k]; //pk1 = model, so we can use either
+
+        }
+
+        //////// get values of the derivatives saved up
+        RKVel(model, dt);
+
+    }
+
+    private void RKVel(Model3D model, double dt){
+        vk1 = model.clone(new Euler());
+
+        vk1.setState(pk1);
+        vk1 .hDeriv();
 
     }
 

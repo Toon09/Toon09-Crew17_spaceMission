@@ -19,7 +19,7 @@ public class RK3 implements NumSolver{
     @Override
     public void step(Model3D model, double dt) {
         //set up rk4 for position only
-        RK4setUpVals(model, dt);
+        RKsetUpVals(model, dt);
 
         //update position
         for(int i=0; i<model.size(); i++){
@@ -52,7 +52,7 @@ public class RK3 implements NumSolver{
 
     }
 
-    private void RK4setUpVals(Model3D model, double dt){
+    private void RKsetUpVals(Model3D model, double dt){
         pk1 = model.getState(); /////////// dont copy, just use model info straigth up to avoid a copy
         pk2 = model.getState();
         pk3 = model.getState();
@@ -75,11 +75,11 @@ public class RK3 implements NumSolver{
 
 
         //////// get values of the derivatives saved up
-        RK4Vel(model, dt);
+        RKVel(model, dt);
 
     }
 
-    private void RK4Vel(Model3D model, double dt){
+    private void RKVel(Model3D model, double dt){
         vk2 = model.clone(new Euler());
         vk3 = model.clone(new Euler());
 

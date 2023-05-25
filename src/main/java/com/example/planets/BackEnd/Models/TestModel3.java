@@ -25,7 +25,7 @@ public class TestModel3 implements Model3D{
 
         bodies = new CelestialBody[1];
 
-        double[] innitPos = {0.0, 0.0, 0.0};
+        double[] innitPos = {Math.sqrt(2.0), Math.sqrt(2.0), Math.sqrt(2.0)};
         double[] innitVel = {0.0, 0.0, 0.0};
 
         // add each dim with the initial values of the corresponding eq.
@@ -107,9 +107,9 @@ public class TestModel3 implements Model3D{
 
     @Override
     public void hDeriv() {
-        bodies[0].setAcc(new double[]{(getAcc(0)[0] + getTime())*(getAcc(0)[0] + getTime()) - 1,
-                                    (getAcc(0)[0] + getTime())*(getAcc(0)[0] + getTime()) - 1,
-                                    (getAcc(0)[0] + getTime())*(getAcc(0)[0] + getTime()) - 1});
+        bodies[0].setVel(new double[]{  40.0/getPos(0)[0] - 40.0*getPos(0)[0],
+                                        40.0/getPos(0)[1] - 40.0*getPos(0)[1],
+                                        40.0/getPos(0)[1] - 40.0*getPos(0)[1]});
     }
 
     @Override
@@ -137,7 +137,7 @@ public class TestModel3 implements Model3D{
     }
 
     public double getActualValue(double t) {
-        return t*(3 - 2*Math.log(t));
+        return Math.sqrt( 1 + Math.exp(-80.0*t) );
     }
 
 }

@@ -107,7 +107,7 @@ public class TestModel1 implements Model3D{
 
     @Override
     public void hDeriv() {
-        bodies[0].setAcc(new double[]{ Math.cos(getTime()) - getPos(0)[0]/3,
+        bodies[0].setVel(new double[]{ Math.cos(getTime()) - getPos(0)[0]/3,
                                     Math.cos(getTime()) - getPos(0)[1]/3,
                                     Math.cos(getTime()) - getPos(0)[2]/3 });
     }
@@ -137,7 +137,7 @@ public class TestModel1 implements Model3D{
     }
 
     public double getActualValue(double t) {
-        return (9/10.0)*Math.sin(t) + (3/10.0)*(Math.cos(t) - Math.exp(-t/3.0));
+        return (9.0/10.0)*Math.sin(t) + (3.0/10.0)*(Math.cos(t) - Math.exp(-t/3.0));
     }
 
 }

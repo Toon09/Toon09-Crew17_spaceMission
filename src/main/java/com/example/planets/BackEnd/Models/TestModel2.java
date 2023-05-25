@@ -14,7 +14,7 @@ public class TestModel2 implements Model3D{
 
     private CelestialBody[] bodies;
     private NumSolver numSolver;
-    private double time = 0.0;
+    private double time = 1.0;
 
     /*
     create 2 con
@@ -25,7 +25,7 @@ public class TestModel2 implements Model3D{
 
         bodies = new CelestialBody[1];
 
-        double[] innitPos = {0.0, 0.0, 0.0};
+        double[] innitPos = {3.0, 3.0, 3.0};
         double[] innitVel = {0.0, 0.0, 0.0};
 
         // add each dim with the initial values of the corresponding eq.
@@ -107,9 +107,9 @@ public class TestModel2 implements Model3D{
 
     @Override
     public void hDeriv() {
-        bodies[0].setAcc(new double[]{getAcc(0)[0]/getTime() - 2,
-                                    getAcc(0)[1]/getTime() - 2,
-                                    getAcc(0)[2]/getTime() - 2});
+        bodies[0].setVel(new double[]{getPos(0)[0]/getTime() - 2,
+                                    getPos(0)[1]/getTime() - 2,
+                                    getPos(0)[2]/getTime() - 2});
     }
 
     @Override
@@ -137,7 +137,7 @@ public class TestModel2 implements Model3D{
     }
 
     public double getActualValue(double t) {
-        return t*(3 - 2*Math.log(t));
+        return t*(3.0 - 2.0*Math.log(t));
     }
 
 }
