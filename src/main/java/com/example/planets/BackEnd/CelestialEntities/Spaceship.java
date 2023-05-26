@@ -188,7 +188,7 @@ public class Spaceship extends CelestialBody {
      * @param fuel the fuel that has been consumed so far
      */
     private void calcCost(CelestialBody target, double dt, double fuel){
-        cost += costFunc.calcCost(fuel, target) * dt;
+        cost += costFunc.calcCost(fuel, getDistance(target)) * dt;
     }
 
 

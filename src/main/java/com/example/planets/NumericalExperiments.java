@@ -515,7 +515,7 @@ class NumericalExperiments {
 
                 System.out.print((i+1) + ", " + dt);
                 for (int j = 0; j < models.size(); j++) {
-                    System.out.print(", " + errors[j][0] + ", " + errors[j][1] +  ", " + chrono[j]);
+                    //System.out.print(", " + errors[j][0] + ", " + errors[j][1] +  ", " + chrono[j]);
 
                 }
                 System.out.println();

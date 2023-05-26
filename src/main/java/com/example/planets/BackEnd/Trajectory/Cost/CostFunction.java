@@ -4,6 +4,6 @@ import com.example.planets.BackEnd.CelestialEntities.CelestialBody;
 
 public interface CostFunction {
 
-    public double calcCost(double fuel, CelestialBody target);
+    public double calcCost(double fuel, double distance);
 
 }
