@@ -4,31 +4,22 @@ import com.example.planets.BackEnd.Models.Model3D;
 
 public class RK4 implements NumSolver{
 
-    //////////// vk1 & pk1 are just the model copied, use the model itself instead
-
-    /// for position
-    double[][][] pk1;
-    double[][][] pk2;
-    double[][][] pk3;
-    double[][][] pk4;
-
-    /// for velocity
-    Model3D vk2;
-    Model3D vk3;
-    Model3D vk4;
+    Model3D pk2;
+    Model3D pk3;
+    Model3D pk4;
 
     ////// https://lpsa.swarthmore.edu/NumInt/NumIntFourth.html
     @Override
     public void step(Model3D model, double dt) {
         //set up rk4 for position only
-        RK4setUpVals(model, dt);
+        RKsetUpVals(model, dt);
 
         //update position
         for(int i=0; i<model.size(); i++){
 
-            model.setPos(i, new double[] {  model.getPos(i)[0] + dt * ( model.getVel(i)[0] + 2*pk2[i][1][0] + 2*pk3[i][1][0] + pk4[i][1][0] ) / 6.0,
-                                            model.getPos(i)[1] + dt * ( model.getVel(i)[1] + 2*pk2[i][1][1] + 2*pk3[i][1][1] + pk4[i][1][1] ) / 6.0,
-                                            model.getPos(i)[2] + dt * ( model.getVel(i)[2] + 2*pk2[i][1][2] + 2*pk3[i][1][2] + pk4[i][1][2] ) / 6.0   } );
+            model.setPos(i, new double[] {  model.getPos(i)[0] + dt * ( model.getVel(i)[0] + 2*pk2.getVel(i)[0] + 2*pk3.getVel(i)[0] + pk4.getVel(i)[0] ) / 6.0,
+                                            model.getPos(i)[1] + dt * ( model.getVel(i)[1] + 2*pk2.getVel(i)[1] + 2*pk3.getVel(i)[1] + pk4.getVel(i)[1] ) / 6.0,
+                                            model.getPos(i)[2] + dt * ( model.getVel(i)[2] + 2*pk2.getVel(i)[2] + 2*pk3.getVel(i)[2] + pk4.getVel(i)[2] ) / 6.0   } );
 
         }
 
@@ -36,17 +27,17 @@ public class RK4 implements NumSolver{
         //update vel
         for(int i=0; i<model.size(); i++){
 
-            model.setVel(i, new double[] {  model.getVel(i)[0] + dt * ( model.getAcc(i)[0] + 2*vk2.getAcc(i)[0] + 2*vk3.getAcc(i)[0] + vk4.getAcc(i)[0] ) / 6.0,
-                                            model.getVel(i)[1] + dt * ( model.getAcc(i)[1] + 2*vk2.getAcc(i)[1] + 2*vk3.getAcc(i)[1] + vk4.getAcc(i)[1] ) / 6.0,
-                                            model.getVel(i)[2] + dt * ( model.getAcc(i)[2] + 2*vk2.getAcc(i)[2] + 2*vk3.getAcc(i)[2] + vk4.getAcc(i)[2] ) / 6.0    } );
+            model.setVel(i, new double[] {  model.getVel(i)[0] + dt * ( model.getAcc(i)[0] + 2*pk2.getAcc(i)[0] + 2*pk3.getAcc(i)[0] + pk4.getAcc(i)[0] ) / 6.0,
+                                            model.getVel(i)[1] + dt * ( model.getAcc(i)[1] + 2*pk2.getAcc(i)[1] + 2*pk3.getAcc(i)[1] + pk4.getAcc(i)[1] ) / 6.0,
+                                            model.getVel(i)[2] + dt * ( model.getAcc(i)[2] + 2*pk2.getAcc(i)[2] + 2*pk3.getAcc(i)[2] + pk4.getAcc(i)[2] ) / 6.0    } );
 
         }
 
-        //update acceleration
-        model.hDeriv();
-
         //adds time
         model.addDt(dt);
+
+        //update acceleration
+        model.hDeriv();
 
         // letting the ship do its plans (works for many ships)
         for(int i=0; i< model.getAmountOfShips(); i++){
@@ -55,61 +46,49 @@ public class RK4 implements NumSolver{
 
     }
 
-    private void RK4setUpVals(Model3D model, double dt){
-        pk1 = model.getState(); /////////// dont copy, just use model info straigth up to avoid a copy
-        pk2 = model.getState();
-        pk3 = model.getState();
-        pk4 = model.getState();
+    private void RKsetUpVals(Model3D model, double dt){
+        // pk2: just an euler step from og function
+        pk2 = model.clone(new Euler());
+        pk2.updatePos(dt/2.0, dt/2.0, false);
 
-        //pk2 do half a step with vals of pk1
-        for(int i=0; i<pk1.length; i++){ //loops thru all planets
-            for(int j=0;j <2; j++)
-                for( int k=0; k<3; k++ ){ // all dimensions
-                    pk2[i][j][k] = pk1[i][j][k] + dt * pk1[i][j+1][k] / 2;
+        // pk3: t+dt/2, y+dt/2 k2
+        pk3 = model.clone(null);
+        double[][][] state = model.getState();
 
-                }
+        for(int i=0; i<state.length; i++){
+            // position
+            for(int k=0; k<3; k++)
+                state[i][0][k] += dt/2.0 * pk2.getVel(i)[k];
 
+            // velocity
+            for(int k=0; k<3; k++)
+                state[i][1][k] += dt/2.0 * pk2.getAcc(i)[k];
         }
 
-        //pk3 is same but with pk1 + dt*pk2/2
-        for(int i=0; i<pk1.length; i++){ //loops thru all planets
-            for(int j=0;j <2; j++)
-                for( int k=0; k<3; k++ ) // all dimensions
-                    pk3[i][j][k] = pk1[i][j][k] + dt * pk2[i][j+1][k] / 2;
+        pk3.setState(state);
+        pk3.addDt(dt/2.0);
+        pk3.hDeriv();
 
+        // pk4: t+dt, y+dt*pk3
+        pk4 = model.clone(null);
+        state = model.getState();
+
+        for(int i=0; i<state.length; i++){
+            // position
+            for(int k=0; k<3; k++)
+                state[i][0][k] += dt * pk3.getVel(i)[k];
+
+            // velocity
+            for(int k=0; k<3; k++)
+                state[i][1][k] += dt * pk3.getAcc(i)[k];
         }
 
-        //pk4 is almost the same, pk1 + pk3*dt
-        for(int i=0; i<pk1.length; i++){ //loops thru all planets
-            for(int j=0;j <2; j++)
-                for( int k=0; k<3; k++ ) // all dimensions
-                    pk4[i][j][k] = pk1[i][j][k] + dt * pk3[i][j+1][k];
-
-        }
-
-        //////// get values of the derivatives saved up
-        RK4Vel(model, dt);
+        pk4.setState(state);
+        pk4.addDt(dt);
+        pk4.hDeriv();
 
     }
 
-    private void RK4Vel(Model3D model, double dt){
-        vk2 = model.clone(new Euler());
-        vk3 = model.clone(new Euler());
-        vk4 = model.clone(new Euler());
-
-        // calc the values of vel in the prev setup & in this one just call to get hDeriv
-        // make function in model3D (define in grav0) setState, takes in 3d array amd copies pos, vel & acc
-
-        vk2.setState(pk2);
-        vk2.hDeriv();
-
-        vk3.setState(pk3);
-        vk3.hDeriv();
-
-        vk4.setState(pk4);
-        vk4.hDeriv();
-
-    }
 
 
     @Override

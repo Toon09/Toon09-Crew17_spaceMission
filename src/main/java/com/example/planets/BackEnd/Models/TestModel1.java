@@ -33,9 +33,10 @@ public class TestModel1 implements Model3D{
 
     }
 
-    private TestModel1(CelestialBody[] bodies, NumSolver numSolver){
+    private TestModel1(CelestialBody[] bodies, NumSolver numSolver, double time){
         this.bodies = new CelestialBody[1];
         this.bodies[0] = bodies[0].clone();
+        this.time = time;
 
         this.numSolver = numSolver;
     }
@@ -65,7 +66,7 @@ public class TestModel1 implements Model3D{
     public String getSolverName() { return numSolver.getName(); }
     @Override
     public double[][][] getState() {
-        double[][][] result = new double[this.size()][3/*0:pos, 1:vel, 2:acc*/][3/*x,y,z*/];
+        double[][][] result = new double[this.size()][3/*0:pos, 1:vel, 2:acc*/][3/*x, y, z*/];
 
         //every body
         for(int i=0; i<this.size(); i++){
@@ -107,19 +108,19 @@ public class TestModel1 implements Model3D{
 
     @Override
     public void hDeriv() {
-        bodies[0].setVel(new double[]{ Math.cos(getTime()) - getPos(0)[0]/3,
-                                    Math.cos(getTime()) - getPos(0)[1]/3,
-                                    Math.cos(getTime()) - getPos(0)[2]/3 });
+        bodies[0].setVel(new double[]{  Math.cos(getTime()) - getPos(0)[0]/3,
+                                        Math.cos(getTime()) - getPos(0)[1]/3,
+                                        Math.cos(getTime()) - getPos(0)[2]/3 });
     }
 
     @Override
     public Model3D clone(NumSolver numSolver) {
-        return new TestModel1(this.bodies, numSolver);
+        return new TestModel1(this.bodies, numSolver, time);
     }
 
     @Override
     public Model3D clone() {
-        return new TestModel1(bodies, numSolver);
+        return new TestModel1(bodies, numSolver, time);
     }
 
     @Override

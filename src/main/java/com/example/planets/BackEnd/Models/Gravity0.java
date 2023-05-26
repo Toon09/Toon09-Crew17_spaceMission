@@ -25,7 +25,7 @@ public class Gravity0 implements Model3D {
      * @param bodies 1D array of CelestialBodies which is used to copy each one of them
      * @param numSolver type of numerical solver to be used
      */
-    private Gravity0(CelestialBody[] bodies, NumSolver numSolver, int amountOfShips){
+    private Gravity0(CelestialBody[] bodies, NumSolver numSolver, int amountOfShips, double time){
         this.numSolver = numSolver;
 
         if(amountOfShips==0)
@@ -288,12 +288,12 @@ public class Gravity0 implements Model3D {
 
     @Override
     public Model3D clone(NumSolver numSolver) {
-        return new Gravity0(this.bodies, numSolver, amountOfShips);
+        return new Gravity0(this.bodies, numSolver, amountOfShips, time);
     }
 
     @Override
     public Model3D clone() {
-        return new Gravity0(this.bodies, this.numSolver, amountOfShips);
+        return new Gravity0(this.bodies, this.numSolver, amountOfShips, time);
     }
 
     public final static double[][] positions = { { 0, 0, 0 }, { 7.83e6, 4.49e7, 2.87e6 }, { -2.82e7, 1.04e8, 3.01e6 },
