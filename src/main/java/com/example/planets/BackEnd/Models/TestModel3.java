@@ -22,6 +22,7 @@ public class TestModel3 implements Model3D{
 
     public TestModel3(NumSolver numsolver){
         this.numSolver = numsolver;
+        this.time = time;
 
         bodies = new CelestialBody[1];
 
@@ -33,9 +34,10 @@ public class TestModel3 implements Model3D{
 
     }
 
-    private TestModel3(CelestialBody[] bodies, NumSolver numSolver){
+    private TestModel3(CelestialBody[] bodies, NumSolver numSolver, double time){
         this.bodies = new CelestialBody[1];
         this.bodies[0] = bodies[0].clone();
+        this.time = time;
 
         this.numSolver = numSolver;
     }
@@ -116,12 +118,12 @@ public class TestModel3 implements Model3D{
 
     @Override
     public Model3D clone(NumSolver numSolver) {
-        return new TestModel3(this.bodies, numSolver);
+        return new TestModel3(this.bodies, numSolver, time);
     }
 
     @Override
     public Model3D clone() {
-        return new TestModel3(this.bodies, numSolver);
+        return new TestModel3(this.bodies, numSolver, time);
     }
 
     @Override

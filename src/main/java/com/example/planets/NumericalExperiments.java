@@ -66,11 +66,11 @@ class NumericalExperiments {
 
         //comparingToEachOther();
 
-        //comparingToNasaData();
+        comparingToNasaData();
 
         //trajectoryTesting();
 
-        testingAccuracyOfSolvers();
+        //testingAccuracyOfSolvers();
 
     }
 
@@ -275,6 +275,9 @@ class NumericalExperiments {
         models.add( new Gravity0( 0, 0, new AB2(), DATA_ORIGIN ) ); //, DATA_ORIGIN
         steps.add( dt );
 
+        models.add( new Gravity0( 0, 0, new LeapFrog(), DATA_ORIGIN ) ); //, DATA_ORIGIN
+        steps.add( dt );
+
         models.add( new Gravity0( 0, 0, new RK4(), DATA_ORIGIN ) ); //, DATA_ORIGIN
         steps.add( dt );
 
@@ -290,7 +293,7 @@ class NumericalExperiments {
         // innit position:
         System.out.println(); //////// comments
 
-        System.out.println("sim time[s], time step[s], Euler abs, Euler relative, Euler time[ns], AB2 abs, AB2 relative, AB2 time[ns], RK4 abs, RK4 relative, RK4 time[ns]");
+        System.out.println("sim time[s], time step[s], Euler abs, Euler relative, Euler time[ns], AB2 abs, AB2 relative, AB2 time[ns], LeapFrog abs, LeapFrog relative, LeapFrog time[ns], RK4 abs, RK4 relative, RK4 time[ns]");
 
         // main loop
         for (int i = 0; i < time; i++) {
@@ -425,36 +428,47 @@ class NumericalExperiments {
     // ############################################################################## NUM SOLVER ACCURACY CHECK SET UP
     public static void testingAccuracyOfSolvers() {
         //experiment setup hyper parameters
-        double time = 10; //30000
+        double time = 30000; //30000
         boolean isDay = false;
-        int checkInterval = 1; // 30
+        int checkInterval = 30; // 30
 
-        double dt = 0.5;
+        /* time steps
+        2.5
+        1.5
+        1.0
+        0.5
+        0.1
+        0.01
+        0.005
+        0.001
+         */
+        double dt = 2.5;
+
 
         //  testing models
         ArrayList<Model3D> models = new ArrayList<Model3D>();
         ArrayList<Double> steps = new ArrayList<Double>();
 
         //////// test models
-        //models.add( new TestModel2( new Euler() ) );
+        models.add( new TestModel1( new Euler() ) );
         steps.add( dt );
 
-        //models.add( new TestModel2( new LeapFrog() ) );
+        models.add( new TestModel1( new LeapFrog() ) );
         steps.add( dt );
 
-        //models.add( new TestModel2( new AB2() ) );
+        models.add( new TestModel1( new AB2() ) );
         steps.add( dt );
 
-        //models.add( new TestModel2( new RK2() ) );
+        models.add( new TestModel1( new RK2() ) );
         steps.add( dt );
 
-        //models.add( new TestModel2( new HeunsRK3() ) );
+        models.add( new TestModel1( new HeunsRK3() ) );
         steps.add( dt );
 
         models.add( new TestModel1( new RK4() ) );
         steps.add( dt );
 
-        //models.add( new TestModel2( new RalstonsRK4() ) );
+        models.add( new TestModel1( new RalstonsRK4() ) );
         steps.add( dt );
 
 
@@ -473,7 +487,7 @@ class NumericalExperiments {
             for (int j=0; j<models.size(); j++) {
                 //start count of how much each model took here
                 double delta = System.nanoTime();
-                models.get(j).updatePos(1, steps.get(j), false);
+                models.get(j).updatePos(Math.max(1.0, dt), steps.get(j), false);
                 //end count of how long each model here
                 delta = System.nanoTime() - delta;
 
