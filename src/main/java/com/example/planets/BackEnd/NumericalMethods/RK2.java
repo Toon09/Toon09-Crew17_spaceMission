@@ -59,7 +59,7 @@ public class RK2 implements NumSolver {
 
         //pk2 do half a step with vals of pk1
         for(int i=0; i<pk1.length; i++){ //loops thru all planets
-            for(int j=0;j <2; j++)
+            for(int j=0;j <2; j++) // loops through position and vel
                 for( int k=0; k<3; k++ ) // all dimensions
                     pk1[i][j][k] = pk1[i][j][k] + alpha * dt * pk1[i][j+1][k]; //pk1 = model, so we can use either
 

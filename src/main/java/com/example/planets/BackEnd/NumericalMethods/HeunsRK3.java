@@ -2,7 +2,7 @@ package com.example.planets.BackEnd.NumericalMethods;
 
 import com.example.planets.BackEnd.Models.Model3D;
 
-public class RK3 implements NumSolver{
+public class HeunsRK3 implements NumSolver{
 
     //////////// vk1 & pk1 are just the model copied, use the model itself instead
 
