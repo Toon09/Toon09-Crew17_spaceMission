@@ -30,14 +30,12 @@ public class Testing {
 
 
     }
+    public double fit(double[] ship, double[] titan){
 
-    public double fit(double[] ship, double[] titan) {
-        double distance = 0;
-        for (int i = 0; i < 3; i++) {
-            distance += titan[i] - ship[i];
-        }
+        double distance = Math.sqrt(Math.pow(titan[0]-ship[0],2) + Math.pow(titan[1]-ship[1],2) + Math.pow(titan[2]-ship[2],2)) ;
         return distance;
     }
+
 
     public static double[][] changeABit(double[][] oryginal) {
         double[][] changed = new double[oryginal.length][oryginal[0].length];
