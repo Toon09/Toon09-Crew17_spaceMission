@@ -62,11 +62,11 @@ class NumericalExperiments {
 
     // https://ssd.jpl.nasa.gov/horizons/app.html#/ [ experiment data ]
     public static void main(String[] args) {
-        //engineTest();
+        engineTest();
 
         //comparingToEachOther();
 
-        comparingToNasaData();
+        //comparingToNasaData();
 
         //trajectoryTesting();
 
@@ -252,7 +252,7 @@ class NumericalExperiments {
 
     public static void comparingToNasaData(){
         // experiment setup hyper parameters
-        double time = 20;
+        double time = 1464.0;
         boolean isDay = false;
         int checkInterval = 1; //every how many days do you want it to print the values
 
@@ -262,7 +262,7 @@ class NumericalExperiments {
         final String TARGET_FILE =  "ExpData/ExpMars.txt"; // "ExpData/ExpMars.txt"
         final String SUN = "ExpData/ExpSun.txt"; // "ExpData/ExpSun.txt"
 
-        double dt = 0.1;
+        double dt = 0.5;
 
         //  testing models
         ArrayList<Model3D> models = new ArrayList<Model3D>();

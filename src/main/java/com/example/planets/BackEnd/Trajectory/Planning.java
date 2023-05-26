@@ -100,6 +100,11 @@ public class Planning {
         return target;
     }
 
+    public void setTarget(CelestialBody target){
+        this.target = target;
+    }
+
+
     public void setState(double[][] state){
         maneuverPoints = state;
     }

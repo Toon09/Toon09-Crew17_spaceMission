@@ -28,7 +28,7 @@ public class Euler implements NumSolver {
         model.hDeriv();
 
         // letting the ship do its plans (works for many ships)
-        for(int i=0; i< model.getAmountOfShips(); i++){
+        for(int i=0; i<model.getAmountOfShips(); i++){
             model.getShip(i).executePlans(model.getTime(), dt);
         }
 

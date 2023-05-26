@@ -17,6 +17,9 @@ public class Gravity0 implements Model3D {
     private int amountOfShips = 0;
     private NumSolver numSolver;
 
+    //spaceShipStart
+    //amountOfShips
+
     private double time = 0;
 
 
@@ -25,7 +28,7 @@ public class Gravity0 implements Model3D {
      * @param bodies 1D array of CelestialBodies which is used to copy each one of them
      * @param numSolver type of numerical solver to be used
      */
-    private Gravity0(CelestialBody[] bodies, NumSolver numSolver, int amountOfShips, double time){
+    private Gravity0(CelestialBody[] bodies, NumSolver numSolver, int amountOfShips, int spaceShipStart, double time){
         this.numSolver = numSolver;
 
         if(amountOfShips==0)
@@ -34,13 +37,13 @@ public class Gravity0 implements Model3D {
         this.bodies = new CelestialBody[ positions.length+amountOfShips ]; // error with when there are ships and no ships
         for(int i=0; i<bodies.length; i++){
             if( bodies[i] instanceof Spaceship ){
-                this.bodies[i] = (CelestialBody) new Spaceship(bodies[i].getMass(), bodies[i].getPos(), bodies[i].getVel());
-                spaceShipStart = i;
+                this.bodies[i] = ((Spaceship)bodies[i]).clone();
             }else {
                 this.bodies[i] = new CelestialBody(bodies[i].getName(), bodies[i].getMass(), bodies[i].getPos(), bodies[i].getVel());
 
             }
         this.amountOfShips = amountOfShips;
+        this.spaceShipStart = spaceShipStart;
         }
 
     }
@@ -143,7 +146,7 @@ public class Gravity0 implements Model3D {
 
     @Override
     public Spaceship getShip(){
-        if(this.getBody( this.size() -1) instanceof  Spaceship)
+        if(this.getBody( this.size() - 1) instanceof  Spaceship)
             return (Spaceship) this.getBody( this.size() -1);
         else
             return null;
@@ -286,14 +289,17 @@ public class Gravity0 implements Model3D {
         return result;
     }
 
+    //spaceShipStart
+    //amountOfShips
+
     @Override
     public Model3D clone(NumSolver numSolver) {
-        return new Gravity0(this.bodies, numSolver, amountOfShips, time);
+        return new Gravity0(this.bodies, numSolver, amountOfShips, spaceShipStart, time);
     }
 
     @Override
     public Model3D clone() {
-        return new Gravity0(this.bodies, this.numSolver, amountOfShips, time);
+        return new Gravity0(this.bodies, this.numSolver, amountOfShips, spaceShipStart, time);
     }
 
     public final static double[][] positions = { { 0, 0, 0 }, { 7.83e6, 4.49e7, 2.87e6 }, { -2.82e7, 1.04e8, 3.01e6 },

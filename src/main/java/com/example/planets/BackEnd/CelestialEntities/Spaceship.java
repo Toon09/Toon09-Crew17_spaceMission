@@ -88,10 +88,15 @@ public class Spaceship extends CelestialBody {
      * @param costFunc specifies how the body will calculate its cost for the cost function used in the
      *                 trajectory calculation
      */
-    private Spaceship(CelestialBody body, CostFunction costFunc){
+    private Spaceship(CelestialBody body, Planning plan, CostFunction costFunc, CelestialBody target){
         super( body.getName(), body.getMass(), body.getPos(), body.getVel());
         this.costFunc = costFunc;
+        this.plan = plan;
+        if( plan != null )
+            plan.setTarget( target );
         usedFuel = 0;
+
+
 
     }
 
@@ -144,7 +149,8 @@ public class Spaceship extends CelestialBody {
     public void executePlans(double time, double dt){
 
         if( plan != null ){
-            calcCost(getTarget(), dt, getUsedFuel());
+            if( getTarget() != null )
+                calcCost(getTarget(), dt, getUsedFuel());
             accelerate(time, dt);
         }
 
@@ -209,7 +215,9 @@ public class Spaceship extends CelestialBody {
     public Spaceship clone() {
         CelestialBody temp = super.clone();
 
-        return new Spaceship(temp, costFunc);
+        if(plan == null)
+            return new Spaceship(temp, null, costFunc, null);
+        return new Spaceship(temp, plan, costFunc, getTarget());
     }
 
 
