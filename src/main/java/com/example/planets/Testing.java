@@ -1,5 +1,6 @@
 package com.example.planets;
 
+import com.example.planets.BackEnd.CelestialEntities.CelestialBody;
 import com.example.planets.BackEnd.Models.Gravity0;
 import com.example.planets.BackEnd.NumericalMethods.Euler;
 
@@ -47,5 +48,16 @@ public class Testing {
             changed[i]= new double[]{oryginal[i][0],oryginal[i][1],oryginal[i][2]+random.nextDouble(2),oryginal[i][3]+random.nextDouble(2),oryginal[i][4]+random.nextDouble(3)};
         }
         return changed;
+    }
+    public static void notOptimalSort(Gravity0[] models){
+        int counter =0;
+        while (true){
+            if (1==1){
+
+            }
+        }
+    }
+    public static CelestialBody getTitan(Gravity0 model){
+        return model.getBody(8);
     }
 }
