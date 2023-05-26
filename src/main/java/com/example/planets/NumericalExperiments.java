@@ -1,7 +1,6 @@
 package com.example.planets;
 
 import com.example.planets.BackEnd.CelestialEntities.CelestialBody;
-import com.example.planets.BackEnd.CelestialEntities.Spaceship;
 import com.example.planets.BackEnd.Models.*;
 import com.example.planets.BackEnd.NumericalMethods.*;
 import com.example.planets.BackEnd.Trajectory.Cost.PlanetaryRing;
@@ -63,7 +62,7 @@ class NumericalExperiments {
 
     // https://ssd.jpl.nasa.gov/horizons/app.html#/ [ experiment data ]
     public static void main(String[] args) {
-        engineTest();
+        //engineTest();
 
         //comparingToEachOther();
 
@@ -71,7 +70,7 @@ class NumericalExperiments {
 
         //trajectoryTesting();
 
-        //testingAccuracyOfSolvers();
+        testingAccuracyOfSolvers();
 
     }
 
@@ -99,10 +98,6 @@ class NumericalExperiments {
                         2,2,2}};
 
         model.getShip().setPlan( plan );
-        model.getShip(0).getClass().hashCode();
-  model.getShip(1).getClass().hashCode();
-
-
 
         System.out.println("initializing test: \nIn days?: " + isDay + "\nTime interval: "+checkInterval+"s or day\n\n");
 
@@ -110,9 +105,6 @@ class NumericalExperiments {
         double[] pos2 = new double[3];
 
         for(int i=0; i<time; i++){
-            Spaceship a = model.getShip(0);
-            Spaceship b = model.getShip(1);
-
             model.updatePos(1.0, dt, isDay );
 
             if( (i+1)%checkInterval == 0 ){
@@ -456,7 +448,7 @@ class NumericalExperiments {
         models.add( new TestModel1( new RK2() ) );
         steps.add( dt );
 
-        models.add( new TestModel1( new RK3() ) );
+        models.add( new TestModel1( new HeunsRK3() ) );
         steps.add( dt );
 
         models.add( new TestModel1( new RK4() ) );

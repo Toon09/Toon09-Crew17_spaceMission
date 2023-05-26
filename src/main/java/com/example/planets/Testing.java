@@ -21,7 +21,7 @@ public class Testing {
         }
         //create a new population of Gravity 0
         for (int i = 0; i < 20; i++) {
-            population[i] = new Gravity0(0, Math.PI / 2.0, new Euler(), changeABit(initialPlan));
+            //population[i] = new Gravity0(0, Math.PI / 2.0, new Euler(), changeABit(initialPlan));
         }
         while (true) {
 

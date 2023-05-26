@@ -68,7 +68,7 @@ public class AB2 implements NumSolver {
         if( prev == null ){ //bootstrapping with RK2
             prev = model.clone( new RK4() );
 
-            //prev.updatePos(dt, -dt, false); // a step backwards
+            //prev.updatePos(-dt, -dt, false); // a step backwards
             temp = model.clone(null); //copy current model
 
         } else { // using last model
