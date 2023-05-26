@@ -5,14 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="bab05458-8716-4abd-8f37-31e577e5aaab" name="Changes" comment="testing">
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_22_03_2023_14_43__Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_22_03_2023_14_43__Changes_.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_23_03_2023_11_42__Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_23_03_2023_11_42__Changes_.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_23_03_2023_17_37__Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_23_03_2023_17_37__Changes_.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/planets/BackEnd/Models/Gravity0.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/planets/BackEnd/Models/Gravity0.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/planets/BackEnd/Trajectory/Planning.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/planets/BackEnd/Trajectory/Planning.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/planets/BackEnd/Trajectory/SteepestAscent/SteepestAscent.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/planets/BackEnd/Trajectory/SteepestAscent/SteepestAscent.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/planets/Merged.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/planets/Merged.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/planets/Testing.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/planets/Testing.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -154,20 +147,6 @@
       <workItem from="1683209681075" duration="3407000" />
       <workItem from="1683820709833" duration="618000" />
       <workItem from="1683841240613" duration="1723000" />
-    </task>
-    <task id="LOCAL-00026" summary="Numerical method functioning">
-      <created>1683211389013</created>
-      <option name="number" value="00026" />
-      <option name="presentableId" value="LOCAL-00026" />
-      <option name="project" value="LOCAL" />
-      <updated>1683211389014</updated>
-    </task>
-    <task id="LOCAL-00027" summary="Numerical method functioning">
-      <created>1683211421495</created>
-      <option name="number" value="00027" />
-      <option name="presentableId" value="LOCAL-00027" />
-      <option name="project" value="LOCAL" />
-      <updated>1683211421495</updated>
     </task>
     <task id="LOCAL-00028" summary="Numerical method functioning">
       <created>1683212098274</created>
@@ -498,7 +477,21 @@
       <option name="project" value="LOCAL" />
       <updated>1685092962813</updated>
     </task>
-    <option name="localTasksCounter" value="75" />
+    <task id="LOCAL-00075" summary="testing">
+      <created>1685093886677</created>
+      <option name="number" value="00075" />
+      <option name="presentableId" value="LOCAL-00075" />
+      <option name="project" value="LOCAL" />
+      <updated>1685093886677</updated>
+    </task>
+    <task id="LOCAL-00076" summary="testing">
+      <created>1685093967583</created>
+      <option name="number" value="00076" />
+      <option name="presentableId" value="LOCAL-00076" />
+      <option name="project" value="LOCAL" />
+      <updated>1685093967584</updated>
+    </task>
+    <option name="localTasksCounter" value="77" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

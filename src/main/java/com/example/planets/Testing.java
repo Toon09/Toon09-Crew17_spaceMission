@@ -1,6 +1,7 @@
 package com.example.planets;
 
 import com.example.planets.BackEnd.CelestialEntities.CelestialBody;
+import com.example.planets.BackEnd.CelestialEntities.Spaceship;
 import com.example.planets.BackEnd.Models.Gravity0;
 import com.example.planets.BackEnd.NumericalMethods.Euler;
 
@@ -25,19 +26,18 @@ public class Testing {
             population[i] = new Gravity0(0, Math.PI / 2.0, new Euler(), changeABit(initialPlan));
         }
         while (true) {
+            notOptimalSort(population);
+            if (fit(population[0])< 1000){
 
+            }
 
         }
 
 
     }
 
-    public double fit(double[] ship, double[] titan) {
-        double distance = 0;
-        for (int i = 0; i < 3; i++) {
-            distance += titan[i] - ship[i];
-        }
-        return distance;
+    public static double fit(Gravity0`model) {
+        return
     }
 
     public static double[][] changeABit(double[][] oryginal) {
@@ -51,13 +51,21 @@ public class Testing {
     }
     public static void notOptimalSort(Gravity0[] models){
         int counter =0;
-        while (true){
-            if (1==1){
-
+        while (counter<models.length){
+            if (models[counter].getShip().getDistance(getTitan(models[counter])) > models[counter+1].getShip().getDistance(getTitan(models[counter+1]))){
+                Gravity0 tmp = models[counter];
+                models[counter] = models[counter+1];
+                models[counter+1] = tmp;
+                if (counter!=0){
+                    counter--;
+                }
+            }else{
+                counter++;
             }
         }
     }
     public static CelestialBody getTitan(Gravity0 model){
         return model.getBody(8);
     }
+
 }
