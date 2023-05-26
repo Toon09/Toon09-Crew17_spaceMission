@@ -10,9 +10,11 @@ public class Testing {
     public static void main(String[] args) {
         //creating the initial population
         Gravity0[] population = new Gravity0[20];
+        double[][] initialPlan = new double[20][5];
+        initialPlan[0] ={}
         while (true){
             for (int i=0; i<20; i++){
-
+                population[i] = new Gravity0(0, Math.PI / 2.0, new Euler());
             }
         }
 
