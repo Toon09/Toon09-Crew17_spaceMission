@@ -79,11 +79,6 @@ public class AB2 implements NumSolver {
 
     }
 
-    private void AB2acc(Model3D model, double dt){
-        //
-
-    }
-
     @Override
     public String getName() {
         return "AB2";

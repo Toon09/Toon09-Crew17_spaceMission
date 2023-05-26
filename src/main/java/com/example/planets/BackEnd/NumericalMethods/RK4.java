@@ -65,7 +65,7 @@ public class RK4 implements NumSolver{
         for(int i=0; i<pk1.length; i++){ //loops thru all planets
             for(int j=0;j <2; j++)
                 for( int k=0; k<3; k++ ){ // all dimensions
-                    pk2[i][j][k] = pk1[i][j][k] + dt * pk1[i][j+1][k] / 2; //pk1 = model, so we can use either
+                    pk2[i][j][k] = pk1[i][j][k] + dt * pk1[i][j+1][k] / 2;
 
                 }
 
@@ -75,7 +75,7 @@ public class RK4 implements NumSolver{
         for(int i=0; i<pk1.length; i++){ //loops thru all planets
             for(int j=0;j <2; j++)
                 for( int k=0; k<3; k++ ) // all dimensions
-                    pk3[i][j][k] = pk1[i][j][k] + dt * pk2[i][j+1][k] / 2; //pk1 = model, so we can use either
+                    pk3[i][j][k] = pk1[i][j][k] + dt * pk2[i][j+1][k] / 2;
 
         }
 
@@ -83,7 +83,7 @@ public class RK4 implements NumSolver{
         for(int i=0; i<pk1.length; i++){ //loops thru all planets
             for(int j=0;j <2; j++)
                 for( int k=0; k<3; k++ ) // all dimensions
-                    pk4[i][j][k] = pk1[i][j][k] + dt * pk3[i][j+1][k]; //pk1 = model, so we can use either
+                    pk4[i][j][k] = pk1[i][j][k] + dt * pk3[i][j+1][k];
 
         }
 

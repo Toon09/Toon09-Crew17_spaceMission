@@ -6,11 +6,11 @@
   <component name="ChangeListManager">
     <list default="true" id="bab05458-8716-4abd-8f37-31e577e5aaab" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/planets/BackEnd/Models/TestModel1.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/planets/BackEnd/Models/TestModel1.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/planets/BackEnd/Models/TestModel2.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/planets/BackEnd/Models/TestModel2.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/planets/BackEnd/CelestialEntities/Spaceship.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/planets/BackEnd/CelestialEntities/Spaceship.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/planets/BackEnd/Models/TestModel3.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/planets/BackEnd/Models/TestModel3.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/planets/BackEnd/NumericalMethods/RK2.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/planets/BackEnd/NumericalMethods/RK2.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/planets/BackEnd/NumericalMethods/RK3.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/planets/BackEnd/NumericalMethods/RK3.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/planets/BackEnd/NumericalMethods/AB2.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/planets/BackEnd/NumericalMethods/AB2.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/planets/BackEnd/NumericalMethods/RK4.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/planets/BackEnd/NumericalMethods/RK4.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/planets/BackEnd/Trajectory/Planning.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/planets/BackEnd/Trajectory/Planning.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/planets/NumericalExperiments.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/planets/NumericalExperiments.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -133,13 +133,6 @@
       <workItem from="1683209681075" duration="3407000" />
       <workItem from="1683820709833" duration="618000" />
       <workItem from="1683841240613" duration="1723000" />
-    </task>
-    <task id="LOCAL-00023" summary="Numerical method functioning">
-      <created>1683209942449</created>
-      <option name="number" value="00023" />
-      <option name="presentableId" value="LOCAL-00023" />
-      <option name="project" value="LOCAL" />
-      <updated>1683209942449</updated>
     </task>
     <task id="LOCAL-00024" summary="Numerical method functioning">
       <created>1683209998874</created>
@@ -477,7 +470,14 @@
       <option name="project" value="LOCAL" />
       <updated>1685005373982</updated>
     </task>
-    <option name="localTasksCounter" value="72" />
+    <task id="LOCAL-00072" summary="data generation set up and rk2 refactored">
+      <created>1685013238991</created>
+      <option name="number" value="00072" />
+      <option name="presentableId" value="LOCAL-00072" />
+      <option name="project" value="LOCAL" />
+      <updated>1685013238991</updated>
+    </task>
+    <option name="localTasksCounter" value="73" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -495,7 +495,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Experimenting with several RK4 step sizes" />
     <MESSAGE value="finished experiemnts &amp; added RK4 with step=0.1 to GUI" />
     <MESSAGE value="more stuff to do in merged" />
     <MESSAGE value="added Ralstons RK4 and tested AB2" />
@@ -520,6 +519,56 @@
     <MESSAGE value="GUI cool stuff" />
     <MESSAGE value="Documentation of celestial bodies" />
     <MESSAGE value="leapFrog and others" />
-    <option name="LAST_COMMIT_MESSAGE" value="leapFrog and others" />
+    <MESSAGE value="data generation set up and rk2 refactored" />
+    <option name="LAST_COMMIT_MESSAGE" value="data generation set up and rk2 refactored" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/example/planets/BackEnd/Models/Gravity0.java</url>
+          <line>274</line>
+          <option name="timeStamp" value="2" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/example/planets/BackEnd/Models/Gravity0.java</url>
+          <line>116</line>
+          <option name="timeStamp" value="3" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/example/planets/BackEnd/Models/Gravity0.java</url>
+          <line>112</line>
+          <option name="timeStamp" value="4" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/example/planets/NumericalExperiments.java</url>
+          <line>90</line>
+          <option name="timeStamp" value="19" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-method">
+          <url>file://$PROJECT_DIR$/src/main/java/com/example/planets/BackEnd/CelestialEntities/Spaceship.java</url>
+          <line>156</line>
+          <properties class="com.example.planets.BackEnd.CelestialEntities.Spaceship" method="accelerate">
+            <option name="EMULATED" value="true" />
+            <option name="WATCH_EXIT" value="false" />
+          </properties>
+          <option name="timeStamp" value="30" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+    <pin-to-top-manager>
+      <pinned-members>
+        <PinnedItemInfo parentTag="com.example.planets.BackEnd.CelestialEntities.Spaceship" memberName="plan" />
+        <PinnedItemInfo parentTag="com.example.planets.BackEnd.CelestialEntities.Spaceship" memberName="vel" />
+        <PinnedItemInfo parentTag="com.example.planets.BackEnd.CelestialEntities.Spaceship" memberName="pos" />
+      </pinned-members>
+    </pin-to-top-manager>
+    <watches-manager>
+      <configuration name="Application">
+        <watch expression="model" />
+        <watch expression="a" />
+        <watch expression="b" />
+      </configuration>
+    </watches-manager>
   </component>
 </project>

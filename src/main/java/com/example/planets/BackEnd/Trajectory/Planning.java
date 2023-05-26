@@ -32,13 +32,15 @@ public class Planning {
      */
     public void nextDirection(){
         countOfStages++;
-        if(countOfStages >= maneuverPoints.length){
-            countOfStages = 0;
-            System.out.println("PPPPPPPPEEEEEEEEEEEEEEPPPPPPPPPPPPPPPEEEEEEEE reseted");
-        }
 
+    }
 
+    public int getStageVal(){
+        return countOfStages;
+    }
 
+    public int getManeuverLength(){
+        return maneuverPoints.length;
     }
 
     /**

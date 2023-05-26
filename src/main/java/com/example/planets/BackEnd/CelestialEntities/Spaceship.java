@@ -145,7 +145,7 @@ public class Spaceship extends CelestialBody {
 
         if( plan != null ){
             calcCost(getTarget(), dt, getUsedFuel());
-            accelerate(time);
+            accelerate(time, dt);
         }
 
     }
@@ -154,27 +154,27 @@ public class Spaceship extends CelestialBody {
     /**
      * @param time the time that has passed until now from the start from the simulation in seconds
      */
-    public void accelerate(double time){
-        if( time >= plan.getCurrent()[1]  ){
+    public void accelerate(double time, double dt){
+        if( time > plan.getCurrent()[1] && plan.getStageVal() < plan.getManeuverLength() -1 ){
             // in getForce get value of the acc given in plan
             //make plan just give acc & fuel consumption be 1 (in requirements)
             //plans are being set equal and copied by reference, not value
+
+            plan.nextDirection();
+        }
+        if(time >= plan.getCurrent()[0] && time <= plan.getCurrent()[1]){
+            double [] current = getAcc();
+            for (int i =0; i<current.length; i++){
+                current[i] += getAcc()[i] + plan.getCurrent()[i+2] * dt / (plan.getCurrent()[1]-plan.getCurrent()[0]);
+            }
+
             double force = 0.0;
             for (int i=0; i<3; i++)
                 force += plan.getCurrent()[i+2]*plan.getCurrent()[i+2];
 
             force = Math.sqrt(force);
+            usedFuel += (force*mass/maxForce)*fuelConsumption*dt;
 
-            usedFuel += (force/maxForce)*fuelConsumption*(plan.getCurrent()[1]-plan.getCurrent()[0]);
-            plan.nextDirection();
-
-            System.out.println("the fuel added: " + (force/maxForce)*fuelConsumption*(plan.getCurrent()[1]-plan.getCurrent()[0]));
-        }
-        if(time >= plan.getCurrent()[0] && time <= plan.getCurrent()[1]){
-            double [] current = getAcc();
-            for (int i =0; i<current.length; i++){
-                current[i]+= getAcc()[i] + plan.getCurrent()[i+2];
-            }
             setAcc(current);
         }
 
