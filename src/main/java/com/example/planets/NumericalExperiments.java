@@ -62,13 +62,13 @@ class NumericalExperiments {
 
     // https://ssd.jpl.nasa.gov/horizons/app.html#/ [ experiment data ]
     public static void main(String[] args) {
-        engineTest();
+        //engineTest();
 
         //comparingToEachOther();
 
         //comparingToNasaData();
 
-        //trajectoryTesting();
+        trajectoryTesting();
 
         //testingAccuracyOfSolvers();
 
@@ -90,7 +90,7 @@ class NumericalExperiments {
         Model3D model = new Gravity0(0, 0, new RK4());
         double dt = 0.5;
 
-        model.addShips(1); //ship that will be unchanged
+        model.addShips(3); //ship that will be unchanged
 
         double[][] plan = new double[][] {{0,10*60,
                     11,0,0},
@@ -99,32 +99,37 @@ class NumericalExperiments {
 
         model.getShip().setPlan( plan );
 
+        plan[0][2] = 35.0;
+        model.getShip(1).setPlan( plan );
+
         System.out.println("initializing test: \nIn days?: " + isDay + "\nTime interval: "+checkInterval+"s or day\n\n");
 
-        double[] pos1 = new double[3];
-        double[] pos2 = new double[3];
+        double[][] pos = new double[model.getAmountOfShips()][3];
 
         for(int i=0; i<time; i++){
             model.updatePos(1.0, dt, isDay );
 
             if( (i+1)%checkInterval == 0 ){
-                System.out.println("time stamp: " + (i+1)/60);
+                System.out.println("time stamp: " + (i+1));
 
-                pos1 = model.getShip(1).getPos();
-                pos2 = model.getShip(0).getPos(); // check if
+                for(int j=0; j<model.getAmountOfShips(); j++){
+                    pos[j] = model.getShip(j).getPos();
+                }
 
-                System.out.println("Ship with engine plan:");
-                System.out.println("X: " + pos1[0] + "; Y: " + pos1[1] + "; Z: " + pos1[2]);
-                System.out.println("Ship with NO engine plan:");
-                System.out.println("X: " + pos2[0] + "; Y: " + pos2[1] + "; Z: " + pos2[2] + "\n");
+                System.out.println("Sips: ");
+                for(int k=0; k<model.getAmountOfShips(); k++){
+                    System.out.println("Ship: " + k);
+                    System.out.println("X: " + pos[k][0] + "; Y: " + pos[k][1] + "; Z: " + pos[k][2]);
+                    System.out.println("acc x: " + model.getShip(k).getAcc()[0]+"\n");
+                }
 
-                System.out.println("Difference of both: ");
-                System.out.println("X: " + (pos1[0]-pos2[0]) + "; Y: " + (pos1[1]-pos2[1]) + "; Z: " + (pos1[2]-pos2[2]));
 
-                System.out.println("fuel 0: " + model.getShip(0).getUsedFuel());
-                System.out.println("fuel 1: " + model.getShip(1).getUsedFuel());
+                System.out.println("\nfuel's:");
+                for(int j=0; j<model.getAmountOfShips(); j++){
+                    System.out.println("fuel " + j + ": " + model.getShip(j).getUsedFuel() );
+                }
 
-                System.out.println("\n\n");
+                System.out.println("");
             }
 
 
@@ -262,7 +267,7 @@ class NumericalExperiments {
         final String TARGET_FILE =  "ExpData/ExpMars.txt"; // "ExpData/ExpMars.txt"
         final String SUN = "ExpData/ExpSun.txt"; // "ExpData/ExpSun.txt"
 
-        double dt = 0.5;
+        double dt = 100.0;
 
         //  testing models
         ArrayList<Model3D> models = new ArrayList<Model3D>();
@@ -442,7 +447,7 @@ class NumericalExperiments {
         0.005
         0.001
          */
-        double dt = 2.5;
+        double dt = 1.0;
 
 
         //  testing models

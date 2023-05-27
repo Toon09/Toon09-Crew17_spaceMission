@@ -109,6 +109,7 @@ public class Spaceship extends CelestialBody {
      * @param maxDays the maximum amount of days that the travel can go on for (on the way back and forward)
      */
     public void makePlan(Model3D model, String targetPlanet, int numberOfStages, int maxDays){
+        costFunc = new PlanetaryRing();
         plan = new Planning(model, targetPlanet, numberOfStages, maxDays);
     }
 
@@ -120,16 +121,20 @@ public class Spaceship extends CelestialBody {
         return plan.getTarget();
     }
 
+    public void setTarget(CelestialBody target){
+        plan.setTarget(target);
+    }
+
 
     /**
      * @param state takes in an ArrayList of double arrays that makes it the new
      *              set of maneuvers that the SpaceShip will execute
      */
     public void setPlan(double[][] state){
-        if( plan == null )
-            plan = new Planning();
+        if( this.plan == null )
+            this.plan = new Planning();
 
-        plan.setState(state);
+        this.plan.setState(state);
     }
 
     public double getCost(){

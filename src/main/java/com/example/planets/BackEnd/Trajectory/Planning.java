@@ -106,7 +106,12 @@ public class Planning {
 
 
     public void setState(double[][] state){
-        maneuverPoints = state;
+        maneuverPoints = new double[state.length][5];
+
+        for(int i=0; i<state.length; i++)
+            for(int j=0; j<5; j++)
+                maneuverPoints[i][j] = state[i][j];
+
     }
 
 
