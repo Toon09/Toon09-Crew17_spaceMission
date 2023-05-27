@@ -33,9 +33,10 @@ public class TestModel2 implements Model3D{
 
     }
 
-    private TestModel2(CelestialBody[] bodies, NumSolver numSolver){
+    private TestModel2(CelestialBody[] bodies, NumSolver numSolver, double time){
         this.bodies = new CelestialBody[1];
         this.bodies[0] = bodies[0].clone();
+        this.time = time;
 
         this.numSolver = numSolver;
     }
@@ -107,19 +108,19 @@ public class TestModel2 implements Model3D{
 
     @Override
     public void hDeriv() {
-        bodies[0].setVel(new double[]{getPos(0)[0]/getTime() - 2,
-                                    getPos(0)[1]/getTime() - 2,
-                                    getPos(0)[2]/getTime() - 2});
+        bodies[0].setVel(new double[]{getPos(0)[0]/getTime() - 2.0,
+                                      getPos(0)[1]/getTime() - 2.0,
+                                      getPos(0)[2]/getTime() - 2.0});
     }
 
     @Override
     public Model3D clone(NumSolver numSolver) {
-        return new TestModel2(this.bodies, numSolver);
+        return new TestModel2(this.bodies, numSolver, time);
     }
 
     @Override
     public Model3D clone() {
-        return new TestModel2(this.bodies, numSolver);
+        return new TestModel2(this.bodies, numSolver, time);
     }
 
     @Override

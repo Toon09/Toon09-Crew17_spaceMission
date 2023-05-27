@@ -5,12 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="bab05458-8716-4abd-8f37-31e577e5aaab" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/planets/BackEnd/NumericalMethods/AB2.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/planets/BackEnd/NumericalMethods/AB2.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/planets/BackEnd/NumericalMethods/RK2.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/planets/BackEnd/NumericalMethods/RK2.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/planets/BackEnd/NumericalMethods/RK3.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/planets/BackEnd/NumericalMethods/HeunsRK3.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/planets/NumericalExperiments.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/planets/NumericalExperiments.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/planets/Testing.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/planets/Testing.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/planets/BackEnd/Trajectory/SteepestAscent/SteepestAscent.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/planets/BackEnd/Trajectory/SteepestAscent/SteepestAscent.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -26,6 +21,7 @@
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="UPDATE_TYPE" value="REBASE" />
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
@@ -131,55 +127,6 @@
       <workItem from="1683209681075" duration="3407000" />
       <workItem from="1683820709833" duration="618000" />
       <workItem from="1683841240613" duration="1723000" />
-    </task>
-    <task id="LOCAL-00025" summary="Numerical method functioning">
-      <created>1683211157129</created>
-      <option name="number" value="00025" />
-      <option name="presentableId" value="LOCAL-00025" />
-      <option name="project" value="LOCAL" />
-      <updated>1683211157129</updated>
-    </task>
-    <task id="LOCAL-00026" summary="Numerical method functioning">
-      <created>1683211389013</created>
-      <option name="number" value="00026" />
-      <option name="presentableId" value="LOCAL-00026" />
-      <option name="project" value="LOCAL" />
-      <updated>1683211389014</updated>
-    </task>
-    <task id="LOCAL-00027" summary="Numerical method functioning">
-      <created>1683211421495</created>
-      <option name="number" value="00027" />
-      <option name="presentableId" value="LOCAL-00027" />
-      <option name="project" value="LOCAL" />
-      <updated>1683211421495</updated>
-    </task>
-    <task id="LOCAL-00028" summary="Numerical method functioning">
-      <created>1683212098274</created>
-      <option name="number" value="00028" />
-      <option name="presentableId" value="LOCAL-00028" />
-      <option name="project" value="LOCAL" />
-      <updated>1683212098274</updated>
-    </task>
-    <task id="LOCAL-00029" summary="Numerical method functioning">
-      <created>1683212530050</created>
-      <option name="number" value="00029" />
-      <option name="presentableId" value="LOCAL-00029" />
-      <option name="project" value="LOCAL" />
-      <updated>1683212530050</updated>
-    </task>
-    <task id="LOCAL-00030" summary="Numerical method functioning">
-      <created>1683212658327</created>
-      <option name="number" value="00030" />
-      <option name="presentableId" value="LOCAL-00030" />
-      <option name="project" value="LOCAL" />
-      <updated>1683212658327</updated>
-    </task>
-    <task id="LOCAL-00031" summary="Numerical method functioning">
-      <created>1683213041955</created>
-      <option name="number" value="00031" />
-      <option name="presentableId" value="LOCAL-00031" />
-      <option name="project" value="LOCAL" />
-      <updated>1683213041955</updated>
     </task>
     <task id="LOCAL-00032" summary="GUI changes">
       <created>1683813020788</created>
@@ -475,7 +422,56 @@
       <option name="project" value="LOCAL" />
       <updated>1685093545566</updated>
     </task>
-    <option name="localTasksCounter" value="74" />
+    <task id="LOCAL-00074" summary="RK3 more appropiately named">
+      <created>1685095285114</created>
+      <option name="number" value="00074" />
+      <option name="presentableId" value="LOCAL-00074" />
+      <option name="project" value="LOCAL" />
+      <updated>1685095285114</updated>
+    </task>
+    <task id="LOCAL-00075" summary="beautuiful cost function done">
+      <created>1685097861225</created>
+      <option name="number" value="00075" />
+      <option name="presentableId" value="LOCAL-00075" />
+      <option name="project" value="LOCAL" />
+      <updated>1685097861225</updated>
+    </task>
+    <task id="LOCAL-00076" summary="solvers fixed after code review">
+      <created>1685115750822</created>
+      <option name="number" value="00076" />
+      <option name="presentableId" value="LOCAL-00076" />
+      <option name="project" value="LOCAL" />
+      <updated>1685115750822</updated>
+    </task>
+    <task id="LOCAL-00077" summary="experiment set up finished">
+      <created>1685118484136</created>
+      <option name="number" value="00077" />
+      <option name="presentableId" value="LOCAL-00077" />
+      <option name="project" value="LOCAL" />
+      <updated>1685118484136</updated>
+    </task>
+    <task id="LOCAL-00078" summary="engine working with new solvers">
+      <created>1685127964110</created>
+      <option name="number" value="00078" />
+      <option name="presentableId" value="LOCAL-00078" />
+      <option name="project" value="LOCAL" />
+      <updated>1685127964111</updated>
+    </task>
+    <task id="LOCAL-00079" summary="advances in hill climbing">
+      <created>1685180301407</created>
+      <option name="number" value="00079" />
+      <option name="presentableId" value="LOCAL-00079" />
+      <option name="project" value="LOCAL" />
+      <updated>1685180301407</updated>
+    </task>
+    <task id="LOCAL-00080" summary="cost function changed back lol">
+      <created>1685196946961</created>
+      <option name="number" value="00080" />
+      <option name="presentableId" value="LOCAL-00080" />
+      <option name="project" value="LOCAL" />
+      <updated>1685196946962</updated>
+    </task>
+    <option name="localTasksCounter" value="81" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -493,13 +489,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="more stuff to do in merged" />
-    <MESSAGE value="added Ralstons RK4 and tested AB2" />
-    <MESSAGE value="Re-organizing data and adding to the todo list &amp; testing DataGetter.java" />
-    <MESSAGE value="Doc for planning and structuring" />
-    <MESSAGE value="Doc and further structuring for the trajectory planning" />
-    <MESSAGE value="Fixed dependency issue, cant copy planning from models" />
-    <MESSAGE value="set up to test AB2" />
     <MESSAGE value="Re-organized info in comments" />
     <MESSAGE value="experiment setup made" />
     <MESSAGE value="Data txt getter" />
@@ -518,49 +507,36 @@
     <MESSAGE value="leapFrog and others" />
     <MESSAGE value="data generation set up and rk2 refactored" />
     <MESSAGE value="engine working" />
-    <option name="LAST_COMMIT_MESSAGE" value="engine working" />
+    <MESSAGE value="RK3 more appropiately named" />
+    <MESSAGE value="beautuiful cost function done" />
+    <MESSAGE value="solvers fixed after code review" />
+    <MESSAGE value="experiment set up finished" />
+    <MESSAGE value="engine working with new solvers" />
+    <MESSAGE value="advances in hill climbing" />
+    <MESSAGE value="cost function changed back lol" />
+    <option name="LAST_COMMIT_MESSAGE" value="cost function changed back lol" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/example/planets/BackEnd/Models/Gravity0.java</url>
-          <line>274</line>
-          <option name="timeStamp" value="2" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/example/planets/BackEnd/Models/Gravity0.java</url>
-          <line>116</line>
-          <option name="timeStamp" value="3" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/example/planets/BackEnd/Models/Gravity0.java</url>
-          <line>112</line>
-          <option name="timeStamp" value="4" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-method">
-          <url>file://$PROJECT_DIR$/src/main/java/com/example/planets/BackEnd/CelestialEntities/Spaceship.java</url>
-          <line>156</line>
-          <properties class="com.example.planets.BackEnd.CelestialEntities.Spaceship" method="accelerate">
-            <option name="EMULATED" value="true" />
-            <option name="WATCH_EXIT" value="false" />
-          </properties>
-          <option name="timeStamp" value="30" />
+          <url>file://$PROJECT_DIR$/src/main/java/com/example/planets/BackEnd/Trajectory/SteepestAscent/SteepestAscent.java</url>
+          <line>111</line>
+          <option name="timeStamp" value="69" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
     <pin-to-top-manager>
       <pinned-members>
         <PinnedItemInfo parentTag="com.example.planets.BackEnd.CelestialEntities.Spaceship" memberName="plan" />
+        <PinnedItemInfo parentTag="com.example.planets.BackEnd.NumericalMethods.RK2" memberName="first" />
         <PinnedItemInfo parentTag="com.example.planets.BackEnd.CelestialEntities.Spaceship" memberName="vel" />
         <PinnedItemInfo parentTag="com.example.planets.BackEnd.CelestialEntities.Spaceship" memberName="pos" />
       </pinned-members>
     </pin-to-top-manager>
     <watches-manager>
       <configuration name="Application">
-        <watch expression="model" />
-        <watch expression="a" />
-        <watch expression="b" />
+        <watch expression="optimizer" />
       </configuration>
     </watches-manager>
   </component>

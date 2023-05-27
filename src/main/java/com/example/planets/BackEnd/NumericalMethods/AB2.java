@@ -37,11 +37,11 @@ public class AB2 implements NumSolver {
                                             model.getVel(i)[2] + (dt/2.0) * ( 3.0*model.getAcc(i)[2] - prev.getAcc(i)[2] )   } );
         }
 
-        //update acc
-        model.hDeriv();
-
         //adds time
         model.addDt(dt);
+
+        //update acc
+        model.hDeriv();
 
         // letting the ship do its plans (works for many ships)
         for(int i=0; i< model.getAmountOfShips(); i++){
@@ -68,7 +68,7 @@ public class AB2 implements NumSolver {
         if( prev == null ){ //bootstrapping with RK2
             prev = model.clone( new RK4() );
 
-            //prev.updatePos(-dt, -dt, false); // a step backwards
+            prev.updatePos(-dt, -dt, false); // a step backwards
             temp = model.clone(null); //copy current model
 
         } else { // using last model

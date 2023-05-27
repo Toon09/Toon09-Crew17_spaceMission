@@ -88,10 +88,17 @@ public class Spaceship extends CelestialBody {
      * @param costFunc specifies how the body will calculate its cost for the cost function used in the
      *                 trajectory calculation
      */
-    private Spaceship(CelestialBody body, CostFunction costFunc){
+    private Spaceship(CelestialBody body, Planning plan, CostFunction costFunc, CelestialBody target){
         super( body.getName(), body.getMass(), body.getPos(), body.getVel());
         this.costFunc = costFunc;
+        if( plan != null ){
+            this.plan = plan.clone();
+            this.plan.setTarget( target );
+        }
+
         usedFuel = 0;
+
+
 
     }
 
@@ -104,6 +111,7 @@ public class Spaceship extends CelestialBody {
      * @param maxDays the maximum amount of days that the travel can go on for (on the way back and forward)
      */
     public void makePlan(Model3D model, String targetPlanet, int numberOfStages, int maxDays){
+        costFunc = new PlanetaryRing();
         plan = new Planning(model, targetPlanet, numberOfStages, maxDays);
     }
 
@@ -115,16 +123,20 @@ public class Spaceship extends CelestialBody {
         return plan.getTarget();
     }
 
+    public void setTarget(CelestialBody target){
+        plan.setTarget(target);
+    }
+
 
     /**
      * @param state takes in an ArrayList of double arrays that makes it the new
      *              set of maneuvers that the SpaceShip will execute
      */
     public void setPlan(double[][] state){
-        if( plan == null )
-            plan = new Planning();
+        if( this.plan == null )
+            this.plan = new Planning();
 
-        plan.setState(state);
+        this.plan.setState(state);
     }
 
     public double getCost(){
@@ -144,7 +156,8 @@ public class Spaceship extends CelestialBody {
     public void executePlans(double time, double dt){
 
         if( plan != null ){
-            calcCost(getTarget(), dt, getUsedFuel());
+            if( getTarget() != null )
+                calcCost(getTarget(), dt, getUsedFuel());
             accelerate(time, dt);
         }
 
@@ -188,7 +201,7 @@ public class Spaceship extends CelestialBody {
      * @param fuel the fuel that has been consumed so far
      */
     private void calcCost(CelestialBody target, double dt, double fuel){
-        cost += costFunc.calcCost(fuel, target) * dt;
+        cost += costFunc.calcCost(fuel, getDistance(target)) * dt;
     }
 
 
@@ -209,7 +222,9 @@ public class Spaceship extends CelestialBody {
     public Spaceship clone() {
         CelestialBody temp = super.clone();
 
-        return new Spaceship(temp, costFunc);
+        if(plan == null)
+            return new Spaceship(temp, null, costFunc, null);
+        return new Spaceship(temp, plan, costFunc, getTarget());
     }
 
 

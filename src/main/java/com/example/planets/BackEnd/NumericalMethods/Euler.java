@@ -21,14 +21,14 @@ public class Euler implements NumSolver {
                     model.getVel(i)[2] + model.getAcc(i)[2] * dt   } );
         }
 
-        //update acc
-        model.hDeriv();
-
         //adds time
         model.addDt(dt);
 
+        //update acc
+        model.hDeriv();
+
         // letting the ship do its plans (works for many ships)
-        for(int i=0; i< model.getAmountOfShips(); i++){
+        for(int i=0; i<model.getAmountOfShips(); i++){
             model.getShip(i).executePlans(model.getTime(), dt);
         }
 
