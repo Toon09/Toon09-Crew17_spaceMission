@@ -35,7 +35,6 @@ public class RK4 implements NumSolver{
 
         //update vel
         for(int i=0; i<model.size(); i++){
-
             model.setVel(i, new double[] {  model.getVel(i)[0] + dt * ( model.getAcc(i)[0] + 2*vk2.getAcc(i)[0] + 2*vk3.getAcc(i)[0] + vk4.getAcc(i)[0] ) / 6.0,
                                             model.getVel(i)[1] + dt * ( model.getAcc(i)[1] + 2*vk2.getAcc(i)[1] + 2*vk3.getAcc(i)[1] + vk4.getAcc(i)[1] ) / 6.0,
                                             model.getVel(i)[2] + dt * ( model.getAcc(i)[2] + 2*vk2.getAcc(i)[2] + 2*vk3.getAcc(i)[2] + vk4.getAcc(i)[2] ) / 6.0    } );
