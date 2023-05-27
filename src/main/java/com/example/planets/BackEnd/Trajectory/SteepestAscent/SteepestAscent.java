@@ -83,7 +83,7 @@ public class SteepestAscent implements TrajectoryPlanner {
             }
 
             // run sim
-            optimizer.updatePos(numbOfDays, 500.0, true);
+            optimizer.updatePos(numbOfDays, 100.0, true);
 
             Spaceship champion = null;
 
