@@ -16,11 +16,11 @@ public class Testing {
     public static void main(String[] args) {
         //create initial population
         Gravity0 initial = new Gravity0(0, Math.PI / 2.0, new RK4(), zeros());
-        int popSize = 10;
+        int popSize = 15;
         Gravity0[] population = new Gravity0[popSize];
         fillWith(initial,population);
-        final int numberOfGenerations = 10;
-
+        final int numberOfGenerations = 100;
+        Gravity0 best = null;
         for (int i=0; i<numberOfGenerations; i++){
             //let a year pass for each model
             for (Gravity0 model:population){
@@ -29,13 +29,27 @@ public class Testing {
             //sort the models
             notOptimalSort(population);
             //check the distance of the best model
+            System.out.println("------------------------------------------------------------");
             System.out.println("the best from generation "+i+" is: ");
             print(population[0]);
             System.out.println("------------------------------------------------------------");
+            if (i==0 || distance(population[0]) < distance(best)){
+                best = population[0];
+                System.out.println("------------------------------------------------------------");
+                System.out.println("we have a new overall best");
+                System.out.println("------------------------------------------------------------");
+            }
+
             //get the best model, fill the new population with it ( with mutations )
-            Gravity0 newInitial = new Gravity0(0, Math.PI / 2.0, new RK4(), population[0].getShip().getPlan());
-            fillWith(newInitial, population);
+            Gravity0 modelOne = new Gravity0(0, Math.PI / 2.0, new RK4(), population[0].getShip().getPlan());
+            Gravity0 modelTwo = new Gravity0(0, Math.PI / 2.0, new RK4(), population[1].getShip().getPlan());
+            Gravity0 modelThree = new Gravity0(0, Math.PI / 2.0, new RK4(), population[2].getShip().getPlan());
+
+            fillWith(modelOne,modelTwo,modelThree, population);
        }
+        System.out.println("best we got after " + numberOfGenerations+" generations is :");
+        print(best);
+
     }
 
     public static double distance(Gravity0 model) {
@@ -81,6 +95,18 @@ public class Testing {
             population[i] = mutate(model);
         }
     }
+    public static  void fillWith(Gravity0 modelOne,Gravity0 modelTwo,Gravity0 modelThree, Gravity0[] population){
+        int stage = population.length/5;
+        for (int i=0; i<population.length; i++){
+            if (i<stage*2){
+                population[i] = mutate(modelOne);
+            } else if (i<stage*4) {
+                population[i] = mutate(modelTwo);
+            }else {
+                population[i] = mutate(modelThree);
+            }
+        }
+    }
 
     /*
     public static Gravity0 mutate(Gravity0 model){
@@ -101,13 +127,29 @@ public class Testing {
         {
             double[] arrayForPlan = plan[i];
             Random random = new Random();
+            double negative =1;
             if (arrayForPlan.length >= 5)
                 if (random.nextDouble(1) < 0.5)
                 {
-                    arrayForPlan[1] = arrayForPlan[1] + arrayForPlan[2] + random.nextDouble(50);
-                    arrayForPlan[2] = arrayForPlan[2] + random.nextDouble(50);
-                    arrayForPlan[3] = arrayForPlan[3] + random.nextDouble(50);
-                    arrayForPlan[4] = arrayForPlan[4] + random.nextDouble(50);
+                    arrayForPlan[1] = arrayForPlan[1] + arrayForPlan[2] + random.nextDouble(100);
+                    if (random.nextDouble(1)<0.5){
+                        negative =-1;
+                    }else {
+                        negative =1;
+                    }
+                    arrayForPlan[2] = arrayForPlan[2] + random.nextDouble(1000)*negative;
+                    if (random.nextDouble(1)<0.5){
+                        negative =-1;
+                    }else {
+                        negative =1;
+                    }
+                    arrayForPlan[3] = arrayForPlan[3] + random.nextDouble(1000)*negative;
+                    if (random.nextDouble(1)<0.5){
+                        negative =-1;
+                    }else {
+                        negative =1;
+                    }
+                    arrayForPlan[4] = arrayForPlan[4] + random.nextDouble(1000)*negative;
                 }
         }
         return new Gravity0(0, Math.PI / 2.0, new RK4(), plan);
