@@ -82,6 +82,7 @@ public class Testing {
         }
     }
 
+    /*
     public static Gravity0 mutate(Gravity0 model){
         double[][] plan = model.getShip().getPlan();
         for (int i =0; i<plan.length; i++)    {
@@ -91,6 +92,26 @@ public class Testing {
             }
         }
         return new Gravity0(0, Math.PI / 2.0, new RK4(), plan);
+    }
+     */
+
+    public static Gravity0 mutate(Gravity0 model) {
+        double[][] plan = model.getShip().getPlan();
+        for (int i = 0; i < plan.length; i++)
+        {
+            double[] arrayForPlan = plan[i];
+            Random random = new Random();
+            if (arrayForPlan.length >= 5)
+                if (random.nextDouble(1) < 0.5)
+                {
+                    arrayForPlan[1] = arrayForPlan[1] + arrayForPlan[2] + random.nextDouble(50);
+                    arrayForPlan[2] = arrayForPlan[2] + random.nextDouble(50);
+                    arrayForPlan[3] = arrayForPlan[3] + random.nextDouble(50);
+                    arrayForPlan[4] = arrayForPlan[4] + random.nextDouble(50);
+                }
+        }
+        return new Gravity0(0, Math.PI / 2.0, new RK4(), plan);
+
     }
 
     public static double[][] zeros (){
