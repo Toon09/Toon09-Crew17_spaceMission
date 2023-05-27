@@ -5,7 +5,9 @@ import com.example.planets.BackEnd.CelestialEntities.Spaceship;
 import com.example.planets.BackEnd.Models.Model3D;
 import com.example.planets.BackEnd.NumericalMethods.RK4;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class SteepestAscent implements TrajectoryPlanner {
 
@@ -30,11 +32,11 @@ public class SteepestAscent implements TrajectoryPlanner {
 
         double[][] state = new double[numbOfStages][5];
 
-        // set initial values here
-        state = new double[][]{ {0, 60*30,
-                    -1, 1, 4},
-                {3*24*60*60, 3*24*60*60 + 60*30, // after 3 days accelerate for 30 min
-                    5, 5, 5}
+        // set initial values here // set [i][1] to be the duration only
+        state = new double[][]{ {0, 30*60,
+                    0, 0, 0},
+                {3*24*60*60, 3*24*60*60 + 30*60, // after 3 days accelerate for 30 min
+                    0, 0, 0}
         };
 
 
@@ -49,9 +51,11 @@ public class SteepestAscent implements TrajectoryPlanner {
                 if( optimizer.getBody(i).getName().equalsIgnoreCase(target) )
                     optimizer.getShip().setTarget( model.getBody(i) );
 
-            optimizer.addShips( 2*5*numbOfStages );
+            optimizer.addShips( 2*5*numbOfStages ); // you are not using number of stages bruh
 
             System.out.println("Lap: " + (count+1));
+
+            System.out.println("start plan: " + Arrays.deepToString(state));
 
 
             // set states
@@ -68,9 +72,9 @@ public class SteepestAscent implements TrajectoryPlanner {
                 for(int j=0; j<temp.length; j++)
                     for(int k=0; k<5; k++){
                         if(k>1)
-                            temp[j][k] += 1.5*Math.random()-1.5/2.0;
-                        else
-                            temp[j][k] += 3000.0*Math.random()-3000.0/2.0;
+                            temp[j][k] += 1.5*Math.random()-1.5/2.0; //chnges in acceleration
+                        else if(k!=0)
+                            temp[j][k] += 30000.0*Math.random()-30000.0/4.0; // changes in initial thrust times
                     }
 
 
@@ -79,19 +83,25 @@ public class SteepestAscent implements TrajectoryPlanner {
             }
 
             // run sim
-            optimizer.updatePos(numbOfDays, 100.0, true);
+            optimizer.updatePos(numbOfDays, 500.0, true);
 
             Spaceship champion = null;
 
             // get best plan made
             double cost = 0.0;
+            System.out.println("in loop");
             for(int i=0; i< optimizer.getAmountOfShips(); i++){
+                System.out.println(optimizer.getShip(i).getCost());
+                System.out.println(Arrays.deepToString(optimizer.getShip(i).getPlan()));
                 if( cost < optimizer.getShip(i).getCost() ){
                     cost = optimizer.getShip(i).getCost();
                     state = optimizer.getShip(i).getPlan(); // gets plan with highest cost
+                    System.out.println("state in loop: " + Arrays.deepToString(state));
                     champion = optimizer.getShip(i);
                 }
             }
+
+            System.out.println("\nfinal state: " + Arrays.deepToString(champion.getPlan()));
 
             CelestialBody tar = null;
             for(int i=0; i<this.model.size(); i++)

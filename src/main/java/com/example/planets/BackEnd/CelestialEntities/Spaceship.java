@@ -91,9 +91,11 @@ public class Spaceship extends CelestialBody {
     private Spaceship(CelestialBody body, Planning plan, CostFunction costFunc, CelestialBody target){
         super( body.getName(), body.getMass(), body.getPos(), body.getVel());
         this.costFunc = costFunc;
-        this.plan = plan;
-        if( plan != null )
-            plan.setTarget( target );
+        if( plan != null ){
+            this.plan = plan.clone();
+            this.plan.setTarget( target );
+        }
+
         usedFuel = 0;
 
 

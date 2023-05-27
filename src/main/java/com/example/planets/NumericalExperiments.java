@@ -7,6 +7,7 @@ import com.example.planets.BackEnd.Trajectory.Cost.PlanetaryRing;
 import com.example.planets.Data.DataGetter;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 
 class NumericalExperiments {
@@ -390,7 +391,10 @@ class NumericalExperiments {
         chrono = System.currentTimeMillis() - chrono;
         steps.add( 1.0 );
 
+        System.out.println("\nfinal plan: " + Arrays.deepToString(models.get(0).getShip().getPlan()));
         System.out.println("Planning took: " + chrono + "ms\n\n\n");
+
+
 
 
         double[] error = new double[] {0.0, 0.0, 0.0};
