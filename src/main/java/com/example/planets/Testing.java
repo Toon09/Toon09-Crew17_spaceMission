@@ -27,7 +27,7 @@ public class Testing {
 
             //let a year pass for each model
             for (Gravity0 model : population) {
-                model.updatePos(364, 120, true);
+                model.updatePos(300, 120, true);
             }
 
             //sort the models
@@ -149,7 +149,7 @@ public class Testing {
             Random random = new Random();
             double negative = 1;
             if (arrayForPlan.length >= 5){
-                if (random.nextDouble(1) < 0.7) {
+                if (random.nextDouble(1) < 0.8) {
                     arrayForPlan[0] = plan[i][0];
                     arrayForPlan[1] = plan[i][1]+ random.nextDouble(10000);
                     if (random.nextDouble(1) < 0.5) {
