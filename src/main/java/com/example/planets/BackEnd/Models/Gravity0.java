@@ -17,7 +17,7 @@ public class Gravity0 implements Model3D {
     private int spaceShipStart = 0;
     private int amountOfShips = 0;
     private NumSolver numSolver;
-
+    private double[][] plan  ;
     private double time = 0;
 
 
@@ -76,6 +76,7 @@ public class Gravity0 implements Model3D {
         this.bodies[ this.bodies.length-1 ] = new Spaceship(50000, positions[3], velocity[3], longitude, latitude);
         this.getShip().setPlan(plan);
         amountOfShips=1;
+        this.plan = plan;
 
     }
 
