@@ -5,17 +5,23 @@ import com.example.planets.BackEnd.CelestialEntities.Spaceship;
 import com.example.planets.BackEnd.Models.Model3D;
 import com.example.planets.BackEnd.NumericalMethods.RK4;
 
+
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+/*
+find way to save closest distance from target in ship
+ */
+
 public class SteepestAscent implements TrajectoryPlanner {
 
-    private final int numbOfSteps = 100;
+    private final int numbOfSteps = 30;
     private final int numbOfStages;
     private final int numbOfDays;
     private final Model3D model;
     private String target;
+    private String home = "earth";
 
     private double[][] trajectory;
 
@@ -46,12 +52,13 @@ public class SteepestAscent implements TrajectoryPlanner {
 
             // gives planning to ship
             optimizer.getShip().setPlan(state);
+
             // set target planet
             for(int i=0; i<model.size(); i++)
                 if( optimizer.getBody(i).getName().equalsIgnoreCase(target) )
                     optimizer.getShip().setTarget( model.getBody(i) );
 
-            optimizer.addShips( 2*5*numbOfStages ); // you are not using number of stages bruh
+            optimizer.addShips( 15*numbOfStages ); // you are not using number of stages bruh
 
             System.out.println("Lap: " + (count+1));
 
@@ -60,7 +67,7 @@ public class SteepestAscent implements TrajectoryPlanner {
 
             // set states
             // in each stage go + and - each parameter
-            for(int i=0; i < optimizer.getAmountOfShips(); i++){
+            for(int i=0; i < optimizer.getAmountOfShips()-1; i++){
                 // state for the first ship
 
                 ///////////////////////////////////////////////////////// ADD A CHANGE IN EVERY DIR
@@ -72,18 +79,22 @@ public class SteepestAscent implements TrajectoryPlanner {
                 for(int j=0; j<temp.length; j++)
                     for(int k=0; k<5; k++){
                         if(k>1)
-                            temp[j][k] += 1.5*Math.random()-1.5/2.0; //chnges in acceleration
-                        else if(k!=0)
-                            temp[j][k] += 30000.0*Math.random()-30000.0/4.0; // changes in initial thrust times
-                    }
+                            temp[j][k] += 12.0*Math.random()-12.0/2.0; //chnges in acceleration
 
+                        else{temp[j][k] += 5*24*60.0*60.0*(Math.random())-5*24*60*60.0/2.0; // changes in initial thrust times
+                            if( k==1 && temp[j][1] < temp[j][0])
+                                temp[j][1] = temp[j][0];
+                        }
+
+                    }
 
                 optimizer.getShip(i).setPlan( temp );
 
             }
 
+            System.out.println("optimizing");
             // run sim
-            optimizer.updatePos(numbOfDays, 100.0, true);
+            optimizer.updatePos(numbOfDays, 500.0, true);
 
             Spaceship champion = null;
 
@@ -91,12 +102,14 @@ public class SteepestAscent implements TrajectoryPlanner {
             double cost = 0.0;
             System.out.println("in loop");
             for(int i=0; i< optimizer.getAmountOfShips(); i++){
-                System.out.println(optimizer.getShip(i).getCost());
-                System.out.println(Arrays.deepToString(optimizer.getShip(i).getPlan()));
+                System.out.println("closest dist: " + optimizer.getShip(i).getClosestDistance());
+                System.out.println("cost: " +optimizer.getShip(i).getCost());
+                System.out.println("plan: " + Arrays.deepToString(optimizer.getShip(i).getPlan()));
+
                 if( cost < optimizer.getShip(i).getCost() ){
+                    System.out.println("new hottest single");
                     cost = optimizer.getShip(i).getCost();
                     state = optimizer.getShip(i).getPlan(); // gets plan with highest cost
-                    System.out.println("state in loop: " + Arrays.deepToString(state));
                     champion = optimizer.getShip(i);
                 }
             }
@@ -108,6 +121,8 @@ public class SteepestAscent implements TrajectoryPlanner {
                 if( target.equalsIgnoreCase(this.model.getBody(i).getName()) )
                     tar = this.model.getBody(i);
 
+            System.out.println("closest dist: " + champion.getClosestDistance());
+            System.out.println("used fuel: " + champion.getUsedFuel());
             System.out.println("distance: " + champion.getDistance(tar));
             System.out.println("cost: " + cost + "\n");
         }
@@ -126,5 +141,6 @@ public class SteepestAscent implements TrajectoryPlanner {
 
         return trajectory;
     }
+
 
 }

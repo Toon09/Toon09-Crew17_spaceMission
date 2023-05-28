@@ -18,11 +18,11 @@ could apply decorator for trying different types of engines and debug quick
 public class Spaceship extends CelestialBody {
     private double usedFuel;
     //has all the information of where to go and such
-    Planning plan;
-    CostFunction costFunc = new PlanetaryRing();
-    double cost=0.0;
+    private Planning plan;
+    private CostFunction costFunc = new PlanetaryRing();
+    private double cost=0.0;
+    private double closestDist = 0.0;
     private final double maxSpeed = 11000; //2,500 to 4,500 m/s (look up) according to falcon 9
-    private final double accRate = 10;
     private  final double maxForce = 3 * Math.pow(10, 7); // Newtons
     private final double fuelConsumption = 1451.5; //kg this fuel consumption is based on the falcon 9 maximum fuel consumption, so at max acceleration the consumption is this one.
     public double getUsedFuel(){ return usedFuel; }
@@ -88,12 +88,11 @@ public class Spaceship extends CelestialBody {
      * @param costFunc specifies how the body will calculate its cost for the cost function used in the
      *                 trajectory calculation
      */
-    private Spaceship(CelestialBody body, Planning plan, CostFunction costFunc, CelestialBody target){
+    private Spaceship(CelestialBody body, Planning plan, CostFunction costFunc){
         super( body.getName(), body.getMass(), body.getPos(), body.getVel());
         this.costFunc = costFunc;
         if( plan != null ){
             this.plan = plan.clone();
-            this.plan.setTarget( target );
         }
 
         usedFuel = 0;
@@ -112,7 +111,7 @@ public class Spaceship extends CelestialBody {
      */
     public void makePlan(Model3D model, String targetPlanet, int numberOfStages, int maxDays){
         costFunc = new PlanetaryRing();
-        plan = new Planning(model, targetPlanet, numberOfStages, maxDays);
+        plan = new Planning(model, targetPlanet, "earth", numberOfStages, maxDays);
     }
 
 
@@ -156,11 +155,20 @@ public class Spaceship extends CelestialBody {
     public void executePlans(double time, double dt){
 
         if( plan != null ){
-            if( getTarget() != null )
-                calcCost(getTarget(), dt, getUsedFuel());
+            if( getTarget() != null ){
+                if( closestDist > getDistance(getTarget()) || closestDist == 0.0 )
+                    closestDist = getDistance(getTarget());
+
+                calcCost(closestDist, dt, getUsedFuel());
+
+            }
             accelerate(time, dt);
         }
 
+    }
+
+    public double getClosestDistance(){
+        return closestDist;
     }
 
 
@@ -195,13 +203,13 @@ public class Spaceship extends CelestialBody {
 
 
     /**
-     * adds the cost given by the cost function to the one that we already have
-     * @param target the target CelestialBody that wants to be reached
+     * adds the cost given by the cost function to the one that we already have\
+     * @param distToTarget distance to where the spaceship s supposed to orbit around
      * @param dt the time step that is being used to calculate the changes in the model with the numerical solvers
      * @param fuel the fuel that has been consumed so far
      */
-    private void calcCost(CelestialBody target, double dt, double fuel){
-        cost += costFunc.calcCost(fuel, getDistance(target)) * dt;
+    private void calcCost(double distToTarget, double dt, double fuel){
+        cost += costFunc.calcCost(fuel, distToTarget) * dt;
     }
 
 
@@ -223,8 +231,8 @@ public class Spaceship extends CelestialBody {
         CelestialBody temp = super.clone();
 
         if(plan == null)
-            return new Spaceship(temp, null, costFunc, null);
-        return new Spaceship(temp, plan, costFunc, getTarget());
+            return new Spaceship(temp, null, costFunc);
+        return new Spaceship(temp, plan, costFunc);
     }
 
 

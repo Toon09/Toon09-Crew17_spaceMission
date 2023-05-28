@@ -369,10 +369,10 @@ class NumericalExperiments {
     // ############################################################################## TRAJECTORY MAKING SET UP
     public static void trajectoryTesting(){
         // set up hyper parameters
-        int time = 7; // max number of days for a sim to reach goal
-        String target = "moon"; // the moon
+        int time = 365; // max number of days for a sim to reach goal
+        String target = "mars"; // the moon
         int numberOfStages = 3;
-        double updatePeriod = 0.5; // period on which it shows the positions (in unit of days)
+        double updatePeriod = 1; // period on which it shows the positions (in unit of days)
 
         // models
         ArrayList<Model3D> models = new ArrayList<Model3D>();
@@ -403,13 +403,12 @@ class NumericalExperiments {
         System.out.println("Showing travel");
 
         // trajectory is already done, run sim and check time step
-        for(int i=0; i<time/updatePeriod; i++){
-            models.get(0).updatePos( updatePeriod, 1.0, true ); // every half a day
+        for(int i=0; i<time*24*60*60/updatePeriod; i++){
+            models.get(0).updatePos( updatePeriod, 1.0, false ); // every half a day
             CelestialBody targetBody = models.get(0).getShip().getTarget();
 
             System.out.println("Target: " + target);
-            System.out.println("Time intervals passed: " + time);
-            System.out.println("Time interval of: " + updatePeriod + " * Days");
+            System.out.println("Time interval of: " + i + " * Days");
 
             System.out.println("Sim time: " + models.get(0).getTime() + "s");
 
