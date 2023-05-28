@@ -150,25 +150,26 @@ public class Testing {
             double negative = 1;
             if (arrayForPlan.length >= 5){
                 if (random.nextDouble(1) < 0.7) {
-                    arrayForPlan[1] = arrayForPlan[1] + arrayForPlan[2] + random.nextDouble(10000);
+                    arrayForPlan[0] = plan[i][0];
+                    arrayForPlan[1] = plan[i][1]+ random.nextDouble(10000);
                     if (random.nextDouble(1) < 0.5) {
                         negative = -1;
                     } else {
                         negative = 1;
                     }
-                    arrayForPlan[2] = arrayForPlan[2] + random.nextDouble(20000) * negative;
+                    arrayForPlan[2] = arrayForPlan[2] + random.nextDouble(15) * negative;
                     if (random.nextDouble(1) < 0.5) {
                         negative = -1;
                     } else {
                         negative = 1;
                     }
-                    arrayForPlan[3] = arrayForPlan[3] + random.nextDouble(20000) * negative;
+                    arrayForPlan[3] = arrayForPlan[3] + random.nextDouble(15) * negative;
                     if (random.nextDouble(1) < 0.5) {
                         negative = -1;
                     } else {
                         negative = 1;
                     }
-                    arrayForPlan[4] = arrayForPlan[4] + random.nextDouble(20000) * negative;
+                    arrayForPlan[4] = arrayForPlan[4] + random.nextDouble(15) * negative;
                 }else {
                     arrayForPlan = plan[i];
                 }
