@@ -7,7 +7,8 @@
     <list default="true" id="bab05458-8716-4abd-8f37-31e577e5aaab" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/planets/BackEnd/CelestialEntities/Spaceship.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/planets/BackEnd/CelestialEntities/Spaceship.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/planets/BackEnd/Trajectory/Planning.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/planets/BackEnd/Trajectory/Planning.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/planets/BackEnd/Models/Gravity0.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/planets/BackEnd/Models/Gravity0.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/planets/Merged.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/planets/Merged.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -130,6 +131,20 @@
       <workItem from="1683209681075" duration="3407000" />
       <workItem from="1683820709833" duration="618000" />
       <workItem from="1683841240613" duration="1723000" />
+    </task>
+    <task id="LOCAL-00034" summary="GUI changes">
+      <created>1683813799190</created>
+      <option name="number" value="00034" />
+      <option name="presentableId" value="LOCAL-00034" />
+      <option name="project" value="LOCAL" />
+      <updated>1683813799190</updated>
+    </task>
+    <task id="LOCAL-00035" summary="GUI changes">
+      <created>1683815559299</created>
+      <option name="number" value="00035" />
+      <option name="presentableId" value="LOCAL-00035" />
+      <option name="project" value="LOCAL" />
+      <updated>1683815559299</updated>
     </task>
     <task id="LOCAL-00036" summary="GUI changes">
       <created>1683820787926</created>
@@ -460,21 +475,7 @@
       <option name="project" value="LOCAL" />
       <updated>1685280651728</updated>
     </task>
-    <task id="LOCAL-00083" summary="update on trajectory optimisrrz">
-      <created>1685354310441</created>
-      <option name="number" value="00083" />
-      <option name="presentableId" value="LOCAL-00083" />
-      <option name="project" value="LOCAL" />
-      <updated>1685354310442</updated>
-    </task>
-    <task id="LOCAL-00084" summary="engine update un done">
-      <created>1685357675515</created>
-      <option name="number" value="00084" />
-      <option name="presentableId" value="LOCAL-00084" />
-      <option name="project" value="LOCAL" />
-      <updated>1685357675516</updated>
-    </task>
-    <option name="localTasksCounter" value="85" />
+    <option name="localTasksCounter" value="83" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -492,6 +493,8 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
+    <MESSAGE value="experiment setup made" />
+    <MESSAGE value="Data txt getter" />
     <MESSAGE value="Datta getter documentation changed" />
     <MESSAGE value="datagiver name changed" />
     <MESSAGE value="suffering on experiemnt setup YAAY :D" />
@@ -515,16 +518,14 @@
     <MESSAGE value="advances in hill climbing" />
     <MESSAGE value="cost function changed back lol" />
     <MESSAGE value="steepest ascend does close flyby, needs tweaks in cost function to stay closer" />
-    <MESSAGE value="update on trajectory optimisrrz" />
-    <MESSAGE value="engine update un done" />
-    <option name="LAST_COMMIT_MESSAGE" value="engine update un done" />
+    <option name="LAST_COMMIT_MESSAGE" value="steepest ascend does close flyby, needs tweaks in cost function to stay closer" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/example/planets/Merged.java</url>
-          <line>175</line>
+          <line>172</line>
           <option name="timeStamp" value="70" />
         </line-breakpoint>
       </breakpoints>
@@ -537,10 +538,5 @@
         <PinnedItemInfo parentTag="com.example.planets.BackEnd.CelestialEntities.Spaceship" memberName="pos" />
       </pinned-members>
     </pin-to-top-manager>
-    <watches-manager>
-      <configuration name="Application">
-        <watch expression="optimizer" />
-      </configuration>
-    </watches-manager>
   </component>
 </project>

@@ -3,7 +3,6 @@ package com.example.planets;
 import com.example.planets.BackEnd.CelestialEntities.CelestialBody;
 import com.example.planets.BackEnd.Models.Gravity0;
 import com.example.planets.BackEnd.NumericalMethods.*;
-import com.example.planets.BackEnd.Trajectory.Cost.PlanetaryRing;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
@@ -13,11 +12,8 @@ import javafx.scene.*;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
-import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.PhongMaterial;
 import javafx.scene.shape.Box;
@@ -25,8 +21,7 @@ import javafx.scene.shape.Cylinder;
 import javafx.scene.shape.Sphere;
 import javafx.scene.transform.Rotate;
 import javafx.stage.Stage;
-
-import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -39,7 +34,7 @@ import java.util.TimerTask;
 
 public class Merged extends Application {
     // static private Gravity0 model = new Gravity0(0, Math.PI / 2.0, new Euler());
-    static private Gravity0 model = new Gravity0( 0.0, 0.0, new RK4(), "titan", 2, 365, new PlanetaryRing() );
+    static private Gravity0 model = new Gravity0(0.0, 0.0, new RK4());
     private static int scale = 25;
     private static final int smallScale = 25;
     private static final int bigScale = 3000;
@@ -51,7 +46,10 @@ public class Merged extends Application {
     private static boolean lookAtSpaceship = false;
     private static Box[] path = new Box[10000];
     private static double time = 0.1;
-    private static double dt = 0.1;
+    private static double dt = 0.5;
+    private static double lastAcc = 0;
+    private static double phaseTime = 10000;
+
     @Override
     public void start(Stage stage) throws Exception {
         inicilizePath();
@@ -88,7 +86,7 @@ public class Merged extends Application {
         //ComboBox
         ComboBox dtBox = new ComboBox(options);
         dtBox.setLayoutY(60);
-        root.getChildren().addAll(worldScene, textLabel, progressBar,fuelLabel,dtBox);
+        root.getChildren().addAll(worldScene, textLabel, progressBar, fuelLabel, dtBox);
 
         //initial camera setting
         worldScene.setCamera(camera);
@@ -181,7 +179,7 @@ public class Merged extends Application {
                 Platform.runLater(() -> {
                     fuelLabel.setText(Double.toString(model.getShip().getUsedFuel()));
                 });
-                if(dtBox.getValue() != null){
+                if (dtBox.getValue() != null) {
                     dt = Double.valueOf((String) dtBox.getValue());
                 }
 
@@ -203,7 +201,7 @@ public class Merged extends Application {
                 if (lookAtEverything) {
                     camera.setTranslateX(183608);
                     camera.setTranslateY(-128907);
-                    camera.setTranslateZ(-(484573*2));
+                    camera.setTranslateZ(-(484573 * 2));
                 }
                 if (lookAtSpaceship) {
                     camera.setTranslateX(model.getBody(11).getPos()[0] / scale + 1000);
@@ -222,8 +220,10 @@ public class Merged extends Application {
                     path[counter].setTranslateZ(model.getBody(11).getPos()[2] / scale);
                     counter++;
                 }
+                goTitan();
+
             }
-        },5,40);
+        }, 5, 40);
     }
 
     public static void main(String... args) {
@@ -369,7 +369,7 @@ public class Merged extends Application {
 
         // create the rocket
 
-        Box rocketBase = new Box(1000, 500, 1000);
+        Box rocketBase = new Box(2000, 1000, 2000);
         setPosition(rocketBase, 3);
         rocketBase.setTranslateX(rocketBase.getTranslateX() + earth.getRadius() + 100);
         PhongMaterial rocketBaseMaterial = new PhongMaterial();
@@ -393,6 +393,34 @@ public class Merged extends Application {
     private static void inicilizePath() {
         for (int i = 0; i < path.length; i++) {
             path[i] = new Box(800, 800, 800);
+        }
+    }
+
+    private static double bestDistance = 0;
+    private static void goTitan() {
+        if (model.getTime() > lastAcc + phaseTime) {
+            CelestialBody titan = model.getBody(8);
+
+            double x = titan.getPos()[0] - model.getShip().getPos()[0];
+            double y = titan.getPos()[1] - model.getShip().getPos()[1];
+            double z = titan.getPos()[2] - model.getShip().getPos()[2];
+            double[] newAcc = new double[3];
+
+            newAcc[0] = model.getShip().getVel()[0]/1.55 + x / 600000;
+            newAcc[1] = model.getShip().getVel()[1]/1.55 + y / 600000;
+            newAcc[2] = model.getShip().getVel()[2]/1.55 + z / 600000;
+
+            model.getShip().setVel(newAcc);
+            if(bestDistance == 0 || bestDistance > model.getShip().getDistance(titan)){
+                bestDistance = model.getShip().getDistance(titan);
+                System.out.println("time is: "+ model.getTime());
+                System.out.println("distance is:  "+ bestDistance);
+                System.out.println("titan at: " + Arrays.toString(titan.getPos()));
+                System.out.println("ship at: " + Arrays.toString(model.getShip().getPos()));
+            }
+
+
+
         }
     }
 

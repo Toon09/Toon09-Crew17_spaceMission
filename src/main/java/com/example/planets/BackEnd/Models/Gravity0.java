@@ -124,7 +124,7 @@ public class Gravity0 implements Model3D {
         this.bodies[ this.bodies.length-1 ] = new Spaceship(50000, positions[3], velocity[3],
                                         longitude, latitude, cost);
 
-        this.getShip().setCostFunc( cost );
+        //this.getShip().setCostFunc( cost );
         //amountOfShips=1;
         this.getShip().makePlan(this, targetPlanet, numberOfStages, maxDays);
     }
