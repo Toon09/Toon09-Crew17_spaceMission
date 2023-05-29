@@ -75,8 +75,8 @@ public class Planning {
                 target = model.getBody(i);
 
         //creates planner and gets trajectory
-        //planner = new StocasticAscent(model, numberOfStages, targetPlanet, maxDays);
-        planner = new LazyAcceleration(model, numberOfStages, targetPlanet, maxDays);
+        planner = new StocasticAscent(model, numberOfStages, targetPlanet, maxDays);
+        //planner = new LazyAcceleration(model, numberOfStages, targetPlanet, maxDays);
 
         maneuverPoints = planner.getTrajectory();
 

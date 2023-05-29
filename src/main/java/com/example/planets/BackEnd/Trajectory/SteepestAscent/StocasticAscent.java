@@ -14,7 +14,7 @@ find way to save closest distance from target in ship
 
 public class StocasticAscent implements TrajectoryPlanner {
 
-    private final int numbOfSteps = 35;
+    private final int numbOfSteps = 15;
     private final int numbOfStages;
     private final int numbOfDays;
     private final Model3D model;
@@ -57,7 +57,7 @@ public class StocasticAscent implements TrajectoryPlanner {
                 if( optimizer.getBody(i).getName().equalsIgnoreCase(target) )
                     optimizer.getShip().setTarget( model.getBody(i) );
 
-            optimizer.addShips( 80*numbOfStages ); // you are not using number of stages bruh
+            optimizer.addShips( 60*numbOfStages ); // you are not using number of stages bruh
 
             System.out.println("Lap: " + (count+1));
 
@@ -80,7 +80,7 @@ public class StocasticAscent implements TrajectoryPlanner {
                 for(int j=0; j<temp.length; j++)
                     for(int k=0; k<5; k++){
                         if(k>1)
-                            temp[j][k] += 4.5*Math.random()-4.5/2.0; //changes in acceleration
+                            temp[j][k] += 1.5*Math.random()-1.5/2.0; //changes in acceleration
 
                         else{
                             if(j!=0 || k!=0)
