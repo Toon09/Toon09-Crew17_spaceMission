@@ -19,7 +19,7 @@ public class Spaceship extends CelestialBody {
     private double usedFuel;
     //has all the information of where to go and such
     private Planning plan;
-    private CostFunction costFunc = new PlanetaryRing();
+    private CostFunction costFunc;
     private double cost=0.0;
     private double closestDist = 0.0;
     private final double maxSpeed = 11000; //2,500 to 4,500 m/s (look up) according to falcon 9
@@ -154,16 +154,17 @@ public class Spaceship extends CelestialBody {
      */
     public void executePlans(double time, double dt){
 
+        if( plan != null ){
+            calcCost(closestDist, dt, getUsedFuel());
+            accelerate(time, dt);
+        }
+
         if( getTarget() != null ){
             if( closestDist > getDistance(getTarget()) || closestDist == 0.0 )
                 closestDist = getDistance(getTarget());
 
         }
 
-        if( plan != null ){
-            calcCost(closestDist, dt, getUsedFuel());
-            accelerate(time, dt);
-        }
 
     }
 
@@ -171,8 +172,6 @@ public class Spaceship extends CelestialBody {
         return closestDist;
     }
 
-
-    private boolean accelerated = false;
     /**
      * @param time the time that has passed until now from the start from the simulation in seconds
      */
@@ -181,23 +180,13 @@ public class Spaceship extends CelestialBody {
             // in getForce get value of the acc given in plan
             //make plan just give acc & fuel consumption be 1 (in requirements)
             //plans are being set equal and copied by reference, not value
-            accelerated = true;
-
-            double [] current = getAcc();
-            for (int i =0; i<current.length && accelerated; i++)
-                current[i] += getAcc()[i] - plan.getCurrent()[i+2];
-
-            setAcc(current);
 
             plan.nextDirection();
         }
         if(time >= plan.getCurrent()[0] && time <= plan.getCurrent()[1]){
             double [] current = getAcc();
-            for (int i =0; i<current.length && accelerated; i++)
-                current[i] += getAcc()[i] + plan.getCurrent()[i+2];
-
-
-            accelerated = false;
+            for (int i =0; i<current.length; i++)
+                current[i] += plan.getCurrent()[i+2]*dt;
 
             double force = 0.0;
             for (int i=0; i<3; i++)
@@ -209,6 +198,10 @@ public class Spaceship extends CelestialBody {
             setAcc(current);
         }
 
+    }
+
+    public void setCostFunc(CostFunction costFunc){
+        this.costFunc = costFunc;
     }
 
 

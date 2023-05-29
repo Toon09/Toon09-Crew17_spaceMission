@@ -14,7 +14,7 @@ find way to save closest distance from target in ship
 
 public class StocasticAscent implements TrajectoryPlanner {
 
-    private final int numbOfSteps = 30;
+    private final int numbOfSteps = 35;
     private final int numbOfStages;
     private final int numbOfDays;
     private final Model3D model;
@@ -80,7 +80,7 @@ public class StocasticAscent implements TrajectoryPlanner {
                 for(int j=0; j<temp.length; j++)
                     for(int k=0; k<5; k++){
                         if(k>1)
-                            temp[j][k] += 3.5*Math.random()-3.5/2.0; //changes in acceleration
+                            temp[j][k] += 4.5*Math.random()-4.5/2.0; //changes in acceleration
 
                         else{
                             if(j!=0 || k!=0)
@@ -116,12 +116,8 @@ public class StocasticAscent implements TrajectoryPlanner {
                     state = optimizer.getShip(i).getPlan(); // gets plan with highest cost
                     champion = optimizer.getShip(i);
                 }
-            }
 
-            CelestialBody tar = null;
-            for(int i=0; i<this.model.size(); i++)
-                if( target.equalsIgnoreCase(this.model.getBody(i).getName()) )
-                    tar = this.model.getBody(i);
+            }
 
 
             System.out.println("\nfinal state: " + Arrays.deepToString(champion.getPlan()));
