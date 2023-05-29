@@ -43,9 +43,10 @@ public class Merged extends Application {
     private static boolean lookAtSpaceship = false;
     private static Box[] path = new Box[10000];
     private static double time = 0.1;
-    private static double dt = 2;
+    private static double dt = 1.5;
     private static double lastAcc = 0;
     private static double phaseTime = 10000;
+    private static double slowPhaseTime = 100000;
 
     @Override
     public void start(Stage stage) throws Exception {
@@ -395,7 +396,7 @@ public class Merged extends Application {
 
     private static double bestDistance = 0;
     private static void goTitan() {
-        if (model.getTime() > lastAcc + phaseTime) {
+        //if (model.getTime() > lastAcc + phaseTime) {
             CelestialBody titan = model.getBody(8);
 
             double x = titan.getPos()[0] - model.getShip().getPos()[0];
@@ -403,15 +404,17 @@ public class Merged extends Application {
             double z = titan.getPos()[2] - model.getShip().getPos()[2];
             double[] newAcc = new double[3];
 
-            if (bestDistance>300000000 || bestDistance==0){
+            if ((bestDistance>500000000 && model.getTime() > lastAcc + slowPhaseTime) || bestDistance==0){
                 newAcc[0] = model.getShip().getVel()[0] / 1.6 + x / 20000000;
                 newAcc[1] = model.getShip().getVel()[1] / 1.6 + y / 20000000;
                 newAcc[2] = model.getShip().getVel()[2] / 1.6 + z / 20000000;
+                lastAcc = model.getTime();
                 System.out.println("slow");
-            }else {
+            }else if (model.getTime() > lastAcc + phaseTime && bestDistance<500000000){
                 newAcc[0] = model.getShip().getVel()[0] / 1.6 + x / 900000;
                 newAcc[1] = model.getShip().getVel()[1] / 1.6 + y / 900000;
                 newAcc[2] = model.getShip().getVel()[2] / 1.6 + z / 900000;
+                lastAcc = model.getTime();
                 System.out.println("fast");
 
             }
@@ -428,7 +431,7 @@ public class Merged extends Application {
 
 
 
-        }
+        //}
     }
 
 }
