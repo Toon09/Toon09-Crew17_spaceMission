@@ -41,6 +41,7 @@ public class LazyAcceleration implements TrajectoryPlanner {
 
         state[0][0] = 0.0;
         state[0][1] = 30*60;
+
         for(int i=2; i<5; i++)
             state[0][i] = 0.0;
 
