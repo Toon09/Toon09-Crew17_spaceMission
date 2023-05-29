@@ -154,14 +154,14 @@ public class Spaceship extends CelestialBody {
      */
     public void executePlans(double time, double dt){
 
+        if( getTarget() != null ){
+            if( closestDist > getDistance(getTarget()) || closestDist == 0.0 )
+                closestDist = getDistance(getTarget());
+
+        }
+
         if( plan != null ){
-            if( getTarget() != null ){
-                if( closestDist > getDistance(getTarget()) || closestDist == 0.0 )
-                    closestDist = getDistance(getTarget());
-
-                calcCost(closestDist, dt, getUsedFuel());
-
-            }
+            calcCost(closestDist, dt, getUsedFuel());
             accelerate(time, dt);
         }
 
@@ -172,6 +172,7 @@ public class Spaceship extends CelestialBody {
     }
 
 
+    private boolean accelerated = false;
     /**
      * @param time the time that has passed until now from the start from the simulation in seconds
      */
@@ -180,14 +181,23 @@ public class Spaceship extends CelestialBody {
             // in getForce get value of the acc given in plan
             //make plan just give acc & fuel consumption be 1 (in requirements)
             //plans are being set equal and copied by reference, not value
+            accelerated = true;
+
+            double [] current = getAcc();
+            for (int i =0; i<current.length && accelerated; i++)
+                current[i] += getAcc()[i] - plan.getCurrent()[i+2];
+
+            setAcc(current);
 
             plan.nextDirection();
         }
         if(time >= plan.getCurrent()[0] && time <= plan.getCurrent()[1]){
             double [] current = getAcc();
-            for (int i =0; i<current.length; i++){
-                current[i] += getAcc()[i] + plan.getCurrent()[i+2] * dt / (plan.getCurrent()[1]-plan.getCurrent()[0]);
-            }
+            for (int i =0; i<current.length && accelerated; i++)
+                current[i] += getAcc()[i] + plan.getCurrent()[i+2];
+
+
+            accelerated = false;
 
             double force = 0.0;
             for (int i=0; i<3; i++)
