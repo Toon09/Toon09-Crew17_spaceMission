@@ -25,6 +25,8 @@ public class Spaceship extends CelestialBody {
     private final double maxSpeed = 11000; //2,500 to 4,500 m/s (look up) according to falcon 9
     private  final double maxForce = 3 * Math.pow(10, 7); // Newtons
     private final double fuelConsumption = 1451.5; //kg this fuel consumption is based on the falcon 9 maximum fuel consumption, so at max acceleration the consumption is this one.
+    private CelestialBody target;
+
     public double getUsedFuel(){ return usedFuel; }
     // public void setFuel(double fuel){ this.fuel = fuel; }
 
@@ -93,11 +95,10 @@ public class Spaceship extends CelestialBody {
         this.costFunc = costFunc;
         if( plan != null ){
             this.plan = plan.clone();
+            target = plan.getTarget();
         }
 
         usedFuel = 0;
-
-
 
     }
 
@@ -119,10 +120,11 @@ public class Spaceship extends CelestialBody {
      * @return entity of CelestialBody that the spaceShip wants to go to, if there is any.
      */
     public CelestialBody getTarget(){
-        return plan.getTarget();
+        return target;
     }
 
     public void setTarget(CelestialBody target){
+        this.target = target;
         plan.setTarget(target);
     }
 
@@ -155,7 +157,8 @@ public class Spaceship extends CelestialBody {
     public void executePlans(double time, double dt){
 
         if( plan != null ){
-            calcCost(closestDist, dt, getUsedFuel());
+            if( costFunc != null )
+                calcCost(closestDist, dt, getUsedFuel());
             accelerate(time, dt);
         }
 
@@ -165,7 +168,14 @@ public class Spaceship extends CelestialBody {
 
         }
 
+    }
 
+    public void addDeltaV(double[] delta){
+        double[] temp = new double[3];
+        for(int i=0; i<3; i++)
+            temp[i] = getVel()[i] + delta[i];
+
+        setVel(temp);
     }
 
     public double getClosestDistance(){
