@@ -24,7 +24,6 @@ public class Planning {
     // a different maneuver of these on each diemnsion
     private double[][] maneuverPoints;
     private CelestialBody target;
-
     private TrajectoryPlanner planner;
 
     /**
@@ -69,7 +68,7 @@ public class Planning {
      * @param numberOfStages
      * @param maxDays
      */
-    public Planning(Model3D model, String targetPlanet, int numberOfStages, int maxDays){
+    public Planning(Model3D model, String targetPlanet, String homePlanet, int numberOfStages, int maxDays){
         this.maneuverPoints = new double[numberOfStages][5];
 
         for(int i=0; i<model.size(); i++)
@@ -83,6 +82,7 @@ public class Planning {
 
     }
 
+
     public Planning(){ }
 
 
@@ -90,8 +90,9 @@ public class Planning {
      * this constructor is for the copy function
      * @param maneuverPoints the 1D array containing all information calculated for the trajectory
      */
-    private Planning(double[][] maneuverPoints, int countOfStages){
+    private Planning(double[][] maneuverPoints, int countOfStages, CelestialBody target){
         this.maneuverPoints = maneuverPoints;
+        this.target = target;
 
         this.countOfStages = countOfStages;
     }
@@ -99,6 +100,7 @@ public class Planning {
     public CelestialBody getTarget(){
         return target;
     }
+
 
     public void setTarget(CelestialBody target){
         this.target = target;
@@ -117,7 +119,7 @@ public class Planning {
 
     @Override
     public Planning clone() {
-        return new Planning(maneuverPoints, countOfStages);
+        return new Planning(maneuverPoints, countOfStages, target);
     }
 
 }
