@@ -168,14 +168,7 @@ public class Spaceship extends CelestialBody {
 
         }
 
-    }
 
-    public void addDeltaV(double[] delta){
-        double[] temp = new double[3];
-        for(int i=0; i<3; i++)
-            temp[i] = getVel()[i] + delta[i];
-
-        setVel(temp);
     }
 
     public double getClosestDistance(){
