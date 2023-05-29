@@ -12,7 +12,7 @@ import java.util.Arrays;
 find way to save closest distance from target in ship
  */
 
-public class HillClimb implements TrajectoryPlanner {
+public class GradientAscend implements TrajectoryPlanner {
 
     private final int numbOfSteps = 30;
     private final int numbOfStages;
@@ -22,7 +22,7 @@ public class HillClimb implements TrajectoryPlanner {
 
     private double[][] trajectory;
 
-    public HillClimb(Model3D model, int numbOfStages, String target, int numbOfDays){
+    public GradientAscend(Model3D model, int numbOfStages, String target, int numbOfDays){
         this.model = model.clone();
         this.numbOfStages = numbOfStages;
         this.numbOfDays = numbOfDays;

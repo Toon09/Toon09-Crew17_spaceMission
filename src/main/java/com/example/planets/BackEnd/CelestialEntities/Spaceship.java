@@ -19,7 +19,7 @@ public class Spaceship extends CelestialBody {
     private double usedFuel;
     //has all the information of where to go and such
     private Planning plan;
-    private CostFunction costFunc = new PlanetaryRing();
+    private CostFunction costFunc;
     private double cost=0.0;
     private double closestDist = 0.0;
     private final double maxSpeed = 11000; //2,500 to 4,500 m/s (look up) according to falcon 9
@@ -154,16 +154,17 @@ public class Spaceship extends CelestialBody {
      */
     public void executePlans(double time, double dt){
 
+        if( plan != null ){
+            calcCost(closestDist, dt, getUsedFuel());
+            accelerate(time, dt);
+        }
+
         if( getTarget() != null ){
             if( closestDist > getDistance(getTarget()) || closestDist == 0.0 )
                 closestDist = getDistance(getTarget());
 
         }
 
-        if( plan != null ){
-            calcCost(closestDist, dt, getUsedFuel());
-            accelerate(time, dt);
-        }
 
     }
 
@@ -209,6 +210,10 @@ public class Spaceship extends CelestialBody {
             setAcc(current);
         }
 
+    }
+
+    public void setCostFunc(CostFunction costFunc){
+        this.costFunc = costFunc;
     }
 
 
