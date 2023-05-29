@@ -26,11 +26,8 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 //ToDo
-//add a spaceship model
-//fix the spaceship camera
-//maybe add a camera on the whole solar system - changed the look at everything so its further away, I think that's enough
-//add used fuel meter
-//fix the path ( problems with changing the scale )
+//change a start camera
+//make it so the path is shown for every 2nd or 3rd step not everyone
 
 public class Merged extends Application {
     // static private Gravity0 model = new Gravity0(0, Math.PI / 2.0, new Euler());
@@ -46,7 +43,7 @@ public class Merged extends Application {
     private static boolean lookAtSpaceship = false;
     private static Box[] path = new Box[10000];
     private static double time = 0.1;
-    private static double dt = 0.5;
+    private static double dt = 2;
     private static double lastAcc = 0;
     private static double phaseTime = 10000;
 
@@ -406,17 +403,27 @@ public class Merged extends Application {
             double z = titan.getPos()[2] - model.getShip().getPos()[2];
             double[] newAcc = new double[3];
 
-            newAcc[0] = model.getShip().getVel()[0]/1.55 + x / 600000;
-            newAcc[1] = model.getShip().getVel()[1]/1.55 + y / 600000;
-            newAcc[2] = model.getShip().getVel()[2]/1.55 + z / 600000;
+            if (bestDistance>300000000 || bestDistance==0){
+                newAcc[0] = model.getShip().getVel()[0] / 1.6 + x / 20000000;
+                newAcc[1] = model.getShip().getVel()[1] / 1.6 + y / 20000000;
+                newAcc[2] = model.getShip().getVel()[2] / 1.6 + z / 20000000;
+                System.out.println("slow");
+            }else {
+                newAcc[0] = model.getShip().getVel()[0] / 1.6 + x / 900000;
+                newAcc[1] = model.getShip().getVel()[1] / 1.6 + y / 900000;
+                newAcc[2] = model.getShip().getVel()[2] / 1.6 + z / 900000;
+                System.out.println("fast");
 
+            }
             model.getShip().setVel(newAcc);
             if(bestDistance == 0 || bestDistance > model.getShip().getDistance(titan)){
                 bestDistance = model.getShip().getDistance(titan);
-                System.out.println("time is: "+ model.getTime());
-                System.out.println("distance is:  "+ bestDistance);
-                System.out.println("titan at: " + Arrays.toString(titan.getPos()));
-                System.out.println("ship at: " + Arrays.toString(model.getShip().getPos()));
+                if (bestDistance<2000000) {
+                    System.out.println("time is: " + model.getTime());
+                    System.out.println("distance is:  " + bestDistance);
+                    System.out.println("titan at: " + Arrays.toString(titan.getPos()));
+                    System.out.println("ship at: " + Arrays.toString(model.getShip().getPos()));
+                }
             }
 
 
