@@ -2,10 +2,9 @@ package com.example.planets.BackEnd.Trajectory;
 
 import com.example.planets.BackEnd.CelestialEntities.CelestialBody;
 import com.example.planets.BackEnd.Models.Model3D;
-import com.example.planets.BackEnd.Trajectory.SteepestAscent.SteepestAscent;
+import com.example.planets.BackEnd.Trajectory.SteepestAscent.LazyAcceleration;
+import com.example.planets.BackEnd.Trajectory.SteepestAscent.StocasticAscent;
 import com.example.planets.BackEnd.Trajectory.SteepestAscent.TrajectoryPlanner;
-
-import java.util.ArrayList;
 
 
 /*
@@ -76,7 +75,8 @@ public class Planning {
                 target = model.getBody(i);
 
         //creates planner and gets trajectory
-        planner = new SteepestAscent(model, numberOfStages, targetPlanet, maxDays);
+        planner = new StocasticAscent(model, numberOfStages, targetPlanet, maxDays);
+        //planner = new LazyAcceleration(model, numberOfStages, targetPlanet, maxDays);
 
         maneuverPoints = planner.getTrajectory();
 

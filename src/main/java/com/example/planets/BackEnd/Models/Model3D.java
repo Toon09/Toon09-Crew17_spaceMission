@@ -175,7 +175,7 @@ public interface Model3D {
      *
      * @param time amount of units of time (in seconds or days depending on @days) that it wants to be run for
      * @param dt time step (always in seconds) which will be using
-     * @param inDays true if you are imputting the amount of days to run for, false if in seconds
+     * @param inDays true if you are imputing the amount of days to run for, false if in seconds
      */
     public void updatePos(double time, double dt, boolean inDays);
 

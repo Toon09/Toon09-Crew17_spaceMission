@@ -8,6 +8,7 @@ import com.example.planets.Data.DataGetter;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Scanner;
 
 
 class NumericalExperiments {
@@ -370,7 +371,7 @@ class NumericalExperiments {
     public static void trajectoryTesting(){
         // set up hyper parameters
         int time = 365; // max number of days for a sim to reach goal
-        String target = "mars"; // the moon
+        String target = "titan"; // the moon
         int numberOfStages = 3;
         double updatePeriod = 1; // period on which it shows the positions (in unit of days)
 
@@ -394,8 +395,12 @@ class NumericalExperiments {
         System.out.println("\nfinal plan: " + Arrays.deepToString(models.get(0).getShip().getPlan()));
         System.out.println("Planning took: " + chrono + "ms\n\n\n");
 
+        for(int i=0; i<models.get(0).size(); i++){
+            if( models.get(0).getBody(i).getName().equalsIgnoreCase(target) )
+                models.get(0).getShip().setTarget( models.get(0).getBody(i) );
+        }
 
-
+        new Scanner(System.in).nextLine();
 
         double[] error = new double[] {0.0, 0.0, 0.0};
         double errorMagnitude = 0.0;
@@ -403,8 +408,8 @@ class NumericalExperiments {
         System.out.println("Showing travel");
 
         // trajectory is already done, run sim and check time step
-        for(int i=0; i<time*24*60*60/updatePeriod; i++){
-            models.get(0).updatePos( updatePeriod, 1.0, false ); // every half a day
+        for(int i=0; i<time/updatePeriod; i++){
+            models.get(0).updatePos( updatePeriod, 100.0, true ); // every half a day
             CelestialBody targetBody = models.get(0).getShip().getTarget();
 
             System.out.println("Target: " + target);
@@ -424,7 +429,8 @@ class NumericalExperiments {
             errorMagnitude = Math.sqrt( error[0]*error[0] + error[1]*error[1] + error[2]*error[2] );
 
             System.out.println("Error= X:" + error[0] + "; Y:" + error[1] + "; Z:" + error[2]);
-            System.out.println("Error magnitude: " + errorMagnitude + "km\n\n");
+            System.out.println("Error magnitude: " + errorMagnitude + "km");
+            System.out.println("Closest distance: " + models.get(0).getShip().getClosestDistance() + "km\n\n");
 
         }
 
@@ -440,16 +446,6 @@ class NumericalExperiments {
         boolean isDay = false;
         int checkInterval = 30; // 30
 
-        /* time steps
-        2.5
-        1.5
-        1.0
-        0.5
-        0.1
-        0.01
-        0.005
-        0.001
-         */
         double dt = 1.0;
 
 
@@ -501,6 +497,12 @@ class NumericalExperiments {
 
                 chrono[j] += delta;
             }
+            /*
+            TestModel1 model = new TestModel1(new RK4());
+            model.updatePos(1.0, dt, false);
+            // value is whatever you test it agaisnt
+            error = value - model.getBody(0);
+             */
 
 
             //calculate errors

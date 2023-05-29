@@ -6,26 +6,23 @@ import com.example.planets.BackEnd.Models.Model3D;
 import com.example.planets.BackEnd.NumericalMethods.RK4;
 
 
-import java.lang.reflect.Array;
-import java.util.ArrayList;
 import java.util.Arrays;
 
 /*
 find way to save closest distance from target in ship
  */
 
-public class SteepestAscent implements TrajectoryPlanner {
+public class HillClimb implements TrajectoryPlanner {
 
     private final int numbOfSteps = 30;
     private final int numbOfStages;
     private final int numbOfDays;
     private final Model3D model;
     private String target;
-    private String home = "earth";
 
     private double[][] trajectory;
 
-    public SteepestAscent(Model3D model, int numbOfStages, String target, int numbOfDays){
+    public HillClimb(Model3D model, int numbOfStages, String target, int numbOfDays){
         this.model = model.clone();
         this.numbOfStages = numbOfStages;
         this.numbOfDays = numbOfDays;
@@ -33,17 +30,22 @@ public class SteepestAscent implements TrajectoryPlanner {
 
 
     }
+    /*
+    another method that calculates where titan will be and accelerates in that way only for some time
+     */
 
     private void makeTrajectory(){
 
         double[][] state = new double[numbOfStages][5];
 
-        // set initial values here // set [i][1] to be the duration only
-        state = new double[][]{ {0, 30*60,
-                    0, 0, 0},
-                {3*24*60*60, 3*24*60*60 + 30*60, // after 3 days accelerate for 30 min
-                    0, 0, 0}
-        };
+        state[0][0] = 0.0;
+        state[0][1] = 30*60.0;
+
+        for(int i=1; i<numbOfStages; i++){
+            state[i][0] = numbOfDays*24*60*60 / ((double) numbOfStages);
+            state[i][1] = state[i][0] + 60*60 +Math.random()*30*60;
+
+        }
 
 
         for(int count=0; count<numbOfSteps; count++){
@@ -58,7 +60,7 @@ public class SteepestAscent implements TrajectoryPlanner {
                 if( optimizer.getBody(i).getName().equalsIgnoreCase(target) )
                     optimizer.getShip().setTarget( model.getBody(i) );
 
-            optimizer.addShips( 15*numbOfStages ); // you are not using number of stages bruh
+            optimizer.addShips( 20*numbOfStages ); // you are not using number of stages bruh
 
             System.out.println("Lap: " + (count+1));
 
@@ -70,23 +72,14 @@ public class SteepestAscent implements TrajectoryPlanner {
             for(int i=0; i < optimizer.getAmountOfShips()-1; i++){
                 // state for the first ship
 
-                ///////////////////////////////////////////////////////// ADD A CHANGE IN EVERY DIR
-                double[][] temp = new double[][]{ {state[0][0], state[0][1],
-                            state[0][4], state[0][3], state[0][4]},
-                        {state[1][0], state[1][1],
-                            state[1][2], state[1][3], state[1][4]}};
-
-                for(int j=0; j<temp.length; j++)
+                double[][] temp = new double[numbOfStages][5];
+                for(int j=0; j<numbOfStages; j++){
                     for(int k=0; k<5; k++){
-                        if(k>1)
-                            temp[j][k] += 12.0*Math.random()-12.0/2.0; //chnges in acceleration
-
-                        else{temp[j][k] += 5*24*60.0*60.0*(Math.random())-5*24*60*60.0/2.0; // changes in initial thrust times
-                            if( k==1 && temp[j][1] < temp[j][0])
-                                temp[j][1] = temp[j][0];
-                        }
-
+                        temp[j][k] = state[j][k];
                     }
+                }
+
+                ///////////// ADD GRADIENT HERE
 
                 optimizer.getShip(i).setPlan( temp );
 
@@ -99,14 +92,14 @@ public class SteepestAscent implements TrajectoryPlanner {
             Spaceship champion = null;
 
             // get best plan made
-            double cost = 0.0;
+            double cost = optimizer.getShip().getCost();
             System.out.println("in loop");
             for(int i=0; i< optimizer.getAmountOfShips(); i++){
                 System.out.println("closest dist: " + optimizer.getShip(i).getClosestDistance());
                 System.out.println("cost: " +optimizer.getShip(i).getCost());
                 System.out.println("plan: " + Arrays.deepToString(optimizer.getShip(i).getPlan()));
 
-                if( cost < optimizer.getShip(i).getCost() ){
+                if( cost <= optimizer.getShip(i).getCost() ){
                     System.out.println("new hottest single");
                     cost = optimizer.getShip(i).getCost();
                     state = optimizer.getShip(i).getPlan(); // gets plan with highest cost
