@@ -26,8 +26,11 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 //ToDo
-//change a start camera
-//make it so the path is shown for every 2nd or 3rd step not everyone
+//add a spaceship model
+//fix the spaceship camera
+//maybe add a camera on the whole solar system - changed the look at everything so its further away, I think that's enough
+//add used fuel meter
+//fix the path ( problems with changing the scale )
 
 public class Merged extends Application {
     // static private Gravity0 model = new Gravity0(0, Math.PI / 2.0, new Euler());
@@ -43,10 +46,9 @@ public class Merged extends Application {
     private static boolean lookAtSpaceship = false;
     private static Box[] path = new Box[10000];
     private static double time = 0.1;
-    private static double dt = 1.5;
+    private static double dt = 0.5;
     private static double lastAcc = 0;
     private static double phaseTime = 10000;
-    private static double slowPhaseTime = 100000;
 
     @Override
     public void start(Stage stage) throws Exception {
@@ -396,7 +398,7 @@ public class Merged extends Application {
 
     private static double bestDistance = 0;
     private static void goTitan() {
-        //if (model.getTime() > lastAcc + phaseTime) {
+        if (model.getTime() > lastAcc + phaseTime) {
             CelestialBody titan = model.getBody(8);
 
             double x = titan.getPos()[0] - model.getShip().getPos()[0];
@@ -404,34 +406,22 @@ public class Merged extends Application {
             double z = titan.getPos()[2] - model.getShip().getPos()[2];
             double[] newAcc = new double[3];
 
-            if ((bestDistance>500000000 && model.getTime() > lastAcc + slowPhaseTime) || bestDistance==0){
-                newAcc[0] = model.getShip().getVel()[0] / 1.6 + x / 20000000;
-                newAcc[1] = model.getShip().getVel()[1] / 1.6 + y / 20000000;
-                newAcc[2] = model.getShip().getVel()[2] / 1.6 + z / 20000000;
-                lastAcc = model.getTime();
-                System.out.println("slow");
-            }else if (model.getTime() > lastAcc + phaseTime && bestDistance<500000000){
-                newAcc[0] = model.getShip().getVel()[0] / 1.6 + x / 900000;
-                newAcc[1] = model.getShip().getVel()[1] / 1.6 + y / 900000;
-                newAcc[2] = model.getShip().getVel()[2] / 1.6 + z / 900000;
-                lastAcc = model.getTime();
-                System.out.println("fast");
+            newAcc[0] = model.getShip().getVel()[0]/1.55 + x / 600000;
+            newAcc[1] = model.getShip().getVel()[1]/1.55 + y / 600000;
+            newAcc[2] = model.getShip().getVel()[2]/1.55 + z / 600000;
 
-            }
             model.getShip().setVel(newAcc);
             if(bestDistance == 0 || bestDistance > model.getShip().getDistance(titan)){
                 bestDistance = model.getShip().getDistance(titan);
-                if (bestDistance<2000000) {
-                    System.out.println("time is: " + model.getTime());
-                    System.out.println("distance is:  " + bestDistance);
-                    System.out.println("titan at: " + Arrays.toString(titan.getPos()));
-                    System.out.println("ship at: " + Arrays.toString(model.getShip().getPos()));
-                }
+                System.out.println("time is: "+ model.getTime());
+                System.out.println("distance is:  "+ bestDistance);
+                System.out.println("titan at: " + Arrays.toString(titan.getPos()));
+                System.out.println("ship at: " + Arrays.toString(model.getShip().getPos()));
             }
 
 
 
-        //}
+        }
     }
 
 }

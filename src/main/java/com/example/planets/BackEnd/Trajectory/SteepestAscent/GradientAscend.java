@@ -60,12 +60,16 @@ public class GradientAscend implements TrajectoryPlanner {
                 if( optimizer.getBody(i).getName().equalsIgnoreCase(target) )
                     optimizer.getShip().setTarget( model.getBody(i) );
 
-            optimizer.addShips( 20*numbOfStages ); // you are not using number of stages bruh
+            // 4 bc we are using the 4 point formual
+            // 5 bc we have 5 parameters per thrust point
+            optimizer.addShips( 4*5*numbOfStages ); // you are not using number of stages bruh
 
             System.out.println("Lap: " + (count+1));
 
             System.out.println("start plan: " + Arrays.deepToString(state));
 
+
+            double step = 1.0;
 
             // set states
             // in each stage go + and - each parameter
@@ -89,35 +93,8 @@ public class GradientAscend implements TrajectoryPlanner {
             // run sim
             optimizer.updatePos(numbOfDays, 500.0, true);
 
-            Spaceship champion = null;
+            // here do the gradient step
 
-            // get best plan made
-            double cost = optimizer.getShip().getCost();
-            System.out.println("in loop");
-            for(int i=0; i< optimizer.getAmountOfShips(); i++){
-                System.out.println("closest dist: " + optimizer.getShip(i).getClosestDistance());
-                System.out.println("cost: " +optimizer.getShip(i).getCost());
-                System.out.println("plan: " + Arrays.deepToString(optimizer.getShip(i).getPlan()));
-
-                if( cost <= optimizer.getShip(i).getCost() ){
-                    System.out.println("new hottest single");
-                    cost = optimizer.getShip(i).getCost();
-                    state = optimizer.getShip(i).getPlan(); // gets plan with highest cost
-                    champion = optimizer.getShip(i);
-                }
-            }
-
-            System.out.println("\nfinal state: " + Arrays.deepToString(champion.getPlan()));
-
-            CelestialBody tar = null;
-            for(int i=0; i<this.model.size(); i++)
-                if( target.equalsIgnoreCase(this.model.getBody(i).getName()) )
-                    tar = this.model.getBody(i);
-
-            System.out.println("closest dist: " + champion.getClosestDistance());
-            System.out.println("used fuel: " + champion.getUsedFuel());
-            System.out.println("distance: " + champion.getDistance(tar));
-            System.out.println("cost: " + cost + "\n");
         }
 
         trajectory = state;

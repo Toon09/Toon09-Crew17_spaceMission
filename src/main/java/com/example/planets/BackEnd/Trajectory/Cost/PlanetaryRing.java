@@ -21,7 +21,7 @@ public class PlanetaryRing implements CostFunction{
             return alpha / ( (Math.log10(fuel)/2.0+1.0) * Math.log10(distToTarget) );
         return Math.pow(distToTarget, degree) / (fuel*fuel+1);
          */
-        return -(distToTarget*distToTarget);
+        return -(distToTarget*distToTarget*distToTarget);
     }
 
 }
