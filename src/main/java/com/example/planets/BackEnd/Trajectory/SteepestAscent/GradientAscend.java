@@ -30,10 +30,10 @@ public class GradientAscend implements TrajectoryPlanner {
 
 
     }
-    /*
-    another method that calculates where titan will be and accelerates in that way only for some time
-     */
 
+    /*
+
+     */
     private void makeTrajectory(){
 
         double[][] state = new double[numbOfStages][5];

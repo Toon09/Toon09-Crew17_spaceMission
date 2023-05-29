@@ -19,12 +19,14 @@ public class Spaceship extends CelestialBody {
     private double usedFuel;
     //has all the information of where to go and such
     private Planning plan;
-    private CostFunction costFunc = new PlanetaryRing();
+    private CostFunction costFunc;
     private double cost=0.0;
     private double closestDist = 0.0;
     private final double maxSpeed = 11000; //2,500 to 4,500 m/s (look up) according to falcon 9
     private  final double maxForce = 3 * Math.pow(10, 7); // Newtons
     private final double fuelConsumption = 1451.5; //kg this fuel consumption is based on the falcon 9 maximum fuel consumption, so at max acceleration the consumption is this one.
+    private CelestialBody target;
+
     public double getUsedFuel(){ return usedFuel; }
     // public void setFuel(double fuel){ this.fuel = fuel; }
 
@@ -93,11 +95,10 @@ public class Spaceship extends CelestialBody {
         this.costFunc = costFunc;
         if( plan != null ){
             this.plan = plan.clone();
+            target = plan.getTarget();
         }
 
         usedFuel = 0;
-
-
 
     }
 
@@ -119,10 +120,11 @@ public class Spaceship extends CelestialBody {
      * @return entity of CelestialBody that the spaceShip wants to go to, if there is any.
      */
     public CelestialBody getTarget(){
-        return plan.getTarget();
+        return target;
     }
 
     public void setTarget(CelestialBody target){
+        this.target = target;
         plan.setTarget(target);
     }
 
@@ -153,17 +155,19 @@ public class Spaceship extends CelestialBody {
      * @param dt the time step that is being used to calculate the changes in the model with the numerical solvers
      */
     public void executePlans(double time, double dt){
-//
-//        if( getTarget() != null ){
-//            if( closestDist > getDistance(getTarget()) || closestDist == 0.0 )
-//                closestDist = getDistance(getTarget());
-//
-//        }
-//
-//        if( plan != null ){
-//            calcCost(closestDist, dt, getUsedFuel());
-//            accelerate(time, dt);
-//        }
+
+        if( plan != null ){
+            if( costFunc != null )
+                calcCost(closestDist, dt, getUsedFuel());
+            accelerate(time, dt);
+        }
+
+        if( getTarget() != null ){
+            if( closestDist > getDistance(getTarget()) || closestDist == 0.0 )
+                closestDist = getDistance(getTarget());
+
+        }
+
 
     }
 
@@ -171,8 +175,6 @@ public class Spaceship extends CelestialBody {
         return closestDist;
     }
 
-
-    private boolean accelerated = false;
     /**
      * @param time the time that has passed until now from the start from the simulation in seconds
      */
@@ -181,23 +183,13 @@ public class Spaceship extends CelestialBody {
             // in getForce get value of the acc given in plan
             //make plan just give acc & fuel consumption be 1 (in requirements)
             //plans are being set equal and copied by reference, not value
-            accelerated = true;
-
-            double [] current = getAcc();
-            for (int i =0; i<current.length && accelerated; i++)
-                current[i] += getAcc()[i] - plan.getCurrent()[i+2];
-
-            setAcc(current);
 
             plan.nextDirection();
         }
         if(time >= plan.getCurrent()[0] && time <= plan.getCurrent()[1]){
             double [] current = getAcc();
-            for (int i =0; i<current.length && accelerated; i++)
-                current[i] += getAcc()[i] + plan.getCurrent()[i+2];
-
-
-            accelerated = false;
+            for (int i =0; i<current.length; i++)
+                current[i] += plan.getCurrent()[i+2]*dt;
 
             double force = 0.0;
             for (int i=0; i<3; i++)
@@ -209,6 +201,10 @@ public class Spaceship extends CelestialBody {
             setAcc(current);
         }
 
+    }
+
+    public void setCostFunc(CostFunction costFunc){
+        this.costFunc = costFunc;
     }
 
 
