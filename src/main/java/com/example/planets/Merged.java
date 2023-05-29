@@ -396,7 +396,6 @@ public class Merged extends Application {
 
     private static double bestDistance = 0;
     private static void goTitan() {
-        //if (model.getTime() > lastAcc + phaseTime) {
             CelestialBody titan = model.getBody(8);
 
             double x = titan.getPos()[0] - model.getShip().getPos()[0];
