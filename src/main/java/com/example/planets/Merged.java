@@ -19,6 +19,9 @@ import javafx.scene.paint.PhongMaterial;
 import javafx.scene.shape.Box;
 import javafx.scene.shape.Cylinder;
 import javafx.scene.shape.Sphere;
+import javafx.scene.text.Font;
+import javafx.scene.text.Text;
+import javafx.scene.text.TextAlignment;
 import javafx.scene.transform.Rotate;
 import javafx.stage.Stage;
 import java.util.Arrays;
@@ -48,6 +51,9 @@ public class Merged extends Application {
     private static double phaseTime = 10000;
     private static double slowPhaseTime = 100000;
 
+    static Text positionText = new Text("Spacecraft position at : " );
+    static Text distanceText = new Text("Distance between spacecraft and titan : " );
+
     @Override
     public void start(Stage stage) throws Exception {
         inicilizePath();
@@ -67,6 +73,23 @@ public class Merged extends Application {
         camera.setFarClip(4000);
         camera.setNearClip(1);
 
+        // text for spacecraft position
+        positionText.setFill(Color.WHITE);
+        positionText.setFont(Font.font("Arial", 16));
+        positionText.setTextAlignment(TextAlignment.RIGHT);
+        positionText.setTranslateX(scene.getWidth() - 730);
+        positionText.setTranslateY(scene.getHeight() - 50);
+
+        // text for distance between spacecraft and titan
+        distanceText.setFill(Color.WHITE);
+        distanceText.setFont(Font.font("Arial", 16));
+        distanceText.setTextAlignment(TextAlignment.RIGHT);
+        distanceText.setTranslateX(scene.getWidth() - 730);
+        distanceText.setTranslateY(scene.getHeight() - 30);
+
+
+
+
         //labels
         Label textLabel = new Label("fuel used:");
         textLabel.setTextFill(Color.WHITE);
@@ -84,7 +107,8 @@ public class Merged extends Application {
         //ComboBox
         ComboBox dtBox = new ComboBox(options);
         dtBox.setLayoutY(60);
-        root.getChildren().addAll(worldScene, textLabel, progressBar, fuelLabel, dtBox);
+        root.getChildren().addAll(worldScene, textLabel, progressBar, fuelLabel, dtBox,positionText,distanceText);
+
 
         //initial camera setting
         worldScene.setCamera(camera);
@@ -427,6 +451,9 @@ public class Merged extends Application {
                     System.out.println("ship at: " + Arrays.toString(model.getShip().getPos()));
                 }
             }
+
+        positionText.setText("Spacecraft position at : " + Arrays.toString(model.getShip().getPos()));
+        distanceText.setText("Distance between spacecraft and titan in km : " + model.getShip().getDistance(titan));
 
 
 
