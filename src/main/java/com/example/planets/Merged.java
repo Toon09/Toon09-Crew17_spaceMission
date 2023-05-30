@@ -24,6 +24,7 @@ import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 import javafx.scene.transform.Rotate;
 import javafx.stage.Stage;
+
 import java.util.Arrays;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -37,7 +38,7 @@ public class Merged extends Application {
     static private Gravity0 model = new Gravity0(0.0, 0.0, new RK4());
     private static int scale = 25;
     private static final int smallScale = 25;
-    private static final int bigScale = 3000;
+    private static final int bigScale = 2000;
     private static int counter = 0;
     private static boolean lookAtEarth = false;
     private static boolean lookAtTitan = false;
@@ -50,17 +51,18 @@ public class Merged extends Application {
     private static double lastAcc = 0;
     private static double phaseTime = 10000;
     private static double slowPhaseTime = 100000;
+    private static boolean toTitan = true;
 
-    private static double fuelConsumption = 0 ;
+    private static double fuelConsumption = 0;
 
     private static final double fuelConsumptionRate = 112872;
 
-    private static double totalConsumption =  488000;
+    private static double totalConsumption = 488000;
 
-    private  final double maxForce = 3 * Math.pow(10, 7);
+    private final double maxForce = 3 * Math.pow(10, 7);
 
-    private static Text positionText = new Text("Spacecraft position at : " );
-    private static Text distanceText = new Text("Distance between spacecraft and titan : " );
+    private static Text positionText = new Text("Spacecraft position at : ");
+    private static Text distanceText = new Text("Distance between spacecraft and titan : ");
     private static Text timeText = new Text("Time so far : ");
 
     @Override
@@ -121,7 +123,7 @@ public class Merged extends Application {
         //ComboBox
         ComboBox dtBox = new ComboBox(options);
         dtBox.setLayoutY(60);
-        root.getChildren().addAll(worldScene, textLabel, fuelLabel, dtBox,positionText,distanceText,timeText);
+        root.getChildren().addAll(worldScene, textLabel, fuelLabel, dtBox, positionText, distanceText, timeText);
 
 
         //initial camera setting
@@ -216,15 +218,15 @@ public class Merged extends Application {
                 double accY = model.getShip().getAcc()[1];
                 double accZ = model.getShip().getAcc()[2];
 
-                double currentAccMagnitude = Math.sqrt(accX * accX +accY * accY + accZ * accZ);
+                double currentAccMagnitude = Math.sqrt(accX * accX + accY * accY + accZ * accZ);
 
-                double fuelConsumed = currentAccMagnitude/maxForce  * fuelConsumptionRate;
+                double fuelConsumed = currentAccMagnitude / maxForce * fuelConsumptionRate;
 
                 totalConsumption += fuelConsumed;
 
                 Platform.runLater(() -> {
                     //fuelLabel.setText(Double.toString(model.getShip().getUsedFuel()));
-                    fuelLabel.setText(Double.toString(totalConsumption)) ;
+                    fuelLabel.setText(Double.toString(totalConsumption));
                     positionText.setText("Spacecraft position at : " + Arrays.toString(model.getShip().getPos()));
                     distanceText.setText("Distance between spacecraft and titan in km : " + model.getShip().getDistance(model.getBody(8)));
                     //timeText.setText("Time taken so far : " + model.getTime()/(60*24*60));
@@ -251,7 +253,7 @@ public class Merged extends Application {
                 }
                 if (lookAtEverything) {
                     camera.setTranslateX(183608);
-                    camera.setTranslateY(-128907);
+                    camera.setTranslateY(-130000);
                     camera.setTranslateZ(-(484573 * 2));
                 }
                 if (lookAtSpaceship) {
@@ -315,7 +317,7 @@ public class Merged extends Application {
         //create the sun
         Sphere sun = new Sphere();
         setPosition(sun, 0);
-        int planetSize = 6371 / 2;
+        int planetSize = 6371 ;
         sun.setRadius(planetSize);
         PhongMaterial sunMaterial = new PhongMaterial();
         sunMaterial.setDiffuseMap(new Image("sunTexture.jpg"));
@@ -446,53 +448,61 @@ public class Merged extends Application {
         }
     }
 
-    private static double bestDistance = 0;
-    private static void goTitan() {
-        CelestialBody titan = model.getBody(8);
+    private static double distance = 0;
 
-        double x = titan.getPos()[0] - model.getShip().getPos()[0];
-        double y = titan.getPos()[1] - model.getShip().getPos()[1];
-        double z = titan.getPos()[2] - model.getShip().getPos()[2];
+    private static void goTitan() {
+        CelestialBody targetPlanet = model.getBody(3);
+        if (toTitan) {
+            targetPlanet = model.getBody(8);
+        }
+        double x = targetPlanet.getPos()[0] - model.getShip().getPos()[0];
+        double y = targetPlanet.getPos()[1] - model.getShip().getPos()[1];
+        double z = targetPlanet.getPos()[2] - model.getShip().getPos()[2];
         double[] newAcc = new double[3];
 
-        if ((bestDistance>500000000 && model.getTime() > lastAcc + slowPhaseTime) || bestDistance==0){
-            newAcc[0] = model.getShip().getVel()[0]  + x / 800000;
-            newAcc[1] = model.getShip().getVel()[1]  + y / 800000;
-            newAcc[2] = model.getShip().getVel()[2]  + z / 800000;
+        //  if (toTitan) {
+        distance = model.getShip().getDistance(targetPlanet);
+        if ((distance > 500000000 && model.getTime() > lastAcc + slowPhaseTime) || distance == 0) {
+            newAcc[0] = model.getShip().getVel()[0] + x / 800000;
+            newAcc[1] = model.getShip().getVel()[1] + y / 800000;
+            newAcc[2] = model.getShip().getVel()[2] + z / 800000;
             lastAcc = model.getTime();
             System.out.println("slow");
-        }else if (model.getTime() > lastAcc + phaseTime && bestDistance<100000000){
-            newAcc[0] = model.getShip().getVel()[0]  + x / 70000;
-            newAcc[1] = model.getShip().getVel()[1]  + y / 70000;
-            newAcc[2] = model.getShip().getVel()[2]  + z / 70000;
+        } else if (model.getTime() > lastAcc + phaseTime && distance < 100000000) {
+            newAcc[0] = model.getShip().getVel()[0] + x / 70000;
+            newAcc[1] = model.getShip().getVel()[1] + y / 70000;
+            newAcc[2] = model.getShip().getVel()[2] + z / 70000;
             lastAcc = model.getTime();
             System.out.println("very fast");
 
-        }else if (model.getTime() > lastAcc + phaseTime && bestDistance<500000000) {
-            newAcc[0] = model.getShip().getVel()[0]  + x / 550000;
-            newAcc[1] = model.getShip().getVel()[1]  + y / 550000;
-            newAcc[2] = model.getShip().getVel()[2]  + z / 550000;
+        } else if (model.getTime() > lastAcc + phaseTime && distance < 500000000) {
+            newAcc[0] = model.getShip().getVel()[0] + x / 550000;
+            newAcc[1] = model.getShip().getVel()[1] + y / 550000;
+            newAcc[2] = model.getShip().getVel()[2] + z / 550000;
             lastAcc = model.getTime();
             System.out.println("fast");
         }
         model.getShip().setVel(newAcc);
-        if(bestDistance == 0 || bestDistance > model.getShip().getDistance(titan)){
-            bestDistance = model.getShip().getDistance(titan);
-            if (bestDistance<5000000) {
-                System.out.println("time is: " + model.getTime());
-                System.out.println("distance is:  " + bestDistance);
-                System.out.println("titan at: " + Arrays.toString(titan.getPos()));
-                System.out.println("ship at: " + Arrays.toString(model.getShip().getPos()));
-                System.out.println("Time is: "+ model.getTime());
-            }
+
+        if (distance < 5000000) {
+            System.out.println("time is: " + model.getTime());
+            System.out.println("distance is:  " + distance);
+            System.out.println("titan at: " + Arrays.toString(targetPlanet.getPos()));
+            System.out.println("ship at: " + Arrays.toString(model.getShip().getPos()));
+            System.out.println("Time is: " + model.getTime() / (60 * 60 * 24) + " days");
         }
+
+        if (distance < 3500000 && distance != 0) {
+            toTitan = false;
+            System.out.println("FINISHED, reached a distance of " + distance);
+        }
+        // }
 
 
     }
 
-    private int timeInDays(double time)
-    {
-        return (int)(((time/60)/60)/24);
+    private int timeInDays(double time) {
+        return (int) (((time / 60) / 60) / 24);
     }
 
 }
