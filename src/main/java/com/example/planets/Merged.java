@@ -49,12 +49,15 @@ public class Merged extends Application {
     private static boolean toTitan = true;
     private static double targetDistance = 500000;
     private static double fuelConsumption = 0;
-    private static final double fuelConsumptionRate = 112872;
+    private static final double fuelConsumptionRate = 1451.5;
     private static double totalConsumption = 488000;
     private final double maxForce = 3 * Math.pow(10, 7);
     private static Text positionText = new Text("Spacecraft position at : ");
     private static Text distanceText = new Text("Distance between spacecraft and titan : ");
     private static Text timeText = new Text("Time so far : ");
+    private static Text reachedTitanText = new Text("Reached titan in : not yet (days)");
+    private static Text reachedTitan2Text = new Text("Closest distance reached by the spacecraft : (km)");
+    private static boolean checkForReachedTitan = false ;
 
     @Override
     public void start(Stage stage) throws Exception {
@@ -80,21 +83,35 @@ public class Merged extends Application {
         positionText.setFont(Font.font("Arial", 16));
         positionText.setTextAlignment(TextAlignment.RIGHT);
         positionText.setTranslateX(scene.getWidth() - 730);
-        positionText.setTranslateY(scene.getHeight() - 90);
+        positionText.setTranslateY(scene.getHeight() - 110);
 
         // text for distance between spacecraft and titan
         distanceText.setFill(Color.WHITE);
         distanceText.setFont(Font.font("Arial", 16));
         distanceText.setTextAlignment(TextAlignment.RIGHT);
         distanceText.setTranslateX(scene.getWidth() - 730);
-        distanceText.setTranslateY(scene.getHeight() - 70);
+        distanceText.setTranslateY(scene.getHeight() - 90);
 
         // text for time
         timeText.setFill(Color.WHITE);
         timeText.setFont(Font.font("Arial", 16));
         timeText.setTextAlignment(TextAlignment.RIGHT);
         timeText.setTranslateX(scene.getWidth() - 730);
-        timeText.setTranslateY(scene.getHeight() - 50);
+        timeText.setTranslateY(scene.getHeight() - 70);
+
+        // text for time reached titan
+        reachedTitanText.setFill(Color.WHITE);
+        reachedTitanText.setFont(Font.font("Arial", 16));
+        reachedTitanText.setTextAlignment(TextAlignment.RIGHT);
+        reachedTitanText.setTranslateX(scene.getWidth() - 730);
+        reachedTitanText.setTranslateY(scene.getHeight() - 50);
+
+        // text for closest distance
+        reachedTitan2Text.setFill(Color.WHITE);
+        reachedTitan2Text.setFont(Font.font("Arial", 16));
+        reachedTitan2Text.setTextAlignment(TextAlignment.RIGHT);
+        reachedTitan2Text.setTranslateX(scene.getWidth() - 730);
+        reachedTitan2Text.setTranslateY(scene.getHeight() - 30);
 
 
         //labels
@@ -114,7 +131,7 @@ public class Merged extends Application {
         //ComboBox
         ComboBox dtBox = new ComboBox(options);
         dtBox.setLayoutY(60);
-        root.getChildren().addAll(worldScene, textLabel, fuelLabel, dtBox, positionText, distanceText, timeText);
+        root.getChildren().addAll(worldScene, textLabel, fuelLabel, dtBox, positionText, distanceText, timeText, reachedTitanText, reachedTitan2Text);
 
 
         //initial camera setting
@@ -205,13 +222,14 @@ public class Merged extends Application {
                     setPosition(world.getChildren().get(i), model.getBody(i));
                 }
 
-                double accX = model.getShip().getAcc()[0];
-                double accY = model.getShip().getAcc()[1];
-                double accZ = model.getShip().getAcc()[2];
+                double accX = model.getShip().getAcc()[0] * 30 * 60 * 60 * 60;
+                double accY = model.getShip().getAcc()[1] * 30 * 60 * 60 * 60;
+                double accZ = model.getShip().getAcc()[2] * 30 * 60 * 60 * 60;
+
 
                 double currentAccMagnitude = Math.sqrt(accX * accX + accY * accY + accZ * accZ);
 
-                double fuelConsumed = currentAccMagnitude / maxForce * fuelConsumptionRate;
+                double fuelConsumed = (currentAccMagnitude * 50000/ maxForce) * fuelConsumptionRate;
 
                 totalConsumption += fuelConsumed;
 
@@ -222,6 +240,14 @@ public class Merged extends Application {
                     distanceText.setText("Distance between spacecraft and titan in km : " + model.getShip().getDistance(model.getBody(8)));
                     //timeText.setText("Time taken so far : " + model.getTime()/(60*24*60));
                     timeText.setText("Time taken so far : " + timeInDays(model.getTime()));
+
+                    if(checkForReachedTitan)
+                    {
+                        reachedTitanText.setText("Reached titan in " + timeInDays(model.getTime()) + " days");
+                        reachedTitan2Text.setText("Closest distance reached by the spacecraft : " + distance + " km");
+                        checkForReachedTitan = false ;
+                    }
+
                 });
                 if (dtBox.getValue() != null) {
                     dt = Double.valueOf((String) dtBox.getValue());
@@ -473,8 +499,8 @@ public class Merged extends Application {
 
         if (distance < targetDistance && distance != 0) {
             toTitan = false;
+            checkForReachedTitan = true ;
             System.out.println("FINISHED, reached a distance of " + distance);
-            //Add sout
         }
 
 
