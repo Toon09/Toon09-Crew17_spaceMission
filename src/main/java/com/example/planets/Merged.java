@@ -427,28 +427,22 @@ public class Merged extends Application {
             double[] newAcc = new double[3];
 
             if ((bestDistance>500000000 && model.getTime() > lastAcc + slowPhaseTime) || bestDistance==0){
-                newAcc[0] = model.getShip().getVel()[0] / 1.0 + x / 1000000;
-                newAcc[1] = model.getShip().getVel()[1] / 1.0 + y / 1000000;
-                newAcc[2] = model.getShip().getVel()[2] / 1.0 + z / 1000000;
+                newAcc[0] = model.getShip().getVel()[0]  + x / 800000;
+                newAcc[1] = model.getShip().getVel()[1]  + y / 800000;
+                newAcc[2] = model.getShip().getVel()[2]  + z / 800000;
                 lastAcc = model.getTime();
                 System.out.println("slow");
-            }else if (model.getTime() > lastAcc + phaseTime && bestDistance<500000000) {
-                newAcc[0] = model.getShip().getVel()[0] / 1.0 + x / 600000;
-                newAcc[1] = model.getShip().getVel()[1] / 1.0 + y / 600000;
-                newAcc[2] = model.getShip().getVel()[2] / 1.0 + z / 600000;
-                lastAcc = model.getTime();
-                System.out.println("fast");
             }else if (model.getTime() > lastAcc + phaseTime && bestDistance<100000000){
-                newAcc[0] = model.getShip().getVel()[0] / 1.0 + x / 90000;
-                newAcc[1] = model.getShip().getVel()[1] / 1.0 + y / 90000;
-                newAcc[2] = model.getShip().getVel()[2] / 1.0 + z / 90000;
+                newAcc[0] = model.getShip().getVel()[0]  + x / 70000;
+                newAcc[1] = model.getShip().getVel()[1]  + y / 70000;
+                newAcc[2] = model.getShip().getVel()[2]  + z / 70000;
                 lastAcc = model.getTime();
                 System.out.println("very fast");
 
             }else if (model.getTime() > lastAcc + phaseTime && bestDistance<500000000) {
-                newAcc[0] = model.getShip().getVel()[0] / 1.0 + x / 600000;
-                newAcc[1] = model.getShip().getVel()[1] / 1.0 + y / 600000;
-                newAcc[2] = model.getShip().getVel()[2] / 1.0 + z / 600000;
+                newAcc[0] = model.getShip().getVel()[0]  + x / 550000;
+                newAcc[1] = model.getShip().getVel()[1]  + y / 550000;
+                newAcc[2] = model.getShip().getVel()[2]  + z / 550000;
                 lastAcc = model.getTime();
                 System.out.println("fast");
             }
