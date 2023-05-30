@@ -1,17 +1,22 @@
 package com.example.planets;
 
 import com.example.planets.BackEnd.CelestialEntities.CelestialBody;
+import com.example.planets.BackEnd.CelestialEntities.Spaceship;
 import com.example.planets.BackEnd.Models.*;
 import com.example.planets.BackEnd.NumericalMethods.*;
 import com.example.planets.BackEnd.Trajectory.Cost.PlanetaryRing;
 import com.example.planets.Data.DataGetter;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Scanner;
 
 
 class NumericalExperiments {
+    /*
+    - do trajectory
+    - do test of engine
+    - do experiment set up
+     */
+
     /*
     ToDo
     + change the trajectory from ArrayList<double[]> to double[][]\
@@ -58,20 +63,19 @@ class NumericalExperiments {
 
     // https://ssd.jpl.nasa.gov/horizons/app.html#/ [ experiment data ]
     public static void main(String[] args) {
-        //engineTest();
+        engineTest();
 
         //comparingToEachOther();
 
         //comparingToNasaData();
 
-        trajectoryTesting();
+        //trajectoryTesting();
 
         //testingAccuracyOfSolvers();
 
     }
 
     public Model3D model;
-
 
 
     public static void engineTest() {
@@ -87,46 +91,48 @@ class NumericalExperiments {
         Model3D model = new Gravity0(0, 0, new RK4());
         double dt = 0.5;
 
-        model.addShips(3); //ship that will be unchanged
+        model.addShips(1); //ship that will be unchanged
 
         double[][] plan = new double[][] {{0,10*60,
-                    11,0,0},
+                11,0,0},
                 {3*24*60*60, 3*24*60*60 + 30*60,
                         2,2,2}};
 
         model.getShip().setPlan( plan );
+        model.getShip(0).getClass().hashCode();
+        model.getShip(1).getClass().hashCode();
 
-        plan[0][2] = 35.0;
-        model.getShip(1).setPlan( plan );
+
 
         System.out.println("initializing test: \nIn days?: " + isDay + "\nTime interval: "+checkInterval+"s or day\n\n");
 
-        double[][] pos = new double[model.getAmountOfShips()][3];
+        double[] pos1 = new double[3];
+        double[] pos2 = new double[3];
 
         for(int i=0; i<time; i++){
+            Spaceship a = model.getShip(0);
+            Spaceship b = model.getShip(1);
+
             model.updatePos(1.0, dt, isDay );
 
             if( (i+1)%checkInterval == 0 ){
-                System.out.println("time stamp: " + (i+1));
+                System.out.println("time stamp: " + (i+1)/60);
 
-                for(int j=0; j<model.getAmountOfShips(); j++){
-                    pos[j] = model.getShip(j).getPos();
-                }
+                pos1 = model.getShip(1).getPos();
+                pos2 = model.getShip(0).getPos(); // check if
 
-                System.out.println("Sips: ");
-                for(int k=0; k<model.getAmountOfShips(); k++){
-                    System.out.println("Ship: " + k);
-                    System.out.println("X: " + pos[k][0] + "; Y: " + pos[k][1] + "; Z: " + pos[k][2]);
-                    System.out.println("acc x: " + model.getShip(k).getAcc()[0]+"\n");
-                }
+                System.out.println("Ship with engine plan:");
+                System.out.println("X: " + pos1[0] + "; Y: " + pos1[1] + "; Z: " + pos1[2]);
+                System.out.println("Ship with NO engine plan:");
+                System.out.println("X: " + pos2[0] + "; Y: " + pos2[1] + "; Z: " + pos2[2] + "\n");
 
+                System.out.println("Difference of both: ");
+                System.out.println("X: " + (pos1[0]-pos2[0]) + "; Y: " + (pos1[1]-pos2[1]) + "; Z: " + (pos1[2]-pos2[2]));
 
-                System.out.println("\nfuel's:");
-                for(int j=0; j<model.getAmountOfShips(); j++){
-                    System.out.println("fuel " + j + ": " + model.getShip(j).getUsedFuel() );
-                }
+                System.out.println("fuel 0: " + model.getShip(0).getUsedFuel());
+                System.out.println("fuel 1: " + model.getShip(1).getUsedFuel());
 
-                System.out.println("");
+                System.out.println("\n\n");
             }
 
 
@@ -254,7 +260,7 @@ class NumericalExperiments {
 
     public static void comparingToNasaData(){
         // experiment setup hyper parameters
-        double time = 1464.0;
+        double time = 20;
         boolean isDay = false;
         int checkInterval = 1; //every how many days do you want it to print the values
 
@@ -264,7 +270,7 @@ class NumericalExperiments {
         final String TARGET_FILE =  "ExpData/ExpMars.txt"; // "ExpData/ExpMars.txt"
         final String SUN = "ExpData/ExpSun.txt"; // "ExpData/ExpSun.txt"
 
-        double dt = 100.0;
+        double dt = 0.1;
 
         //  testing models
         ArrayList<Model3D> models = new ArrayList<Model3D>();
@@ -277,10 +283,7 @@ class NumericalExperiments {
         models.add( new Gravity0( 0, 0, new AB2(), DATA_ORIGIN ) ); //, DATA_ORIGIN
         steps.add( dt );
 
-        models.add( new Gravity0( 0, 0, new LeapFrog(), DATA_ORIGIN ) ); //, DATA_ORIGIN
-        steps.add( dt );
-
-        models.add( new Gravity0( 0, 0, new RK4(), DATA_ORIGIN ) ); //, DATA_ORIGIN
+        models.add( new Gravity0( 0, 0, new RalstonsRK4(), DATA_ORIGIN ) ); //, DATA_ORIGIN
         steps.add( dt );
 
         //benchmark
@@ -295,7 +298,7 @@ class NumericalExperiments {
         // innit position:
         System.out.println(); //////// comments
 
-        System.out.println("sim time[s], time step[s], Euler abs, Euler relative, Euler time[ns], AB2 abs, AB2 relative, AB2 time[ns], LeapFrog abs, LeapFrog relative, LeapFrog time[ns], RK4 abs, RK4 relative, RK4 time[ns]");
+        System.out.println("sim time[s], time step[s], Euler abs, Euler relative, Euler time[ns], AB2 abs, AB2 relative, AB2 time[ns], Ralston's RK4 abs, Ralston's RK4 relative, Ralston's RK4 time[ns]");
 
         // main loop
         for (int i = 0; i < time; i++) {
@@ -305,7 +308,7 @@ class NumericalExperiments {
             //centering benchmark data with sun
             for(int j=0; j<benchmark.length; j++)
                 for (int k=0; k<benchmark[j].length; k++)
-                        benchmark[j][k] = benchmark[j][k];// - sunData[j][k];
+                    benchmark[j][k] = benchmark[j][k];// - sunData[j][k];
 
             // update all models positions
             for (int j=0; j<models.size(); j++) {
@@ -365,10 +368,10 @@ class NumericalExperiments {
     // ############################################################################## TRAJECTORY MAKING SET UP
     public static void trajectoryTesting(){
         // set up hyper parameters
-        int time = 365; // max number of days for a sim to reach goal
-        String target = "titan"; // the moon
+        int time = 7; // max number of days for a sim to reach goal
+        String target = "moon"; // the moon
         int numberOfStages = 3;
-        double updatePeriod = 1; // period on which it shows the positions (in unit of days)
+        double updatePeriod = 0.5; // period on which it shows the positions (in unit of days)
 
         // models
         ArrayList<Model3D> models = new ArrayList<Model3D>();
@@ -387,45 +390,38 @@ class NumericalExperiments {
         chrono = System.currentTimeMillis() - chrono;
         steps.add( 1.0 );
 
-        //System.out.println("\nfinal plan: " + Arrays.deepToString(models.get(0).getShip().getPlan()));
-        //System.out.println("Planning took: " + chrono + "ms\n\n\n");
+        System.out.println("Planning took: " + chrono + "ms\n\n\n");
 
-        for(int i=0; i<models.get(0).size(); i++){
-            if( models.get(0).getBody(i).getName().equalsIgnoreCase(target) )
-                models.get(0).getShip().setTarget( models.get(0).getBody(i) );
-        }
-
-        new Scanner(System.in).nextLine();
 
         double[] error = new double[] {0.0, 0.0, 0.0};
         double errorMagnitude = 0.0;
 
-        //System.out.println("Showing travel");
+        System.out.println("Showing travel");
 
         // trajectory is already done, run sim and check time step
         for(int i=0; i<time/updatePeriod; i++){
-            models.get(0).updatePos( updatePeriod, 100.0, true ); // every half a day
+            models.get(0).updatePos( updatePeriod, 1.0, true ); // every half a day
             CelestialBody targetBody = models.get(0).getShip().getTarget();
 
-            //System.out.println("Target: " + target);
-            //System.out.println("Time interval of: " + i + " * Days");
+            System.out.println("Target: " + target);
+            System.out.println("Time intervals passed: " + time);
+            System.out.println("Time interval of: " + updatePeriod + " * Days");
 
-            //System.out.println("Sim time: " + models.get(0).getTime() + "s");
+            System.out.println("Sim time: " + models.get(0).getTime() + "s");
 
-            //System.out.println("Target position= X:" + targetBody.getPos()[0] +
-            //                    "; Y:" + targetBody.getPos()[1] + "; Z:" + targetBody.getPos()[2]);
+            System.out.println("Target position= X:" + targetBody.getPos()[0] +
+                    "; Y:" + targetBody.getPos()[1] + "; Z:" + targetBody.getPos()[2]);
 
-            //System.out.println("Ship position= X:" + models.get(0).getShip().getPos()[0] +
-            //                    "; Y:" + models.get(0).getShip().getPos()[1] +
-            //                    "; Z:" + models.get(0).getShip().getPos()[2]);
+            System.out.println("Ship position= X:" + models.get(0).getShip().getPos()[0] +
+                    "; Y:" + models.get(0).getShip().getPos()[1] +
+                    "; Z:" + models.get(0).getShip().getPos()[2]);
 
             for(int j=0; j<error.length; j++)
                 error[j] = targetBody.getPos()[j] - models.get(0).getShip().getPos()[j];
             errorMagnitude = Math.sqrt( error[0]*error[0] + error[1]*error[1] + error[2]*error[2] );
 
-            //System.out.println("Error= X:" + error[0] + "; Y:" + error[1] + "; Z:" + error[2]);
-            //System.out.println("Error magnitude: " + errorMagnitude + "km");
-            //System.out.println("Closest distance: " + models.get(0).getShip().getClosestDistance() + "km\n\n");
+            System.out.println("Error= X:" + error[0] + "; Y:" + error[1] + "; Z:" + error[2]);
+            System.out.println("Error magnitude: " + errorMagnitude + "km\n\n");
 
         }
 
@@ -441,8 +437,7 @@ class NumericalExperiments {
         boolean isDay = false;
         int checkInterval = 30; // 30
 
-        double dt = 1.0;
-
+        double dt = 1.6;
 
         //  testing models
         ArrayList<Model3D> models = new ArrayList<Model3D>();
@@ -486,18 +481,12 @@ class NumericalExperiments {
             for (int j=0; j<models.size(); j++) {
                 //start count of how much each model took here
                 double delta = System.nanoTime();
-                models.get(j).updatePos(Math.max(1.0, dt), steps.get(j), false);
+                models.get(j).updatePos(1, steps.get(j), isDay);
                 //end count of how long each model here
                 delta = System.nanoTime() - delta;
 
                 chrono[j] += delta;
             }
-            /*
-            TestModel1 model = new TestModel1(new RK4());
-            model.updatePos(1.0, dt, false);
-            // value is whatever you test it agaisnt
-            error = value - model.getBody(0);
-             */
 
 
             //calculate errors
