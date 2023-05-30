@@ -4,9 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="bab05458-8716-4abd-8f37-31e577e5aaab" name="Changes" comment="added spacecraft position and distance on the gui bottom right">
+    <list default="true" id="bab05458-8716-4abd-8f37-31e577e5aaab" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/planets/Merged.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/planets/Merged.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/planets/BackEnd/Models/Gravity0.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/planets/BackEnd/Models/Gravity0.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/planets/BackEnd/Trajectory/Cost/PlanetaryRing.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/planets/BackEnd/Trajectory/Cost/PlanetaryRing.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/planets/BackEnd/Trajectory/SteepestAscent/StocasticAscent.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/planets/BackEnd/Trajectory/SteepestAscent/StocasticAscent.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/planets/NumericalExperiments.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/planets/NumericalExperiments.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/planets/Testing.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/planets/GA.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -22,6 +26,7 @@
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="UPDATE_TYPE" value="REBASE" />
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
@@ -77,9 +82,22 @@
     </key>
   </component>
   <component name="RunManager" selected="Application.Merged">
+    <configuration name="GA" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.example.planets.GA" />
+      <module name="Toon09-Crew17_spaceMission3" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.example.planets.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="Merged" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="com.example.planets.Merged" />
-      <module name="Planets" />
+      <module name="Toon09-Crew17_spaceMission3" />
       <extension name="coverage">
         <pattern>
           <option name="PATTERN" value="com.example.planets.*" />
@@ -92,7 +110,7 @@
     </configuration>
     <configuration name="NumericalExperiments" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="com.example.planets.NumericalExperiments" />
-      <module name="Planets" />
+      <module name="Toon09-Crew17_spaceMission3" />
       <extension name="coverage">
         <pattern>
           <option name="PATTERN" value="com.example.planets.*" />
@@ -106,6 +124,7 @@
     <recent_temporary>
       <list>
         <item itemvalue="Application.Merged" />
+        <item itemvalue="Application.GA" />
         <item itemvalue="Application.NumericalExperiments" />
       </list>
     </recent_temporary>
@@ -128,6 +147,13 @@
       <workItem from="1683209681075" duration="3407000" />
       <workItem from="1683820709833" duration="618000" />
       <workItem from="1683841240613" duration="1723000" />
+    </task>
+    <task id="LOCAL-00036" summary="GUI changes">
+      <created>1683820787926</created>
+      <option name="number" value="00036" />
+      <option name="presentableId" value="LOCAL-00036" />
+      <option name="project" value="LOCAL" />
+      <updated>1683820787926</updated>
     </task>
     <task id="LOCAL-00037" summary="GUI code cleanup">
       <created>1683820991892</created>
@@ -465,14 +491,7 @@
       <option name="project" value="LOCAL" />
       <updated>1685357675516</updated>
     </task>
-    <task id="LOCAL-00085" summary="new trajectory">
-      <created>1685363155112</created>
-      <option name="number" value="00085" />
-      <option name="presentableId" value="LOCAL-00085" />
-      <option name="project" value="LOCAL" />
-      <updated>1685363155112</updated>
-    </task>
-    <option name="localTasksCounter" value="86" />
+    <option name="localTasksCounter" value="85" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -490,6 +509,7 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
+    <MESSAGE value="Datta getter documentation changed" />
     <MESSAGE value="datagiver name changed" />
     <MESSAGE value="suffering on experiemnt setup YAAY :D" />
     <MESSAGE value="engine comments added" />
@@ -514,10 +534,18 @@
     <MESSAGE value="steepest ascend does close flyby, needs tweaks in cost function to stay closer" />
     <MESSAGE value="update on trajectory optimisrrz" />
     <MESSAGE value="engine update un done" />
-    <MESSAGE value="new trajectory" />
-    <option name="LAST_COMMIT_MESSAGE" value="new trajectory" />
+    <option name="LAST_COMMIT_MESSAGE" value="engine update un done" />
   </component>
   <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/example/planets/Merged.java</url>
+          <line>197</line>
+          <option name="timeStamp" value="70" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
     <pin-to-top-manager>
       <pinned-members>
         <PinnedItemInfo parentTag="com.example.planets.BackEnd.CelestialEntities.Spaceship" memberName="plan" />

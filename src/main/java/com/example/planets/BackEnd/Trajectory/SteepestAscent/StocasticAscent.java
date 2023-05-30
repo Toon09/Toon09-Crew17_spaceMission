@@ -14,7 +14,7 @@ find way to save closest distance from target in ship
 
 public class StocasticAscent implements TrajectoryPlanner {
 
-    private final int numbOfSteps = 15;
+    private final int numbOfSteps = 30;
     private final int numbOfStages;
     private final int numbOfDays;
     private final Model3D model;
@@ -33,6 +33,20 @@ public class StocasticAscent implements TrajectoryPlanner {
 
     private void makeTrajectory(){
 
+        /*
+        individuos
+        60
+        50
+        40
+        30
+
+        generaciones
+        50
+        40
+        30
+        20
+         */
+
         double[][] state = new double[numbOfStages][5];
 
         state[0][0] = 0.0;
@@ -44,8 +58,18 @@ public class StocasticAscent implements TrajectoryPlanner {
 
         }
 
+        int individuals = 50; // 20*numbOfStages
+
+        System.out.println("numb of generations: " + numbOfSteps + ", numb of individuals: " + individuals + "\n");
+
+        System.out.println("generation, used fuel, closest distance, time[ns]");
+
+        double chrono = 0.0;
 
         for(int count=0; count<numbOfSteps; count++){
+
+            double delta = System.nanoTime();
+
             // clone of initial condition
             Model3D optimizer = model.clone( new RK4() );
 
@@ -57,9 +81,7 @@ public class StocasticAscent implements TrajectoryPlanner {
                 if( optimizer.getBody(i).getName().equalsIgnoreCase(target) )
                     optimizer.getShip().setTarget( model.getBody(i) );
 
-            optimizer.addShips( 60*numbOfStages ); // you are not using number of stages bruh
-
-            System.out.println("Lap: " + (count+1));
+            optimizer.addShips( individuals ); // you are not using number of stages bruh
 
            // System.out.println("start plan: " + Arrays.deepToString(state));
 
@@ -80,7 +102,7 @@ public class StocasticAscent implements TrajectoryPlanner {
                 for(int j=0; j<temp.length; j++)
                     for(int k=0; k<5; k++){
                         if(k>1)
-                            temp[j][k] += 1.5*Math.random()-1.5/2.0; //changes in acceleration
+                            temp[j][k] += 1.5*Math.random()-1.5/2.0; // 1.5 volver una funcion de las generaciones (count)
 
                         else{
                             if(j!=0 || k!=0)
@@ -100,7 +122,7 @@ public class StocasticAscent implements TrajectoryPlanner {
             // run sim
             optimizer.updatePos(numbOfDays, 500.0, true);
 
-            Spaceship champion = null;
+            Spaceship champion = optimizer.getShip();
 
             // get best plan made
             double cost = optimizer.getShip().getCost();
@@ -119,17 +141,13 @@ public class StocasticAscent implements TrajectoryPlanner {
 
             }
 
+            delta = System.nanoTime() - delta;
+            chrono += delta;
 
-            System.out.println("\nfinal state: " + Arrays.deepToString(champion.getPlan()));
-            System.out.println("closest dist: " + champion.getClosestDistance());
-           // System.out.println("used fuel: " + champion.getUsedFuel());
-            //System.out.println("distance: " + champion.getDistance(tar));
-            System.out.println("cost: " + cost + "\n");
+            System.out.println( (count+1) + ", " + champion.getUsedFuel() + ", " + champion.getClosestDistance() + ", " + chrono);
         }
 
         trajectory = state;
-
-        System.out.println("done");
 
     }
 
