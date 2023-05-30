@@ -474,6 +474,7 @@ public class Merged extends Application {
         if (distance < targetDistance && distance != 0) {
             toTitan = false;
             System.out.println("FINISHED, reached a distance of " + distance);
+            //Add sout
         }
 
 
