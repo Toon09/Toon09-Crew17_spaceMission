@@ -24,14 +24,9 @@ import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 import javafx.scene.transform.Rotate;
 import javafx.stage.Stage;
-
 import java.util.Arrays;
 import java.util.Timer;
 import java.util.TimerTask;
-
-//ToDo
-//change a start camera
-//make it so the path is shown for every 2nd or 3rd step not everyone
 
 public class Merged extends Application {
     // static private Gravity0 model = new Gravity0(0, Math.PI / 2.0, new Euler());
@@ -52,15 +47,11 @@ public class Merged extends Application {
     private static double phaseTime = 10000;
     private static double slowPhaseTime = 100000;
     private static boolean toTitan = true;
-
+    private static double targetDistance = 900000;
     private static double fuelConsumption = 0;
-
     private static final double fuelConsumptionRate = 112872;
-
     private static double totalConsumption = 488000;
-
     private final double maxForce = 3 * Math.pow(10, 7);
-
     private static Text positionText = new Text("Spacecraft position at : ");
     private static Text distanceText = new Text("Distance between spacecraft and titan : ");
     private static Text timeText = new Text("Time so far : ");
@@ -436,7 +427,6 @@ public class Merged extends Application {
         PhongMaterial rocketPathMaterial = new PhongMaterial();
         rocketPathMaterial.setDiffuseColor(Color.GOLD);
         rocketPath.setMaterial(rocketPathMaterial);
-
         group.getChildren().addAll(sun, mercury, venus, earth, moon, mars, jupiter, saturn, titan, neptune, uranus, rocketBase, rocketPath);
 
         return group;
@@ -460,12 +450,12 @@ public class Merged extends Application {
         double z = targetPlanet.getPos()[2] - model.getShip().getPos()[2];
         double[] newAcc = new double[3];
 
-        //  if (toTitan) {
+
         distance = model.getShip().getDistance(targetPlanet);
         if ((distance > 500000000 && model.getTime() > lastAcc + slowPhaseTime) || distance == 0) {
-            newAcc[0] = model.getShip().getVel()[0] + x / 800000;
-            newAcc[1] = model.getShip().getVel()[1] + y / 800000;
-            newAcc[2] = model.getShip().getVel()[2] + z / 800000;
+            newAcc[0] = model.getShip().getVel()[0] + x / 900000;
+            newAcc[1] = model.getShip().getVel()[1] + y / 900000;
+            newAcc[2] = model.getShip().getVel()[2] + z / 900000;
             lastAcc = model.getTime();
             System.out.println("slow");
         } else if (model.getTime() > lastAcc + phaseTime && distance < 100000000) {
@@ -484,7 +474,7 @@ public class Merged extends Application {
         }
         model.getShip().setVel(newAcc);
 
-        if (distance < 5000000) {
+        if (distance < 3000000) {
             System.out.println("time is: " + model.getTime());
             System.out.println("distance is:  " + distance);
             System.out.println("titan at: " + Arrays.toString(targetPlanet.getPos()));
@@ -492,11 +482,11 @@ public class Merged extends Application {
             System.out.println("Time is: " + model.getTime() / (60 * 60 * 24) + " days");
         }
 
-        if (distance < 3500000 && distance != 0) {
+        if (distance < targetDistance && distance != 0) {
             toTitan = false;
             System.out.println("FINISHED, reached a distance of " + distance);
         }
-        // }
+
 
 
     }
