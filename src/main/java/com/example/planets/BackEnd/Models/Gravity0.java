@@ -129,6 +129,23 @@ public class Gravity0 implements Model3D {
         this.getShip().makePlan(this, targetPlanet, numberOfStages, maxDays);
     }
 
+
+    public Gravity0(double longitude, double latitude, NumSolver numSolver, double[][] plan){
+        this.numSolver = numSolver;
+
+        this.bodies = new CelestialBody[ positions.length+1 ];
+        for(int i=0; i<this.bodies.length-1; i++){
+            this.bodies[i] = new CelestialBody(names[i], mass[i], positions[i], velocity[i]);
+            spaceShipStart = i+1;
+        }
+        this.bodies[ this.bodies.length-1 ] = new Spaceship(50000, positions[3], velocity[3], longitude, latitude);
+        this.getShip().setPlan(plan);
+        amountOfShips=1;
+        this.plan = plan;
+
+    }
+    private double[][] plan;
+
     @Override
     public void addShips(int numShips){
         // ships are always added at the end of array

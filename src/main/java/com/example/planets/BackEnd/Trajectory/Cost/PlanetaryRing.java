@@ -9,19 +9,11 @@ to the other kind of distance
 
 public class PlanetaryRing implements CostFunction{
 
-    private double radius = 150.0;
-    private double alpha = 1.0;
-    private double degree = Math.log(radius)/Math.log( Math.log10(radius) + Math.log10(alpha) );
-
 
     @Override
     public double calcCost(double fuel, double distToTarget) {
-        /*
-        if(distToTarget > radius)
-            return alpha / ( (Math.log10(fuel)/2.0+1.0) * Math.log10(distToTarget) );
-        return Math.pow(distToTarget, degree) / (fuel*fuel+1);
-         */
-        return -(distToTarget*distToTarget*distToTarget);
+        return - distToTarget*distToTarget / ( (2*Math.log10(fuel+10.0) + 1.0) );
+        //return -(distToTarget*distToTarget*distToTarget)*(fuel/1000.0+1.0);
     }
 
 }

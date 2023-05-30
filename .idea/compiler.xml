@@ -7,8 +7,10 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="Toon09-Crew17_spaceMission3" />
-        <module name="Planets" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="Planets" target="18" />
+    </bytecodeTargetLevel>
   </component>
 </project>
