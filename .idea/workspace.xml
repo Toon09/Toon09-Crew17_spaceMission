@@ -4,9 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="bab05458-8716-4abd-8f37-31e577e5aaab" name="Changes" comment="engine update un done">
+    <list default="true" id="bab05458-8716-4abd-8f37-31e577e5aaab" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/planets/Merged.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/planets/Merged.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/planets/NumericalExperiments.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/planets/NumericalExperiments.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -92,7 +92,6 @@
       </method>
     </configuration>
     <configuration name="Merged" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="ALTERNATIVE_JRE_PATH" value="19" />
       <option name="MAIN_CLASS_NAME" value="com.example.planets.Merged" />
       <module name="Toon09-Crew17_spaceMission3" />
       <extension name="coverage">
@@ -118,17 +117,15 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="numSolversTesting" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration default="true" type="JetRunConfigurationType">
       <module name="Toon09-Crew17_spaceMission3" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.example.planets.JUnitTesting.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="com.example.planets.JUnitTesting" />
-      <option name="MAIN_CLASS_NAME" value="com.example.planets.JUnitTesting.numSolversTesting" />
-      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="KotlinStandaloneScriptRunConfigurationType">
+      <module name="Toon09-Crew17_spaceMission3" />
+      <option name="filePath" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -137,12 +134,10 @@
       <item itemvalue="Application.GA" />
       <item itemvalue="Application.Merged" />
       <item itemvalue="Application.NumericalExperiments" />
-      <item itemvalue="JUnit.numSolversTesting" />
     </list>
     <recent_temporary>
       <list>
         <item itemvalue="Application.Merged" />
-        <item itemvalue="JUnit.numSolversTesting" />
         <item itemvalue="Application.GA" />
         <item itemvalue="Application.NumericalExperiments" />
       </list>
@@ -166,6 +161,13 @@
       <workItem from="1683209681075" duration="3407000" />
       <workItem from="1683820709833" duration="618000" />
       <workItem from="1683841240613" duration="1723000" />
+    </task>
+    <task id="LOCAL-00036" summary="GUI changes">
+      <created>1683820787926</created>
+      <option name="number" value="00036" />
+      <option name="presentableId" value="LOCAL-00036" />
+      <option name="project" value="LOCAL" />
+      <updated>1683820787926</updated>
     </task>
     <task id="LOCAL-00037" summary="GUI code cleanup">
       <created>1683820991892</created>
@@ -503,14 +505,7 @@
       <option name="project" value="LOCAL" />
       <updated>1685357675516</updated>
     </task>
-    <task id="LOCAL-00085" summary="engine update un done">
-      <created>1685453288420</created>
-      <option name="number" value="00085" />
-      <option name="presentableId" value="LOCAL-00085" />
-      <option name="project" value="LOCAL" />
-      <updated>1685453288420</updated>
-    </task>
-    <option name="localTasksCounter" value="86" />
+    <option name="localTasksCounter" value="85" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -556,6 +551,15 @@
     <option name="LAST_COMMIT_MESSAGE" value="engine update un done" />
   </component>
   <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/example/planets/Merged.java</url>
+          <line>197</line>
+          <option name="timeStamp" value="70" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
     <pin-to-top-manager>
       <pinned-members>
         <PinnedItemInfo parentTag="com.example.planets.BackEnd.CelestialEntities.Spaceship" memberName="plan" />
