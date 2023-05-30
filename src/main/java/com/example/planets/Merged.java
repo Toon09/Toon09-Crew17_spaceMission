@@ -43,11 +43,11 @@ public class Merged extends Application {
     private static Box[] path = new Box[10000];
     private static double time = 0.1;
     private static double dt = 1.5;
-    private static double lastAcc = 0;
+    private static double lastAcc = 0;4
     private static double phaseTime = 10000;
     private static double slowPhaseTime = 100000;
     private static boolean toTitan = true;
-    private static double targetDistance = 900000;
+    private static double targetDistance = 500000;
     private static double fuelConsumption = 0;
     private static final double fuelConsumptionRate = 112872;
     private static double totalConsumption = 488000;
@@ -458,10 +458,10 @@ public class Merged extends Application {
             newAcc[2] = model.getShip().getVel()[2] + z / 900000;
             lastAcc = model.getTime();
             System.out.println("slow");
-        } else if (model.getTime() > lastAcc + phaseTime && distance < 100000000) {
-            newAcc[0] = model.getShip().getVel()[0] + x / 70000;
-            newAcc[1] = model.getShip().getVel()[1] + y / 70000;
-            newAcc[2] = model.getShip().getVel()[2] + z / 70000;
+        } else if (model.getTime() > lastAcc + phaseTime && distance < 90000000) {
+            newAcc[0] = model.getShip().getVel()[0] + x / 40000;
+            newAcc[1] = model.getShip().getVel()[1] + y / 40000;
+            newAcc[2] = model.getShip().getVel()[2] + z / 40000;
             lastAcc = model.getTime();
             System.out.println("very fast");
 
