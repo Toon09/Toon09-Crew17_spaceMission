@@ -4,10 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="bab05458-8716-4abd-8f37-31e577e5aaab" name="Changes" comment="testing">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/planets/Testing.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/planets/Testing.java" afterDir="false" />
-    </list>
+    <list default="true" id="bab05458-8716-4abd-8f37-31e577e5aaab" name="Changes" comment="testing" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -120,6 +117,11 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <list>
+      <item itemvalue="Application.Testing" />
+      <item itemvalue="Application.Merged" />
+      <item itemvalue="Application.NumericalExperiments" />
+    </list>
     <recent_temporary>
       <list>
         <item itemvalue="Application.Testing" />
@@ -549,6 +551,7 @@
     <pin-to-top-manager>
       <pinned-members>
         <PinnedItemInfo parentTag="com.example.planets.BackEnd.CelestialEntities.Spaceship" memberName="plan" />
+        <PinnedItemInfo parentTag="com.example.planets.BackEnd.NumericalMethods.RK2" memberName="first" />
         <PinnedItemInfo parentTag="com.example.planets.BackEnd.CelestialEntities.Spaceship" memberName="vel" />
         <PinnedItemInfo parentTag="com.example.planets.BackEnd.CelestialEntities.Spaceship" memberName="pos" />
       </pinned-members>

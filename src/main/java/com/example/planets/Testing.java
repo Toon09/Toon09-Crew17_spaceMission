@@ -26,7 +26,7 @@ public class Testing {
 
             //let a year pass for each model
             for (Gravity0 model : population) {
-                model.updatePos(364, 120, true);
+                model.updatePos(364, 300, true);
             }
 
             //sort the models
