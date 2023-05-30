@@ -43,7 +43,7 @@ public class Merged extends Application {
     private static Box[] path = new Box[10000];
     private static double time = 0.1;
     private static double dt = 1.5;
-    private static double lastAcc = 0;4
+    private static double lastAcc = 0;
     private static double phaseTime = 10000;
     private static double slowPhaseTime = 100000;
     private static boolean toTitan = true;
@@ -457,30 +457,19 @@ public class Merged extends Application {
             newAcc[1] = model.getShip().getVel()[1] + y / 900000;
             newAcc[2] = model.getShip().getVel()[2] + z / 900000;
             lastAcc = model.getTime();
-            System.out.println("slow");
         } else if (model.getTime() > lastAcc + phaseTime && distance < 90000000) {
             newAcc[0] = model.getShip().getVel()[0] + x / 40000;
             newAcc[1] = model.getShip().getVel()[1] + y / 40000;
             newAcc[2] = model.getShip().getVel()[2] + z / 40000;
             lastAcc = model.getTime();
-            System.out.println("very fast");
 
         } else if (model.getTime() > lastAcc + phaseTime && distance < 500000000) {
             newAcc[0] = model.getShip().getVel()[0] + x / 550000;
             newAcc[1] = model.getShip().getVel()[1] + y / 550000;
             newAcc[2] = model.getShip().getVel()[2] + z / 550000;
             lastAcc = model.getTime();
-            System.out.println("fast");
         }
         model.getShip().setVel(newAcc);
-
-        if (distance < 3000000) {
-            System.out.println("time is: " + model.getTime());
-            System.out.println("distance is:  " + distance);
-            System.out.println("titan at: " + Arrays.toString(targetPlanet.getPos()));
-            System.out.println("ship at: " + Arrays.toString(model.getShip().getPos()));
-            System.out.println("Time is: " + model.getTime() / (60 * 60 * 24) + " days");
-        }
 
         if (distance < targetDistance && distance != 0) {
             toTitan = false;
