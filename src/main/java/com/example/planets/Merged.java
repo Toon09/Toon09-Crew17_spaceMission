@@ -487,8 +487,6 @@ public class Merged extends Application {
             }
         }
 
-        positionText.setText("Spacecraft position at : " + Arrays.toString(model.getShip().getPos()));
-        distanceText.setText("Distance between spacecraft and titan in km : " + model.getShip().getDistance(titan));
 
     }
 
