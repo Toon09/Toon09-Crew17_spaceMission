@@ -48,8 +48,8 @@ public class Merged extends Application {
     private static double time = 0.1;
     private static double dt = 1.5;
     private static double lastAcc = 0;
-    private static double phaseTime = 10000;
-    private static double slowPhaseTime = 100000;
+    private static double phaseTime = 50000;
+    private static double slowPhaseTime = 200000;
 
     static Text positionText = new Text("Spacecraft position at : " );
     static Text distanceText = new Text("Distance between spacecraft and titan : " );
@@ -77,15 +77,15 @@ public class Merged extends Application {
         positionText.setFill(Color.WHITE);
         positionText.setFont(Font.font("Arial", 16));
         positionText.setTextAlignment(TextAlignment.RIGHT);
-        positionText.setTranslateX(scene.getWidth() - 730);
-        positionText.setTranslateY(scene.getHeight() - 50);
+        positionText.setTranslateX(scene.getWidth() - 700);
+        positionText.setTranslateY(scene.getHeight() - 80);
 
         // text for distance between spacecraft and titan
         distanceText.setFill(Color.WHITE);
         distanceText.setFont(Font.font("Arial", 16));
         distanceText.setTextAlignment(TextAlignment.RIGHT);
-        distanceText.setTranslateX(scene.getWidth() - 730);
-        distanceText.setTranslateY(scene.getHeight() - 30);
+        distanceText.setTranslateX(scene.getWidth() - 700);
+        distanceText.setTranslateY(scene.getHeight() - 100);
 
 
 
@@ -419,7 +419,6 @@ public class Merged extends Application {
 
     private static double bestDistance = 0;
     private static void goTitan() {
-        //if (model.getTime() > lastAcc + phaseTime) {
             CelestialBody titan = model.getBody(8);
 
             double x = titan.getPos()[0] - model.getShip().getPos()[0];
@@ -428,36 +427,46 @@ public class Merged extends Application {
             double[] newAcc = new double[3];
 
             if ((bestDistance>500000000 && model.getTime() > lastAcc + slowPhaseTime) || bestDistance==0){
-                newAcc[0] = model.getShip().getVel()[0] / 1.6 + x / 20000000;
-                newAcc[1] = model.getShip().getVel()[1] / 1.6 + y / 20000000;
-                newAcc[2] = model.getShip().getVel()[2] / 1.6 + z / 20000000;
+                newAcc[0] = model.getShip().getVel()[0] / 1.0 + x / 1000000;
+                newAcc[1] = model.getShip().getVel()[1] / 1.0 + y / 1000000;
+                newAcc[2] = model.getShip().getVel()[2] / 1.0 + z / 1000000;
                 lastAcc = model.getTime();
                 System.out.println("slow");
-            }else if (model.getTime() > lastAcc + phaseTime && bestDistance<500000000){
-                newAcc[0] = model.getShip().getVel()[0] / 1.6 + x / 900000;
-                newAcc[1] = model.getShip().getVel()[1] / 1.6 + y / 900000;
-                newAcc[2] = model.getShip().getVel()[2] / 1.6 + z / 900000;
+            }else if (model.getTime() > lastAcc + phaseTime && bestDistance<500000000) {
+                newAcc[0] = model.getShip().getVel()[0] / 1.0 + x / 600000;
+                newAcc[1] = model.getShip().getVel()[1] / 1.0 + y / 600000;
+                newAcc[2] = model.getShip().getVel()[2] / 1.0 + z / 600000;
                 lastAcc = model.getTime();
                 System.out.println("fast");
+            }else if (model.getTime() > lastAcc + phaseTime && bestDistance<100000000){
+                newAcc[0] = model.getShip().getVel()[0] / 1.0 + x / 90000;
+                newAcc[1] = model.getShip().getVel()[1] / 1.0 + y / 90000;
+                newAcc[2] = model.getShip().getVel()[2] / 1.0 + z / 90000;
+                lastAcc = model.getTime();
+                System.out.println("very fast");
 
+            }else if (model.getTime() > lastAcc + phaseTime && bestDistance<500000000) {
+                newAcc[0] = model.getShip().getVel()[0] / 1.0 + x / 600000;
+                newAcc[1] = model.getShip().getVel()[1] / 1.0 + y / 600000;
+                newAcc[2] = model.getShip().getVel()[2] / 1.0 + z / 600000;
+                lastAcc = model.getTime();
+                System.out.println("fast");
             }
             model.getShip().setVel(newAcc);
             if(bestDistance == 0 || bestDistance > model.getShip().getDistance(titan)){
                 bestDistance = model.getShip().getDistance(titan);
-                if (bestDistance<2000000) {
+                if (bestDistance<5000000) {
                     System.out.println("time is: " + model.getTime());
                     System.out.println("distance is:  " + bestDistance);
                     System.out.println("titan at: " + Arrays.toString(titan.getPos()));
                     System.out.println("ship at: " + Arrays.toString(model.getShip().getPos()));
+                    System.out.println("Time is: "+ model.getTime());
                 }
             }
 
         positionText.setText("Spacecraft position at : " + Arrays.toString(model.getShip().getPos()));
         distanceText.setText("Distance between spacecraft and titan in km : " + model.getShip().getDistance(titan));
 
-
-
-        //}
     }
 
 }
