@@ -476,7 +476,6 @@ public class Merged extends Application {
         double z = targetPlanet.getPos()[2] - model.getShip().getPos()[2];
         double[] newAcc = new double[3];
 
-
         distance = model.getShip().getDistance(targetPlanet);
         if ((distance > 500000000 && model.getTime() > lastAcc + slowPhaseTime) || distance == 0) {
             newAcc[0] = model.getShip().getVel()[0] + x / 900000;
