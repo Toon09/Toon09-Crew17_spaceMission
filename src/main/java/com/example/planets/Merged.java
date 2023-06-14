@@ -14,6 +14,7 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.PhongMaterial;
@@ -79,18 +80,18 @@ public class Merged extends Application {
         camera.setFarClip(4000);
         camera.setNearClip(1);
 
-        stage.addEventHandler(KeyEvent.KEY_PRESSED, event -> {
-            switch (event.getCode()) {
-                case W:
-                    camera.translateZProperty().set(camera.getTranslateZ() + 100);
-                    System.out.println("1");
-                    break;
-                case S:
-                    camera.translateZProperty().set(camera.getTranslateZ() - 100);
-                    System.out.println("2");
-                    break;
-            }
-        });
+//        stage.addEventHandler(KeyEvent.KEY_PRESSED, event -> {
+//            switch (event.getCode()) {
+//                case W:
+//                    camera.translateZProperty().set(camera.getTranslateZ() + 100);
+//                    System.out.println("1");
+//                    break;
+//                case S:
+//                    camera.translateZProperty().set(camera.getTranslateZ() - 100);
+//                    System.out.println("2");
+//                    break;
+//            }
+//        });
 
         // text for spacecraft position
         positionText.setFill(Color.WHITE);
@@ -240,10 +241,16 @@ public class Merged extends Application {
         Scene landingScene = new Scene(landing, landingSceneWIDTH, landingSceneHEIGHT);
         landingScene.setFill(Color.BLACK);
 
-        Button button = new Button("Change to landing");
+        Button button = new Button("\uD83C\uDF11 LANDING \uD83C\uDF11");
         button.setLayoutY(landingSceneHEIGHT/2);
         button.setOnAction(e -> stage.setScene(landingScene));
         root.getChildren().add(button);
+
+        Button solarSystem = new Button("\uD83D\uDD06 SOLAR SYSTEM \uD83D\uDD06");
+        solarSystem.setOnAction(e -> stage.setScene(scene));
+        solarSystem.setLayoutY(landingSceneHEIGHT/2);
+
+        landing.getChildren().add(solarSystem);
 
         // upon reaching 300km we do, for now - button.
         // if (distance < targetDistance && distance != 0) {
@@ -266,7 +273,7 @@ public class Merged extends Application {
 
         Cylinder spaceship = new Cylinder(25, 100);
         spaceship.translateXProperty().set((landingSceneWIDTH)/2);
-        spaceship.translateYProperty().set((landingSceneHEIGHT-400)/2);
+        spaceship.translateYProperty().set((landingSceneHEIGHT-800)/2);
 
         PhongMaterial spaceshipMaterial = new PhongMaterial();
         spaceshipMaterial.setDiffuseMap(new Image("metalTexture2.jpg"));
