@@ -16,7 +16,7 @@ public class PlanetaryRing implements CostFunction{
     @Override
     public double calcCost(double fuel, double distToTarget) {
         if(distToTarget > radius)
-            return 0.0; // 1000.0/( (fuel*fuel+1) * Math.log10(distToTarget) ); //
+            return 1000.0/( (fuel*fuel+1) * Math.log10(distToTarget) );
         return Math.pow(distToTarget, degree) / (fuel*fuel+1);
 
     }

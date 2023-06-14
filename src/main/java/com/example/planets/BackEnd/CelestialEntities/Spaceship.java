@@ -108,7 +108,7 @@ public class Spaceship extends CelestialBody {
      * @param maxDays the maximum amount of days that the travel can go on for (on the way back and forward)
      */
     public void makePlan(Model3D model, String targetPlanet, int numberOfStages, int maxDays){
-        costFunc = new PlanetaryRing();
+        //costFunc = new PlanetaryRing();
         plan = new Planning(model, targetPlanet, "earth", numberOfStages, maxDays);
     }
 

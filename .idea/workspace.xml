@@ -6,9 +6,9 @@
   <component name="ChangeListManager">
     <list default="true" id="bab05458-8716-4abd-8f37-31e577e5aaab" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/planets/BackEnd/Trajectory/FeedBack.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/planets/BackEnd/Trajectory/FeedBack.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/planets/BackEnd/Trajectory/IControler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/planets/BackEnd/Trajectory/IControler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/planets/BackEnd/Trajectory/OpenLoop.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/planets/BackEnd/Trajectory/OpenLoop.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/planets/BackEnd/CelestialEntities/Spaceship.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/planets/BackEnd/CelestialEntities/Spaceship.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/planets/BackEnd/Trajectory/Cost/PlanetaryRing.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/planets/BackEnd/Trajectory/Cost/PlanetaryRing.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/planets/NumericalExperiments.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/planets/NumericalExperiments.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -79,7 +79,7 @@
       <recent name="C:\Users\suszw\Desktop\uni\year_1\Period4\plswork\src\main" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.Merged">
+  <component name="RunManager" selected="Application.NumericalExperiments">
     <configuration name="GA" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="com.example.planets.GA" />
       <module name="Toon09-Crew17_spaceMission3" />
@@ -137,9 +137,9 @@
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.NumericalExperiments" />
         <item itemvalue="Application.Merged" />
         <item itemvalue="Application.GA" />
-        <item itemvalue="Application.NumericalExperiments" />
       </list>
     </recent_temporary>
   </component>
@@ -162,13 +162,6 @@
       <workItem from="1683820709833" duration="618000" />
       <workItem from="1683841240613" duration="1723000" />
       <workItem from="1686731689722" duration="3058000" />
-    </task>
-    <task id="LOCAL-00042" summary="RK4 implemented and FRK2 finished, FRK2 needs check">
-      <created>1684072811990</created>
-      <option name="number" value="00042" />
-      <option name="presentableId" value="LOCAL-00042" />
-      <option name="project" value="LOCAL" />
-      <updated>1684072811990</updated>
     </task>
     <task id="LOCAL-00043" summary="documentation and time keeping in individual models added">
       <created>1684074107540</created>
@@ -506,7 +499,14 @@
       <option name="project" value="LOCAL" />
       <updated>1686735831801</updated>
     </task>
-    <option name="localTasksCounter" value="91" />
+    <task id="LOCAL-00091" summary="uncommented">
+      <created>1686735916778</created>
+      <option name="number" value="00091" />
+      <option name="presentableId" value="LOCAL-00091" />
+      <option name="project" value="LOCAL" />
+      <updated>1686735916778</updated>
+    </task>
+    <option name="localTasksCounter" value="92" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -524,7 +524,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="removed extra var in spaceship" />
     <MESSAGE value="changed distance function" />
     <MESSAGE value="changed planning and added trajectory" />
     <MESSAGE value="Added whole trajecotry making and usage structure as well as ideas to generate them" />
@@ -549,7 +548,8 @@
     <MESSAGE value="max values for landing" />
     <MESSAGE value="changes to gradient ascent" />
     <MESSAGE value="changes to gradient ascentcost functiosn changed for testing" />
-    <option name="LAST_COMMIT_MESSAGE" value="changes to gradient ascentcost functiosn changed for testing" />
+    <MESSAGE value="uncommented" />
+    <option name="LAST_COMMIT_MESSAGE" value="uncommented" />
   </component>
   <component name="XDebuggerManager">
     <pin-to-top-manager>
