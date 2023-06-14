@@ -4,7 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="bab05458-8716-4abd-8f37-31e577e5aaab" name="Changes" comment="Controler interface, Landing module" />
+    <list default="true" id="bab05458-8716-4abd-8f37-31e577e5aaab" name="Changes" comment="max values for landing">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/planets/BackEnd/Trajectory/FeedBack.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/planets/BackEnd/Trajectory/FeedBack.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/planets/BackEnd/Trajectory/IControler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/planets/BackEnd/Trajectory/IControler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/planets/Merged.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/planets/Merged.java" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -155,14 +160,7 @@
       <workItem from="1683209681075" duration="3407000" />
       <workItem from="1683820709833" duration="618000" />
       <workItem from="1683841240613" duration="1723000" />
-      <workItem from="1686731689722" duration="1574000" />
-    </task>
-    <task id="LOCAL-00039" summary="GUI, progress bar, two labels, change of the scene structure ( adding a sub-scene ) and code cleanup">
-      <created>1683824678386</created>
-      <option name="number" value="00039" />
-      <option name="presentableId" value="LOCAL-00039" />
-      <option name="project" value="LOCAL" />
-      <updated>1683824678386</updated>
+      <workItem from="1686731689722" duration="3058000" />
     </task>
     <task id="LOCAL-00040" summary="GUI, progress bar, two labels, change of the scene structure ( adding a sub-scene ) and code cleanup">
       <created>1683825248190</created>
@@ -500,7 +498,14 @@
       <option name="project" value="LOCAL" />
       <updated>1686732488130</updated>
     </task>
-    <option name="localTasksCounter" value="88" />
+    <task id="LOCAL-00088" summary="max values for landing">
+      <created>1686733761311</created>
+      <option name="number" value="00088" />
+      <option name="presentableId" value="LOCAL-00088" />
+      <option name="project" value="LOCAL" />
+      <updated>1686733761311</updated>
+    </task>
+    <option name="localTasksCounter" value="89" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -518,7 +523,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="datagiver name changed" />
     <MESSAGE value="suffering on experiemnt setup YAAY :D" />
     <MESSAGE value="engine comments added" />
     <MESSAGE value="removed extra var in spaceship" />
@@ -543,7 +547,8 @@
     <MESSAGE value="update on trajectory optimisrrz" />
     <MESSAGE value="engine update un done" />
     <MESSAGE value="Controler interface, Landing module" />
-    <option name="LAST_COMMIT_MESSAGE" value="Controler interface, Landing module" />
+    <MESSAGE value="max values for landing" />
+    <option name="LAST_COMMIT_MESSAGE" value="max values for landing" />
   </component>
   <component name="XDebuggerManager">
     <pin-to-top-manager>
