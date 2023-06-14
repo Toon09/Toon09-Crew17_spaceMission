@@ -1,6 +1,6 @@
 package com.example.planets.BackEnd.Trajectory;
 
-import com.example.planets.BackEnd.Trajectory.LandingModule;
+import com.example.planets.BackEnd.Trajectory.landingModel;
 import com.example.planets.BackEnd.CelestialEntities.Planning;
 import com.example.planets.BackEnd.Models.Model3D;
  // this is what you need
@@ -9,7 +9,7 @@ import com.example.planets.BackEnd.Models.Model3D;
 public interface IControler {
     Model3D model = null;
     Planning plan = null;
-    LandingModule landingModule = null;
+    landingModel landModel= null;
     double maxX = 0.0001; //(0.1m or 10^-4km)
     double maxXVelocity = 0.0001; //(0.1m or 10^-4km)
     double maxYVelocity = 0.0001; //(0.1m or 10^-4km)
