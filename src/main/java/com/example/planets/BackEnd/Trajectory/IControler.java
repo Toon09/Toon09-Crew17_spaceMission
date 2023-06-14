@@ -1,3 +1,4 @@
+/*
 package com.example.planets.BackEnd.Trajectory;
 
 import com.example.planets.BackEnd.CelestialEntities.Planning;
@@ -35,3 +36,5 @@ public interface IControler {
 
     }
 }
+
+ */

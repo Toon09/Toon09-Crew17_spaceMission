@@ -1,3 +1,4 @@
+/*
 package com.example.planets.BackEnd.Trajectory;
 
 import com.example.planets.BackEnd.CelestialEntities.Planning;
@@ -65,3 +66,5 @@ public class OpenLoop implements IControler {
     }
 }
 
+
+ */
