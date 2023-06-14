@@ -9,12 +9,11 @@ import com.example.planets.BackEnd.NumericalMethods.RK4;
 import java.util.Arrays;
 
 /*
-find way to save closest distance from target in ship
+change cost function so that it takes closest dist and actual dist as input
  */
-
 public class StocasticAscent implements TrajectoryPlanner {
 
-    private final int numbOfSteps = 30;
+    private final int numbOfSteps = 100;
     private final int numbOfStages;
     private final int numbOfDays;
     private final Model3D model;
@@ -33,20 +32,6 @@ public class StocasticAscent implements TrajectoryPlanner {
 
     private void makeTrajectory(){
 
-        /*
-        individuos
-        60
-        50
-        40
-        30
-
-        generaciones
-        50
-        40
-        30
-        20
-         */
-
         double[][] state = new double[numbOfStages][5];
 
         state[0][0] = 0.0;
@@ -58,7 +43,7 @@ public class StocasticAscent implements TrajectoryPlanner {
 
         }
 
-        int individuals = 50; // 20*numbOfStages
+        int individuals = 100;
 
         System.out.println("numb of generations: " + numbOfSteps + ", numb of individuals: " + individuals + "\n");
 
@@ -102,7 +87,7 @@ public class StocasticAscent implements TrajectoryPlanner {
                 for(int j=0; j<temp.length; j++)
                     for(int k=0; k<5; k++){
                         if(k>1)
-                            temp[j][k] += 1.5*Math.random()-1.5/2.0; // 1.5 volver una funcion de las generaciones (count)
+                            temp[j][k] += 9.5*Math.random()-9.5/2.0; // turn value into function of generations
 
                         else{
                             if(j!=0 || k!=0)

@@ -3,17 +3,22 @@ package com.example.planets.BackEnd.Trajectory.Cost;
 import com.example.planets.BackEnd.CelestialEntities.CelestialBody;
 
 /*
-same function, but once it reaches a certain distance once, it switches from closest dist
-to the other kind of distance
+same function, but once it reaches a certain distToTarget once, it switches from closest dist
+to the other kind of distToTarget
  */
 
 public class PlanetaryRing implements CostFunction{
 
+    private double radius = 150.0;
+    private double degree = Math.log(radius)/Math.log( Math.log10(radius) + 3.0 );
+
 
     @Override
     public double calcCost(double fuel, double distToTarget) {
-        return - distToTarget*distToTarget / ( (2*Math.log10(fuel+10.0) + 1.0) );
-        //return -(distToTarget*distToTarget*distToTarget)*(fuel/1000.0+1.0);
+        if(distToTarget > radius)
+            return 1000.0/( (fuel*fuel+1) * Math.log10(distToTarget) );
+        return Math.pow(distToTarget, degree) / (fuel*fuel+1);
+
     }
 
 }

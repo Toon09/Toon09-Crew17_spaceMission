@@ -3,17 +3,22 @@ package com.example.planets;
 import com.example.planets.BackEnd.CelestialEntities.CelestialBody;
 import com.example.planets.BackEnd.Models.Gravity0;
 import com.example.planets.BackEnd.NumericalMethods.*;
+import javafx.animation.KeyFrame;
+import javafx.animation.KeyValue;
+import javafx.animation.Timeline;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Point3D;
 import javafx.scene.*;
+import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.PhongMaterial;
 import javafx.scene.shape.Box;
@@ -23,7 +28,10 @@ import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 import javafx.scene.transform.Rotate;
+import javafx.scene.transform.Translate;
 import javafx.stage.Stage;
+import javafx.util.Duration;
+
 import java.util.Arrays;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -83,35 +91,35 @@ public class Merged extends Application {
         positionText.setFont(Font.font("Arial", 16));
         positionText.setTextAlignment(TextAlignment.RIGHT);
         positionText.setTranslateX(scene.getWidth() - 730);
-        positionText.setTranslateY(scene.getHeight() - 110);
+        positionText.setTranslateY(scene.getHeight() -130);
 
         // text for distance between spacecraft and titan
         distanceText.setFill(Color.WHITE);
         distanceText.setFont(Font.font("Arial", 16));
         distanceText.setTextAlignment(TextAlignment.RIGHT);
         distanceText.setTranslateX(scene.getWidth() - 730);
-        distanceText.setTranslateY(scene.getHeight() - 90);
+        distanceText.setTranslateY(scene.getHeight() - 110);
 
         // text for time
         timeText.setFill(Color.WHITE);
         timeText.setFont(Font.font("Arial", 16));
         timeText.setTextAlignment(TextAlignment.RIGHT);
         timeText.setTranslateX(scene.getWidth() - 730);
-        timeText.setTranslateY(scene.getHeight() - 70);
+        timeText.setTranslateY(scene.getHeight() - 90);
 
         // text for time reached titan
         reachedTitanText.setFill(Color.WHITE);
         reachedTitanText.setFont(Font.font("Arial", 16));
         reachedTitanText.setTextAlignment(TextAlignment.RIGHT);
         reachedTitanText.setTranslateX(scene.getWidth() - 730);
-        reachedTitanText.setTranslateY(scene.getHeight() - 50);
+        reachedTitanText.setTranslateY(scene.getHeight() - 70);
 
         // text for closest distance
         reachedTitan2Text.setFill(Color.WHITE);
         reachedTitan2Text.setFont(Font.font("Arial", 16));
         reachedTitan2Text.setTextAlignment(TextAlignment.RIGHT);
         reachedTitan2Text.setTranslateX(scene.getWidth() - 730);
-        reachedTitan2Text.setTranslateY(scene.getHeight() - 30);
+        reachedTitan2Text.setTranslateY(scene.getHeight() - 50);
 
 
         //labels
@@ -210,6 +218,57 @@ public class Merged extends Application {
         worldRotX.setAngle(worldRotX.getAngle());
         System.out.println(camera.getRotationAxis());
         world.setRotationAxis(new Point3D(model.getBody(3).getPos()[0], model.getBody(3).getPos()[1], model.getBody(3).getPos()[2]));
+
+        // -------------------------------------------------------------------------------------------------------------
+        // LANDING ON TITAN GUI
+
+        stage.setTitle("Titanic Space Odyssey");
+
+        final int landingSceneWIDTH = 1920;
+        final int landingSceneHEIGHT = 1080;
+        Group landing = new Group();
+        Scene landingScene = new Scene(landing, landingSceneWIDTH, landingSceneHEIGHT);
+        landingScene.setFill(Color.BLACK);
+
+        Button button = new Button("Change to landing");
+        button.setLayoutY(landingSceneHEIGHT/2);
+        button.setOnAction(e -> stage.setScene(landingScene));
+        root.getChildren().add(button);
+
+        // upon reaching 300km we do, for now - button.
+        // if (distance < targetDistance && distance != 0) {
+        //      stage.setScene(landingScene);
+        // }
+
+        Sphere titan = new Sphere(800);
+        titan.translateXProperty().set((landingSceneWIDTH)/2);
+        titan.translateYProperty().set((landingSceneHEIGHT+1600)/2);
+        PhongMaterial titanMaterial = new PhongMaterial();
+        titanMaterial.setDiffuseMap(new Image("titanTexture.jpg"));
+        titan.setMaterial(titanMaterial);
+
+        Cylinder spaceship = new Cylinder(25, 100);
+        spaceship.translateXProperty().set((landingSceneWIDTH)/2);
+        spaceship.translateYProperty().set((landingSceneHEIGHT-400)/2);
+
+        PhongMaterial spaceshipMaterial = new PhongMaterial();
+        spaceshipMaterial.setDiffuseMap(new Image("metalTexture2.jpg"));
+        spaceship.setMaterial(spaceshipMaterial);
+
+        Rotate rotate = new Rotate();
+        rotate.setAngle(90);
+        spaceship.getTransforms().addAll(rotate);
+
+        Cylinder landingModule = new Cylinder(10, 50);
+        landingModule.translateXProperty().set((landingSceneWIDTH)/2);
+        landingModule.translateYProperty().set((landingSceneHEIGHT-300)/2);
+        landingModule.setMaterial(spaceshipMaterial);
+        landingModule.getTransforms().addAll(rotate);
+
+        landing.getChildren().addAll(titan, spaceship, landingModule);
+
+        // THAT'S HOW WE SEPARATE CODE
+        // -------------------------------------------------------------------------------------------------------------
 
         stage.show();
 
