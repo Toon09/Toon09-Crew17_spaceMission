@@ -4,11 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="bab05458-8716-4abd-8f37-31e577e5aaab" name="Changes" comment="Controler interface, Landing module">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/planets/BackEnd/CelestialEntities/Controler.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/planets/BackEnd/CelestialEntities/LandingModule.java" beforeDir="false" />
-    </list>
+    <list default="true" id="bab05458-8716-4abd-8f37-31e577e5aaab" name="Changes" comment="Controler interface, Landing module" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -77,7 +73,7 @@
       <recent name="C:\Users\suszw\Desktop\uni\year_1\Period4\plswork\src\main" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.GA">
+  <component name="RunManager" selected="Application.Merged">
     <configuration name="GA" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="com.example.planets.GA" />
       <module name="Toon09-Crew17_spaceMission3" />
@@ -159,14 +155,7 @@
       <workItem from="1683209681075" duration="3407000" />
       <workItem from="1683820709833" duration="618000" />
       <workItem from="1683841240613" duration="1723000" />
-      <workItem from="1686731689722" duration="371000" />
-    </task>
-    <task id="LOCAL-00038" summary="GUI code cleanup">
-      <created>1683821263559</created>
-      <option name="number" value="00038" />
-      <option name="presentableId" value="LOCAL-00038" />
-      <option name="project" value="LOCAL" />
-      <updated>1683821263559</updated>
+      <workItem from="1686731689722" duration="1574000" />
     </task>
     <task id="LOCAL-00039" summary="GUI, progress bar, two labels, change of the scene structure ( adding a sub-scene ) and code cleanup">
       <created>1683824678386</created>
@@ -504,7 +493,14 @@
       <option name="project" value="LOCAL" />
       <updated>1686665292840</updated>
     </task>
-    <option name="localTasksCounter" value="87" />
+    <task id="LOCAL-00087" summary="Controler interface, Landing module">
+      <created>1686732488129</created>
+      <option name="number" value="00087" />
+      <option name="presentableId" value="LOCAL-00087" />
+      <option name="project" value="LOCAL" />
+      <updated>1686732488130</updated>
+    </task>
+    <option name="localTasksCounter" value="88" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
