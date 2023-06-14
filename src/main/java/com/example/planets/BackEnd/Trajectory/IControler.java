@@ -1,5 +1,6 @@
 package com.example.planets.BackEnd.Trajectory;
 
+import com.example.planets.BackEnd.CelestialEntities.Planning;
 import com.example.planets.BackEnd.Models.Model3D;
 
 public interface IControler {
