@@ -79,6 +79,19 @@ public class Merged extends Application {
         camera.setFarClip(4000);
         camera.setNearClip(1);
 
+        stage.addEventHandler(KeyEvent.KEY_PRESSED, event -> {
+            switch (event.getCode()) {
+                case W:
+                    camera.translateZProperty().set(camera.getTranslateZ() + 100);
+                    System.out.println("1");
+                    break;
+                case S:
+                    camera.translateZProperty().set(camera.getTranslateZ() - 100);
+                    System.out.println("2");
+                    break;
+            }
+        });
+
         // text for spacecraft position
         positionText.setFill(Color.WHITE);
         positionText.setFont(Font.font("Arial", 16));
@@ -157,7 +170,7 @@ public class Merged extends Application {
                     System.out.println("camera at:");
                     System.out.println("x: " + camera.getTranslateX() + ", y: " + camera.getTranslateY() + ", z: " + camera.getTranslateZ());
                 }
-                case P -> System.exit(0);
+                case Q -> System.exit(0);
                 case DIGIT1 -> {
                     if (!lookAtEarth) {
                         world.getChildren().get(7).setVisible(true);
@@ -219,6 +232,10 @@ public class Merged extends Application {
 
         final int landingSceneWIDTH = 1920;
         final int landingSceneHEIGHT = 1080;
+
+        final int landingPointX = 960;
+        final int landingPointY = 540;
+
         Group landing = new Group();
         Scene landingScene = new Scene(landing, landingSceneWIDTH, landingSceneHEIGHT);
         landingScene.setFill(Color.BLACK);
@@ -240,6 +257,13 @@ public class Merged extends Application {
         titanMaterial.setDiffuseMap(new Image("titanTexture.jpg"));
         titan.setMaterial(titanMaterial);
 
+        Sphere checker = new Sphere(5);
+        checker.translateXProperty().set(landingPointX);
+        checker.translateYProperty().set(landingPointY);
+        PhongMaterial checkerMaterial = new PhongMaterial();
+        checkerMaterial.setDiffuseColor(Color.RED);
+        checker.setMaterial(checkerMaterial);
+
         Cylinder spaceship = new Cylinder(25, 100);
         spaceship.translateXProperty().set((landingSceneWIDTH)/2);
         spaceship.translateYProperty().set((landingSceneHEIGHT-400)/2);
@@ -258,7 +282,7 @@ public class Merged extends Application {
         landingModule.setMaterial(spaceshipMaterial);
         landingModule.getTransforms().addAll(rotate);
 
-        landing.getChildren().addAll(titan, spaceship, landingModule);
+        landing.getChildren().addAll(titan, spaceship, landingModule, checker);
 
         // THAT'S HOW WE SEPARATE CODE
         // -------------------------------------------------------------------------------------------------------------
@@ -494,7 +518,7 @@ public class Merged extends Application {
         setPosition(rocketBase, 3);
         rocketBase.setTranslateX(rocketBase.getTranslateX() + earth.getRadius() + 100);
         PhongMaterial rocketBaseMaterial = new PhongMaterial();
-        rocketBaseMaterial.setDiffuseColor(Color.DARKVIOLET);
+        rocketBaseMaterial.setDiffuseMap(new Image(("crew17.jpeg")));
         rocketBase.setMaterial(rocketBaseMaterial);
 
         // create the path of the rocket
