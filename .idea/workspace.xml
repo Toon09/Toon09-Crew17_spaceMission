@@ -6,10 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="bab05458-8716-4abd-8f37-31e577e5aaab" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/planets/BackEnd/Models/Gravity0.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/planets/BackEnd/Models/Gravity0.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/planets/BackEnd/Models/StochasticWind.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/planets/BackEnd/Models/StochasticWind.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/planets/BackEnd/Trajectory/SteepestAscent/StocasticAscent.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/planets/BackEnd/Trajectory/SteepestAscent/StocasticAscent.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/planets/NumericalExperiments.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/planets/NumericalExperiments.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -163,13 +160,6 @@
       <workItem from="1683820709833" duration="618000" />
       <workItem from="1683841240613" duration="1723000" />
       <workItem from="1686731689722" duration="3058000" />
-    </task>
-    <task id="LOCAL-00043" summary="documentation and time keeping in individual models added">
-      <created>1684074107540</created>
-      <option name="number" value="00043" />
-      <option name="presentableId" value="LOCAL-00043" />
-      <option name="project" value="LOCAL" />
-      <updated>1684074107540</updated>
     </task>
     <task id="LOCAL-00044" summary="change experiment set up and added ideas for GUI in merged">
       <created>1684146917387</created>
@@ -507,7 +497,14 @@
       <option name="project" value="LOCAL" />
       <updated>1686735916778</updated>
     </task>
-    <option name="localTasksCounter" value="92" />
+    <task id="LOCAL-00092" summary="wind model updated">
+      <created>1686748388172</created>
+      <option name="number" value="00092" />
+      <option name="presentableId" value="LOCAL-00092" />
+      <option name="project" value="LOCAL" />
+      <updated>1686748388172</updated>
+    </task>
+    <option name="localTasksCounter" value="93" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -525,7 +522,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="changed distance function" />
     <MESSAGE value="changed planning and added trajectory" />
     <MESSAGE value="Added whole trajecotry making and usage structure as well as ideas to generate them" />
     <MESSAGE value="renamed an unimplemented method based on whats supposed to be (not yet done)" />
@@ -550,7 +546,8 @@
     <MESSAGE value="changes to gradient ascent" />
     <MESSAGE value="changes to gradient ascentcost functiosn changed for testing" />
     <MESSAGE value="uncommented" />
-    <option name="LAST_COMMIT_MESSAGE" value="uncommented" />
+    <MESSAGE value="wind model updated" />
+    <option name="LAST_COMMIT_MESSAGE" value="wind model updated" />
   </component>
   <component name="XDebuggerManager">
     <pin-to-top-manager>

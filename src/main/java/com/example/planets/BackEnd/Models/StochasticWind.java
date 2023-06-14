@@ -19,9 +19,9 @@ public class StochasticWind {
      * @return boolean that specifies if the wind should be applied to the ship
      */
     public boolean getDistance(double distance){
-        // 6200 is the radius of titan
         // the range is from 15 meters from the surface up to the max distance from surface
-        return distance < 6200.0 + maxDistance && distance > 6200.0 + 15.0;
+        double titanRadius = 6200.0;
+        return distance < titanRadius + maxDistance && distance > titanRadius + 15.0;
     }
 
     /**
