@@ -13,6 +13,7 @@ public interface IControler {
     double maxXVelocity = 0.0001; //(0.1m or 10^-4km)
     double maxYVelocity = 0.0001; //(0.1m or 10^-4km)
     double titanGravity = 1.352 * 0.001;
+    double mass = 4200; //kg
     public default Planning calculateTrajectory(double initialX, double initialY, double initialTheta,
                                                 double acceleration, double torque, double gravity) {
         Planning plan = null;
