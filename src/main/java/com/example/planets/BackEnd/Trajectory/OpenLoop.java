@@ -1,5 +1,7 @@
 package com.example.planets.BackEnd.Trajectory;
 
+import com.example.planets.BackEnd.CelestialEntities.Planning;
+
 public class OpenLoop implements IControler {
     private double x; // Horizontal position
     private double y; // Vertical position
@@ -17,9 +19,8 @@ public class OpenLoop implements IControler {
     private double u;
     private double v; // Total
     private double g;
-    @Override
-    public Planning claclateThrust(double initialX, double initialY, double initialTheta,
-                                   double acceleration, double torque, double gravity) {
+    @Override public Planning claclateThrust(double initialX, double initialY, double initialTheta,
+                                             double acceleration, double torque, double gravity) {
 
                 x = initialX;
                 y = initialY;
@@ -27,7 +28,8 @@ public class OpenLoop implements IControler {
                 u = acceleration;
                 v = torque;
                 g = gravity;
-            }
+        return null;
+    }
 
             // Method to update the spaceship's position and orientation over time
             public void update(double dt) {
@@ -62,4 +64,4 @@ public class OpenLoop implements IControler {
         return IControler.super.creatPlan();
     }
 }
-}
+
