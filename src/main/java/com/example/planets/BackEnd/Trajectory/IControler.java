@@ -1,11 +1,21 @@
 package com.example.planets.BackEnd.Trajectory;
 
+import com.example.planets.BackEnd.CelestialEntities.LandingModule;
 import com.example.planets.BackEnd.Models.Model3D;
 
 public interface IControler {
     Model3D model = null;
-    landingModel moter = null;
-    Planning plan= null;
+    Planning plan = null;
+    LandingModule landingModule = null;
+
+    public default Planning calculateTrajectory(double initialX, double initialY, double initialTheta,
+                                                double acceleration, double torque, double gravity) {
+        Planning plan = null;
+
+        return plan;
+    }
+
+
 
     public default Planning claclateThrust(double initialX, double initialY, double initialTheta,
                                            double acceleration, double torque, double gravity) {
@@ -13,7 +23,7 @@ public interface IControler {
 
     return plan;
     }
-    public default <moter, model> Planning creatPlan(model, moter){
+    public default  Planning creatPlan(){
 
         Planning plan=null ;
         return plan ;
