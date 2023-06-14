@@ -366,7 +366,7 @@ class NumericalExperiments {
         // set up hyper parameters
         int time = 364; // max number of days for a sim to reach goal
         String target = "titan"; // the moon
-        int numberOfStages = 3;
+        int numberOfStages = 20;
         double updatePeriod = 0.5; // period on which it shows the positions (in unit of days)
 
         // to print how long the planning takes

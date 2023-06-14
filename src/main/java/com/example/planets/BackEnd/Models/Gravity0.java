@@ -289,7 +289,7 @@ public class Gravity0 implements Model3D {
                 dist = bodies[i].getDistance(bodies[j]);
 
                 // here the wind model is called
-                if( bodies[i] instanceof Spaceship && dist<wind.getDistance() ){ //if its within range and a spaceship
+                if( bodies[i] instanceof Spaceship && wind.getDistance(dist) ){ //if its within range and a spaceship
                     wind.stochasticWind( (Spaceship)bodies[i] );
                 }
 

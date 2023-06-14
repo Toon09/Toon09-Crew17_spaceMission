@@ -102,18 +102,18 @@ public class StocasticAscent implements TrajectoryPlanner {
             Spaceship champion = optimizer.getShip();
 
             // get best plan made
-            double cost = optimizer.getShip().getCost();
+            double cost = optimizer.getShip().getCost(); //
             //System.out.println("in loop");
-            for(int i=0; i< optimizer.getAmountOfShips(); i++){
+            for(int i=0; i<optimizer.getAmountOfShips(); i++){ //
                 System.out.println("plan: " + Arrays.deepToString(optimizer.getShip(i).getPlan()));
                 System.out.println("closest dist: " + optimizer.getShip(i).getClosestDistance());
                 System.out.println("cost: " +optimizer.getShip(i).getCost());
 
-                if( cost >= optimizer.getShip(i).getCost() ){
+                if( cost >= optimizer.getShip(i).getCost() ){ //
                     System.out.println("new hottest single\n");
-                    cost = optimizer.getShip(i).getCost();
-                    state = optimizer.getShip(i).getPlan(); // gets plan with highest cost
-                    champion = optimizer.getShip(i);
+                    cost = optimizer.getShip(i).getCost(); //
+                    state = optimizer.getShip(i).getPlan(); // gets plan with highest cost //
+                    champion = optimizer.getShip(i); //
                 }
 
             }

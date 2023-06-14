@@ -1,9 +1,13 @@
 package com.example.planets.BackEnd.Models;
 
+import com.example.planets.BackEnd.CelestialEntities.CelestialBody;
 import com.example.planets.BackEnd.CelestialEntities.Spaceship;
 
 /*
 only spaceships can be affected by wind conditions, not other planets because they are too big
+
+- take mass into account for mass interaction
+- from surface
  */
 public class StochasticWind {
 
@@ -11,10 +15,13 @@ public class StochasticWind {
     private double maxDistance = 300.0; // in km
 
     /**
-     * @return maximum distance from the target on which the wind will take effect
+     * @param distance its the distance from the ship to the ship
+     * @return boolean that specifies if the wind should be applied to the ship
      */
-    public double getDistance(){
-        return maxDistance;
+    public boolean getDistance(double distance){
+        // 6200 is the radius of titan
+        // the range is from 15 meters from the surface up to the max distance from surface
+        return distance < 6200.0 + maxDistance && distance > 6200.0 + 15.0;
     }
 
     /**
