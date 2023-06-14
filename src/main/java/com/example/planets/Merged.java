@@ -83,35 +83,35 @@ public class Merged extends Application {
         positionText.setFont(Font.font("Arial", 16));
         positionText.setTextAlignment(TextAlignment.RIGHT);
         positionText.setTranslateX(scene.getWidth() - 730);
-        positionText.setTranslateY(scene.getHeight() - 110);
+        positionText.setTranslateY(scene.getHeight() -130);
 
         // text for distance between spacecraft and titan
         distanceText.setFill(Color.WHITE);
         distanceText.setFont(Font.font("Arial", 16));
         distanceText.setTextAlignment(TextAlignment.RIGHT);
         distanceText.setTranslateX(scene.getWidth() - 730);
-        distanceText.setTranslateY(scene.getHeight() - 90);
+        distanceText.setTranslateY(scene.getHeight() - 110);
 
         // text for time
         timeText.setFill(Color.WHITE);
         timeText.setFont(Font.font("Arial", 16));
         timeText.setTextAlignment(TextAlignment.RIGHT);
         timeText.setTranslateX(scene.getWidth() - 730);
-        timeText.setTranslateY(scene.getHeight() - 70);
+        timeText.setTranslateY(scene.getHeight() - 90);
 
         // text for time reached titan
         reachedTitanText.setFill(Color.WHITE);
         reachedTitanText.setFont(Font.font("Arial", 16));
         reachedTitanText.setTextAlignment(TextAlignment.RIGHT);
         reachedTitanText.setTranslateX(scene.getWidth() - 730);
-        reachedTitanText.setTranslateY(scene.getHeight() - 50);
+        reachedTitanText.setTranslateY(scene.getHeight() - 70);
 
         // text for closest distance
         reachedTitan2Text.setFill(Color.WHITE);
         reachedTitan2Text.setFont(Font.font("Arial", 16));
         reachedTitan2Text.setTextAlignment(TextAlignment.RIGHT);
         reachedTitan2Text.setTranslateX(scene.getWidth() - 730);
-        reachedTitan2Text.setTranslateY(scene.getHeight() - 30);
+        reachedTitan2Text.setTranslateY(scene.getHeight() - 50);
 
 
         //labels

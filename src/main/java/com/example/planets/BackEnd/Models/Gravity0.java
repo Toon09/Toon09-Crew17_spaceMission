@@ -22,6 +22,8 @@ public class Gravity0 implements Model3D {
 
     private double time = 0;
 
+    private StochasticWind wind = new StochasticWind();
+
 
     /**
      * This constructor is mainly used in the copy function, it doesn't need
@@ -124,9 +126,17 @@ public class Gravity0 implements Model3D {
         this.bodies[ this.bodies.length-1 ] = new Spaceship(50000, positions[3], velocity[3],
                                         longitude, latitude, cost);
 
-        //this.getShip().setCostFunc( cost );
-        //amountOfShips=1;
+        // make plan
         this.getShip().makePlan(this, targetPlanet, numberOfStages, maxDays);
+
+        // get target planet and set it as it in ship
+        for(CelestialBody bod : bodies){
+            if(bod.getName().equalsIgnoreCase(targetPlanet)){
+                this.getShip().setTarget(bod);
+                break;
+            }
+        }
+
     }
 
 
@@ -277,6 +287,12 @@ public class Gravity0 implements Model3D {
 
                 //calc distance between 2
                 dist = bodies[i].getDistance(bodies[j]);
+
+                // here the wind model is called
+                if( bodies[i] instanceof Spaceship && dist<wind.getDistance() ){ //if its within range and a spaceship
+                    wind.stochasticWind( (Spaceship)bodies[i] );
+                }
+
                 dist = dist*dist*dist;
 
                 //adding in dims

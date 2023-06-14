@@ -4,6 +4,7 @@ import com.example.planets.BackEnd.CelestialEntities.CelestialBody;
 import com.example.planets.BackEnd.CelestialEntities.Spaceship;
 import com.example.planets.BackEnd.Models.*;
 import com.example.planets.BackEnd.NumericalMethods.*;
+import com.example.planets.BackEnd.Trajectory.Cost.MinDistAndFuel;
 import com.example.planets.BackEnd.Trajectory.Cost.PlanetaryRing;
 import com.example.planets.Data.DataGetter;
 
@@ -11,11 +12,6 @@ import java.util.ArrayList;
 
 
 class NumericalExperiments {
-    /*
-    - do trajectory
-    - do test of engine
-    - do experiment set up
-     */
 
     /*
     ToDo
@@ -63,13 +59,13 @@ class NumericalExperiments {
 
     // https://ssd.jpl.nasa.gov/horizons/app.html#/ [ experiment data ]
     public static void main(String[] args) {
-        engineTest();
+        //engineTest();
 
         //comparingToEachOther();
 
         //comparingToNasaData();
 
-        //trajectoryTesting();
+        trajectoryTesting();
 
         //testingAccuracyOfSolvers();
 
@@ -369,13 +365,9 @@ class NumericalExperiments {
     public static void trajectoryTesting(){
         // set up hyper parameters
         int time = 7; // max number of days for a sim to reach goal
-        String target = "moon"; // the moon
+        String target = "titan"; // the moon
         int numberOfStages = 3;
         double updatePeriod = 0.5; // period on which it shows the positions (in unit of days)
-
-        // models
-        ArrayList<Model3D> models = new ArrayList<Model3D>();
-        ArrayList<Double> steps = new ArrayList<Double>();
 
         // to print how long the planning takes
         double chrono = 0.0;
@@ -386,9 +378,8 @@ class NumericalExperiments {
 
         // make trajectory
         chrono = System.currentTimeMillis();
-        models.add( new Gravity0( longitude, latitude, new RK4(), target, numberOfStages, time, new PlanetaryRing() ) );
+        Model3D model = new Gravity0( longitude, latitude, new RK4(), target, numberOfStages, time, new MinDistAndFuel() );
         chrono = System.currentTimeMillis() - chrono;
-        steps.add( 1.0 );
 
         System.out.println("Planning took: " + chrono + "ms\n\n\n");
 
@@ -400,24 +391,23 @@ class NumericalExperiments {
 
         // trajectory is already done, run sim and check time step
         for(int i=0; i<time/updatePeriod; i++){
-            models.get(0).updatePos( updatePeriod, 1.0, true ); // every half a day
-            CelestialBody targetBody = models.get(0).getShip().getTarget();
+            model.updatePos( updatePeriod, 1.0, true ); // every half a day
+            CelestialBody targetBody = model.getShip().getTarget();
 
             System.out.println("Target: " + target);
-            System.out.println("Time intervals passed: " + time);
-            System.out.println("Time interval of: " + updatePeriod + " * Days");
+            System.out.println("Time passed: " + (i+1)*updatePeriod + " Days");
 
-            System.out.println("Sim time: " + models.get(0).getTime() + "s");
+            System.out.println("Sim time: " + model.getTime() + "s");
 
             System.out.println("Target position= X:" + targetBody.getPos()[0] +
                     "; Y:" + targetBody.getPos()[1] + "; Z:" + targetBody.getPos()[2]);
 
-            System.out.println("Ship position= X:" + models.get(0).getShip().getPos()[0] +
-                    "; Y:" + models.get(0).getShip().getPos()[1] +
-                    "; Z:" + models.get(0).getShip().getPos()[2]);
+            System.out.println("Ship position= X:" + model.getShip().getPos()[0] +
+                    "; Y:" + model.getShip().getPos()[1] +
+                    "; Z:" + model.getShip().getPos()[2]);
 
             for(int j=0; j<error.length; j++)
-                error[j] = targetBody.getPos()[j] - models.get(0).getShip().getPos()[j];
+                error[j] = targetBody.getPos()[j] - model.getShip().getPos()[j];
             errorMagnitude = Math.sqrt( error[0]*error[0] + error[1]*error[1] + error[2]*error[2] );
 
             System.out.println("Error= X:" + error[0] + "; Y:" + error[1] + "; Z:" + error[2]);

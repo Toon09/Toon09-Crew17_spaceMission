@@ -4,9 +4,6 @@ import com.example.planets.BackEnd.Models.Gravity0;
 import com.example.planets.BackEnd.Models.Model3D;
 import com.example.planets.BackEnd.Trajectory.Cost.CostFunction;
 import com.example.planets.BackEnd.Trajectory.Cost.PlanetaryRing;
-import com.example.planets.BackEnd.Trajectory.Planning;
-
-import java.util.ArrayList;
 
 /*
 add methods related to changing trajectory to another class that has an instance in this one
@@ -165,7 +162,6 @@ public class Spaceship extends CelestialBody {
         if( getTarget() != null ){
             if( closestDist > getDistance(getTarget()) || closestDist == 0.0 )
                 closestDist = getDistance(getTarget());
-
         }
 
     }
