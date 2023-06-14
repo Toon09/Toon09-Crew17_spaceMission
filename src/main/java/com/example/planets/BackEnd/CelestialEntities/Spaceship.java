@@ -166,42 +166,31 @@ public class Spaceship extends CelestialBody {
 
     }
 
-    public void addDeltaV(double[] delta){
-        double[] temp = new double[3];
-        for(int i=0; i<3; i++)
-            temp[i] = getVel()[i] + delta[i];
-
-        setVel(temp);
-    }
-
     public double getClosestDistance(){
         return closestDist;
     }
 
     /**
      * @param time the time that has passed until now from the start from the simulation in seconds
+     * @param dt is the time step used on the numerical solvers
      */
     public void accelerate(double time, double dt){
-        if( time > plan.getCurrent()[1] && plan.getStageVal() < plan.getManeuverLength() -1 ){
-            // in getForce get value of the acc given in plan
-            //make plan just give acc & fuel consumption be 1 (in requirements)
-            //plans are being set equal and copied by reference, not value
-
+        if( time > plan.getCurrent()[1] + plan.getCurrent()[0] && plan.getStageVal() < plan.getManeuverLength() -1 ){
             plan.nextDirection();
         }
-        if(time >= plan.getCurrent()[0] && time <= plan.getCurrent()[1]){
-            double [] current = getAcc();
+        if(time >= plan.getCurrent()[0] && time <= plan.getCurrent()[1] + plan.getCurrent()[0]){
+            double [] current = getVel();
             for (int i =0; i<current.length; i++)
                 current[i] += plan.getCurrent()[i+2]*dt;
 
-            double force = 0.0;
+            double magnitude = 0.0;
             for (int i=0; i<3; i++)
-                force += plan.getCurrent()[i+2]*plan.getCurrent()[i+2];
+                magnitude += plan.getCurrent()[i+2]*plan.getCurrent()[i+2];
 
-            force = Math.sqrt(force);
-            usedFuel += (force*mass/maxForce)*fuelConsumption*dt;
+            magnitude = Math.sqrt(magnitude);
+            usedFuel += (magnitude*mass/maxForce)*fuelConsumption*dt;
 
-            setAcc(current);
+            setVel(current);
         }
 
     }

@@ -5,8 +5,8 @@ import com.example.planets.BackEnd.CelestialEntities.Spaceship;
 import com.example.planets.BackEnd.Models.Model3D;
 import com.example.planets.BackEnd.NumericalMethods.RK4;
 
-
 import java.util.Arrays;
+
 
 /*
 change cost function so that it takes closest dist and actual dist as input
@@ -37,9 +37,9 @@ public class StocasticAscent implements TrajectoryPlanner {
         state[0][0] = 0.0;
         state[0][1] = 30*60.0;
 
-        for(int i=1; i<numbOfStages; i++){
+        for(int i=0; i<numbOfStages; i++){
             state[i][0] = i*numbOfDays*24*60*60 / ((double) numbOfStages);
-            state[i][1] = state[i][0] + 60*60 +Math.random()*30*60;
+            state[i][1] = 60*60 +Math.random()*30*60;
 
         }
 
@@ -68,9 +68,6 @@ public class StocasticAscent implements TrajectoryPlanner {
 
             optimizer.addShips( individuals ); // you are not using number of stages bruh
 
-           // System.out.println("start plan: " + Arrays.deepToString(state));
-
-
             // set states
             // in each stage go + and - each parameter
             for(int i=0; i < optimizer.getAmountOfShips()-1; i++){
@@ -84,20 +81,15 @@ public class StocasticAscent implements TrajectoryPlanner {
                     }
                 }
 
-                for(int j=0; j<temp.length; j++)
-                    for(int k=0; k<5; k++){
-                        if(k>1)
-                            temp[j][k] += 9.5*Math.random()-9.5/2.0; // turn value into function of generations
+                for(int j=0; j<temp.length; j++){
+                    for(int k=2; k<5; k++)
+                            temp[j][k] += 10.5*Math.random()-10.5/2.0; // turn value into function of generations
 
-                        else{
-                            if(j!=0 || k!=0)
-                                temp[j][k] += 15*24*60.0*60.0*(Math.random())-15*24*60*60.0/2.0; // changes in initial thrust times
-
-                            if( temp[j][1] < temp[j][0])
-                                temp[j][1] = temp[j][0];
-                        }
-
-                    }
+                    temp[j][0] += 15*24*60.0*60.0*(Math.random())-15*24*60*60.0/2.0; // changes in initial thrust times
+                    temp[j][1] += 60.0*60.0*(Math.random())-60*60.0/2.0; // changes in thrust length
+                    if( temp[j][1]<0.0 ) // avoids negative thrust
+                        temp[j][1] = 0.0;
+                }
 
                 optimizer.getShip(i).setPlan( temp );
 
@@ -113,12 +105,12 @@ public class StocasticAscent implements TrajectoryPlanner {
             double cost = optimizer.getShip().getCost();
             //System.out.println("in loop");
             for(int i=0; i< optimizer.getAmountOfShips(); i++){
-                //System.out.println("closest dist: " + optimizer.getShip(i).getClosestDistance());
-                //System.out.println("cost: " +optimizer.getShip(i).getCost());
-                //System.out.println("plan: " + Arrays.deepToString(optimizer.getShip(i).getPlan()));
+                System.out.println("plan: " + Arrays.deepToString(optimizer.getShip(i).getPlan()));
+                System.out.println("closest dist: " + optimizer.getShip(i).getClosestDistance());
+                System.out.println("cost: " +optimizer.getShip(i).getCost());
 
-                if( cost <= optimizer.getShip(i).getCost() ){
-                    //System.out.println("new hottest single");
+                if( cost >= optimizer.getShip(i).getCost() ){
+                    System.out.println("new hottest single\n");
                     cost = optimizer.getShip(i).getCost();
                     state = optimizer.getShip(i).getPlan(); // gets plan with highest cost
                     champion = optimizer.getShip(i);
@@ -130,7 +122,7 @@ public class StocasticAscent implements TrajectoryPlanner {
             chrono += delta;
 
             System.out.println( (count+1) + ", " + champion.getUsedFuel() + ", " + champion.getClosestDistance() + ", " + chrono);
-        }
+        } ////
 
         trajectory = state;
 
