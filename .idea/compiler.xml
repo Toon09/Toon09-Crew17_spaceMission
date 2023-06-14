@@ -11,6 +11,7 @@
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="Planets" target="18" />
+      <module name="Toon09-Crew17_spaceMission" target="18" />
     </bytecodeTargetLevel>
   </component>
 </project>
