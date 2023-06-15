@@ -19,7 +19,7 @@ public class Spaceship extends CelestialBody {
     private CostFunction costFunc;
     private double cost=0.0;
     private double closestDist = 0.0;
-    private final double maxSpeed = 11000; //2,500 to 4,500 m/s (look up) according to falcon 9
+    private static final double maxSpeed = 11.0; public static double getMaxSpeed(){ return maxSpeed; }
     private  final double maxForce = 3 * Math.pow(10, 7); // Newtons
     private final double fuelConsumption = 1451.5; //kg this fuel consumption is based on the falcon 9 maximum fuel consumption, so at max acceleration the consumption is this one.
     private CelestialBody target;
@@ -108,7 +108,6 @@ public class Spaceship extends CelestialBody {
      * @param maxDays the maximum amount of days that the travel can go on for (on the way back and forward)
      */
     public void makePlan(Model3D model, String targetPlanet, int numberOfStages, int maxDays){
-        //costFunc = new PlanetaryRing();
         plan = new Planning(model, targetPlanet, "earth", numberOfStages, maxDays);
     }
 
