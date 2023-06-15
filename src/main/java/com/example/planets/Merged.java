@@ -80,19 +80,6 @@ public class Merged extends Application {
         camera.setFarClip(4000);
         camera.setNearClip(1);
 
-//        stage.addEventHandler(KeyEvent.KEY_PRESSED, event -> {
-//            switch (event.getCode()) {
-//                case W:
-//                    camera.translateZProperty().set(camera.getTranslateZ() + 100);
-//                    System.out.println("1");
-//                    break;
-//                case S:
-//                    camera.translateZProperty().set(camera.getTranslateZ() - 100);
-//                    System.out.println("2");
-//                    break;
-//            }
-//        });
-
         // text for spacecraft position
         positionText.setFill(Color.WHITE);
         positionText.setFont(Font.font("Arial", 16));
@@ -250,8 +237,6 @@ public class Merged extends Application {
         solarSystem.setOnAction(e -> stage.setScene(scene));
         solarSystem.setLayoutY(landingSceneHEIGHT/2);
 
-        landing.getChildren().add(solarSystem);
-
         // upon reaching 300km we do, for now - button.
         // if (distance < targetDistance && distance != 0) {
         //      stage.setScene(landingScene);
@@ -274,7 +259,6 @@ public class Merged extends Application {
         Cylinder spaceship = new Cylinder(25, 100);
         spaceship.translateXProperty().set((landingSceneWIDTH)/2);
         spaceship.translateYProperty().set((landingSceneHEIGHT-800)/2);
-
         PhongMaterial spaceshipMaterial = new PhongMaterial();
         spaceshipMaterial.setDiffuseMap(new Image("metalTexture2.jpg"));
         spaceship.setMaterial(spaceshipMaterial);
@@ -289,7 +273,25 @@ public class Merged extends Application {
         landingModule.setMaterial(spaceshipMaterial);
         landingModule.getTransforms().addAll(rotate);
 
-        landing.getChildren().addAll(titan, spaceship, landingModule, checker);
+        Camera landingCamera = new PerspectiveCamera();
+        landingScene.setCamera(landingCamera);
+        landingScene.addEventHandler(KeyEvent.KEY_PRESSED, event -> {
+            // focus coordinates are messed up a bit, prolly because of PERSPECTIVEness of the camere
+            switch (event.getCode()) {
+                case X -> {
+                    landingCamera.setTranslateX(landingModule.getTranslateX());
+                    landingCamera.setTranslateY(landingModule.getTranslateY());
+                    landingCamera.setTranslateZ(-100);
+                }
+                case Z -> {
+                    landingCamera.setTranslateX(spaceship.getTranslateX());
+                    landingCamera.setTranslateY(spaceship.getTranslateY());
+                    landingCamera.setTranslateZ(-100);
+                }
+            }
+        });
+
+        landing.getChildren().addAll(titan, spaceship, landingModule, checker, solarSystem, landingCamera);
 
         // THAT'S HOW WE SEPARATE CODE
         // -------------------------------------------------------------------------------------------------------------
