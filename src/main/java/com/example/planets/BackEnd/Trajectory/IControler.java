@@ -14,6 +14,7 @@ public interface IControler {
     double maxYVelocity = 0.0001; //(0.1m or 10^-4km)
     double titanGravity = 1.352 * 0.001;
     double mass = 4200; //kg
+    double [] zeroPosition = new double[]{960, };
     public default Planning calculateTrajectory(double initialX, double initialY, double initialTheta,
                                                 double acceleration, double torque, double gravity) {
         Planning plan = null;

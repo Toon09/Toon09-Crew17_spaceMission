@@ -36,8 +36,7 @@ public class Merged extends Application {
     static final private Gravity0 model = new Gravity0(0.0, 0.0, new RK4());
     private static int scale = 25;
     private static final int smallScale = 25;
-    private static final int bigScale = 2000;
-    private static int counter = 0;
+    private static final int bigScale = 2000;    private static int counter = 0;
     private static boolean lookAtEarth = false;
     private static boolean lookAtTitan = false;
     private static boolean lookAtSun = false;
