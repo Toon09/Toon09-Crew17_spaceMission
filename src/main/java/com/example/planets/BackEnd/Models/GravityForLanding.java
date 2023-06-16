@@ -22,15 +22,14 @@ public class GravityForLanding {
     }
 
     private void applyGravity() {
-        double distance = 0;
-        //d = mg^2
+        module.addAcc(new double[]{0,gravity,0});
     }
 
     //force of gravity = m*g
     //g = 1.352 m/s^2
     //m = 42000 kg
     //F = 5678,4 N
-    private void calculteForces() {
+    private double calculteForces() {
         double m = 4200;
         double g = 1.352;
         double F = g * m;
@@ -42,5 +41,6 @@ public class GravityForLanding {
         System.out.println("d = " + d);
         System.out.println("t = " + t);
         System.out.println("F*t = " + F * t);
+        return F*t;
     }
 }
