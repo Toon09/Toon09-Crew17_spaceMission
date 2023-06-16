@@ -4,7 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="bab05458-8716-4abd-8f37-31e577e5aaab" name="Changes" comment="skeleton for feedback" />
+    <list default="true" id="bab05458-8716-4abd-8f37-31e577e5aaab" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/planets/BackEnd/CelestialEntities/Spaceship.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/planets/BackEnd/CelestialEntities/Spaceship.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/planets/BackEnd/Trajectory/Cost/MinDistAndFuel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/planets/BackEnd/Trajectory/Cost/MinDistAndFuel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/planets/BackEnd/Trajectory/SteepestAscent/StocasticAscent.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/planets/BackEnd/Trajectory/SteepestAscent/StocasticAscent.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/planets/NumericalExperiments.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/planets/NumericalExperiments.java" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -19,6 +25,7 @@
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="UPDATE_TYPE" value="REBASE" />
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
@@ -493,12 +500,12 @@
       <option name="project" value="LOCAL" />
       <updated>1686748388172</updated>
     </task>
-    <task id="LOCAL-00093" summary="skeleton for feedback">
-      <created>1686856628728</created>
+    <task id="LOCAL-00093" summary="wind model updated">
+      <created>1686748461408</created>
       <option name="number" value="00093" />
       <option name="presentableId" value="LOCAL-00093" />
       <option name="project" value="LOCAL" />
-      <updated>1686856628729</updated>
+      <updated>1686748461408</updated>
     </task>
     <option name="localTasksCounter" value="94" />
     <servers />
@@ -518,6 +525,7 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
+    <MESSAGE value="changed planning and added trajectory" />
     <MESSAGE value="Added whole trajecotry making and usage structure as well as ideas to generate them" />
     <MESSAGE value="renamed an unimplemented method based on whats supposed to be (not yet done)" />
     <MESSAGE value="added stuff" />
@@ -542,8 +550,7 @@
     <MESSAGE value="changes to gradient ascentcost functiosn changed for testing" />
     <MESSAGE value="uncommented" />
     <MESSAGE value="wind model updated" />
-    <MESSAGE value="skeleton for feedback" />
-    <option name="LAST_COMMIT_MESSAGE" value="skeleton for feedback" />
+    <option name="LAST_COMMIT_MESSAGE" value="wind model updated" />
   </component>
   <component name="XDebuggerManager">
     <pin-to-top-manager>
