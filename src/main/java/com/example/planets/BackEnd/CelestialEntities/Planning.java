@@ -1,5 +1,6 @@
 package com.example.planets.BackEnd.CelestialEntities;
 
+import com.example.planets.BackEnd.Models.Gravity0;
 import com.example.planets.BackEnd.Models.Model3D;
 import com.example.planets.BackEnd.Trajectory.SteepestAscent.StocasticAscent;
 import com.example.planets.BackEnd.Trajectory.SteepestAscent.TrajectoryPlanner;
@@ -22,6 +23,9 @@ public class Planning {
     private double[][] maneuverPoints;
     private CelestialBody target;
     private TrajectoryPlanner planner;
+
+    private double orbitalVelocity;
+    private int indexOfPLanet;
 
     /**
      * increases the count to access the next maneuverPoint that needs to be checked and executed
@@ -69,8 +73,10 @@ public class Planning {
         this.maneuverPoints = new double[numberOfStages][5];
 
         for(int i=0; i<model.size(); i++)
-            if( targetPlanet.equalsIgnoreCase(model.getBody(i).getName()) )
+            if( targetPlanet.equalsIgnoreCase(model.getBody(i).getName()) ) {
                 target = model.getBody(i);
+                indexOfPLanet = i;
+            }
 
         //creates planner and gets trajectory
         planner = new StocasticAscent(model, numberOfStages, targetPlanet, maxDays);
@@ -113,6 +119,14 @@ public class Planning {
                 maneuverPoints[i][j] = state[i][j];
 
     }
+
+    //https://www.toppr.com/guides/physics-formulas/orbital-velocity-formula/
+    public double calculateOrbitalVelocity(Spaceship ship) {
+        double distance = ship.getDistance(target);
+        return Math.sqrt((Gravity0.G*Gravity0.mass[indexOfPLanet])/distance);
+    }
+    //m/s
+    //When we reach tita
 
 
     @Override
