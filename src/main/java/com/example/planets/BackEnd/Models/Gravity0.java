@@ -53,15 +53,15 @@ public class Gravity0 implements Model3D {
     }
 
     //for landing
-    public Gravity0(Spaceship ship, CelestialBody titan, LandingModel[] modules) {
+    public Gravity0(Spaceship ship, CelestialBody titan,LandingModel module) {
         this.amountOfShips = 1;
-        this.amountOfModules = modules.length;
         this.bodies = new CelestialBody[2];
         this.bodies[0] = titan;
-        for (int i = 0; i < modules.length; i++) {
-            this.bodies[i + 1] = modules[i];
-            //this.bodies[i + 1].setVel(ship.getAcc());
-        }
+        this.bodies[1]= module;
+//        for (int i = 0; i < modules.length; i++) {
+//            this.bodies[i + 1] = modules[i];
+//            //this.bodies[i + 1].setVel(ship.getAcc());
+//        }
         this.numSolver = new RK4();
     }
 
@@ -332,7 +332,8 @@ public class Gravity0 implements Model3D {
                 if (j == i || bodies[j] instanceof Spaceship) {
                     continue;
                 }
-
+                System.out.println("bodies: "+ bodies.length);
+                System.out.println("j: "+ j);
                 //calc distance between 2
                 dist = bodies[i].getDistance(bodies[j]);
 
@@ -354,6 +355,9 @@ public class Gravity0 implements Model3D {
 
     }
 
+    public CelestialBody[] getBodies(){
+        return bodies;
+    }
 
     @Override
     public String getSolverName() {

@@ -16,7 +16,7 @@ public class GravityForLanding {
         this.titan = titan;
         this.ship = ship;
         this.module = module;
-        this.gravity0 = new Gravity0(ship, titan, new LandingModel[]{module});
+        this.gravity0 = new Gravity0(ship, titan, module);
         titan.setPos(new double[]{0, -2574, 0});
         ship.setPos(new double[]{0, 300000, 0});
         module.setPos(new double[]{0, 300000, 0});

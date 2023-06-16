@@ -28,7 +28,10 @@ public class OpenLoop implements IControler {
         titan.setPos(new double[]{0, -2574, 0});
         ship.setPos(new double[]{0, 300000, 0});
         module.setPos(new double[]{0, 300000, 0});
-        this.model = new Gravity0(ship, titan, new LandingModel[]{module});
+        this.model = new Gravity0(ship, titan, module);
+        System.out.println("lenght of bodies: "+ model.getBodies().length);
+        System.out.println(model.getBody(0).toString());
+        System.out.println(model.getBody(1).toString());
         for(int i = 0; i<100; i++){
             model.updatePos(20,3,false);
             print();
@@ -37,7 +40,7 @@ public class OpenLoop implements IControler {
 
     public static void main(String[] args) {
         Spaceship ship = new Spaceship(4200,new double[]{0,300,0}, new double[]{0,0,0});
-        CelestialBody titan = new CelestialBody(1.35e23,new double[]{0, -2574, 0},new double[]{0, 0, 0});
+        CelestialBody titan = new CelestialBody("titan",1.35e23,new double[]{0, -2574, 0},new double[]{0, 0, 0});
         LandingModel module = new LandingModel(4200,new double[]{0, 300000, 0},new double[]{0, 0, 0});
         OpenLoop openLoop = new OpenLoop(ship,titan,module);
     }
