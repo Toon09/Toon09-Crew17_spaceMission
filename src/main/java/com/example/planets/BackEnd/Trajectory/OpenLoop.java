@@ -22,6 +22,9 @@ public class OpenLoop implements IControler {
     private double v; // Total
     private Gravity0 gravity;
     public OpenLoop(Spaceship ship, CelestialBody titan, LandingModel module){
+        titan.setPos(new double[]{0, -2574, 0});
+        ship.setPos(new double[]{0, 300000, 0});
+        module.setPos(new double[]{0, 300000, 0});
         this.gravity = new Gravity0(ship, titan, new LandingModel[]{module});
     }
 
