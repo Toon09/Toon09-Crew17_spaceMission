@@ -53,7 +53,7 @@ public class StochasticWind {
     private double[] getRange(double distance){
         if( distance < maxDistance && distance > 120.0 ){
             return v1;
-        } else if ( distance <= 120.0 && distance > 60.0 ) { //////////
+        } else if ( distance <= 120.0 && distance > 60.0 ) {
             return v2;
         } else if ( distance <= 60.0 && distance > 6.0 ) {
             return v3;
@@ -67,7 +67,8 @@ public class StochasticWind {
     initialize with the direction and all fo the ships
      */
     private void updateWind(Spaceship ship, CelestialBody planet, double dt){
-        //
+        // vector from ship to planet
+        // use spaceship velocity as direction of wind
     }
 
 
