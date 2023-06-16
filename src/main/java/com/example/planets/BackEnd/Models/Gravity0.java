@@ -56,6 +56,7 @@ public class Gravity0 implements Model3D {
     public Gravity0(Spaceship ship, CelestialBody titan, LandingModel[] modules) {
         this.amountOfShips = 1;
         this.amountOfModules = modules.length;
+        this.bodies = new CelestialBody[2];
         this.bodies[0] = titan;
         for (int i = 0; i < modules.length; i++) {
             this.bodies[i + 1] = modules[i];

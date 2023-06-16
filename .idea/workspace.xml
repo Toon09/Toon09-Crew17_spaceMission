@@ -5,8 +5,6 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="bab05458-8716-4abd-8f37-31e577e5aaab" name="Changes" comment="gravity for landing">
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/planets/BackEnd/Models/Gravity0.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/planets/BackEnd/Models/Gravity0.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/planets/BackEnd/Models/GravityForLanding.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/planets/BackEnd/Models/GravityForLanding.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/planets/BackEnd/Trajectory/OpenLoop.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/planets/BackEnd/Trajectory/OpenLoop.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -77,7 +75,7 @@
       <recent name="C:\Users\suszw\Desktop\uni\year_1\Period4\plswork\src\main" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.NumericalExperiments">
+  <component name="RunManager" selected="Application.OpenLoop">
     <configuration name="GA" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="com.example.planets.GA" />
       <module name="Toon09-Crew17_spaceMission3" />
@@ -117,6 +115,19 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="OpenLoop" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.example.planets.BackEnd.Trajectory.OpenLoop" />
+      <module name="Toon09-Crew17_spaceMission3" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.example.planets.BackEnd.Trajectory.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration default="true" type="JetRunConfigurationType">
       <method v="2">
         <option name="Make" enabled="true" />
@@ -129,12 +140,14 @@
       </method>
     </configuration>
     <list>
+      <item itemvalue="Application.OpenLoop" />
       <item itemvalue="Application.GA" />
       <item itemvalue="Application.Merged" />
       <item itemvalue="Application.NumericalExperiments" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.OpenLoop" />
         <item itemvalue="Application.NumericalExperiments" />
         <item itemvalue="Application.Merged" />
         <item itemvalue="Application.GA" />
@@ -160,27 +173,6 @@
       <workItem from="1683820709833" duration="618000" />
       <workItem from="1683841240613" duration="1723000" />
       <workItem from="1686731689722" duration="3058000" />
-    </task>
-    <task id="LOCAL-00048" summary="added Ralstons RK4 and tested AB2">
-      <created>1684241892598</created>
-      <option name="number" value="00048" />
-      <option name="presentableId" value="LOCAL-00048" />
-      <option name="project" value="LOCAL" />
-      <updated>1684241892598</updated>
-    </task>
-    <task id="LOCAL-00049" summary="Re-organizing data and adding to the todo list &amp; testing DataGetter.java">
-      <created>1684247216097</created>
-      <option name="number" value="00049" />
-      <option name="presentableId" value="LOCAL-00049" />
-      <option name="project" value="LOCAL" />
-      <updated>1684247216097</updated>
-    </task>
-    <task id="LOCAL-00050" summary="Doc for planning and structuring">
-      <created>1684318846415</created>
-      <option name="number" value="00050" />
-      <option name="presentableId" value="LOCAL-00050" />
-      <option name="project" value="LOCAL" />
-      <updated>1684318846416</updated>
     </task>
     <task id="LOCAL-00051" summary="Doc and further structuring for the trajectory planning">
       <created>1684321561872</created>
@@ -504,7 +496,28 @@
       <option name="project" value="LOCAL" />
       <updated>1686907462510</updated>
     </task>
-    <option name="localTasksCounter" value="97" />
+    <task id="LOCAL-00097" summary="gravity for landing">
+      <created>1686910341441</created>
+      <option name="number" value="00097" />
+      <option name="presentableId" value="LOCAL-00097" />
+      <option name="project" value="LOCAL" />
+      <updated>1686910341441</updated>
+    </task>
+    <task id="LOCAL-00098" summary="gravity for landing">
+      <created>1686910446694</created>
+      <option name="number" value="00098" />
+      <option name="presentableId" value="LOCAL-00098" />
+      <option name="project" value="LOCAL" />
+      <updated>1686910446694</updated>
+    </task>
+    <task id="LOCAL-00099" summary="gravity for landing">
+      <created>1686912214643</created>
+      <option name="number" value="00099" />
+      <option name="presentableId" value="LOCAL-00099" />
+      <option name="project" value="LOCAL" />
+      <updated>1686912214643</updated>
+    </task>
+    <option name="localTasksCounter" value="100" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
