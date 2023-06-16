@@ -37,7 +37,7 @@ public class Gravity0 implements Model3D {
         if (amountOfShips == 0)
             amountOfShips = 1;
 
-        this.bodies = new CelestialBody[bodies.length + amountOfShips]; // error with when there are ships and no ships
+        this.bodies = new CelestialBody[bodies.length]; // error with when there are ships and no ships
         for (int i = 0; i < bodies.length; i++) {
             if (bodies[i] instanceof Spaceship) {
                 this.bodies[i] = ((Spaceship) bodies[i]).clone();
@@ -54,6 +54,7 @@ public class Gravity0 implements Model3D {
     //for landing
     public Gravity0(Spaceship ship, CelestialBody titan,LandingModel module) {
         this.amountOfShips = 1;
+        this.spaceShipStart = 1;
         this.bodies = new CelestialBody[2];
         this.bodies[0] = titan;
         this.bodies[1]= module;
@@ -331,8 +332,6 @@ public class Gravity0 implements Model3D {
                 if (j == i || bodies[j] instanceof Spaceship) {
                     continue;
                 }
-                System.out.println("bodies: "+ bodies.length);
-                System.out.println("j: "+ j);
                 //calc distance between 2
                 dist = bodies[i].getDistance(bodies[j]);
 

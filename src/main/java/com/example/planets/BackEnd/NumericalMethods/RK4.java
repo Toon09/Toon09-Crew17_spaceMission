@@ -54,7 +54,6 @@ public class RK4 implements NumSolver{
         // pk3: t+dt/2, y+dt/2 k2
         pk3 = model.clone(null);
         double[][][] state = model.getState();
-
         for(int i=0; i<state.length; i++){
             // position
             for(int k=0; k<3; k++)
