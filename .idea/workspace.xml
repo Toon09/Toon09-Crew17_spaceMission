@@ -4,12 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="bab05458-8716-4abd-8f37-31e577e5aaab" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/planets/BackEnd/CelestialEntities/Spaceship.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/planets/BackEnd/CelestialEntities/Spaceship.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/planets/BackEnd/Trajectory/Cost/MinDistAndFuel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/planets/BackEnd/Trajectory/Cost/MinDistAndFuel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/planets/BackEnd/Trajectory/SteepestAscent/StocasticAscent.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/planets/BackEnd/Trajectory/SteepestAscent/StocasticAscent.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/planets/NumericalExperiments.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/planets/NumericalExperiments.java" afterDir="false" />
+    <list default="true" id="bab05458-8716-4abd-8f37-31e577e5aaab" name="Changes" comment="gravity for landing">
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/planets/BackEnd/Models/GravityForLanding.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -25,7 +21,6 @@
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
-    <option name="UPDATE_TYPE" value="REBASE" />
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
@@ -163,13 +158,6 @@
       <workItem from="1683820709833" duration="618000" />
       <workItem from="1683841240613" duration="1723000" />
       <workItem from="1686731689722" duration="3058000" />
-    </task>
-    <task id="LOCAL-00045" summary="Experimenting with several RK4 step sizes">
-      <created>1684147326265</created>
-      <option name="number" value="00045" />
-      <option name="presentableId" value="LOCAL-00045" />
-      <option name="project" value="LOCAL" />
-      <updated>1684147326265</updated>
     </task>
     <task id="LOCAL-00046" summary="finished experiemnts &amp; added RK4 with step=0.1 to GUI">
       <created>1684153776736</created>
@@ -507,7 +495,14 @@
       <option name="project" value="LOCAL" />
       <updated>1686748461408</updated>
     </task>
-    <option name="localTasksCounter" value="94" />
+    <task id="LOCAL-00094" summary="gravity for landing">
+      <created>1686905974091</created>
+      <option name="number" value="00094" />
+      <option name="presentableId" value="LOCAL-00094" />
+      <option name="project" value="LOCAL" />
+      <updated>1686905974092</updated>
+    </task>
+    <option name="localTasksCounter" value="95" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -525,7 +520,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="changed planning and added trajectory" />
     <MESSAGE value="Added whole trajecotry making and usage structure as well as ideas to generate them" />
     <MESSAGE value="renamed an unimplemented method based on whats supposed to be (not yet done)" />
     <MESSAGE value="added stuff" />
@@ -550,7 +544,8 @@
     <MESSAGE value="changes to gradient ascentcost functiosn changed for testing" />
     <MESSAGE value="uncommented" />
     <MESSAGE value="wind model updated" />
-    <option name="LAST_COMMIT_MESSAGE" value="wind model updated" />
+    <MESSAGE value="gravity for landing" />
+    <option name="LAST_COMMIT_MESSAGE" value="gravity for landing" />
   </component>
   <component name="XDebuggerManager">
     <pin-to-top-manager>
