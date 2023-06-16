@@ -1,6 +1,9 @@
 package com.example.planets.BackEnd.Trajectory;
 
+import com.example.planets.BackEnd.CelestialEntities.CelestialBody;
 import com.example.planets.BackEnd.CelestialEntities.Planning;
+import com.example.planets.BackEnd.CelestialEntities.Spaceship;
+import com.example.planets.BackEnd.Models.Gravity0;
 
 public class OpenLoop implements IControler {
     private double x; // Horizontal position
@@ -12,13 +15,16 @@ public class OpenLoop implements IControler {
     double initialTheta = Math.PI / 4; // 45 degrees
     double acceleration = 10.0; // m/s^2
     double torque = 2.0; // rad/s^2
-    double gravity = 1.352 * Math.pow(10, -3); // km/s^2
-
+    double g = 1.352 * Math.pow(10, -3); // km/s^2
     double dt = 0.01; // Time step in seconds
     int numSteps = 100; // Number of simulation steps
     private double u;
     private double v; // Total
-    private double g;
+    private Gravity0 gravity;
+    public OpenLoop(Spaceship ship, CelestialBody titan, LandingModel module){
+        this.gravity = new Gravity0(ship, titan, new LandingModel[]{module});
+    }
+
     @Override public Planning claclateThrust(double initialX, double initialY, double initialTheta,
                                              double acceleration, double torque, double gravity) {
         x = initialX;
@@ -59,5 +65,19 @@ public class OpenLoop implements IControler {
     @Override
     public Planning creatPlan() {
         return IControler.super.creatPlan();
+    }
+    private double calculateForces() {
+        double m = 4200;
+        double g = 1.352;
+        double F = g * m;
+        double d = 300;
+        double t = Math.sqrt((2 * d) / g);
+        System.out.println("m = " + m);
+        System.out.println("g = " + g);
+        System.out.println("F = " + F);
+        System.out.println("d = " + d);
+        System.out.println("t = " + t);
+        System.out.println("F*t = " + F * t);
+        return F*t;
     }
 }
