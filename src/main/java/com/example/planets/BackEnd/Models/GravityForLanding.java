@@ -2,21 +2,21 @@ package com.example.planets.BackEnd.Models;
 
 import com.example.planets.BackEnd.CelestialEntities.CelestialBody;
 import com.example.planets.BackEnd.CelestialEntities.Spaceship;
-import com.example.planets.BackEnd.Trajectory.LandingModel;
+import com.example.planets.BackEnd.Trajectory.LandingModule;
 
 public class GravityForLanding {
     private CelestialBody titan;
     private static Spaceship ship;
-    private LandingModel module;
+    private LandingModule module;
     double g = 1.352 * Math.pow(10, -3); // km/s^2
     private Gravity0 gravity0;
 
 
-    public GravityForLanding(CelestialBody titan, Spaceship ship, LandingModel module) {
+    public GravityForLanding(CelestialBody titan, Spaceship ship, LandingModule module) {
         this.titan = titan;
         this.ship = ship;
         this.module = module;
-        this.gravity0 = new Gravity0(ship, titan, new LandingModel[]{module});
+        this.gravity0 = new Gravity0(ship, titan, new LandingModule[]{module});
         titan.setPos(new double[]{0, -2574, 0});
         ship.setPos(new double[]{0, 300000, 0});
         module.setPos(new double[]{0, 300000, 0});

@@ -243,4 +243,8 @@ public class Spaceship extends CelestialBody {
         setPos(new double[]{position[0] + x, position[1], position[2]});
     }
 
+    public void decelerate(double gravity) {
+
+    }
+
 }
