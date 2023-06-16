@@ -126,8 +126,6 @@ public class Planning {
         return Math.sqrt((Gravity0.G*Gravity0.mass[indexOfPLanet])/distance);
     }
     //m/s
-    //When we reach tita
-
 
     @Override
     public Planning clone() {

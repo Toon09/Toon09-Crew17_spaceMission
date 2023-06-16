@@ -238,5 +238,9 @@ public class Spaceship extends CelestialBody {
         this.acc[2] += acc[2];
     }
 
+    public void sideThrust(double x) {
+        double[] position = getPos();
+        setPos(new double[]{position[0] + x, position[1], position[2]});
+    }
 
 }
