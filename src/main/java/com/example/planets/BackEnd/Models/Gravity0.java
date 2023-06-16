@@ -59,7 +59,7 @@ public class Gravity0 implements Model3D {
         this.bodies[0] = titan;
         for (int i = 0; i < modules.length; i++) {
             this.bodies[i + 1] = modules[i];
-            this.bodies[i + 1].setVel(ship.getAcc());
+            //this.bodies[i + 1].setVel(ship.getAcc());
         }
         this.numSolver = new RK4();
     }

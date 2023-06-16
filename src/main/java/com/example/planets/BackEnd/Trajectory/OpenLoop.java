@@ -38,6 +38,14 @@ public class OpenLoop implements IControler {
         g = gravity;
         return null;
     }
+    private void IDK (){
+        gravity.updatePos(666/2,4,false);
+        double againIDK = 3782798.963730428/4200/2;
+        double x = gravity.getBody(0).getVel()[0];
+        double y = gravity.getBody(1).getVel()[1] + againIDK;
+        double z = gravity.getBody(1).getVel()[2];
+        gravity.getBody(1).setVel(new double[] {x,y,z});
+    }
 
     // Method to update the spaceship's position and orientation over time
     public void update(double dt) {
