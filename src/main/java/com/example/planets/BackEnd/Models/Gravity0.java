@@ -23,7 +23,6 @@ public class Gravity0 implements Model3D {
 
     private double time = 0;
 
-    private StochasticWind wind = new StochasticWind();
 
 
     /**
@@ -38,7 +37,7 @@ public class Gravity0 implements Model3D {
         if (amountOfShips == 0)
             amountOfShips = 1;
 
-        this.bodies = new CelestialBody[positions.length + amountOfShips]; // error with when there are ships and no ships
+        this.bodies = new CelestialBody[bodies.length + amountOfShips]; // error with when there are ships and no ships
         for (int i = 0; i < bodies.length; i++) {
             if (bodies[i] instanceof Spaceship) {
                 this.bodies[i] = ((Spaceship) bodies[i]).clone();

@@ -48,7 +48,7 @@ public class RK4 implements NumSolver{
 
     private void RKsetUpVals(Model3D model, double dt){
         // pk2: just an euler step from og function
-        pk2 = model.clone(new Euler());
+        pk2 = model.clone(new Euler()); ////
         pk2.updatePos(dt/2.0, dt/2.0, false);
 
         // pk3: t+dt/2, y+dt/2 k2
