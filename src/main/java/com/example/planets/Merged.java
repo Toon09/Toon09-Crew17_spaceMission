@@ -227,10 +227,6 @@ public class Merged extends Application {
         button.setOnAction(e -> stage.setScene(landingScene));
         root.getChildren().add(button);
 
-        Button solarSystem = new Button("\uD83D\uDD06 SOLAR SYSTEM \uD83D\uDD06");
-        solarSystem.setOnAction(e -> stage.setScene(scene));
-        solarSystem.setLayoutY(landingSceneHEIGHT/2);
-
         // upon reaching 300km we do, for now - button.
         // if (distance < targetDistance && distance != 0) {
         //      stage.setScene(landingScene);
@@ -260,13 +256,13 @@ public class Merged extends Application {
         landingModule.setMaterial(spaceshipMaterial);
         landingModule.getTransforms().addAll(rotate);
 
-        Camera landingCamera = new PerspectiveCamera();
+        Camera landingCamera = new PerspectiveCamera(); // set at (0;0;0)
         landingScene.setCamera(landingCamera);
         landingScene.addEventHandler(KeyEvent.KEY_PRESSED, event -> {
             switch (event.getCode()) {
                 case X -> {
                     landingCamera.setTranslateX(0);
-                    landingCamera.setTranslateY(-landingModule.getTranslateY()); //height
+                    landingCamera.setTranslateY(-landingModule.getTranslateY());
                     landingCamera.setTranslateZ(-400);
                 }
                 case Z -> {
@@ -274,10 +270,19 @@ public class Merged extends Application {
                     landingCamera.setTranslateY(-spaceship.getTranslateY());
                     landingCamera.setTranslateZ(-400);
                 }
+                case R -> {
+                    landingCamera.setTranslateX(0);
+                    landingCamera.setTranslateY(0);
+                    landingCamera.setTranslateZ(0);
+                }
+                case B -> stage.setScene(scene);
+                case W -> landingCamera.setTranslateZ(landingCamera.getTranslateZ() + 100);
+                case S -> landingCamera.setTranslateZ(landingCamera.getTranslateZ() - 100);
+
             }
         });
 
-        landing.getChildren().addAll(titan, spaceship, landingModule, solarSystem, landingCamera);
+        landing.getChildren().addAll(titan, spaceship, landingModule, landingCamera);
 
         // THAT'S HOW WE SEPARATE CODE
         // -------------------------------------------------------------------------------------------------------------
