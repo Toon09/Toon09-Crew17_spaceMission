@@ -5,12 +5,12 @@ import com.example.planets.BackEnd.Models.Gravity0;
 
 public class FeedBack implements IControler{
     private Spaceship ship;
-    private LandingModel landingModule;
+    private LandingModule landingModule;
     private Gravity0 model;
     private double[] zeroPosition;
-    public FeedBack(Spaceship ship, LandingModel landingModel, Gravity0 model) {
+    public FeedBack(Spaceship ship, LandingModule landingModule, Gravity0 model) {
         this.ship = ship;
-        this.landingModule = landingModel;
+        this.landingModule = landingModule;
         this.model = model;
     }
     private double[] getZeroPoint(){
