@@ -215,13 +215,8 @@ public class Merged extends Application {
         // -------------------------------------------------------------------------------------------------------------
         // LANDING ON TITAN GUI
 
-        stage.setTitle("Titanic Space Odyssey");
-
         final int landingSceneWIDTH = 1920;
         final int landingSceneHEIGHT = 1080;
-
-        final int landingPointX = 960;
-        final int landingPointY = 540;
 
         Group landing = new Group();
         Scene landingScene = new Scene(landing, landingSceneWIDTH, landingSceneHEIGHT);
@@ -248,13 +243,6 @@ public class Merged extends Application {
         titanMaterial.setDiffuseMap(new Image("titanTexture.jpg"));
         titan.setMaterial(titanMaterial);
 
-        Sphere checker = new Sphere(5);
-        checker.translateXProperty().set(landingPointX);
-        checker.translateYProperty().set(landingPointY);
-        PhongMaterial checkerMaterial = new PhongMaterial();
-        checkerMaterial.setDiffuseColor(Color.RED);
-        checker.setMaterial(checkerMaterial);
-
         Cylinder spaceship = new Cylinder(25, 100);
         spaceship.translateXProperty().set((landingSceneWIDTH)/2);
         spaceship.translateYProperty().set((landingSceneHEIGHT-800)/2);
@@ -275,22 +263,21 @@ public class Merged extends Application {
         Camera landingCamera = new PerspectiveCamera();
         landingScene.setCamera(landingCamera);
         landingScene.addEventHandler(KeyEvent.KEY_PRESSED, event -> {
-            // focus coordinates are messed up a bit, prolly because of PERSPECTIVEness of the camere
             switch (event.getCode()) {
                 case X -> {
-                    landingCamera.setTranslateX(landingModule.getTranslateX());
-                    landingCamera.setTranslateY(landingModule.getTranslateY());
-                    landingCamera.setTranslateZ(-100);
+                    landingCamera.setTranslateX(0);
+                    landingCamera.setTranslateY(-landingModule.getTranslateY()); //height
+                    landingCamera.setTranslateZ(-400);
                 }
                 case Z -> {
-                    landingCamera.setTranslateX(spaceship.getTranslateX());
-                    landingCamera.setTranslateY(spaceship.getTranslateY());
-                    landingCamera.setTranslateZ(-100);
+                    landingCamera.setTranslateX(0);
+                    landingCamera.setTranslateY(-spaceship.getTranslateY());
+                    landingCamera.setTranslateZ(-400);
                 }
             }
         });
 
-        landing.getChildren().addAll(titan, spaceship, landingModule, checker, solarSystem, landingCamera);
+        landing.getChildren().addAll(titan, spaceship, landingModule, solarSystem, landingCamera);
 
         // THAT'S HOW WE SEPARATE CODE
         // -------------------------------------------------------------------------------------------------------------
