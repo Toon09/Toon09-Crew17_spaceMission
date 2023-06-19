@@ -71,7 +71,7 @@ public class RK4 implements NumSolver{
         // pk4: t+dt, y+dt*pk3
         pk4 = model.clone(null);
         state = model.getState();
-        System.out.println("state: "+ state.length);
+        //System.out.println("state: "+ state.length);
         for(int i=0; i<state.length; i++){
             // position
             for(int k=0; k<3; k++)
