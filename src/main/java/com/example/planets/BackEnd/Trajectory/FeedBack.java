@@ -5,14 +5,13 @@ import com.example.planets.BackEnd.CelestialEntities.Spaceship;
 import com.example.planets.BackEnd.Models.Gravity0;
 
 public class FeedBack implements IControler {
-    private final Spaceship ship;
     private final LandingModel landingModule;
     private final double[] zeroPosition;
     private final double[] directionsToZero = new double[2];
     private final CelestialBody titan;
 
     public FeedBack( Gravity0 model) {
-        this.ship = model.getShip();
+        Spaceship ship = model.getShip();
         landingModule = new LandingModel(4200, new double[]{ship.getPos()[0], ship.getPos()[1], 0}, new double[]{ship.getVel()[0], ship.getVel()[1], 0});
         titan = model.getBody(8);
         zeroPosition = getPoint(titan.getPos(), ship.getPos(), 2574.7);
