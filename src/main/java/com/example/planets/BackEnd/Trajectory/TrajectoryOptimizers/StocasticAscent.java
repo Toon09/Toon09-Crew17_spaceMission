@@ -1,6 +1,5 @@
-package com.example.planets.BackEnd.Trajectory.SteepestAscent;
+package com.example.planets.BackEnd.Trajectory.TrajectoryOptimizers;
 
-import com.example.planets.BackEnd.CelestialEntities.CelestialBody;
 import com.example.planets.BackEnd.CelestialEntities.Spaceship;
 import com.example.planets.BackEnd.Models.Model3D;
 import com.example.planets.BackEnd.NumericalMethods.RK4;
@@ -13,7 +12,7 @@ change cost function so that it takes closest dist and actual dist as input
  */
 public class StocasticAscent implements TrajectoryPlanner {
 
-    private final int numbOfSteps = 50;
+    private final int numbOfSteps = 20;
     private final int numbOfStages;
     private final int numbOfDays;
     private final Model3D model;
@@ -99,7 +98,7 @@ public class StocasticAscent implements TrajectoryPlanner {
             }
 
             // run sim
-            optimizer.updatePos(numbOfDays, 500.0, true);
+            optimizer.updatePos(numbOfDays, 300.0, true);
 
             Spaceship champion = optimizer.getShip();
 
@@ -182,7 +181,7 @@ public class StocasticAscent implements TrajectoryPlanner {
             if(j!=0) // always accelerates at start
                 result[j][0] += 30*24*60.0*60.0*Math.random() - 30*24*60*60.0/2.0; // changes in initial thrust times
 
-            result[j][1] += 15.0*60.0*Math.random()-15*60.0/2.0; // changes in thrust length by 15 mins
+            result[j][1] += 15.0*60.0; // changes in thrust length by 15 mins // *Math.random()-15*60.0/2.0
             if( result[j][1] < 0.0 ) // avoids negative thrust
                 result[j][1] = 0.0;
         }

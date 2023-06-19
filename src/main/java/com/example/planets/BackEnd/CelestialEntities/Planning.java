@@ -2,8 +2,12 @@ package com.example.planets.BackEnd.CelestialEntities;
 
 import com.example.planets.BackEnd.Models.Gravity0;
 import com.example.planets.BackEnd.Models.Model3D;
-import com.example.planets.BackEnd.Trajectory.SteepestAscent.StocasticAscent;
-import com.example.planets.BackEnd.Trajectory.SteepestAscent.TrajectoryPlanner;
+import com.example.planets.BackEnd.Trajectory.LazyTrajectories.LazyTargetting;
+import com.example.planets.BackEnd.Trajectory.LazyTrajectories.LazyTrajectory;
+import com.example.planets.BackEnd.Trajectory.OrbitEnters.Hohmann;
+import com.example.planets.BackEnd.Trajectory.OrbitEnters.OrbitEnterer;
+import com.example.planets.BackEnd.Trajectory.TrajectoryOptimizers.StocasticAscent;
+import com.example.planets.BackEnd.Trajectory.TrajectoryOptimizers.TrajectoryPlanner;
 
 
 /*
@@ -22,44 +26,14 @@ public class Planning {
     // a different maneuver of these on each dimension
     private double[][] maneuverPoints;
     private CelestialBody target;
-    private TrajectoryPlanner planner;
+    private TrajectoryPlanner planner; // optimizer to get close to the planet
+    private LazyTrajectory lazyPlanner; // just brute forcing closer //////////////////
+    private OrbitEnterer orbiter;
 
     private double orbitalVelocity;
+    private boolean inLazyStage = false;
+
     private int indexOfPLanet;
-
-    /**
-     * increases the count to access the next maneuverPoint that needs to be checked and executed
-     */
-    public void nextDirection(){
-        countOfStages++;
-
-    }
-
-    public int getStageVal(){
-        return countOfStages;
-    }
-
-    public int getManeuverLength(){
-        return maneuverPoints.length;
-    }
-
-    /**
-     * Gets the current maneuver that needs to be executed in the following format:
-     *      first dimension  [0:start of time interval, 1:length of interval ] //times to start and stop accelerating
-     *      second dimension [ 0:vel. in x, 1:vel. in y, 2:vel. in z ]
-     * @return a 2D array in the format described above, if all maneuvers have been executed, then it returns null
-     */
-    public double[] getCurrent(){
-        return maneuverPoints[countOfStages];
-    }
-
-    /**
-     *
-     * @return
-     */
-    public double[][] getAll(){
-        return maneuverPoints;
-    }
 
 
     /**
@@ -80,14 +54,56 @@ public class Planning {
 
         //creates planner and gets trajectory
         planner = new StocasticAscent(model, numberOfStages, targetPlanet, maxDays);
-        //planner = new LazyAcceleration(model, numberOfStages, targetPlanet, maxDays);
 
+        // lazy planner
+        lazyPlanner = new LazyTargetting(model);
+
+        // class for hohmann and the following things
+        orbiter = new Hohmann(model);
+
+        // do the calculation of the orbit from the planet
         maneuverPoints = planner.getTrajectory();
 
     }
 
 
     public Planning(){ }
+
+
+    /**
+     * increases the count to access the next maneuverPoint that needs to be checked and executed
+     */
+    public void nextDirection(){
+        countOfStages++;
+        if(countOfStages > maneuverPoints.length)
+            inLazyStage = true;
+    }
+
+    public int getStageVal(){
+        return countOfStages;
+    }
+
+    public int getManeuverLength(){
+        return maneuverPoints.length;
+    }
+
+    /**
+     * Gets the current maneuver that needs to be executed in the following format:
+     *      first dimension  [0:start of time interval, 1:length of interval ] //times to start and stop accelerating
+     *      second dimension [ 0:vel. in x, 1:vel. in y, 2:vel. in z ]
+     * @return a 2D array in the format described above, if all maneuvers have been executed, then it returns null
+     */
+    public double[] getCurrent(){
+        // if its in the first stage of the planning
+        if(!inLazyStage)
+            return maneuverPoints[countOfStages];
+
+        if(lazyPlanner.finished()) // hohmann goes here
+            return orbiter.getOrbitEntryVel();
+
+        return lazyPlanner.getCurrent();
+    }
+
 
 
     /**
@@ -120,13 +136,13 @@ public class Planning {
 
     }
 
-    //https://www.toppr.com/guides/physics-formulas/orbital-velocity-formula/
-    public double calculateOrbitalVelocity(Spaceship ship) {
-        double distance = ship.getDistance(target);
-        return Math.sqrt((Gravity0.G*Gravity0.mass[indexOfPLanet])/distance);
+    /**
+     *
+     * @return
+     */
+    public double[][] getAll(){
+        return maneuverPoints;
     }
-    //m/s
-    //When we reach tita
 
 
     @Override

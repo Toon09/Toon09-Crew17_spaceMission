@@ -21,7 +21,7 @@ public class Spaceship extends CelestialBody {
     private CostFunction costFunc;
     private double cost=0.0;
     private double closestDist = 0.0;
-    private static final double maxSpeed = 11.0; public static double getMaxSpeed(){ return maxSpeed; }
+    private static final double maxSpeed = 5.0; public static double getMaxSpeed(){ return maxSpeed; }
     private  final double maxForce = 3 * Math.pow(10, 7); // Newtons
     private final double fuelConsumption = 1451.5; //kg this fuel consumption is based on the falcon 9 maximum fuel consumption, so at max acceleration the consumption is this one.
     private CelestialBody target;

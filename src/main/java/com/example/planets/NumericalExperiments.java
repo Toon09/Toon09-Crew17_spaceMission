@@ -95,10 +95,6 @@ class NumericalExperiments {
                         2,2,2}};
 
         model.getShip().setPlan( plan );
-        model.getShip(0).getClass().hashCode();
-        model.getShip(1).getClass().hashCode();
-
-
 
         System.out.println("initializing test: \nIn days?: " + isDay + "\nTime interval: "+checkInterval+"s or day\n\n");
 
@@ -366,7 +362,7 @@ class NumericalExperiments {
         // set up hyper parameters
         int time = 364; // max number of days for a sim to reach goal
         String target = "titan"; // the moon
-        int numberOfStages = 3;
+        int numberOfStages = 4;
         double updatePeriod = 0.5; // period on which it shows the positions (in unit of days)
 
         // to print how long the planning takes
