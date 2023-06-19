@@ -32,7 +32,7 @@ public class FeedBack implements IControler {
             speed = 0.2;
         }
         double[] xAndY = getDirection(landingModule.getPos(), zeroPosition, speed);
-        ship.set(new double[]{xAndY[0], xAndY[1], 0});
+        landingModule.setVel(new double[]{xAndY[0], xAndY[1], 0});
     }
     private void setZero() {
         zeroPosition[0] = titan.getPos()[0] + directionsToZero[0];
