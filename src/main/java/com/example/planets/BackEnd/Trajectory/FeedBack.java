@@ -67,5 +67,4 @@ public class FeedBack implements IControler {
     public LandingModel getLandingModule() {
         return landingModule;
     }
-
 }
