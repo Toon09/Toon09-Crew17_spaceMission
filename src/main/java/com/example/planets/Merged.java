@@ -13,9 +13,7 @@ import javafx.scene.*;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
-import javafx.scene.control.ProgressBar;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.PhongMaterial;
@@ -27,7 +25,6 @@ import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 import javafx.scene.transform.Rotate;
 import javafx.stage.Stage;
-
 import java.util.Arrays;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -62,6 +59,8 @@ public class Merged extends Application {
     private final static Text reachedTitanText = new Text("Reached titan in : not yet (days)");
     private final static Text reachedTitan2Text = new Text("Closest distance reached by the spacecraft : (km)");
     private static boolean checkForReachedTitan = false ;
+    final int landingSceneWIDTH = 1920;
+    final int landingSceneHEIGHT = 1080;
 
     @Override
     public void start(Stage stage) throws Exception {
@@ -117,26 +116,21 @@ public class Merged extends Application {
         reachedTitan2Text.setTranslateX(scene.getWidth() - 730);
         reachedTitan2Text.setTranslateY(scene.getHeight() - 50);
 
-
         //labels
         Label textLabel = new Label("fuel used:");
         textLabel.setTextFill(Color.WHITE);
-
         Label fuelLabel = new Label("0.0");
         fuelLabel.setTextFill(Color.WHITE);
         fuelLabel.setLayoutY(20);
-        //bar
-        ProgressBar progressBar = new ProgressBar(0.5);
-        progressBar.setLayoutY(40);
+
+        //ComboBox
         ObservableList<String> options =
                 FXCollections.observableArrayList(
                         "0.01", "0.1", "0.5", "1.0", "1.5"
                 );
-        //ComboBox
         ComboBox dtBox = new ComboBox(options);
         dtBox.setLayoutY(60);
         root.getChildren().addAll(worldScene, textLabel, fuelLabel, dtBox, positionText, distanceText, timeText, reachedTitanText, reachedTitan2Text);
-
 
         //initial camera setting
         worldScene.setCamera(camera);
@@ -218,8 +212,7 @@ public class Merged extends Application {
         // -------------------------------------------------------------------------------------------------------------
         // LANDING ON TITAN GUI
 
-        final int landingSceneWIDTH = 1920;
-        final int landingSceneHEIGHT = 1080;
+
 
         Group landing = new Group();
         Scene landingScene = new Scene(landing, landingSceneWIDTH, landingSceneHEIGHT);
@@ -230,12 +223,7 @@ public class Merged extends Application {
         button.setOnAction(e -> stage.setScene(landingScene));
         root.getChildren().add(button);
 
-        // upon reaching 300km we do, for now - button.
-        // if (distance < targetDistance && distance != 0) {
-        //      stage.setScene(landingScene);
-        // }
-
-        Sphere titan = new Sphere(800);
+        Sphere titan = new Sphere(800); //! is that right? ( same name as in other method )
         titan.translateXProperty().set((landingSceneWIDTH)/2);
         titan.translateYProperty().set((landingSceneHEIGHT+1600)/2);
         PhongMaterial titanMaterial = new PhongMaterial();
