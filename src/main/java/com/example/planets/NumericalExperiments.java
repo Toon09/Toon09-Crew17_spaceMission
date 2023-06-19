@@ -361,7 +361,7 @@ class NumericalExperiments {
     public static void trajectoryTesting(){
         // set up hyper parameters
         int time = 364; // max number of days for a sim to reach goal
-        String target = "titan"; // the moon
+        String target = "titan";
         int numberOfStages = 4;
         double updatePeriod = 0.5; // period on which it shows the positions (in unit of days)
 
