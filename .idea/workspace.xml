@@ -5,18 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="bab05458-8716-4abd-8f37-31e577e5aaab" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/planets/BackEnd/Trajectory/LazyTrajectories/LazyTargetting.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/planets/BackEnd/Trajectory/LazyTrajectories/LazyTrajectory.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/planets/BackEnd/Trajectory/OrbitEnters/Hohmann.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/planets/BackEnd/Trajectory/OrbitEnters/OrbitEnterer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/planets/BackEnd/CelestialEntities/Planning.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/planets/BackEnd/CelestialEntities/Planning.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/planets/BackEnd/CelestialEntities/Spaceship.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/planets/BackEnd/CelestialEntities/Spaceship.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/planets/BackEnd/Trajectory/SteepestAscent/GradientAscend.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/planets/BackEnd/Trajectory/TrajectoryOptimizers/GradientAscend.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/planets/BackEnd/Trajectory/SteepestAscent/LazyAcceleration.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/planets/BackEnd/Trajectory/SteepestAscent/StocasticAscent.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/planets/BackEnd/Trajectory/TrajectoryOptimizers/StocasticAscent.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/planets/BackEnd/Trajectory/SteepestAscent/TrajectoryPlanner.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/planets/BackEnd/Trajectory/TrajectoryOptimizers/TrajectoryPlanner.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/planets/NumericalExperiments.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/planets/NumericalExperiments.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/planets/BackEnd/NumericalMethods/RK4.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/planets/BackEnd/NumericalMethods/RK4.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/planets/BackEnd/Trajectory/FeedBack.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/planets/BackEnd/Trajectory/FeedBack.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -33,7 +23,6 @@
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
-    <option name="UPDATE_TYPE" value="REBASE" />
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
@@ -88,7 +77,20 @@
       <recent name="C:\Users\suszw\Desktop\uni\year_1\Period4\plswork\src\main" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.NumericalExperiments">
+  <component name="RunManager" selected="Application.FeedBack">
+    <configuration name="FeedBack" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.example.planets.BackEnd.Trajectory.FeedBack" />
+      <module name="Toon09-Crew17_spaceMission3" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.example.planets.BackEnd.Trajectory.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="GA" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="com.example.planets.GA" />
       <module name="Toon09-Crew17_spaceMission3" />
@@ -153,6 +155,7 @@
       </method>
     </configuration>
     <list>
+      <item itemvalue="Application.FeedBack" />
       <item itemvalue="Application.OpenLoop" />
       <item itemvalue="Application.GA" />
       <item itemvalue="Application.Merged" />
@@ -160,6 +163,7 @@
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.FeedBack" />
         <item itemvalue="Application.NumericalExperiments" />
         <item itemvalue="Application.Merged" />
         <item itemvalue="Application.OpenLoop" />

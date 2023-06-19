@@ -11,9 +11,9 @@ public class LandingModel extends Spaceship {
     public double[] getPos() {
         return pos;
     }
-    public void updateZeroZero() {
 
-    }
+
+
 }
 
 

@@ -169,6 +169,12 @@ public class CelestialBody {
         this.acc[2] = acc[2];
     }
 
+    public void addVel(double[] vel){
+        this.vel[0] += vel[0];
+        this.vel[1] += vel[1];
+        this.vel[2] += vel[2];
+    }
+
     @Override
     public String toString() {
         return name;
@@ -204,5 +210,6 @@ public class CelestialBody {
     public CelestialBody clone() {
         return new CelestialBody(this.getName(), this.getMass(), this.getPos(), this.getVel());
     }
+
 
 }
