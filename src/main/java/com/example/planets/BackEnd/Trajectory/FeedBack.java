@@ -14,32 +14,51 @@ public class FeedBack implements IControler {
     private double radiusOfTitan = 2574.7;
     private double[] directionsToZero = new double[2];
     private CelestialBody titan;
+    private boolean isBelow = false;
+
     public FeedBack(Spaceship ship, Gravity0 model) {
         this.ship = ship;
         landingModule = new LandingModel(4200, new double[]{ship.getPos()[0], ship.getPos()[1], 0}, new double[]{ship.getVel()[0], ship.getVel()[1], 0});
         this.model = model;
         titan = model.getBody(8);
-        zeroPosition = getPoint(titan.getPos(),ship.getPos(),radiusOfTitan);
+        zeroPosition = getPoint(titan.getPos(), ship.getPos(), radiusOfTitan);
         directionsToZero[0] = zeroPosition[0] - titan.getPos()[0];
         directionsToZero[1] = zeroPosition[1] - titan.getPos()[1];
         this.model = model;
-    }
-
-    public void update(){
-        setZero();
-
-    }
-
-    private void setZero(){
-        zeroPosition[0] = titan.getPos()[0] + directionsToZero[0];
-        zeroPosition[1] = titan.getPos()[1] + directionsToZero[1];
-    }
-    private void controlY(){
-        if (landingModule.getVel()[1] > 1){
-            //landingModule.addVel();
+        if (ship.getPos()[1] < titan.getPos()[1]) {
+            isBelow = true;
         }
     }
 
+    public void update() {
+        setZero();
+        controlX();
+        controlY();
+    }
+
+    private void setZero() {
+        zeroPosition[0] = titan.getPos()[0] + directionsToZero[0];
+        zeroPosition[1] = titan.getPos()[1] + directionsToZero[1];
+    }
+
+    private void controlY() {
+        double diference = Math.abs(zeroPosition[1] - landingModule.getPos()[1]);
+        if (isBelow) {
+            if (diference >= 100) {
+                landingModule.setVel(new double[]{landingModule.getVel()[0], 1, 0});
+            } else if (diference > 50) {
+                landingModule.setVel(new double[]{landingModule.getVel()[0], 1, 0});
+            }
+        }
+    }
+
+    
+    private void controlX() {
+        double difference = zeroPosition[0] - landingModule.getPos()[0];
+        if (difference < -1 && landingModule.getVel()[0] < 0.3) {
+            landingModule.addVel(new double[]{0.3, 0, 0});
+        }
+    }
 
 
     private double[] getPoint(double[] A, double[] B, double distance) {
@@ -49,7 +68,7 @@ public class FeedBack implements IControler {
         //normalize the vector
         double normX = X / lenght;
         double normY = Y / lenght;
-        return new double[]{A[0] + normX * distance,A[1] + normY * distance};
+        return new double[]{A[0] + normX * distance, A[1] + normY * distance};
     }
 
     public double getDistance2D(double[] A, double[] B) {
