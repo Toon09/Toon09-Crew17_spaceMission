@@ -32,14 +32,12 @@ public class FeedBack implements IControler {
             speed = 0.2;
         }
         double[] xAndY = getDirection(landingModule.getPos(), zeroPosition, speed);
-        ship.addVel(new double[]{xAndY[0], xAndY[1], 0});
+        ship.set(new double[]{xAndY[0], xAndY[1], 0});
     }
-
     private void setZero() {
         zeroPosition[0] = titan.getPos()[0] + directionsToZero[0];
         zeroPosition[1] = titan.getPos()[1] + directionsToZero[1];
     }
-
 
     private double[] getPoint(double[] A, double[] B, double distance) {
         double X = B[0] - A[0];
@@ -56,10 +54,6 @@ public class FeedBack implements IControler {
         return Math.sqrt(X * X + Y * Y);
     }
 
-    public LandingModel getLandingModule() {
-        return landingModule;
-    }
-
     private double[] getDirection(double[] start, double[] end, double velocity) {
         double deltaX = end[0] - start[0];
         double deltaY = end[1] - start[1];
@@ -70,6 +64,9 @@ public class FeedBack implements IControler {
         double directionY = velocity * (deltaY / distance);
 
         return new double[]{directionX, directionY};
+    }
+    public LandingModel getLandingModule() {
+        return landingModule;
     }
 
 }
