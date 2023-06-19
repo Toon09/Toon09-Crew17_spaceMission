@@ -50,7 +50,7 @@ public class StocasticAscent implements TrajectoryPlanner {
 
         for(int i=1; i<numbOfStages; i++){
             state[i][0] = i*numbOfDays*24*60*60 / ((double) numbOfStages) - numbOfDays*24*60*60 * 0.15;
-            state[i][1] = 60*60 +Math.random()*30*60;
+            state[i][1] = 15*60;
 
         }
 

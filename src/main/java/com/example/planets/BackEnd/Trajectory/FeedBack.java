@@ -10,7 +10,7 @@ public class FeedBack implements IControler {
     private final double[] directionsToZero = new double[2];
     private final CelestialBody titan;
 
-    public FeedBack( Gravity0 model) {
+    public FeedBack(Gravity0 model) {
         Spaceship ship = model.getShip();
         landingModule = new LandingModel(4200, new double[]{ship.getPos()[0], ship.getPos()[1], 0}, new double[]{ship.getVel()[0], ship.getVel()[1], 0});
         titan = model.getBody(8);

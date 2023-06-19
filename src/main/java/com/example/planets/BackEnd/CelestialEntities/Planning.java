@@ -16,6 +16,11 @@ import com.example.planets.BackEnd.Trajectory.TrajectoryOptimizers.TrajectoryPla
     for the way back.
 
     The output of the trajectory must be a ArrayList<double[][]> in the same format as "maneuverPoints"
+
+
+
+
+    //////////////////////
  */
 public class Planning {
     //count of how many stages located in "maneuverPoints" have been executed so far
@@ -31,9 +36,7 @@ public class Planning {
     private OrbitEnterer orbiter;
 
     private double orbitalVelocity;
-    private boolean inLazyStage = false;
-
-    private int indexOfPLanet;
+    private boolean notInLazyStage = true;
 
 
     /**
@@ -49,7 +52,6 @@ public class Planning {
         for(int i=0; i<model.size(); i++)
             if( targetPlanet.equalsIgnoreCase(model.getBody(i).getName()) ) {
                 target = model.getBody(i);
-                indexOfPLanet = i;
             }
 
         //creates planner and gets trajectory
@@ -69,16 +71,6 @@ public class Planning {
 
     public Planning(){ }
 
-
-    /**
-     * increases the count to access the next maneuverPoint that needs to be checked and executed
-     */
-    public void nextDirection(){
-        countOfStages++;
-        if(countOfStages > maneuverPoints.length)
-            inLazyStage = true;
-    }
-
     public int getStageVal(){
         return countOfStages;
     }
@@ -93,9 +85,9 @@ public class Planning {
      *      second dimension [ 0:vel. in x, 1:vel. in y, 2:vel. in z ]
      * @return a 2D array in the format described above, if all maneuvers have been executed, then it returns null
      */
-    public double[] getCurrent(){
+    public double[] getCurrent(){ //////////////////
         // if its in the first stage of the planning
-        if(!inLazyStage)
+        if(notInLazyStage)
             return maneuverPoints[countOfStages];
 
         if(lazyPlanner.finished()) // hohmann goes here
@@ -105,6 +97,14 @@ public class Planning {
     }
 
 
+    /**
+     * increases the count to access the next maneuverPoint that needs to be checked and executed
+     */
+    public void nextDirection(){ ////////////////
+        countOfStages++;
+        if(countOfStages >= maneuverPoints.length)
+            notInLazyStage = false;
+    }
 
     /**
      * this constructor is for the copy function
@@ -119,15 +119,15 @@ public class Planning {
 
     public CelestialBody getTarget(){
         return target;
-    }
+    } //
 
 
     public void setTarget(CelestialBody target){
         this.target = target;
-    }
+    } //
 
 
-    public void setState(double[][] state){
+    public void setState(double[][] state){ //
         maneuverPoints = new double[state.length][5];
 
         for(int i=0; i<state.length; i++)

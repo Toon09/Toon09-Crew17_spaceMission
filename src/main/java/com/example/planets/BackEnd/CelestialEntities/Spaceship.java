@@ -176,6 +176,7 @@ public class Spaceship extends CelestialBody {
         return closestDist;
     }
 
+    private boolean alreadyAcc = false;
     /**
      * @param time the time that has passed until now from the start from the simulation in seconds
      * @param dt is the time step used on the numerical solvers
@@ -184,11 +185,16 @@ public class Spaceship extends CelestialBody {
 
         if( time > plan.getCurrent()[1] + plan.getCurrent()[0] && plan.getStageVal() < plan.getManeuverLength() -1 ){
             plan.nextDirection();
+            alreadyAcc = false;
         }
+
         if(time >= plan.getCurrent()[0] && time <= plan.getCurrent()[1] + plan.getCurrent()[0]){
             double [] current = getVel();
-            for (int i =0; i<current.length; i++)
-                current[i] += plan.getCurrent()[i+2]*dt;
+            for (int i =0; i<current.length && !alreadyAcc; i++){
+                current[i] += plan.getCurrent()[i+2];
+            }
+
+            alreadyAcc = true;
 
             double magnitude = 0.0;
             for (int i=0; i<3; i++)
