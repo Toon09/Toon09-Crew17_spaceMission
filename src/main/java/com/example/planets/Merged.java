@@ -3,6 +3,7 @@ package com.example.planets;
 import com.example.planets.BackEnd.CelestialEntities.CelestialBody;
 import com.example.planets.BackEnd.Models.Gravity0;
 import com.example.planets.BackEnd.NumericalMethods.*;
+import com.example.planets.BackEnd.Trajectory.Cost.MinDistAndFuel;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
@@ -13,6 +14,7 @@ import javafx.scene.*;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.PhongMaterial;
@@ -31,7 +33,8 @@ import java.util.TimerTask;
 
 public class Merged extends Application {
     // static private Gravity0 model = new Gravity0(0, Math.PI / 2.0, new Euler());
-    static final private Gravity0 model = new Gravity0(0.0, 0.0, new RK4());
+    // static final private Gravity0 model = new Gravity0(0.0, 0.0, new RK4());
+    static private Gravity0 model = new Gravity0(0.0, 0.0, new RK4(), "titan", 1, 364, new MinDistAndFuel());
     private static int scale = 25;
     private static final int smallScale = 25;
     private static final int bigScale = 2000;    private static int counter = 0;
@@ -230,7 +233,6 @@ public class Merged extends Application {
         TextField altitudeSelector = new TextField(); // Y coordinate
         TextField longitudeSelector = new TextField(); // X coordinate
         TextField xVelocitySelector = new TextField();
-
         altitudeSelector.setLayoutX((ScreenWIDTH-100)/2);
         altitudeSelector.setLayoutY((ScreenHEIGHT+200)/2);
         longitudeSelector.setLayoutX((ScreenWIDTH-100)/2);
@@ -238,14 +240,20 @@ public class Merged extends Application {
         xVelocitySelector.setLayoutX((ScreenWIDTH-100)/2);
         xVelocitySelector.setLayoutY((ScreenHEIGHT-200)/2);
 
-        Button awewa = new Button("SELECTOR");
+        Text errorText = new Text("Only numbers are allowed!");
+        errorText.setLayoutX((ScreenWIDTH)/2);
+        errorText.setLayoutY((ScreenHEIGHT-400)/2);
+        errorText.setFill(Color.MEDIUMVIOLETRED);
+        errorText.setVisible(false);
+
+        Button awewa = new Button("SELECTOR"); // just for now
         awewa.setLayoutY((ScreenHEIGHT+200)/2);
         awewa.setOnAction(e -> stage.setScene(dataSelector));
         root.getChildren().add(awewa);
 
         Button submit = new Button("SUBMIT");
         submit.setLayoutX((ScreenWIDTH-100)/2);
-        submit.setLayoutY((ScreenHEIGHT-400)/2);
+        submit.setLayoutY((ScreenHEIGHT+400)/2);
         submit.setOnAction(e -> {
             try {
                 double initAltitude = Double.parseDouble(altitudeSelector.getText());
@@ -253,11 +261,19 @@ public class Merged extends Application {
                 double initxVelocity = Double.parseDouble(xVelocitySelector.getText());
             }
             catch (NumberFormatException exception) {
-                System.out.println("ONLY NUMBERS BITCH");
+                System.out.println("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAa");
+                errorText.setVisible(true);
+                // do not go to the next scene
             }
         });
 
-        initialData.getChildren().addAll(altitudeSelector, longitudeSelector, xVelocitySelector, submit);
+        dataSelector.addEventHandler(KeyEvent.KEY_PRESSED, event -> {
+            if (event.getCode() == KeyCode.B) {
+                stage.setScene(scene);
+            }
+        });
+
+        initialData.getChildren().addAll(altitudeSelector, longitudeSelector, xVelocitySelector, submit, errorText);
 
         // I WOKE UP IN A BUGATTI
         // -------------------------------------------------------------------------------------------------------------
