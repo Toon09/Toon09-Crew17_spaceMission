@@ -28,7 +28,7 @@ public class OpenLoop implements IControler {
         titan.setPos(new double[]{0, -2574, 0});
         ship.setPos(new double[]{0, 300000, 0});
         module.setPos(new double[]{0, 300000, 0});
-        this.model = new Gravity0(ship, titan, module);
+        this.model = new Gravity0( titan, module);
         System.out.println("lenght of bodies: "+ model.getBodies().length);
         System.out.println(model.getBody(0).toString());
         System.out.println(model.getBody(1).toString());

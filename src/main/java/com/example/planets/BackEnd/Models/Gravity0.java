@@ -6,10 +6,7 @@ import com.example.planets.BackEnd.CelestialEntities.Spaceship;
 import com.example.planets.BackEnd.NumericalMethods.RK4;
 import com.example.planets.BackEnd.Trajectory.Cost.CostFunction;
 import com.example.planets.BackEnd.Trajectory.LandingModel;
-import com.example.planets.BackEnd.Trajectory.LandingModule;
 import com.example.planets.Data.DataGetter;
-
-import java.util.Arrays;
 
 
 public class Gravity0 implements Model3D {
