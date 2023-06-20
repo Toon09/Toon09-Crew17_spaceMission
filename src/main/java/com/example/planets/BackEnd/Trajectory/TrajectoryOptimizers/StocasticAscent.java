@@ -131,7 +131,7 @@ public class StocasticAscent implements TrajectoryPlanner {
                 //individuals += 2; //maybe not good
             }
 
-            System.out.println( (count+1) + ", " + champion.getUsedFuel() + ", " + champion.getClosestDistance() + ", " + champion.getCost() + ", " + chrono);
+            System.out.println( (count+1) + ", " + champion.getEngine().getUsedFuel() + ", " + champion.getClosestDistance() + ", " + champion.getCost() + ", " + chrono);
             System.out.println("final dist to target: " + champion.getDistance( champion.getTarget() ) );
             System.out.println("range of change: " + rangeOfChange);
             System.out.println("\n\n\n");

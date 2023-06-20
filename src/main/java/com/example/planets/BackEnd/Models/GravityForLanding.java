@@ -3,16 +3,17 @@ package com.example.planets.BackEnd.Models;
 import com.example.planets.BackEnd.CelestialEntities.CelestialBody;
 import com.example.planets.BackEnd.CelestialEntities.Spaceship;
 import com.example.planets.BackEnd.Trajectory.LandingModel;
+import com.example.planets.BackEnd.Trajectory.LandingModule;
 
 public class GravityForLanding {
     private CelestialBody titan;
     private static Spaceship ship;
-    private LandingModel module;
-    double g = 1.352 * Math.pow(10, -3); // km/s^2
+    private LandingModule module;
+    private double g = 1.352; // m/s^2
     private Gravity0 gravity0;
 
 
-    public GravityForLanding(CelestialBody titan, Spaceship ship, LandingModel module) {
+    public GravityForLanding(CelestialBody titan, Spaceship ship, LandingModule module) {
         this.titan = titan;
         this.ship = ship;
         this.module = module;
