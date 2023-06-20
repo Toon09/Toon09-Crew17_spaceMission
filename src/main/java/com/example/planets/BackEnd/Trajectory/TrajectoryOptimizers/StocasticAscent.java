@@ -1,6 +1,5 @@
 package com.example.planets.BackEnd.Trajectory.TrajectoryOptimizers;
 
-import com.example.planets.BackEnd.CelestialEntities.CelestialBody;
 import com.example.planets.BackEnd.CelestialEntities.Spaceship;
 import com.example.planets.BackEnd.Models.Model3D;
 import com.example.planets.BackEnd.NumericalMethods.RK4;
@@ -28,6 +27,7 @@ public class StocasticAscent implements TrajectoryPlanner {
         this.numbOfDays = numbOfDays;
         this.target = target;
 
+
     }
 
     /*
@@ -41,14 +41,17 @@ public class StocasticAscent implements TrajectoryPlanner {
         double prevBest = 0.0;
 
         // hyper parameters
-        int individuals = 1;
+        int individuals = 50;
         double rangeOfChange = Spaceship.getMaxSpeed(); // maximun range of change
 
-        double[][] state = new double[numbOfStages][4];
+        double[][] state = new double[numbOfStages][5];
 
         state[0][0] = 0.0;
+        state[0][1] = 30*60.0;
+
         for(int i=1; i<numbOfStages; i++){
-            state[i][0] = i*numbOfDays*24*60*60 / ((double) numbOfStages) - numbOfDays*24*60*60 * 0.10;
+            state[i][0] = i*numbOfDays*24*60*60 / ((double) numbOfStages) - numbOfDays*24*60*60 * 0.15;
+            state[i][1] = 15*60;
 
         }
 
@@ -78,9 +81,9 @@ public class StocasticAscent implements TrajectoryPlanner {
             // set states
             // in each stage go + and - each parameter
             for(int i=0; i < optimizer.getAmountOfShips()-1; i++){
-                double[][] temp = new double[numbOfStages][4];
+                double[][] temp = new double[numbOfStages][5];
                 for(int j=0; j<numbOfStages; j++){
-                    for(int k=0; k<4; k++){
+                    for(int k=0; k<5; k++){
                         temp[j][k] = state[j][k];
                     }
                 }
@@ -94,26 +97,7 @@ public class StocasticAscent implements TrajectoryPlanner {
             }
 
             // run sim
-            //          optimizer.updatePos(numbOfDays, 10.0, true);
-            // make into loop
-
-
-            for(int i=0; i<numbOfDays; i++){
-
-                double[] error = new double[] {0.0, 0.0, 0.0};
-
-                model.updatePos( 1.0, 300.0, true ); // every half a day
-                CelestialBody targetBody = optimizer.getShip().getTarget();
-
-                for(int j=0; j<error.length; j++)
-                    error[j] = targetBody.getPos()[j] - optimizer.getShip().getPos()[j];
-                double errorMagnitude = Math.sqrt( error[0]*error[0] + error[1]*error[1] + error[2]*error[2] );
-
-                System.out.println("AAAAAAA Error magnitude: " + errorMagnitude + "km");
-
-            }
-
-            System.out.println(Arrays.deepToString(optimizer.getShip().getPlan()));
+            optimizer.updatePos(numbOfDays, 500.0, true);
 
             Spaceship champion = optimizer.getShip();
 
@@ -148,7 +132,7 @@ public class StocasticAscent implements TrajectoryPlanner {
                 //individuals += 2; //maybe not good
             }
 
-            System.out.println( (count+1) + ", " + champion.getUsedFuel() + ", " + champion.getClosestDistance() + ", " + champion.getCost() + ", " + chrono);
+            System.out.println( (count+1) + ", " + champion.getEngine().getUsedFuel() + ", " + champion.getClosestDistance() + ", " + champion.getCost() + ", " + chrono);
             System.out.println("final dist to target: " + champion.getDistance( champion.getTarget() ) );
             System.out.println("range of change: " + rangeOfChange);
             System.out.println("\n\n\n");
@@ -176,11 +160,11 @@ public class StocasticAscent implements TrajectoryPlanner {
         maxSpeed = Spaceship.getMaxSpeed(); // max magnitude
 
         for(int j = 0; j< result.length; j++){ // thru each dim
-            for(int k=1; k<4; k++){
+            for(int k=2; k<5; k++){
                 // calculate range in which we can add a random val without violating maximun speed
                 double range = maxSpeed*maxSpeed;
 
-                for (int i=1; i<4; i++)
+                for (int i=2; i<5; i++)
                     if(i != k)
                         range -= result[j][i]*result[j][i];
 
@@ -196,6 +180,9 @@ public class StocasticAscent implements TrajectoryPlanner {
             if(j!=0) // always accelerates at start
                 result[j][0] += 30*24*60.0*60.0*Math.random() - 30*24*60*60.0/2.0; // changes in initial thrust times
 
+            result[j][1] += 15.0*60.0; // changes in thrust length by 15 mins // *Math.random()-15*60.0/2.0
+            if( result[j][1] < 0.0 ) // avoids negative thrust
+                result[j][1] = 0.0;
         }
 
         return result;

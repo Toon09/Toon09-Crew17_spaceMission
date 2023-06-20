@@ -43,11 +43,9 @@ public class Gravity0 implements Model3D {
                 this.bodies[i] = new CelestialBody(bodies[i].getName(), bodies[i].getMass(), bodies[i].getPos(), bodies[i].getVel());
 
             }
-
+            this.amountOfShips = amountOfShips;
+            this.spaceShipStart = spaceShipStart;
         }
-        this.amountOfShips = amountOfShips;
-        this.spaceShipStart = spaceShipStart;
-        this.time = time;
 
     }
 

@@ -33,12 +33,14 @@ public class GradientAscend implements TrajectoryPlanner {
 
     private void optimizeTrajectory(){
 
-        double[][] state = new double[numbOfStages][4];
+        double[][] state = new double[numbOfStages][5];
 
         state[0][0] = 0.0;
+        state[0][1] = 30*60.0;
 
         for(int i=1; i<numbOfStages; i++){
             state[i][0] = numbOfDays*24*60*60 / ((double) numbOfStages);
+            state[i][1] = state[i][0] + 60*60 +Math.random()*30*60;
 
         }
 
@@ -71,7 +73,7 @@ public class GradientAscend implements TrajectoryPlanner {
             for(int i=0; i < optimizer.getAmountOfShips()-1; i++){
                 // state for the first ship
 
-                double[][] temp = new double[numbOfStages][4];
+                double[][] temp = new double[numbOfStages][5];
                 for(int j=0; j<numbOfStages; j++){
                     for(int k=0; k<5; k++){
                         temp[j][k] = state[j][k];

@@ -14,22 +14,20 @@ could apply decorator for trying different types of engines and debug quick
  */
 
 public class Spaceship extends CelestialBody {
-    private double usedFuel;
+
     //has all the information of where to go and such
     private Planning plan;
+    private Engine engine;
     private StochasticWind wind = new StochasticWind();
     private CostFunction costFunc;
     private double cost=0.0;
     private double closestDist = 0.0;
+    private static final double maxSpeed = 11;
+    public static double getMaxSpeed(){ return maxSpeed; }
     private  final double maxForce = 3 * Math.pow(10, 7); // Newtons
     private final double fuelConsumption = 1451.5; //kg this fuel consumption is based on the falcon 9 maximum fuel consumption, so at max acceleration the consumption is this one.
     private CelestialBody target;
     private Model3D model;
-
-    private Engine motor = new Engine();
-
-    public double getUsedFuel(){ return usedFuel; }
-    // public void setFuel(double fuel){ this.fuel = fuel; }
 
     /**
      *
@@ -42,7 +40,7 @@ public class Spaceship extends CelestialBody {
      */
     public Spaceship(double mass, double[] pos, double[] vel, double longitude, double latitude, CostFunction costFunc){
         super(mass, pos, vel);
-        usedFuel = 0;
+        engine = new Engine();
         this.costFunc = costFunc;
         //positions
         double x = Gravity0.radiuses[3] * Math.cos(longitude) * Math.cos(latitude);
@@ -63,7 +61,7 @@ public class Spaceship extends CelestialBody {
      */
     public Spaceship(double mass, double[] pos, double[] vel, double longitude, double latitude){
         super(mass, pos, vel);
-        usedFuel = 0;
+        engine = new Engine();
         //positions
         double x = Gravity0.radiuses[3] * Math.cos(longitude) * Math.cos(latitude);
         double y = Gravity0.radiuses[3] * Math.sin(longitude) * Math.cos(latitude);
@@ -81,7 +79,7 @@ public class Spaceship extends CelestialBody {
      */
     public Spaceship(double mass, double[] pos, double[] vel){
         super(mass, pos, vel);
-        usedFuel = 0;
+        engine = new Engine();
     }
 
 
@@ -93,14 +91,12 @@ public class Spaceship extends CelestialBody {
      */
     private Spaceship(CelestialBody body, Planning plan, CostFunction costFunc){
         super( body.getName(), body.getMass(), body.getPos(), body.getVel());
+        engine = new Engine();
         this.costFunc = costFunc;
         if( plan != null ){
             this.plan = plan.clone();
             target = plan.getTarget();
         }
-
-        usedFuel = 0;
-
     }
 
     public void setModel(Model3D model){
@@ -162,7 +158,7 @@ public class Spaceship extends CelestialBody {
 
         if( plan != null ){
             if( costFunc != null )
-                calcCost(closestDist, dt, getUsedFuel());
+                calcCost(closestDist, dt, engine.getUsedFuel());
             accelerate(time, dt);
         }
 
@@ -177,19 +173,23 @@ public class Spaceship extends CelestialBody {
         return closestDist;
     }
 
+    private boolean alreadyAcc = false;
     /**
      * @param time the time that has passed until now from the start from the simulation in seconds
      * @param dt is the time step used on the numerical solvers
      */
     public void accelerate(double time, double dt){
-
-        usedFuel += motor.useFuel(plan, mass);
-
-        addVel(motor.thrust(plan, time));
-
+        if(time == plan.getCurrent()[0]){
+            double [] current = getVel();
+            double [] target = plan.getCurrent();
+            for (int i =0; i<current.length; i++){
+                current[i] += target[i+1];
+            }
+            engine.useFuel(getMass(), engine.calcMagnitude(target), dt);
+            setVel(current);
+        }
     }
 
-    public static double getMaxSpeed(){ return Engine.getMaxSpeed(); }
 
     /**
      * adds the cost given by the cost function to the one that we already have\
@@ -236,7 +236,7 @@ public class Spaceship extends CelestialBody {
         this.acc[1] += acc[1];
         this.acc[2] += acc[2];
     }
-
-
-
+    public Engine getEngine() {
+        return engine;
+    }
 }
