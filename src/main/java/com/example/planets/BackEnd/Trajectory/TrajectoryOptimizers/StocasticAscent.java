@@ -12,9 +12,10 @@ import java.util.Arrays;
 change cost function so that it takes closest dist and actual dist as input
  */
 public class StocasticAscent implements TrajectoryPlanner {
+    private int stage = 0;
 
     private final int numbOfSteps = 1;
-    private final int numbOfStages;
+    private int numbOfStages;
     private final int numbOfDays;
     private final Model3D model;
     private String target;
@@ -35,7 +36,7 @@ public class StocasticAscent implements TrajectoryPlanner {
             make interval a bt more precise and increase amount of individuals
      dont do by a lot
      */
-    private void makeTrajectory(){
+    private void optimizeTrajectory(){
 
         double prevBest = 0.0;
 
@@ -202,11 +203,38 @@ public class StocasticAscent implements TrajectoryPlanner {
 
 
     @Override
-    public double[][] getTrajectory() {
+    public void makeTrajectory() {
         if( trajectory == null )
-            makeTrajectory();
+            optimizeTrajectory();
 
+    }
+
+    @Override
+    public double[][] getTrajectory() {
         return trajectory;
+    }
+
+    @Override
+    public void next() {
+        stage++;
+    }
+
+    @Override
+    public double[] getCurrent() {
+        if(stage>= trajectory.length)
+            return new double[] {0,0,0,0};
+        return trajectory[stage];
+    }
+
+    @Override
+    public void setTrajectory(double[][] trajectory) {
+        this.trajectory = new double[trajectory.length][4];
+        numbOfStages = trajectory.length;
+
+        for(int i=0; i<trajectory.length; i++){
+            for(int j=0; j<4; j++)
+                this.trajectory[i][j] = trajectory[i][j];
+        }
     }
 
 

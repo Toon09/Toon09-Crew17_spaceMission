@@ -51,10 +51,8 @@ class NumericalExperiments {
 
         model.addShips(1); //ship that will be unchanged
 
-        double[][] plan = new double[][] {{0,10*60,
-                11,0,0},
-                {3*24*60*60, 3*24*60*60 + 30*60,
-                        2,2,2}};
+        double[][] plan = new double[][] {{0,11,0,0},
+                {3*24*60*60, 2,2,2}};
 
         model.getShip().setPlan( plan );
 
@@ -344,7 +342,6 @@ class NumericalExperiments {
         double[] error = new double[] {0.0, 0.0, 0.0};
         double errorMagnitude = 0.0;
 
-        System.out.println(Arrays.deepToString(model.getShip().getPlan()));
 
         System.out.println("Showing travel");
 

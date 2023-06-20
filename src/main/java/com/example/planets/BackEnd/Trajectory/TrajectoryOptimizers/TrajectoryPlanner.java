@@ -4,10 +4,19 @@ package com.example.planets.BackEnd.Trajectory.TrajectoryOptimizers;
 
 public interface TrajectoryPlanner {
 
-    /**
-     *
-     * @return
-     */
+    public void makeTrajectory();
+
     public double[][] getTrajectory();
+
+    // contains 1D array of:
+    //[ 0:start of time interval, 1:acc. in x, 2:acc. in y, 2:acc. in z ]
+    public void next();
+
+    public double[] getCurrent();
+
+    // sets all points where its going to change
+    public void setTrajectory(double[][] trajectory);
+
+
 
 }

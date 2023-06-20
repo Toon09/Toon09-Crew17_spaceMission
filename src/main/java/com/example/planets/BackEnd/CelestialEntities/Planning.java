@@ -3,6 +3,7 @@ package com.example.planets.BackEnd.CelestialEntities;
 import com.example.planets.BackEnd.Models.Gravity0;
 import com.example.planets.BackEnd.Models.Model3D;
 import com.example.planets.BackEnd.Trajectory.TrajectoryOptimizers.StocasticAscent;
+import com.example.planets.BackEnd.Trajectory.TrajectoryOptimizers.TrajectoryHolder;
 import com.example.planets.BackEnd.Trajectory.TrajectoryOptimizers.TrajectoryPlanner;
 
 
@@ -13,23 +14,15 @@ import com.example.planets.BackEnd.Trajectory.TrajectoryOptimizers.TrajectoryPla
 
     The output of the trajectory must be a ArrayList<double[][]> in the same format as "maneuverPoints"
 
-
-
-
     //////////////////////
  */
 public class Planning {
     //count of how many stages located in "maneuverPoints" have been executed so far
     private int countOfStages = 0;
-
-    // this arrayList contains 2D arrays of:
-    //[ 0:start of time interval, 1:end of interval, 2:acc. in x, 3:acc. in y, 4:acc. in z ]
-    // a different maneuver of these on each dimension
-    private double[][] maneuverPoints;
     private CelestialBody target;
     private TrajectoryPlanner planner;
 
-
+    public Planning(){ }
 
     /**
      *
@@ -39,7 +32,6 @@ public class Planning {
      * @param maxDays
      */
     public Planning(Model3D model, String targetPlanet, String homePlanet, int numberOfStages, int maxDays){
-        this.maneuverPoints = new double[numberOfStages][4];
 
         for(int i=0; i<model.size(); i++)
             if( targetPlanet.equalsIgnoreCase(model.getBody(i).getName()) )
@@ -50,20 +42,10 @@ public class Planning {
         planner = new StocasticAscent(model, numberOfStages, targetPlanet, maxDays);
 
         // do the calculation of the orbit from the planet
-        maneuverPoints = planner.getTrajectory();
+        planner.makeTrajectory();
 
     }
 
-
-    public Planning(){ }
-
-    public int getStageVal(){
-        return countOfStages;
-    }
-
-    public int getManeuverLength(){
-        return maneuverPoints.length;
-    }
 
     /**
      * Gets the current maneuver that needs to be executed in the following format:
@@ -71,8 +53,8 @@ public class Planning {
      *      second dimension [ 0:vel. in x, 1:vel. in y, 2:vel. in z ]
      * @return a 2D array in the format described above, if all maneuvers have been executed, then it returns null
      */
-    public double[] getCurrent(){ /////////////////
-        return maneuverPoints[countOfStages];
+    public double[] getCurrent(){
+        return planner.getCurrent();
     }
 
 
@@ -80,15 +62,14 @@ public class Planning {
      * increases the count to access the next maneuverPoint that needs to be checked and executed
      */
     public void nextDirection(){ ////////////////
-        countOfStages++;
+        planner.next(); ///////////////////////////////
     }
 
     /**
      * this constructor is for the copy function
-     * @param maneuverPoints the 1D array containing all information calculated for the trajectory
      */
-    private Planning(double[][] maneuverPoints, int countOfStages, CelestialBody target){
-        this.maneuverPoints = maneuverPoints;
+    private Planning(TrajectoryPlanner plan, int countOfStages, CelestialBody target){
+        planner = plan;
         this.target = target;
 
         this.countOfStages = countOfStages;
@@ -105,10 +86,9 @@ public class Planning {
 
 
     public void setState(double[][] state){ //
-        maneuverPoints = new double[countOfStages][4];
-
-        for(int i=0; i<state.length; i++)
-                maneuverPoints[i] = state[i];
+        if(planner == null)
+            planner = new TrajectoryHolder();
+        planner.setTrajectory(state);
 
     }
 
@@ -117,13 +97,13 @@ public class Planning {
      * @return
      */
     public double[][] getAll(){
-        return maneuverPoints;
+        return planner.getTrajectory();
     }
 
 
     @Override
     public Planning clone() {
-        return new Planning(maneuverPoints, countOfStages, target);
+        return new Planning(planner, countOfStages, target);
     }
 
 }
