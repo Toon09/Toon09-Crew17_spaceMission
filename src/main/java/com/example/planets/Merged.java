@@ -354,7 +354,7 @@ public class Merged extends Application {
                     camera.setTranslateY(model.getBody(11).getPos()[1] / scale + 2000);
                     camera.setTranslateZ(model.getBody(11).getPos()[2] / scale - 24000);
                 }
-                goTitan();
+                goTitan();    //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
             }
         }, 1, 1);
         timer.schedule(new TimerTask() {
@@ -577,8 +577,6 @@ public class Merged extends Application {
             checkForReachedTitan = true ;
             System.out.println("FINISHED, reached a distance of " + distance);
         }
-
-
 
     }
 

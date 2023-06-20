@@ -21,7 +21,7 @@ public class Spaceship extends CelestialBody {
     private CostFunction costFunc;
     private double cost=0.0;
     private double closestDist = 0.0;
-    private static final double maxSpeed = 11.0; public static double getMaxSpeed(){ return maxSpeed; }
+    private static final double maxSpeed = 5.0; public static double getMaxSpeed(){ return maxSpeed; }
     private  final double maxForce = 3 * Math.pow(10, 7); // Newtons
     private final double fuelConsumption = 1451.5; //kg this fuel consumption is based on the falcon 9 maximum fuel consumption, so at max acceleration the consumption is this one.
     private CelestialBody target;
@@ -176,6 +176,7 @@ public class Spaceship extends CelestialBody {
         return closestDist;
     }
 
+    private boolean alreadyAcc = false;
     /**
      * @param time the time that has passed until now from the start from the simulation in seconds
      * @param dt is the time step used on the numerical solvers
@@ -184,11 +185,16 @@ public class Spaceship extends CelestialBody {
 
         if( time > plan.getCurrent()[1] + plan.getCurrent()[0] && plan.getStageVal() < plan.getManeuverLength() -1 ){
             plan.nextDirection();
+            alreadyAcc = false;
         }
+
         if(time >= plan.getCurrent()[0] && time <= plan.getCurrent()[1] + plan.getCurrent()[0]){
             double [] current = getVel();
-            for (int i =0; i<current.length; i++)
-                current[i] += plan.getCurrent()[i+2]*dt;
+            for (int i =0; i<current.length && !alreadyAcc; i++){
+                current[i] += plan.getCurrent()[i+2];
+            }
+
+            alreadyAcc = true;
 
             double magnitude = 0.0;
             for (int i=0; i<3; i++)
@@ -249,13 +255,6 @@ public class Spaceship extends CelestialBody {
         this.acc[2] += acc[2];
     }
 
-    public void sideThrust(double x) {
-        double[] position = getPos();
-        setPos(new double[]{position[0] + x, position[1], position[2]});
-    }
 
-    public void decelerate(double gravity) {
-
-    }
 
 }

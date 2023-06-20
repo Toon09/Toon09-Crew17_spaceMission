@@ -4,9 +4,14 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="bab05458-8716-4abd-8f37-31e577e5aaab" name="Changes" comment="">
+    <list default="true" id="bab05458-8716-4abd-8f37-31e577e5aaab" name="Changes" comment="feedback for now">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/planets/BackEnd/Models/StochasticWind.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/planets/BackEnd/Models/StochasticWind.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/planets/BackEnd/CelestialEntities/Planning.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/planets/BackEnd/CelestialEntities/Planning.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/planets/BackEnd/CelestialEntities/Spaceship.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/planets/BackEnd/CelestialEntities/Spaceship.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/planets/BackEnd/Trajectory/FeedBack.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/planets/BackEnd/Trajectory/FeedBack.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/planets/BackEnd/Trajectory/TrajectoryOptimizers/StocasticAscent.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/planets/BackEnd/Trajectory/TrajectoryOptimizers/StocasticAscent.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/planets/Merged.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/planets/Merged.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/planets/NumericalExperiments.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/planets/NumericalExperiments.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -16,13 +21,13 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
+        <option value="Interface" />
         <option value="Class" />
       </list>
     </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
-    <option name="UPDATE_TYPE" value="REBASE" />
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
@@ -150,8 +155,8 @@
     <recent_temporary>
       <list>
         <item itemvalue="Application.NumericalExperiments" />
-        <item itemvalue="Application.OpenLoop" />
         <item itemvalue="Application.Merged" />
+        <item itemvalue="Application.OpenLoop" />
         <item itemvalue="Application.GA" />
       </list>
     </recent_temporary>
@@ -175,34 +180,7 @@
       <workItem from="1683820709833" duration="618000" />
       <workItem from="1683841240613" duration="1723000" />
       <workItem from="1686731689722" duration="3058000" />
-    </task>
-    <task id="LOCAL-00048" summary="added Ralstons RK4 and tested AB2">
-      <created>1684241892598</created>
-      <option name="number" value="00048" />
-      <option name="presentableId" value="LOCAL-00048" />
-      <option name="project" value="LOCAL" />
-      <updated>1684241892598</updated>
-    </task>
-    <task id="LOCAL-00049" summary="Re-organizing data and adding to the todo list &amp; testing DataGetter.java">
-      <created>1684247216097</created>
-      <option name="number" value="00049" />
-      <option name="presentableId" value="LOCAL-00049" />
-      <option name="project" value="LOCAL" />
-      <updated>1684247216097</updated>
-    </task>
-    <task id="LOCAL-00050" summary="Doc for planning and structuring">
-      <created>1684318846415</created>
-      <option name="number" value="00050" />
-      <option name="presentableId" value="LOCAL-00050" />
-      <option name="project" value="LOCAL" />
-      <updated>1684318846416</updated>
-    </task>
-    <task id="LOCAL-00051" summary="Doc and further structuring for the trajectory planning">
-      <created>1684321561872</created>
-      <option name="number" value="00051" />
-      <option name="presentableId" value="LOCAL-00051" />
-      <option name="project" value="LOCAL" />
-      <updated>1684321561872</updated>
+      <workItem from="1687181645037" duration="364000" />
     </task>
     <task id="LOCAL-00052" summary="Doc and further structuring for the trajectory planning">
       <created>1684321742477</created>
@@ -519,7 +497,35 @@
       <option name="project" value="LOCAL" />
       <updated>1686919177351</updated>
     </task>
-    <option name="localTasksCounter" value="97" />
+    <task id="LOCAL-00097" summary="just incase i added something">
+      <created>1686920314527</created>
+      <option name="number" value="00097" />
+      <option name="presentableId" value="LOCAL-00097" />
+      <option name="project" value="LOCAL" />
+      <updated>1686920314527</updated>
+    </task>
+    <task id="LOCAL-00098" summary="plannign changes">
+      <created>1687171392048</created>
+      <option name="number" value="00098" />
+      <option name="presentableId" value="LOCAL-00098" />
+      <option name="project" value="LOCAL" />
+      <updated>1687171392048</updated>
+    </task>
+    <task id="LOCAL-00099" summary="merged fix">
+      <created>1687180488147</created>
+      <option name="number" value="00099" />
+      <option name="presentableId" value="LOCAL-00099" />
+      <option name="project" value="LOCAL" />
+      <updated>1687180488148</updated>
+    </task>
+    <task id="LOCAL-00100" summary="feedback for now">
+      <created>1687182002127</created>
+      <option name="number" value="00100" />
+      <option name="presentableId" value="LOCAL-00100" />
+      <option name="project" value="LOCAL" />
+      <updated>1687182002127</updated>
+    </task>
+    <option name="localTasksCounter" value="101" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -537,10 +543,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="renamed an unimplemented method based on whats supposed to be (not yet done)" />
-    <MESSAGE value="added stuff" />
-    <MESSAGE value="GUI cool stuff" />
-    <MESSAGE value="Documentation of celestial bodies" />
     <MESSAGE value="leapFrog and others" />
     <MESSAGE value="data generation set up and rk2 refactored" />
     <MESSAGE value="engine working" />
@@ -562,9 +564,32 @@
     <MESSAGE value="wind model updated" />
     <MESSAGE value="bug fix part 1" />
     <MESSAGE value="bug fixed hDeriv with openLOop shenanigans" />
-    <option name="LAST_COMMIT_MESSAGE" value="bug fixed hDeriv with openLOop shenanigans" />
+    <MESSAGE value="just incase i added something" />
+    <MESSAGE value="plannign changes" />
+    <MESSAGE value="merged fix" />
+    <MESSAGE value="feedback for now" />
+    <option name="LAST_COMMIT_MESSAGE" value="feedback for now" />
   </component>
   <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/example/planets/NumericalExperiments.java</url>
+          <line>354</line>
+          <option name="timeStamp" value="2" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/example/planets/BackEnd/CelestialEntities/Planning.java</url>
+          <line>103</line>
+          <option name="timeStamp" value="3" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/example/planets/BackEnd/CelestialEntities/Planning.java</url>
+          <line>89</line>
+          <option name="timeStamp" value="4" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
     <pin-to-top-manager>
       <pinned-members>
         <PinnedItemInfo parentTag="com.example.planets.BackEnd.CelestialEntities.Spaceship" memberName="plan" />

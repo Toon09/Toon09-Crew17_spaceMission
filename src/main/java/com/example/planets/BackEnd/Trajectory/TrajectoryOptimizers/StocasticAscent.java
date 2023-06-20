@@ -1,6 +1,5 @@
-package com.example.planets.BackEnd.Trajectory.SteepestAscent;
+package com.example.planets.BackEnd.Trajectory.TrajectoryOptimizers;
 
-import com.example.planets.BackEnd.CelestialEntities.CelestialBody;
 import com.example.planets.BackEnd.CelestialEntities.Spaceship;
 import com.example.planets.BackEnd.Models.Model3D;
 import com.example.planets.BackEnd.NumericalMethods.RK4;
@@ -13,7 +12,7 @@ change cost function so that it takes closest dist and actual dist as input
  */
 public class StocasticAscent implements TrajectoryPlanner {
 
-    private final int numbOfSteps = 50;
+    private final int numbOfSteps = 1;
     private final int numbOfStages;
     private final int numbOfDays;
     private final Model3D model;
@@ -50,8 +49,8 @@ public class StocasticAscent implements TrajectoryPlanner {
         state[0][1] = 30*60.0;
 
         for(int i=1; i<numbOfStages; i++){
-            state[i][0] = i*numbOfDays*24*60*60 / ((double) numbOfStages);
-            state[i][1] = 60*60 +Math.random()*30*60;
+            state[i][0] = i*numbOfDays*24*60*60 / ((double) numbOfStages) - numbOfDays*24*60*60 * 0.15;
+            state[i][1] = 15*60;
 
         }
 
@@ -88,10 +87,8 @@ public class StocasticAscent implements TrajectoryPlanner {
                     }
                 }
 
-
-                /*
-                make function tat does this calcualtion for you, limit the max vel (magnitude) to 12km/s or so
-                 */
+                // gets new random parameters based off best past parameters
+                // with a velocity limited by the ships max velocity
                 temp = generateRandParams(rangeOfChange, temp);
 
                 optimizer.getShip(i).setPlan( temp );
@@ -112,7 +109,7 @@ public class StocasticAscent implements TrajectoryPlanner {
                     System.out.println("id: " + i);
                     System.out.println("plan: " + Arrays.deepToString(optimizer.getShip(i).getPlan()));
                     System.out.println("closest dist: " + optimizer.getShip(i).getClosestDistance());
-                    System.out.println("cost: " +optimizer.getShip(i).getCost());
+                    System.out.println("cost: " + optimizer.getShip(i).getCost());
 
                     cost = optimizer.getShip(i).getCost(); //
                     state = optimizer.getShip(i).getPlan(); // gets plan with highest cost //
@@ -182,7 +179,7 @@ public class StocasticAscent implements TrajectoryPlanner {
             if(j!=0) // always accelerates at start
                 result[j][0] += 30*24*60.0*60.0*Math.random() - 30*24*60*60.0/2.0; // changes in initial thrust times
 
-            result[j][1] += 15.0*60.0*Math.random()-15*60.0/2.0; // changes in thrust length by 15 mins
+            result[j][1] += 15.0*60.0; // changes in thrust length by 15 mins // *Math.random()-15*60.0/2.0
             if( result[j][1] < 0.0 ) // avoids negative thrust
                 result[j][1] = 0.0;
         }

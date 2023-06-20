@@ -1,7 +1,5 @@
-package com.example.planets.BackEnd.Trajectory.SteepestAscent;
+package com.example.planets.BackEnd.Trajectory.TrajectoryOptimizers;
 
-import com.example.planets.BackEnd.CelestialEntities.CelestialBody;
-import com.example.planets.BackEnd.CelestialEntities.Spaceship;
 import com.example.planets.BackEnd.Models.Model3D;
 import com.example.planets.BackEnd.NumericalMethods.RK4;
 

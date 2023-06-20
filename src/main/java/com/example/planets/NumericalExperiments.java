@@ -9,52 +9,14 @@ import com.example.planets.BackEnd.Trajectory.Cost.PlanetaryRing;
 import com.example.planets.Data.DataGetter;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 
 class NumericalExperiments {
 
     /*
-    ToDo
-    + change the trajectory from ArrayList<double[]> to double[][]\
-    + ENGINE
-    + TRAJECTORY: https://www.sciencedirect.com/science/article/pii/S037604211830191X
-        hill climbXX
-        gradient descend
-        genetic alg
-
-    + make setup to test swarm step
-
-    + make list of famous space stations and allow people to launch from those sites
-        - run simulations from each one of them and make it so that the result is saved and is
-            accessed when you launch from that location
-        - have a boolean so that it calculates the trajectory and saves it,
-            or if the location is not even close to an already known one, then re-calculate it
-    + write documentation
-    + make a test folder and add folders inside with separated test cases for everything in here (pain)
-
-    +++ in experiment setup change add appart from printing writing in a text file
-        but instead make it a csv and write in the format, make the first line be the names of stuff
-
-
-    ++++++++ MAKE TAYLOR RK'S TO CHECK PRECISION [ https://www.cfm.brown.edu/people/sg/AM35odes.pdf ]
-            do one RK4 per deriv. that appears in expression, or think it out
-    +++++ change model so that it uses polar coordinates (test, not garantee to fix personal life)
-
-
-    change the way we chose initial conditions to one that matches earths coordinate system in angles
-
-    //for adaptive method
-    // https://youtu.be/6bHdFef1S60
-    // https://en.m.wikipedia.org/wiki/Adaptive_step_size
-    // RK6: https://youtu.be/soEj7YHrKyE
-
-    // https://youtube.com/playlist?list=PLYdroRCLMg5PhZqzEJJlyLo55-1Vdd4Bd [numerical methods]
-    // https://youtube.com/playlist?list=PLOIRBaljOV8je0oxFAyj2o6YLXcBX1rTZ [rocket trajectory]
-
-    change for loop to be inside the step func in NumSolver so the step ize change of of dormant prince doesnt destroy anything
-    have the length of execution be a parameter
-
-    -implement dormant prince with for loop inside & just change the dt you already have
+    fix trajectory
+        - actual values dont match with simualted ones
      */
 
     // https://ssd.jpl.nasa.gov/horizons/app.html#/ [ experiment data ]
@@ -95,10 +57,6 @@ class NumericalExperiments {
                         2,2,2}};
 
         model.getShip().setPlan( plan );
-        model.getShip(0).getClass().hashCode();
-        model.getShip(1).getClass().hashCode();
-
-
 
         System.out.println("initializing test: \nIn days?: " + isDay + "\nTime interval: "+checkInterval+"s or day\n\n");
 
@@ -365,9 +323,9 @@ class NumericalExperiments {
     public static void trajectoryTesting(){
         // set up hyper parameters
         int time = 364; // max number of days for a sim to reach goal
-        String target = "titan"; // the moon
-        int numberOfStages = 3;
-        double updatePeriod = 0.5; // period on which it shows the positions (in unit of days)
+        String target = "titan";
+        int numberOfStages = 4;
+        double updatePeriod = 1.0; // period on which it shows the positions (in unit of days)
 
         // to print how long the planning takes
         double chrono = 0.0;
@@ -382,6 +340,8 @@ class NumericalExperiments {
         chrono = System.currentTimeMillis() - chrono;
 
         System.out.println("Planning took: " + chrono + "ms\n\n\n");
+
+        System.out.println(Arrays.deepToString(model.getShip().getPlan()));
 
 
         double[] error = new double[] {0.0, 0.0, 0.0};
@@ -410,8 +370,10 @@ class NumericalExperiments {
                 error[j] = targetBody.getPos()[j] - model.getShip().getPos()[j];
             errorMagnitude = Math.sqrt( error[0]*error[0] + error[1]*error[1] + error[2]*error[2] );
 
-            System.out.println("Error= X:" + error[0] + "; Y:" + error[1] + "; Z:" + error[2]);
-            System.out.println("Error magnitude: " + errorMagnitude + "km\n\n");
+            // System.out.println("Error= X:" + error[0] + "; Y:" + error[1] + "; Z:" + error[2]);
+            System.out.println("Error magnitude: " + errorMagnitude + "km");
+            System.out.println("Closest dist: " + model.getShip().getClosestDistance() + "km");
+            System.out.println("trget from ship: " + model.getShip().getTarget() + "\n\n");
 
         }
 
