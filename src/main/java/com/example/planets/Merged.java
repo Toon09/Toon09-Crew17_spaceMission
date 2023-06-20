@@ -261,7 +261,6 @@ public class Merged extends Application {
                 double initxVelocity = Double.parseDouble(xVelocitySelector.getText());
             }
             catch (NumberFormatException exception) {
-                System.out.println("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAa");
                 errorText.setVisible(true);
                 // do not go to the next scene
             }
