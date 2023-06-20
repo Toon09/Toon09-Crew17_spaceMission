@@ -2,10 +2,6 @@ package com.example.planets.BackEnd.CelestialEntities;
 
 import com.example.planets.BackEnd.Models.Gravity0;
 import com.example.planets.BackEnd.Models.Model3D;
-import com.example.planets.BackEnd.Trajectory.LazyTrajectories.LazyTargetting;
-import com.example.planets.BackEnd.Trajectory.LazyTrajectories.LazyTrajectory;
-import com.example.planets.BackEnd.Trajectory.OrbitEnters.Hohmann;
-import com.example.planets.BackEnd.Trajectory.OrbitEnters.OrbitEnterer;
 import com.example.planets.BackEnd.Trajectory.TrajectoryOptimizers.StocasticAscent;
 import com.example.planets.BackEnd.Trajectory.TrajectoryOptimizers.TrajectoryPlanner;
 
@@ -31,12 +27,8 @@ public class Planning {
     // a different maneuver of these on each dimension
     private double[][] maneuverPoints;
     private CelestialBody target;
-    private TrajectoryPlanner planner; // optimizer to get close to the planet
-    private LazyTrajectory lazyPlanner; // just brute forcing closer //////////////////
-    private OrbitEnterer orbiter;
+    private TrajectoryPlanner planner;
 
-    private double orbitalVelocity;
-    private boolean notInLazyStage = true;
 
 
     /**
@@ -47,21 +39,15 @@ public class Planning {
      * @param maxDays
      */
     public Planning(Model3D model, String targetPlanet, String homePlanet, int numberOfStages, int maxDays){
-        this.maneuverPoints = new double[numberOfStages][5];
+        this.maneuverPoints = new double[numberOfStages][4];
 
         for(int i=0; i<model.size(); i++)
-            if( targetPlanet.equalsIgnoreCase(model.getBody(i).getName()) ) {
+            if( targetPlanet.equalsIgnoreCase(model.getBody(i).getName()) )
                 target = model.getBody(i);
-            }
+
 
         //creates planner and gets trajectory
         planner = new StocasticAscent(model, numberOfStages, targetPlanet, maxDays);
-
-        // lazy planner
-        lazyPlanner = new LazyTargetting(model);
-
-        // class for hohmann and the following things
-        orbiter = new Hohmann(model);
 
         // do the calculation of the orbit from the planet
         maneuverPoints = planner.getTrajectory();
@@ -85,15 +71,8 @@ public class Planning {
      *      second dimension [ 0:vel. in x, 1:vel. in y, 2:vel. in z ]
      * @return a 2D array in the format described above, if all maneuvers have been executed, then it returns null
      */
-    public double[] getCurrent(){ //////////////////
-        // if its in the first stage of the planning
-        if(notInLazyStage)
-            return maneuverPoints[countOfStages];
-
-        if(lazyPlanner.finished()) // hohmann goes here
-            return orbiter.getOrbitEntryVel();
-
-        return lazyPlanner.getCurrent();
+    public double[] getCurrent(){ /////////////////
+        return maneuverPoints[countOfStages];
     }
 
 
@@ -102,8 +81,6 @@ public class Planning {
      */
     public void nextDirection(){ ////////////////
         countOfStages++;
-        if(countOfStages >= maneuverPoints.length)
-            notInLazyStage = false;
     }
 
     /**
@@ -128,11 +105,10 @@ public class Planning {
 
 
     public void setState(double[][] state){ //
-        maneuverPoints = new double[state.length][5];
+        maneuverPoints = new double[countOfStages][4];
 
         for(int i=0; i<state.length; i++)
-            for(int j=0; j<5; j++)
-                maneuverPoints[i][j] = state[i][j];
+                maneuverPoints[i] = state[i];
 
     }
 

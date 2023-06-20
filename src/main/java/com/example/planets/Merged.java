@@ -3,6 +3,7 @@ package com.example.planets;
 import com.example.planets.BackEnd.CelestialEntities.CelestialBody;
 import com.example.planets.BackEnd.Models.Gravity0;
 import com.example.planets.BackEnd.NumericalMethods.*;
+import com.example.planets.BackEnd.Trajectory.Cost.MinDistAndFuel;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
@@ -33,7 +34,9 @@ import java.util.TimerTask;
 
 public class Merged extends Application {
     // static private Gravity0 model = new Gravity0(0, Math.PI / 2.0, new Euler());
-    static final private Gravity0 model = new Gravity0(0.0, 0.0, new RK4());
+    static final private Gravity0 model = new Gravity0(0.0, 0.0, new RK4(), "titan", 1, 364, new MinDistAndFuel());
+    // new Gravity0(0.0, 0.0, new RK4(), "target", 1, 364, new MinDistAndFuel());
+    // new Gravity0(0.0, 0.0, new RK4());
     private static int scale = 25;
     private static final int smallScale = 25;
     private static final int bigScale = 2000;    private static int counter = 0;
@@ -354,7 +357,7 @@ public class Merged extends Application {
                     camera.setTranslateY(model.getBody(11).getPos()[1] / scale + 2000);
                     camera.setTranslateZ(model.getBody(11).getPos()[2] / scale - 24000);
                 }
-                goTitan();    //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+                //  goTitan();    //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
             }
         }, 1, 1);
         timer.schedule(new TimerTask() {
