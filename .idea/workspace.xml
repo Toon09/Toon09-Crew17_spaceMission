@@ -4,10 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="bab05458-8716-4abd-8f37-31e577e5aaab" name="Changes" comment="gravity for landing">
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/planets/BackEnd/Models/Gravity0.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/planets/BackEnd/Models/Gravity0.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/planets/BackEnd/Models/GravityForLanding.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/planets/BackEnd/Models/GravityForLanding.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/planets/BackEnd/Trajectory/OpenLoop.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/planets/BackEnd/Trajectory/OpenLoop.java" afterDir="false" />
+    <list default="true" id="bab05458-8716-4abd-8f37-31e577e5aaab" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/planets/BackEnd/Models/StochasticWind.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/planets/BackEnd/Models/StochasticWind.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -23,6 +22,7 @@
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="UPDATE_TYPE" value="REBASE" />
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
@@ -117,6 +117,19 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="OpenLoop" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.example.planets.BackEnd.Trajectory.OpenLoop" />
+      <module name="Toon09-Crew17_spaceMission3" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.example.planets.BackEnd.Trajectory.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration default="true" type="JetRunConfigurationType">
       <method v="2">
         <option name="Make" enabled="true" />
@@ -129,6 +142,7 @@
       </method>
     </configuration>
     <list>
+      <item itemvalue="Application.OpenLoop" />
       <item itemvalue="Application.GA" />
       <item itemvalue="Application.Merged" />
       <item itemvalue="Application.NumericalExperiments" />
@@ -136,6 +150,7 @@
     <recent_temporary>
       <list>
         <item itemvalue="Application.NumericalExperiments" />
+        <item itemvalue="Application.OpenLoop" />
         <item itemvalue="Application.Merged" />
         <item itemvalue="Application.GA" />
       </list>
@@ -483,26 +498,26 @@
       <option name="project" value="LOCAL" />
       <updated>1686748461408</updated>
     </task>
-    <task id="LOCAL-00094" summary="gravity for landing">
-      <created>1686905974091</created>
+    <task id="LOCAL-00094" summary="wind model updated">
+      <created>1686917694775</created>
       <option name="number" value="00094" />
       <option name="presentableId" value="LOCAL-00094" />
       <option name="project" value="LOCAL" />
-      <updated>1686905974092</updated>
+      <updated>1686917694775</updated>
     </task>
-    <task id="LOCAL-00095" summary="gravity for landing">
-      <created>1686906943095</created>
+    <task id="LOCAL-00095" summary="bug fix part 1">
+      <created>1686918498822</created>
       <option name="number" value="00095" />
       <option name="presentableId" value="LOCAL-00095" />
       <option name="project" value="LOCAL" />
-      <updated>1686906943096</updated>
+      <updated>1686918498822</updated>
     </task>
-    <task id="LOCAL-00096" summary="gravity for landing">
-      <created>1686907462510</created>
+    <task id="LOCAL-00096" summary="bug fixed hDeriv with openLOop shenanigans">
+      <created>1686919177351</created>
       <option name="number" value="00096" />
       <option name="presentableId" value="LOCAL-00096" />
       <option name="project" value="LOCAL" />
-      <updated>1686907462510</updated>
+      <updated>1686919177351</updated>
     </task>
     <option name="localTasksCounter" value="97" />
     <servers />
@@ -522,7 +537,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Added whole trajecotry making and usage structure as well as ideas to generate them" />
     <MESSAGE value="renamed an unimplemented method based on whats supposed to be (not yet done)" />
     <MESSAGE value="added stuff" />
     <MESSAGE value="GUI cool stuff" />
@@ -546,8 +560,9 @@
     <MESSAGE value="changes to gradient ascentcost functiosn changed for testing" />
     <MESSAGE value="uncommented" />
     <MESSAGE value="wind model updated" />
-    <MESSAGE value="gravity for landing" />
-    <option name="LAST_COMMIT_MESSAGE" value="gravity for landing" />
+    <MESSAGE value="bug fix part 1" />
+    <MESSAGE value="bug fixed hDeriv with openLOop shenanigans" />
+    <option name="LAST_COMMIT_MESSAGE" value="bug fixed hDeriv with openLOop shenanigans" />
   </component>
   <component name="XDebuggerManager">
     <pin-to-top-manager>
@@ -558,10 +573,5 @@
         <PinnedItemInfo parentTag="com.example.planets.BackEnd.CelestialEntities.Spaceship" memberName="pos" />
       </pinned-members>
     </pin-to-top-manager>
-    <watches-manager>
-      <configuration name="Application">
-        <watch expression="optimizer" />
-      </configuration>
-    </watches-manager>
   </component>
 </project>

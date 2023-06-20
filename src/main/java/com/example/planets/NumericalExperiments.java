@@ -427,7 +427,7 @@ class NumericalExperiments {
         boolean isDay = false;
         int checkInterval = 30; // 30
 
-        double dt = 1.6;
+        double dt = 0.9;
 
         //  testing models
         ArrayList<Model3D> models = new ArrayList<Model3D>();

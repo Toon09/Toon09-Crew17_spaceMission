@@ -5,7 +5,7 @@ import com.example.planets.BackEnd.NumericalMethods.NumSolver;
 import com.example.planets.BackEnd.CelestialEntities.Spaceship;
 import com.example.planets.BackEnd.NumericalMethods.RK4;
 import com.example.planets.BackEnd.Trajectory.Cost.CostFunction;
-import com.example.planets.BackEnd.Trajectory.LandingModule;
+import com.example.planets.BackEnd.Trajectory.LandingModel;
 import com.example.planets.Data.DataGetter;
 
 import java.util.Arrays;
@@ -23,7 +23,6 @@ public class Gravity0 implements Model3D {
 
     private double time = 0;
 
-    private StochasticWind wind = new StochasticWind();
 
 
     /**
@@ -38,7 +37,7 @@ public class Gravity0 implements Model3D {
         if (amountOfShips == 0)
             amountOfShips = 1;
 
-        this.bodies = new CelestialBody[positions.length + amountOfShips]; // error with when there are ships and no ships
+        this.bodies = new CelestialBody[bodies.length]; // error with when there are ships and no ships
         for (int i = 0; i < bodies.length; i++) {
             if (bodies[i] instanceof Spaceship) {
                 this.bodies[i] = ((Spaceship) bodies[i]).clone();
@@ -53,14 +52,16 @@ public class Gravity0 implements Model3D {
     }
 
     //for landing
-    public Gravity0(Spaceship ship, CelestialBody titan, LandingModule[] modules) {
+    public Gravity0(Spaceship ship, CelestialBody titan,LandingModel module) {
         this.amountOfShips = 1;
-        this.amountOfModules = modules.length;
+        this.spaceShipStart = 1;
+        this.bodies = new CelestialBody[2];
         this.bodies[0] = titan;
-        for (int i = 0; i < modules.length; i++) {
-            this.bodies[i + 1] = modules[i];
-            //this.bodies[i + 1].setVel(ship.getAcc());
-        }
+        this.bodies[1]= module;
+//        for (int i = 0; i < modules.length; i++) {
+//            this.bodies[i + 1] = modules[i];
+//            //this.bodies[i + 1].setVel(ship.getAcc());
+//        }
         this.numSolver = new RK4();
     }
 
@@ -331,14 +332,8 @@ public class Gravity0 implements Model3D {
                 if (j == i || bodies[j] instanceof Spaceship) {
                     continue;
                 }
-
                 //calc distance between 2
                 dist = bodies[i].getDistance(bodies[j]);
-
-                // here the wind model is called
-                if (bodies[i] instanceof Spaceship && wind.getDistance(dist)) { //if its within range and a spaceship
-                    wind.stochasticWind((Spaceship) bodies[i]);
-                }
 
                 dist = dist * dist * dist;
 
@@ -353,6 +348,9 @@ public class Gravity0 implements Model3D {
 
     }
 
+    public CelestialBody[] getBodies(){
+        return bodies;
+    }
 
     @Override
     public String getSolverName() {

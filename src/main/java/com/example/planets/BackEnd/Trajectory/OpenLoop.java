@@ -5,6 +5,9 @@ import com.example.planets.BackEnd.CelestialEntities.Planning;
 import com.example.planets.BackEnd.CelestialEntities.Spaceship;
 import com.example.planets.BackEnd.Models.Gravity0;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+
 public class OpenLoop implements IControler {
     private double x; // Horizontal position
     private double y; // Vertical position
@@ -20,12 +23,31 @@ public class OpenLoop implements IControler {
     int numSteps = 100; // Number of simulation steps
     private double u;
     private double v; // Total
-    private Gravity0 gravity;
-    public OpenLoop(Spaceship ship, CelestialBody titan, LandingModule module){
+    private Gravity0 model;
+    public OpenLoop(Spaceship ship, CelestialBody titan, LandingModel module){
         titan.setPos(new double[]{0, -2574, 0});
         ship.setPos(new double[]{0, 300000, 0});
         module.setPos(new double[]{0, 300000, 0});
-        this.gravity = new Gravity0(ship, titan, new LandingModule[]{module});
+        this.model = new Gravity0(ship, titan, module);
+        System.out.println("lenght of bodies: "+ model.getBodies().length);
+        System.out.println(model.getBody(0).toString());
+        System.out.println(model.getBody(1).toString());
+        for(int i = 0; i<100; i++){
+            model.updatePos(20,3,false);
+            print();
+        }
+    }
+
+    public static void main(String[] args) {
+        Spaceship ship = new Spaceship(4200,new double[]{0,300,0}, new double[]{0,0,0});
+        CelestialBody titan = new CelestialBody("titan",1.35e23,new double[]{0, -2574, 0},new double[]{0, 0, 0});
+        LandingModel module = new LandingModel(4200,new double[]{0, 300000, 0},new double[]{0, 0, 0});
+        OpenLoop openLoop = new OpenLoop(ship,titan,module);
+    }
+
+    private void print(){
+        System.out.println("titan at: " + Arrays.toString(model.getBody(0).getPos()));
+        System.out.println("module at: " + Arrays.toString(model.getBody(1).getPos()));
     }
 
     @Override public Planning claclateThrust(double initialX, double initialY, double initialTheta,
@@ -38,14 +60,7 @@ public class OpenLoop implements IControler {
         g = gravity;
         return null;
     }
-    private void IDK (){
-        gravity.updatePos(666/2,4,false);
-        double againIDK = 3782798.963730428/4200/2;
-        double x = gravity.getBody(0).getVel()[0];
-        double y = gravity.getBody(1).getVel()[1] + againIDK;
-        double z = gravity.getBody(1).getVel()[2];
-        gravity.getBody(1).setVel(new double[] {x,y,z});
-    }
+
 
     // Method to update the spaceship's position and orientation over time
     public void update(double dt) {

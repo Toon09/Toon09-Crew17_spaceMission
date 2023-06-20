@@ -2,6 +2,7 @@ package com.example.planets.BackEnd.CelestialEntities;
 
 import com.example.planets.BackEnd.Models.Gravity0;
 import com.example.planets.BackEnd.Models.Model3D;
+import com.example.planets.BackEnd.Models.StochasticWind;
 import com.example.planets.BackEnd.Trajectory.Cost.CostFunction;
 import com.example.planets.BackEnd.Trajectory.Cost.PlanetaryRing;
 
@@ -16,6 +17,7 @@ public class Spaceship extends CelestialBody {
     private double usedFuel;
     //has all the information of where to go and such
     private Planning plan;
+    private StochasticWind wind = new StochasticWind();
     private CostFunction costFunc;
     private double cost=0.0;
     private double closestDist = 0.0;
@@ -23,6 +25,7 @@ public class Spaceship extends CelestialBody {
     private  final double maxForce = 3 * Math.pow(10, 7); // Newtons
     private final double fuelConsumption = 1451.5; //kg this fuel consumption is based on the falcon 9 maximum fuel consumption, so at max acceleration the consumption is this one.
     private CelestialBody target;
+    private Model3D model;
 
     public double getUsedFuel(){ return usedFuel; }
     // public void setFuel(double fuel){ this.fuel = fuel; }
@@ -97,6 +100,10 @@ public class Spaceship extends CelestialBody {
 
         usedFuel = 0;
 
+    }
+
+    public void setModel(Model3D model){
+        this.model = model;
     }
 
 
@@ -174,6 +181,7 @@ public class Spaceship extends CelestialBody {
      * @param dt is the time step used on the numerical solvers
      */
     public void accelerate(double time, double dt){
+
         if( time > plan.getCurrent()[1] + plan.getCurrent()[0] && plan.getStageVal() < plan.getManeuverLength() -1 ){
             plan.nextDirection();
         }
@@ -192,10 +200,6 @@ public class Spaceship extends CelestialBody {
             setVel(current);
         }
 
-    }
-
-    public void setCostFunc(CostFunction costFunc){
-        this.costFunc = costFunc;
     }
 
 
@@ -227,9 +231,16 @@ public class Spaceship extends CelestialBody {
     public Spaceship clone() {
         CelestialBody temp = super.clone();
 
-        if(plan == null)
-            return new Spaceship(temp, null, costFunc);
-        return new Spaceship(temp, plan, costFunc);
+        Spaceship cloned;
+
+        if(plan == null){
+            cloned = new Spaceship(temp, null, costFunc);
+            cloned.setModel(this.model);
+            return cloned;
+        }
+        cloned = new Spaceship(temp, plan, costFunc);
+        cloned.setModel(this.model);
+        return cloned;
     }
 
     public void addAcc(double[] acc) {

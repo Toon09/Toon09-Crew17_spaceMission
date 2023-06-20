@@ -19,7 +19,7 @@ public class Planning {
 
     // this arrayList contains 2D arrays of:
     //[ 0:start of time interval, 1:end of interval, 2:acc. in x, 3:acc. in y, 4:acc. in z ]
-    // a different maneuver of these on each diemnsion
+    // a different maneuver of these on each dimension
     private double[][] maneuverPoints;
     private CelestialBody target;
     private TrajectoryPlanner planner;
