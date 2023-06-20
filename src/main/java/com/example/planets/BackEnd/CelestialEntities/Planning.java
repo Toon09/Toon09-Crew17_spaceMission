@@ -1,6 +1,5 @@
 package com.example.planets.BackEnd.CelestialEntities;
 
-import com.example.planets.BackEnd.Models.Gravity0;
 import com.example.planets.BackEnd.Models.Model3D;
 import com.example.planets.BackEnd.Trajectory.TrajectoryOptimizers.StocasticAscent;
 import com.example.planets.BackEnd.Trajectory.TrajectoryOptimizers.TrajectoryHolder;
@@ -61,8 +60,8 @@ public class Planning {
     /**
      * increases the count to access the next maneuverPoint that needs to be checked and executed
      */
-    public void nextDirection(){ ////////////////
-        planner.next(); ///////////////////////////////
+    public void nextDirection(){
+        planner.next();
     }
 
     /**
