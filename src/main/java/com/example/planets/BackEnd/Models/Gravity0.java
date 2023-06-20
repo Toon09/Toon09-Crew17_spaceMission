@@ -5,6 +5,7 @@ import com.example.planets.BackEnd.NumericalMethods.NumSolver;
 import com.example.planets.BackEnd.CelestialEntities.Spaceship;
 import com.example.planets.BackEnd.NumericalMethods.RK4;
 import com.example.planets.BackEnd.Trajectory.Cost.CostFunction;
+import com.example.planets.BackEnd.Trajectory.LandingModel;
 import com.example.planets.BackEnd.Trajectory.LandingModule;
 import com.example.planets.Data.DataGetter;
 
@@ -52,17 +53,13 @@ public class Gravity0 implements Model3D {
     }
 
     //for landing
-    public Gravity0(Spaceship ship, CelestialBody titan, LandingModule module) {
+    public Gravity0(CelestialBody titan, LandingModel module) {
 
         this.amountOfShips = 1;
         this.spaceShipStart = 1;
         this.bodies = new CelestialBody[2];
         this.bodies[0] = titan;
         this.bodies[1]= module;
-//        for (int i = 0; i < modules.length; i++) {
-//            this.bodies[i + 1] = modules[i];
-//            //this.bodies[i + 1].setVel(ship.getAcc());
-//        }
         this.numSolver = new RK4();
     }
 

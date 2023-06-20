@@ -3,40 +3,35 @@ package com.example.planets.BackEnd.Trajectory;
 import com.example.planets.BackEnd.CelestialEntities.CelestialBody;
 import com.example.planets.BackEnd.CelestialEntities.Spaceship;
 import com.example.planets.BackEnd.Models.Gravity0;
+import org.apache.xmlbeans.xml.stream.Space;
 
 public class FeedBack implements IControler {
     private final LandingModel landingModule;
-    private final double[] zeroPosition;
     private final double[] directionsToZero = new double[2];
     private final CelestialBody titan;
+    private final Gravity0 model;
 
-    public FeedBack(Gravity0 model) {
+    /**
+     * default constructor that places the landing module at X = 0, Y = 300km and Y = 0 is the surface of titan
+     */
+    public FeedBack() {
+        titan = new CelestialBody(1.35e23, new double[]{0, -2574, 0}, new double[]{0, 0, 0});
+        landingModule = new LandingModel(4200, new double[]{0, 300, 0}, new double[]{0, 0, 0});
+        model = new Gravity0(titan, landingModule);
         Spaceship ship = model.getShip();
-        landingModule = new LandingModel(4200, new double[]{ship.getPos()[0], ship.getPos()[1], 0}, new double[]{ship.getVel()[0], ship.getVel()[1], 0});
-        titan = model.getBody(8);
-        zeroPosition = getPoint(titan.getPos(), ship.getPos(), 2574.7);
-        directionsToZero[0] = zeroPosition[0] - titan.getPos()[0];
-        directionsToZero[1] = zeroPosition[1] - titan.getPos()[1];
     }
 
-    public void update() {
-        setZero();
-        double difference = getDistance2D(landingModule.getPos(), zeroPosition);
-        double speed = 0.001;
-        if (difference > 100){
-            speed = 1;
-        }else if (difference > 50){
-            speed = 0.5;
-        }else if (difference > 1){
-            speed = 0.2;
-        }
-        double[] xAndY = getDirection(landingModule.getPos(), zeroPosition, speed);
-        landingModule.setVel(new double[]{xAndY[0], xAndY[1], 0});
+    /**
+     * @param initialPosition an array specifying the landing module position where index 0 is X position, index 1 is Y position
+     * @param inicitalVelocity one value of Y axis initial velocity of the module
+     */
+    public FeedBack(double initialPosition[], double inicitalVelocity){
+        titan = new CelestialBody(1.35e23, new double[]{0, -2574, 0}, new double[]{0, 0, 0});
+        landingModule = new LandingModel(4200, new double[]{initialPosition[0],initialPosition[1], 0}, new double[]{inicitalVelocity, 0 , 0});
+        model = new Gravity0(titan, landingModule);
+        Spaceship ship = model.getShip();
     }
-    private void setZero() {
-        zeroPosition[0] = titan.getPos()[0] + directionsToZero[0];
-        zeroPosition[1] = titan.getPos()[1] + directionsToZero[1];
-    }
+
 
     private double[] getPoint(double[] A, double[] B, double distance) {
         double X = B[0] - A[0];
@@ -64,7 +59,11 @@ public class FeedBack implements IControler {
 
         return new double[]{directionX, directionY};
     }
+
     public LandingModel getLandingModule() {
         return landingModule;
+    }
+    public Gravity0 getModel(){
+        return model;
     }
 }
