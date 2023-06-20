@@ -11,6 +11,7 @@ find way to save closest distance from target in ship
  */
 
 public class GradientAscend implements TrajectoryPlanner {
+    private int stage = 0;
 
     private final int numbOfSteps = 30;
     private final int numbOfStages;
@@ -29,10 +30,8 @@ public class GradientAscend implements TrajectoryPlanner {
 
     }
 
-    /*
 
-     */
-    private void makeTrajectory(){
+    private void optimizeTrajectory(){
 
         double[][] state = new double[numbOfStages][5];
 
@@ -103,11 +102,32 @@ public class GradientAscend implements TrajectoryPlanner {
 
 
     @Override
-    public double[][] getTrajectory() {
+    public void makeTrajectory() {
         if( trajectory == null )
-            makeTrajectory();
+            optimizeTrajectory();
+    }
 
+    @Override
+    public double[][] getTrajectory() {
         return trajectory;
+    }
+
+
+    @Override
+    public void next() {
+        stage++;
+    }
+
+    @Override
+    public double[] getCurrent() {
+        if(stage>= trajectory.length)
+            return new double[] {0,0,0,0};
+        return trajectory[stage];
+    }
+
+    @Override
+    public void setTrajectory(double[][] trajectory) {
+        this.trajectory = trajectory;
     }
 
 

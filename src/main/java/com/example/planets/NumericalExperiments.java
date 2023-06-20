@@ -51,10 +51,8 @@ class NumericalExperiments {
 
         model.addShips(1); //ship that will be unchanged
 
-        double[][] plan = new double[][] {{0,10*60,
-                11,0,0},
-                {3*24*60*60, 3*24*60*60 + 30*60,
-                        2,2,2}};
+        double[][] plan = new double[][] {{0,11,0,0},
+                {3*24*60*60, 2,2,2}};
 
         model.getShip().setPlan( plan );
 
@@ -324,7 +322,7 @@ class NumericalExperiments {
         // set up hyper parameters
         int time = 364; // max number of days for a sim to reach goal
         String target = "titan";
-        int numberOfStages = 4;
+        int numberOfStages = 1;
         double updatePeriod = 1.0; // period on which it shows the positions (in unit of days)
 
         // to print how long the planning takes
@@ -341,39 +339,37 @@ class NumericalExperiments {
 
         System.out.println("Planning took: " + chrono + "ms\n\n\n");
 
-        System.out.println(Arrays.deepToString(model.getShip().getPlan()));
-
-
         double[] error = new double[] {0.0, 0.0, 0.0};
         double errorMagnitude = 0.0;
+
 
         System.out.println("Showing travel");
 
         // trajectory is already done, run sim and check time step
         for(int i=0; i<time/updatePeriod; i++){
-            model.updatePos( updatePeriod, 1.0, true ); // every half a day
+            model.updatePos( updatePeriod, 10.0, true ); // every half a day
             CelestialBody targetBody = model.getShip().getTarget();
 
-            System.out.println("Target: " + target);
-            System.out.println("Time passed: " + (i+1)*updatePeriod + " Days");
+            //System.out.println("Target: " + target);
+            //System.out.println("Time passed: " + (i+1)*updatePeriod + " Days");
 
-            System.out.println("Sim time: " + model.getTime() + "s");
+            //System.out.println("Sim time: " + model.getTime() + "s");
 
-            System.out.println("Target position= X:" + targetBody.getPos()[0] +
-                    "; Y:" + targetBody.getPos()[1] + "; Z:" + targetBody.getPos()[2]);
+            //System.out.println("Target position= X:" + targetBody.getPos()[0] +
+            //        "; Y:" + targetBody.getPos()[1] + "; Z:" + targetBody.getPos()[2]);
 
-            System.out.println("Ship position= X:" + model.getShip().getPos()[0] +
-                    "; Y:" + model.getShip().getPos()[1] +
-                    "; Z:" + model.getShip().getPos()[2]);
+            //System.out.println("Ship position= X:" + model.getShip().getPos()[0] +
+            //        "; Y:" + model.getShip().getPos()[1] +
+            //        "; Z:" + model.getShip().getPos()[2]);
 
             for(int j=0; j<error.length; j++)
                 error[j] = targetBody.getPos()[j] - model.getShip().getPos()[j];
             errorMagnitude = Math.sqrt( error[0]*error[0] + error[1]*error[1] + error[2]*error[2] );
 
             // System.out.println("Error= X:" + error[0] + "; Y:" + error[1] + "; Z:" + error[2]);
-            System.out.println("Error magnitude: " + errorMagnitude + "km");
-            System.out.println("Closest dist: " + model.getShip().getClosestDistance() + "km");
-            System.out.println("trget from ship: " + model.getShip().getTarget() + "\n\n");
+            System.out.println("BBBBBBBBBBBBB Error magnitude: " + errorMagnitude + "km");
+            //System.out.println("Closest dist: " + model.getShip().getClosestDistance() + "km");
+            //System.out.println("trget from ship: " + model.getShip().getTarget() + "\n\n");
 
         }
 
