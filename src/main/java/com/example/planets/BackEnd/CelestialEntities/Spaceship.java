@@ -183,7 +183,7 @@ public class Spaceship extends CelestialBody {
      */
     public void accelerate(double time, double dt){
 
-        usedFuel += motor.useFuel(plan, mass);
+        this.usedFuel += motor.useFuel(plan, this.mass);
 
         addVel(motor.thrust(plan, time));
 

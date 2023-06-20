@@ -27,7 +27,7 @@ class NumericalExperiments {
 
         //comparingToNasaData();
 
-        //trajectoryTesting();
+        trajectoryTesting();
 
         //testingAccuracyOfSolvers();
 
@@ -320,7 +320,7 @@ class NumericalExperiments {
         // set up hyper parameters
         int time = 364; // max number of days for a sim to reach goal
         String target = "titan";
-        int numberOfStages = 1;
+        int numberOfStages = 4;
         double updatePeriod = 1.0; // period on which it shows the positions (in unit of days)
 
         // to print how long the planning takes

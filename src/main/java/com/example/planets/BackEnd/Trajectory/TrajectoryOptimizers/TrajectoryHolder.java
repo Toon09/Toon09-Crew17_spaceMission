@@ -14,7 +14,8 @@ public class TrajectoryHolder implements TrajectoryPlanner{
 
     @Override
     public void next() {
-        stage++;
+        if(stage!= trajectory.length)
+            stage++;
     }
 
     @Override
@@ -23,7 +24,6 @@ public class TrajectoryHolder implements TrajectoryPlanner{
             return new double[] {0,0,0,0};
         return trajectory[stage];
     }
-
 
     @Override
     public void setTrajectory(double[][] trajectory) {

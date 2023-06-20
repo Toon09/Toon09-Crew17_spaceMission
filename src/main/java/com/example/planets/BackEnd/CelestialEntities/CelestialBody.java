@@ -205,8 +205,6 @@ public class CelestialBody {
         return true;
     }
 
-
-    /////////////////////////////// IMPLEMENT
     public CelestialBody clone() {
         return new CelestialBody(this.getName(), this.getMass(), this.getPos(), this.getVel());
     }

@@ -1,5 +1,7 @@
 package com.example.planets.BackEnd.CelestialEntities;
 
+import java.util.Arrays;
+
 public class Engine {
     private static final double maxSpeed = 11.0;
     private static final double maxForce = 3.0 * Math.pow(10, 7); // Newtons
@@ -21,6 +23,7 @@ public class Engine {
 
     public double useFuel(Planning plan, double mass) {
         double magnitude = calcMagnitude(plan.getCurrent());
+
         return (magnitude*mass/maxForce)*fuelConsumption;
     }
 
@@ -28,12 +31,12 @@ public class Engine {
     private double calcMagnitude(double[] velocity) {
         double magnitude = 0.0;
         for (int i = 1; i < 4; i++) {
-            magnitude += Math.pow(velocity[i], 2);
+            magnitude += velocity[i]*velocity[i];
         }
         return Math.sqrt(magnitude);
     }
-    public static double getMaxSpeed(){ return maxSpeed; }
 
+    public static double getMaxSpeed(){ return maxSpeed; }
 
 
 }
