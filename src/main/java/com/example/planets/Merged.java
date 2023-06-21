@@ -316,7 +316,7 @@ public class Merged extends Application {
         TextField xVelocitySelector = new TextField();
         xVelocitySelector.setLayoutX((ScreenWIDTH-100)/2);
         xVelocitySelector.setLayoutY((ScreenHEIGHT+200)/2);
-        Text xVelocity = new Text("Choose initial ship velocity");
+        Text xVelocity = new Text("Choose initial ship velocity (V)");
         xVelocity.setFill(Color.WHITE);
         xVelocity.setLayoutX((ScreenWIDTH-100)/2);
         xVelocity.setLayoutY((ScreenHEIGHT+180)/2);
