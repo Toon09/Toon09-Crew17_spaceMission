@@ -2,9 +2,7 @@ package com.example.planets.BackEnd.CelestialEntities;
 
 import com.example.planets.BackEnd.Models.Gravity0;
 import com.example.planets.BackEnd.Models.Model3D;
-import com.example.planets.BackEnd.Models.StochasticWind;
 import com.example.planets.BackEnd.Trajectory.Cost.CostFunction;
-import com.example.planets.BackEnd.Trajectory.Cost.PlanetaryRing;
 
 /*
 add methods related to changing trajectory to another class that has an instance in this one
@@ -182,10 +180,9 @@ public class Spaceship extends CelestialBody {
      * @param dt is the time step used on the numerical solvers
      */
     public void accelerate(double time, double dt){
+        //System.out.println(Arrays.toString(plan.getCurrent()));
 
-        this.usedFuel += motor.useFuel(plan, this.mass);
-
-        addVel(motor.thrust(plan, time));
+        addVel(motor.thrust(plan, mass, time, dt)); // plan is 0??
 
     }
 
@@ -221,11 +218,6 @@ public class Spaceship extends CelestialBody {
 
         Spaceship cloned;
 
-        if(plan == null){
-            cloned = new Spaceship(temp, null, costFunc);
-            cloned.setModel(this.model);
-            return cloned;
-        }
         cloned = new Spaceship(temp, plan, costFunc);
         cloned.setModel(this.model);
         return cloned;
