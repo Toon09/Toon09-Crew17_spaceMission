@@ -219,65 +219,6 @@ public class Merged extends Application {
         worldRotX.setAngle(worldRotX.getAngle());
         System.out.println(camera.getRotationAxis());
         world.setRotationAxis(new Point3D(model.getBody(3).getPos()[0], model.getBody(3).getPos()[1], model.getBody(3).getPos()[2]));
-        // -------------------------------------------------------------------------------------------------------------
-        // CHOOSE INITIAL LANDING DATA GUI
-
-        Group initialData = new Group();
-        Scene dataSelector = new Scene(initialData, ScreenWIDTH, ScreenHEIGHT);
-        dataSelector.setFill(Color.BLACK);
-
-//        if (distance < targetDistance) {
-//              stage.setScene(dataSelector);
-//        }
-
-        TextField altitudeSelector = new TextField(); // Y coordinate
-        TextField longitudeSelector = new TextField(); // X coordinate
-        TextField xVelocitySelector = new TextField();
-        altitudeSelector.setLayoutX((ScreenWIDTH-100)/2);
-        altitudeSelector.setLayoutY((ScreenHEIGHT+200)/2);
-        longitudeSelector.setLayoutX((ScreenWIDTH-100)/2);
-        longitudeSelector.setLayoutY((ScreenHEIGHT)/2);
-        xVelocitySelector.setLayoutX((ScreenWIDTH-100)/2);
-        xVelocitySelector.setLayoutY((ScreenHEIGHT-200)/2);
-
-        Text errorText = new Text("Only numbers are allowed!");
-        errorText.setLayoutX((ScreenWIDTH)/2);
-        errorText.setLayoutY((ScreenHEIGHT-400)/2);
-        errorText.setFill(Color.MEDIUMVIOLETRED);
-        errorText.setVisible(false);
-
-        Button awewa = new Button("SELECTOR"); // just for now
-        awewa.setLayoutY((ScreenHEIGHT+200)/2);
-        awewa.setOnAction(e -> stage.setScene(dataSelector));
-        root.getChildren().add(awewa);
-
-        Button submit = new Button("SUBMIT");
-        submit.setLayoutX((ScreenWIDTH-100)/2);
-        submit.setLayoutY((ScreenHEIGHT+400)/2);
-        submit.setOnAction(e -> {
-            try {
-                double initAltitude = Double.parseDouble(altitudeSelector.getText());
-                double initLongitude = Double.parseDouble(longitudeSelector.getText());
-                double initxVelocity = Double.parseDouble(xVelocitySelector.getText());
-            }
-            catch (NumberFormatException exception) {
-                errorText.setVisible(true);
-                // do not go to the next scene
-            }
-        });
-
-        dataSelector.addEventHandler(KeyEvent.KEY_PRESSED, event -> {
-            if (event.getCode() == KeyCode.B) {
-                stage.setScene(scene);
-            }
-        });
-
-        initialData.getChildren().addAll(altitudeSelector, longitudeSelector, xVelocitySelector, submit, errorText);
-
-        // I WOKE UP IN A BUGATTI
-        // -------------------------------------------------------------------------------------------------------------
-
-
 
         // -------------------------------------------------------------------------------------------------------------
         // LANDING ON TITAN GUI
@@ -346,6 +287,78 @@ public class Merged extends Application {
         landing.getChildren().addAll(titan, spaceship, landingModule, landingCamera);
 
         // THAT'S HOW WE SEPARATE CODE
+        // -------------------------------------------------------------------------------------------------------------
+
+
+        // -------------------------------------------------------------------------------------------------------------
+        // CHOOSE INITIAL LANDING DATA GUI
+
+        Group initialData = new Group();
+        Scene dataSelector = new Scene(initialData, ScreenWIDTH, ScreenHEIGHT);
+        dataSelector.setFill(Color.BLACK);
+
+        TextField altitudeSelector = new TextField(); // X coordinate
+        altitudeSelector.setLayoutX((ScreenWIDTH-100)/2);
+        altitudeSelector.setLayoutY((ScreenHEIGHT-200)/2);
+        Text altitude = new Text("Choose initial altitude (X)");
+        altitude.setFill(Color.WHITE);
+        altitude.setLayoutX((ScreenWIDTH-100)/2);
+        altitude.setLayoutY((ScreenHEIGHT-220)/2);
+
+        TextField longitudeSelector = new TextField(); // Y coordinate
+        longitudeSelector.setLayoutX((ScreenWIDTH-100)/2);
+        longitudeSelector.setLayoutY(ScreenHEIGHT/2);
+        Text longitude = new Text("Choose initial longitude (Y)");
+        longitude.setFill(Color.WHITE);
+        longitude.setLayoutX((ScreenWIDTH-100)/2);
+        longitude.setLayoutY((ScreenHEIGHT-20)/2);
+
+        TextField xVelocitySelector = new TextField();
+        xVelocitySelector.setLayoutX((ScreenWIDTH-100)/2);
+        xVelocitySelector.setLayoutY((ScreenHEIGHT+200)/2);
+        Text xVelocity = new Text("Choose initial ship velocity");
+        xVelocity.setFill(Color.WHITE);
+        xVelocity.setLayoutX((ScreenWIDTH-100)/2);
+        xVelocity.setLayoutY((ScreenHEIGHT+180)/2);
+
+        Button awewa = new Button("SELECTOR"); // just for now
+        awewa.setLayoutY((ScreenHEIGHT+200)/2);
+        awewa.setOnAction(e -> stage.setScene(dataSelector));
+        root.getChildren().add(awewa);
+
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Error");
+        alert.setHeaderText("Unexpected input");
+        alert.setContentText("Only doubles are allowed!");
+
+        Button submit = new Button("SUBMIT");
+        submit.setLayoutX((ScreenWIDTH-100)/2);
+        submit.setLayoutY((ScreenHEIGHT+400)/2);
+
+        submit.setOnAction(e -> {
+            try {
+                double initAltitude = Double.parseDouble(altitudeSelector.getText());
+                double initLongitude = Double.parseDouble(longitudeSelector.getText());
+                double initxVelocity = Double.parseDouble(xVelocitySelector.getText());
+                stage.setScene(landingScene);
+            }
+            catch (NumberFormatException exception) {
+                //errorText.setVisible(true);
+                alert.showAndWait();
+                altitudeSelector.clear();
+                longitudeSelector.clear();
+                xVelocitySelector.clear();
+            }
+        });
+
+        dataSelector.addEventHandler(KeyEvent.KEY_PRESSED, event -> {
+            if (event.getCode() == KeyCode.B) {
+                stage.setScene(scene);
+            }
+        });
+
+        initialData.getChildren().addAll(altitudeSelector, longitudeSelector, xVelocitySelector, submit, altitude,
+                longitude, xVelocity);
         // -------------------------------------------------------------------------------------------------------------
 
         stage.show();
