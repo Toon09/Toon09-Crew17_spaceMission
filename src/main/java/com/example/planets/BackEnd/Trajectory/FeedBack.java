@@ -77,11 +77,11 @@ public class FeedBack implements IControler {
     private void correctY(double target, boolean boost) {
         if (boost){
             double difference = target - landingModule.getVel()[1];
-            landingModule.addVel(new double[]{0, difference*1.7, 0});
+            activateEngine(difference*1.7);
         }else {
             target = target * -1; // that's because we are going down, so we want negative velocity
             double difference = target - landingModule.getVel()[1];
-            landingModule.addVel(new double[]{0, difference, 0});
+            activateEngine(difference);
         }
     }
 
