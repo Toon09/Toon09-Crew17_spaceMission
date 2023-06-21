@@ -1,43 +1,31 @@
 package com.example.planets;
-
 import com.example.planets.BackEnd.CelestialEntities.CelestialBody;
 import com.example.planets.BackEnd.Models.Gravity0;
 import com.example.planets.BackEnd.NumericalMethods.*;
 import com.example.planets.BackEnd.Trajectory.Cost.MinDistAndFuel;
-import javafx.application.Application;
-import javafx.application.Platform;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
+import javafx.application.*;
+import javafx.collections.*;
 import javafx.geometry.Point3D;
 import javafx.scene.*;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
-import javafx.scene.paint.Color;
-import javafx.scene.paint.PhongMaterial;
-import javafx.scene.shape.Box;
-import javafx.scene.shape.Cylinder;
-import javafx.scene.shape.Sphere;
-import javafx.scene.text.Font;
-import javafx.scene.text.Text;
-import javafx.scene.text.TextAlignment;
+import javafx.scene.input.*;
+import javafx.scene.paint.*;
+import javafx.scene.shape.*;
+import javafx.scene.text.*;
 import javafx.scene.transform.Rotate;
 import javafx.stage.Stage;
-
-import java.util.Arrays;
-import java.util.Timer;
-import java.util.TimerTask;
+import java.util.*;
 
 public class Merged extends Application {
+
     // static private Gravity0 model = new Gravity0(0, Math.PI / 2.0, new Euler());
     // static final private Gravity0 model = new Gravity0(0.0, 0.0, new RK4());
     static private Gravity0 model = new Gravity0(0.0, 0.0, new RK4(), "titan", 1, 364, new MinDistAndFuel());
     private static int scale = 25;
     private static final int smallScale = 25;
-    private static final int bigScale = 2000;    private static int counter = 0;
+    private static final int bigScale = 2000;
+    private static int counter = 0;
     private static boolean lookAtEarth = false;
     private static boolean lookAtTitan = false;
     private static boolean lookAtSun = false;
@@ -60,25 +48,25 @@ public class Merged extends Application {
     private final static Text reachedTitanText = new Text("Reached titan in : not yet (days)");
     private final static Text reachedTitan2Text = new Text("Closest distance reached by the spacecraft : (km)");
     private static boolean checkForReachedTitan = false;
-
     final int ScreenWIDTH = 1920;
     final int ScreenHEIGHT = 1080;
+
 
     @Override
     public void start(Stage stage) throws Exception {
 
         inicilizePath();
-
         stage.setMaximized(true);
+
         //create a new group
         Group root = new Group();
-
 
         Group world = createEnvironment();
         SubScene worldScene = new SubScene(world, ScreenWIDTH, ScreenHEIGHT, true, SceneAntialiasing.BALANCED);
 
         Scene scene = new Scene(root, ScreenWIDTH, ScreenHEIGHT, true);
         world.getChildren().addAll(path);
+
         //background
         worldScene.setFill(Color.BLACK);
         scene.setFill(Color.BLACK);
@@ -130,18 +118,16 @@ public class Merged extends Application {
         Label fuelLabel = new Label("0.0");
         fuelLabel.setTextFill(Color.WHITE);
         fuelLabel.setLayoutY(20);
-        //bar
-        ProgressBar progressBar = new ProgressBar(0.5);
-        progressBar.setLayoutY(40);
+
         ObservableList<String> options =
                 FXCollections.observableArrayList(
                         "0.01", "0.1", "0.5", "1.0", "1.5"
                 );
+
         //ComboBox
         ComboBox dtBox = new ComboBox(options);
         dtBox.setLayoutY(60);
         root.getChildren().addAll(worldScene, textLabel, fuelLabel, dtBox, positionText, distanceText, timeText, reachedTitanText, reachedTitan2Text);
-
 
         //initial camera setting
         worldScene.setCamera(camera);
@@ -219,11 +205,77 @@ public class Merged extends Application {
         worldRotX.setAngle(worldRotX.getAngle());
         System.out.println(camera.getRotationAxis());
         world.setRotationAxis(new Point3D(model.getBody(3).getPos()[0], model.getBody(3).getPos()[1], model.getBody(3).getPos()[2]));
+        // -------------------------------------------------------------------------------------------------------------
+        // CHOOSE INITIAL LANDING DATA GUI
+
+        Group initialData = new Group();
+        Scene dataSelector = new Scene(initialData, ScreenWIDTH, ScreenHEIGHT);
+        dataSelector.setFill(Color.BLACK);
+
+        TextField altitudeSelector = new TextField();
+        altitudeSelector.setLayoutX((ScreenWIDTH-100)/2);
+        altitudeSelector.setLayoutY((ScreenHEIGHT-200)/2);
+
+        Text altitude = new Text("Choose initial altitude (X)");
+        altitude.setFill(Color.WHITE);
+        altitude.setLayoutX((ScreenWIDTH-100)/2);
+        altitude.setLayoutY((ScreenHEIGHT-220)/2);
+
+        TextField longitudeSelector = new TextField();
+        longitudeSelector.setLayoutX((ScreenWIDTH-100)/2);
+        longitudeSelector.setLayoutY(ScreenHEIGHT/2);
+
+        Text longitude = new Text("Choose initial longitude (Y)");
+        longitude.setFill(Color.WHITE);
+        longitude.setLayoutX((ScreenWIDTH-100)/2);
+        longitude.setLayoutY((ScreenHEIGHT-20)/2);
+
+        TextField xVelocitySelector = new TextField();
+        xVelocitySelector.setLayoutX((ScreenWIDTH-100)/2);
+        xVelocitySelector.setLayoutY((ScreenHEIGHT+200)/2);
+
+        Text xVelocity = new Text("Choose initial ship velocity (V)");
+        xVelocity.setFill(Color.WHITE);
+        xVelocity.setLayoutX((ScreenWIDTH-100)/2);
+        xVelocity.setLayoutY((ScreenHEIGHT+180)/2);
+
+        Button awewa = new Button("SELECTOR"); // just for now
+        awewa.setLayoutY((ScreenHEIGHT+200)/2);
+        awewa.setOnAction(e -> stage.setScene(dataSelector));
+        root.getChildren().add(awewa);
+
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Error");
+        alert.setHeaderText("Unexpected input");
+        alert.setContentText("Only doubles are allowed!");
+
+        Button submit = new Button("SUBMIT");
+        submit.setLayoutX((ScreenWIDTH-100)/2);
+        submit.setLayoutY((ScreenHEIGHT+400)/2);
+        submit.setOnAction(e -> {
+            try {
+                double initAltitude = Double.parseDouble(altitudeSelector.getText());
+                double initLongitude = Double.parseDouble(longitudeSelector.getText());
+                double initxVelocity = Double.parseDouble(xVelocitySelector.getText());
+                stage.setScene(scene);
+            }
+            catch (NumberFormatException exception) {
+                //errorText.setVisible(true);
+                alert.showAndWait();
+                altitudeSelector.clear();
+                longitudeSelector.clear();
+                xVelocitySelector.clear();
+            }
+        });
+        dataSelector.addEventHandler(KeyEvent.KEY_PRESSED, event -> {
+            if (event.getCode() == KeyCode.B) {
+                stage.setScene(scene);
+            }
+        });
+        initialData.getChildren().addAll(altitudeSelector, longitudeSelector, xVelocitySelector, submit, altitude, longitude, xVelocity);
 
         // -------------------------------------------------------------------------------------------------------------
         // LANDING ON TITAN GUI
-
-
 
         Group landing = new Group();
         Scene landingScene = new Scene(landing, ScreenWIDTH, ScreenHEIGHT);
@@ -286,79 +338,6 @@ public class Merged extends Application {
 
         landing.getChildren().addAll(titan, spaceship, landingModule, landingCamera);
 
-        // THAT'S HOW WE SEPARATE CODE
-        // -------------------------------------------------------------------------------------------------------------
-
-
-        // -------------------------------------------------------------------------------------------------------------
-        // CHOOSE INITIAL LANDING DATA GUI
-
-        Group initialData = new Group();
-        Scene dataSelector = new Scene(initialData, ScreenWIDTH, ScreenHEIGHT);
-        dataSelector.setFill(Color.BLACK);
-
-        TextField altitudeSelector = new TextField(); // X coordinate
-        altitudeSelector.setLayoutX((ScreenWIDTH-100)/2);
-        altitudeSelector.setLayoutY((ScreenHEIGHT-200)/2);
-        Text altitude = new Text("Choose initial altitude (X)");
-        altitude.setFill(Color.WHITE);
-        altitude.setLayoutX((ScreenWIDTH-100)/2);
-        altitude.setLayoutY((ScreenHEIGHT-220)/2);
-
-        TextField longitudeSelector = new TextField(); // Y coordinate
-        longitudeSelector.setLayoutX((ScreenWIDTH-100)/2);
-        longitudeSelector.setLayoutY(ScreenHEIGHT/2);
-        Text longitude = new Text("Choose initial longitude (Y)");
-        longitude.setFill(Color.WHITE);
-        longitude.setLayoutX((ScreenWIDTH-100)/2);
-        longitude.setLayoutY((ScreenHEIGHT-20)/2);
-
-        TextField xVelocitySelector = new TextField();
-        xVelocitySelector.setLayoutX((ScreenWIDTH-100)/2);
-        xVelocitySelector.setLayoutY((ScreenHEIGHT+200)/2);
-        Text xVelocity = new Text("Choose initial ship velocity (V)");
-        xVelocity.setFill(Color.WHITE);
-        xVelocity.setLayoutX((ScreenWIDTH-100)/2);
-        xVelocity.setLayoutY((ScreenHEIGHT+180)/2);
-
-        Button awewa = new Button("SELECTOR"); // just for now
-        awewa.setLayoutY((ScreenHEIGHT+200)/2);
-        awewa.setOnAction(e -> stage.setScene(dataSelector));
-        root.getChildren().add(awewa);
-
-        Alert alert = new Alert(Alert.AlertType.ERROR);
-        alert.setTitle("Error");
-        alert.setHeaderText("Unexpected input");
-        alert.setContentText("Only doubles are allowed!");
-
-        Button submit = new Button("SUBMIT");
-        submit.setLayoutX((ScreenWIDTH-100)/2);
-        submit.setLayoutY((ScreenHEIGHT+400)/2);
-
-        submit.setOnAction(e -> {
-            try {
-                double initAltitude = Double.parseDouble(altitudeSelector.getText());
-                double initLongitude = Double.parseDouble(longitudeSelector.getText());
-                double initxVelocity = Double.parseDouble(xVelocitySelector.getText());
-                stage.setScene(landingScene);
-            }
-            catch (NumberFormatException exception) {
-                //errorText.setVisible(true);
-                alert.showAndWait();
-                altitudeSelector.clear();
-                longitudeSelector.clear();
-                xVelocitySelector.clear();
-            }
-        });
-
-        dataSelector.addEventHandler(KeyEvent.KEY_PRESSED, event -> {
-            if (event.getCode() == KeyCode.B) {
-                stage.setScene(scene);
-            }
-        });
-
-        initialData.getChildren().addAll(altitudeSelector, longitudeSelector, xVelocitySelector, submit, altitude,
-                longitude, xVelocity);
         // -------------------------------------------------------------------------------------------------------------
 
         stage.show();
@@ -384,11 +363,10 @@ public class Merged extends Application {
                 totalConsumption += fuelConsumed;
 
                 Platform.runLater(() -> {
-                    //fuelLabel.setText(Double.toString(model.getShip().getUsedFuel()));
+
                     fuelLabel.setText(Double.toString(totalConsumption));
                     positionText.setText("Spacecraft position at : " + Arrays.toString(model.getShip().getPos()));
                     distanceText.setText("Distance between spacecraft and titan in km : " + model.getShip().getDistance(model.getBody(8)));
-                    //timeText.setText("Time taken so far : " + model.getTime()/(60*24*60));
                     timeText.setText("Time taken so far : " + timeInDays(model.getTime()));
 
                     if(checkForReachedTitan)
@@ -428,9 +406,10 @@ public class Merged extends Application {
                     camera.setTranslateY(model.getBody(11).getPos()[1] / scale + 2000);
                     camera.setTranslateZ(model.getBody(11).getPos()[2] / scale - 24000);
                 }
-                goTitan();    //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+                goTitan();
             }
         }, 1, 1);
+
         timer.schedule(new TimerTask() {
             @Override
             public void run() {
