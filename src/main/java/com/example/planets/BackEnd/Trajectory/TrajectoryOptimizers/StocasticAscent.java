@@ -1,5 +1,6 @@
 package com.example.planets.BackEnd.Trajectory.TrajectoryOptimizers;
 
+import com.example.planets.BackEnd.CelestialEntities.CelestialBody;
 import com.example.planets.BackEnd.CelestialEntities.Spaceship;
 import com.example.planets.BackEnd.Models.Model3D;
 import com.example.planets.BackEnd.NumericalMethods.RK4;
@@ -12,8 +13,7 @@ change cost function so that it takes closest dist and actual dist as input
  */
 public class StocasticAscent implements TrajectoryPlanner {
     private int stage = 0;
-
-    private final int numbOfSteps = 1;
+    private final int numbOfSteps = 15;
     private int numbOfStages;
     private final int numbOfDays;
     private final Model3D model;
@@ -26,7 +26,6 @@ public class StocasticAscent implements TrajectoryPlanner {
         this.numbOfStages = numbOfStages;
         this.numbOfDays = numbOfDays;
         this.target = target;
-
 
     }
 
@@ -41,17 +40,14 @@ public class StocasticAscent implements TrajectoryPlanner {
         double prevBest = 0.0;
 
         // hyper parameters
-        int individuals = 50;
+        int individuals = 20;
         double rangeOfChange = Spaceship.getMaxSpeed(); // maximun range of change
 
-        double[][] state = new double[numbOfStages][5];
+        double[][] state = new double[numbOfStages][4];
 
         state[0][0] = 0.0;
-        state[0][1] = 30*60.0;
-
         for(int i=1; i<numbOfStages; i++){
-            state[i][0] = i*numbOfDays*24*60*60 / ((double) numbOfStages) - numbOfDays*24*60*60 * 0.15;
-            state[i][1] = 15*60;
+            state[i][0] = i*numbOfDays*24*60*60 / ((double) numbOfStages) - numbOfDays*24*60*60 * 0.10;
 
         }
 
@@ -66,7 +62,7 @@ public class StocasticAscent implements TrajectoryPlanner {
             double delta = System.nanoTime();
 
             // clone of initial condition
-            Model3D optimizer = model.clone( new RK4() );
+            Model3D optimizer = model.clone( );
 
             // gives planning to ship
             optimizer.getShip().setPlan(state);
@@ -81,9 +77,9 @@ public class StocasticAscent implements TrajectoryPlanner {
             // set states
             // in each stage go + and - each parameter
             for(int i=0; i < optimizer.getAmountOfShips()-1; i++){
-                double[][] temp = new double[numbOfStages][5];
+                double[][] temp = new double[numbOfStages][4];
                 for(int j=0; j<numbOfStages; j++){
-                    for(int k=0; k<5; k++){
+                    for(int k=0; k<4; k++){
                         temp[j][k] = state[j][k];
                     }
                 }
@@ -99,7 +95,7 @@ public class StocasticAscent implements TrajectoryPlanner {
             // run sim
             optimizer.updatePos(numbOfDays, 500.0, true);
 
-            Spaceship champion = optimizer.getShip();
+            Spaceship champion = optimizer.getShip(); ///////////////////// doesnt have fuel consumption???
 
             // get best plan made
             double cost = optimizer.getShip().getCost(); //
@@ -110,6 +106,7 @@ public class StocasticAscent implements TrajectoryPlanner {
                     System.out.println("id: " + i);
                     System.out.println("plan: " + Arrays.deepToString(optimizer.getShip(i).getPlan()));
                     System.out.println("closest dist: " + optimizer.getShip(i).getClosestDistance());
+                    System.out.println("fuel: " + optimizer.getShip(i).getUsedFuel());
                     System.out.println("cost: " + optimizer.getShip(i).getCost());
 
                     cost = optimizer.getShip(i).getCost(); //
@@ -132,10 +129,10 @@ public class StocasticAscent implements TrajectoryPlanner {
                 //individuals += 2; //maybe not good
             }
 
-            System.out.println( (count+1) + ", " + champion.getEngine().getUsedFuel() + ", " + champion.getClosestDistance() + ", " + champion.getCost() + ", " + chrono);
-            System.out.println("final dist to target: " + champion.getDistance( champion.getTarget() ) );
-            System.out.println("range of change: " + rangeOfChange);
-            System.out.println("\n\n\n");
+            System.out.println( (count+1) + ", " + champion.getUsedFuel() + ", " + champion.getClosestDistance() + ", " + champion.getCost() + ", " + chrono);
+            //System.out.println("final dist to target: " + champion.getDistance( champion.getTarget() ) );
+            //System.out.println("range of change: " + rangeOfChange);
+            //System.out.println("\n\n\n");
 
 
             prevBest = champion.getCost(); // best cost
@@ -160,11 +157,11 @@ public class StocasticAscent implements TrajectoryPlanner {
         maxSpeed = Spaceship.getMaxSpeed(); // max magnitude
 
         for(int j = 0; j< result.length; j++){ // thru each dim
-            for(int k=2; k<5; k++){
+            for(int k=1; k<4; k++){
                 // calculate range in which we can add a random val without violating maximun speed
                 double range = maxSpeed*maxSpeed;
 
-                for (int i=2; i<5; i++)
+                for (int i=1; i<4; i++)
                     if(i != k)
                         range -= result[j][i]*result[j][i];
 
@@ -180,9 +177,6 @@ public class StocasticAscent implements TrajectoryPlanner {
             if(j!=0) // always accelerates at start
                 result[j][0] += 30*24*60.0*60.0*Math.random() - 30*24*60*60.0/2.0; // changes in initial thrust times
 
-            result[j][1] += 15.0*60.0; // changes in thrust length by 15 mins // *Math.random()-15*60.0/2.0
-            if( result[j][1] < 0.0 ) // avoids negative thrust
-                result[j][1] = 0.0;
         }
 
         return result;
@@ -208,7 +202,7 @@ public class StocasticAscent implements TrajectoryPlanner {
 
     @Override
     public double[] getCurrent() {
-        if(stage>= trajectory.length)
+        if(stage >= trajectory.length) //////////////is going tup too fast
             return new double[] {0,0,0,0};
         return trajectory[stage];
     }

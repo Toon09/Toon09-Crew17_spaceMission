@@ -21,19 +21,17 @@ class NumericalExperiments {
 
     // https://ssd.jpl.nasa.gov/horizons/app.html#/ [ experiment data ]
     public static void main(String[] args) {
-        //engineTest();
+        engineTest();
 
         //comparingToEachOther();
 
         //comparingToNasaData();
 
-        trajectoryTesting();
+        //trajectoryTesting();
 
         //testingAccuracyOfSolvers();
 
     }
-
-    public Model3D model;
 
 
     public static void engineTest() {
@@ -81,8 +79,8 @@ class NumericalExperiments {
                 System.out.println("Difference of both: ");
                 System.out.println("X: " + (pos1[0]-pos2[0]) + "; Y: " + (pos1[1]-pos2[1]) + "; Z: " + (pos1[2]-pos2[2]));
 
-                System.out.println("fuel 0: " + model.getShip(0).getEngine().getUsedFuel());
-                System.out.println("fuel 1: " + model.getShip(1).getEngine().getUsedFuel());
+                System.out.println("fuel 0: " + model.getShip(0).getUsedFuel());
+                System.out.println("fuel 1: " + model.getShip(1).getUsedFuel());
 
                 System.out.println("\n\n");
             }
@@ -322,7 +320,7 @@ class NumericalExperiments {
         // set up hyper parameters
         int time = 364; // max number of days for a sim to reach goal
         String target = "titan";
-        int numberOfStages = 1;
+        int numberOfStages = 4;
         double updatePeriod = 1.0; // period on which it shows the positions (in unit of days)
 
         // to print how long the planning takes
