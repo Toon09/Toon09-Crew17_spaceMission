@@ -37,7 +37,8 @@ public class Merged extends Application {
     static private Gravity0 model = new Gravity0(0.0, 0.0, new RK4(), "titan", 1, 364, new MinDistAndFuel());
     private static int scale = 25;
     private static final int smallScale = 25;
-    private static final int bigScale = 2000;    private static int counter = 0;
+    private static final int bigScale = 2000;
+    private static int counter = 0;
     private static boolean lookAtEarth = false;
     private static boolean lookAtTitan = false;
     private static boolean lookAtSun = false;
@@ -226,10 +227,6 @@ public class Merged extends Application {
         Scene dataSelector = new Scene(initialData, ScreenWIDTH, ScreenHEIGHT);
         dataSelector.setFill(Color.BLACK);
 
-//        if (distance < targetDistance) {
-//              stage.setScene(dataSelector);
-//        }
-
         TextField altitudeSelector = new TextField(); // Y coordinate
         TextField longitudeSelector = new TextField(); // X coordinate
         TextField xVelocitySelector = new TextField();
@@ -251,6 +248,11 @@ public class Merged extends Application {
         awewa.setOnAction(e -> stage.setScene(dataSelector));
         root.getChildren().add(awewa);
 
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Error");
+        alert.setHeaderText("An error has occurred");
+        alert.setContentText("Only numbers are allowed !");
+
         Button submit = new Button("SUBMIT");
         submit.setLayoutX((ScreenWIDTH-100)/2);
         submit.setLayoutY((ScreenHEIGHT+400)/2);
@@ -261,7 +263,11 @@ public class Merged extends Application {
                 double initxVelocity = Double.parseDouble(xVelocitySelector.getText());
             }
             catch (NumberFormatException exception) {
-                errorText.setVisible(true);
+                //errorText.setVisible(true);
+                alert.showAndWait();
+                altitudeSelector.clear();
+                longitudeSelector.clear();
+                xVelocitySelector.clear();
                 // do not go to the next scene
             }
         });
