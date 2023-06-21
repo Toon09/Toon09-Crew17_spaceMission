@@ -21,13 +21,13 @@ class NumericalExperiments {
 
     // https://ssd.jpl.nasa.gov/horizons/app.html#/ [ experiment data ]
     public static void main(String[] args) {
-        //engineTest();
+        engineTest();
 
         //comparingToEachOther();
 
         //comparingToNasaData();
 
-        trajectoryTesting();
+        //trajectoryTesting();
 
         //testingAccuracyOfSolvers();
 

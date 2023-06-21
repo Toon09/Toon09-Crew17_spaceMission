@@ -31,6 +31,7 @@ public class Gravity0 implements Model3D {
      */
     private Gravity0(CelestialBody[] bodies, NumSolver numSolver, int amountOfShips, int spaceShipStart, double time) {
         this.numSolver = numSolver;
+        this.time = time;
 
         if (amountOfShips == 0)
             amountOfShips = 1;
