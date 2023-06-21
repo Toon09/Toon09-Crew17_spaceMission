@@ -3,6 +3,8 @@ package com.example.planets.BackEnd.Trajectory.TrajectoryOptimizers;
 import com.example.planets.BackEnd.CelestialEntities.CelestialBody;
 import com.example.planets.BackEnd.Models.Model3D;
 
+import java.util.Arrays;
+
 public class LazyPlanner implements TrajectoryPlanner{
 
     private CelestialBody target;
@@ -10,8 +12,8 @@ public class LazyPlanner implements TrajectoryPlanner{
     private Model3D model; // have this copy be same as the one being used and for calculations use a clone
     private boolean toTarget = true;
     private double[] curretVel = new double[4];
-    private double phaseTime = 3.0*24*60*60; // checks every 3 days
-    private double slowPhaseTime = 6.0*24*60*60; //check every 6 days
+    private double phaseTime = 10000; // checks every 3 days
+    private double slowPhaseTime = 20000; //check every 6 days
     private double targetDistance = 500000.0;
     private double lastAcc = 0;
 
@@ -71,19 +73,21 @@ public class LazyPlanner implements TrajectoryPlanner{
         for(int i=1; i<curretVel.length; i++)
             curretVel[i] = newAcc[i-1];
 
+        System.out.println(Arrays.toString(curretVel));
+        System.out.println(lastAcc + phaseTime);
+
         if (distance < targetDistance && distance != 0) {
             toTarget = false;
-            //checkForReachedTitan = true ;
         }
     }
 
     @Override
     public double[] getCurrent() {
-        return new double[0];
+        return curretVel;
     }
 
     @Override
     public void setTrajectory(double[][] trajectory) {
-
+        curretVel = trajectory[0];
     }
 }

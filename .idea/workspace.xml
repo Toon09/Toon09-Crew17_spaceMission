@@ -4,15 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="bab05458-8716-4abd-8f37-31e577e5aaab" name="Changes" comment="">
+    <list default="true" id="bab05458-8716-4abd-8f37-31e577e5aaab" name="Changes" comment="feedback done without the wind">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/planets/BackEnd/CelestialEntities/CelestialBody.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/planets/BackEnd/CelestialEntities/CelestialBody.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/planets/BackEnd/CelestialEntities/Engine.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/planets/BackEnd/CelestialEntities/Engine.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/planets/BackEnd/CelestialEntities/Planning.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/planets/BackEnd/CelestialEntities/Planning.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/planets/BackEnd/CelestialEntities/Spaceship.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/planets/BackEnd/CelestialEntities/Spaceship.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/planets/BackEnd/Trajectory/TrajectoryOptimizers/StocasticAscent.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/planets/BackEnd/Trajectory/TrajectoryOptimizers/StocasticAscent.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/planets/BackEnd/Trajectory/TrajectoryOptimizers/TrajectoryHolder.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/planets/BackEnd/Trajectory/TrajectoryOptimizers/TrajectoryHolder.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/planets/NumericalExperiments.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/planets/NumericalExperiments.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/planets/Merged.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/planets/Merged.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -83,13 +77,26 @@
       <recent name="C:\Users\suszw\Desktop\uni\year_1\Period4\plswork\src\main" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.NumericalExperiments">
+  <component name="RunManager" selected="Application.Merged">
     <configuration name="GA" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="com.example.planets.GA" />
       <module name="Toon09-Crew17_spaceMission3" />
       <extension name="coverage">
         <pattern>
           <option name="PATTERN" value="com.example.planets.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="LandingTest" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.example.planets.BackEnd.Trajectory.LandingTest" />
+      <module name="Toon09-Crew17_spaceMission3" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.example.planets.BackEnd.Trajectory.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -148,6 +155,7 @@
       </method>
     </configuration>
     <list>
+      <item itemvalue="Application.LandingTest" />
       <item itemvalue="Application.OpenLoop" />
       <item itemvalue="Application.GA" />
       <item itemvalue="Application.Merged" />
@@ -155,8 +163,9 @@
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.NumericalExperiments" />
         <item itemvalue="Application.Merged" />
+        <item itemvalue="Application.LandingTest" />
+        <item itemvalue="Application.NumericalExperiments" />
         <item itemvalue="Application.OpenLoop" />
         <item itemvalue="Application.GA" />
       </list>
@@ -182,20 +191,7 @@
       <workItem from="1683841240613" duration="1723000" />
       <workItem from="1686731689722" duration="3058000" />
       <workItem from="1687181645037" duration="364000" />
-    </task>
-    <task id="LOCAL-00054" summary="set up to test AB2">
-      <created>1684323752252</created>
-      <option name="number" value="00054" />
-      <option name="presentableId" value="LOCAL-00054" />
-      <option name="project" value="LOCAL" />
-      <updated>1684323752252</updated>
-    </task>
-    <task id="LOCAL-00055" summary="Re-organized info in comments">
-      <created>1684323887502</created>
-      <option name="number" value="00055" />
-      <option name="presentableId" value="LOCAL-00055" />
-      <option name="project" value="LOCAL" />
-      <updated>1684323887502</updated>
+      <workItem from="1687335576267" duration="4028000" />
     </task>
     <task id="LOCAL-00056" summary="experiment setup made">
       <created>1684408810589</created>
@@ -512,21 +508,35 @@
       <option name="project" value="LOCAL" />
       <updated>1687182002127</updated>
     </task>
-    <task id="LOCAL-00101" summary="engine changed">
-      <created>1687256588696</created>
+    <task id="LOCAL-00101" summary="feedback for now">
+      <created>1687254715734</created>
       <option name="number" value="00101" />
       <option name="presentableId" value="LOCAL-00101" />
       <option name="project" value="LOCAL" />
-      <updated>1687256588697</updated>
+      <updated>1687254715735</updated>
     </task>
-    <task id="LOCAL-00102" summary="refactor of planning, trajectory and landing">
-      <created>1687265455612</created>
+    <task id="LOCAL-00102" summary="feedback for now">
+      <created>1687255027497</created>
       <option name="number" value="00102" />
       <option name="presentableId" value="LOCAL-00102" />
       <option name="project" value="LOCAL" />
-      <updated>1687265455612</updated>
+      <updated>1687255027498</updated>
     </task>
-    <option name="localTasksCounter" value="103" />
+    <task id="LOCAL-00103" summary="feedback for now">
+      <created>1687265094450</created>
+      <option name="number" value="00103" />
+      <option name="presentableId" value="LOCAL-00103" />
+      <option name="project" value="LOCAL" />
+      <updated>1687265094450</updated>
+    </task>
+    <task id="LOCAL-00104" summary="feedback done without the wind">
+      <created>1687339297395</created>
+      <option name="number" value="00104" />
+      <option name="presentableId" value="LOCAL-00104" />
+      <option name="project" value="LOCAL" />
+      <updated>1687339297396</updated>
+    </task>
+    <option name="localTasksCounter" value="105" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -544,6 +554,7 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
+    <MESSAGE value="data generation set up and rk2 refactored" />
     <MESSAGE value="engine working" />
     <MESSAGE value="RK3 more appropiately named" />
     <MESSAGE value="beautuiful cost function done" />
@@ -567,11 +578,29 @@
     <MESSAGE value="plannign changes" />
     <MESSAGE value="merged fix" />
     <MESSAGE value="feedback for now" />
-    <MESSAGE value="engine changed" />
-    <MESSAGE value="refactor of planning, trajectory and landing" />
-    <option name="LAST_COMMIT_MESSAGE" value="refactor of planning, trajectory and landing" />
+    <MESSAGE value="feedback done without the wind" />
+    <option name="LAST_COMMIT_MESSAGE" value="feedback done without the wind" />
   </component>
   <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/example/planets/NumericalExperiments.java</url>
+          <line>348</line>
+          <option name="timeStamp" value="2" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/example/planets/BackEnd/CelestialEntities/Planning.java</url>
+          <line>59</line>
+          <option name="timeStamp" value="3" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/example/planets/BackEnd/CelestialEntities/Planning.java</url>
+          <line>52</line>
+          <option name="timeStamp" value="4" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
     <pin-to-top-manager>
       <pinned-members>
         <PinnedItemInfo parentTag="com.example.planets.BackEnd.CelestialEntities.Spaceship" memberName="plan" />

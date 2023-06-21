@@ -14,7 +14,7 @@ public class TrajectoryHolder implements TrajectoryPlanner{
 
     @Override
     public void next() {
-        if(stage!= trajectory.length)
+        if(stage != trajectory.length)
             stage++;
     }
 

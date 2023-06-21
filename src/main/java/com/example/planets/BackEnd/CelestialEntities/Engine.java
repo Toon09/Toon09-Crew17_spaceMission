@@ -1,6 +1,5 @@
 package com.example.planets.BackEnd.CelestialEntities;
 
-import java.util.Arrays;
 
 public class Engine {
     private static final double maxSpeed = 11.0;
@@ -8,20 +7,23 @@ public class Engine {
     private static final double fuelConsumption = 5292.94;
 
 
-    public double[] thrust(Planning plan, double time){
+    public double[] thrust(Planning plan, double mass, double time, double dt){
         double[] result = new double[] {0,0,0};
 
-        if (time >= plan.getCurrent()[0]){
+        if (time >= plan.getCurrent()[0] && time <= plan.getCurrent()[0] + dt){
             for (int i =0; i<3; i++)
                 result[i] = plan.getCurrent()[i+1];
 
+            useFuel(plan, mass); // consumes required fuel
+
             plan.nextDirection();
+            System.out.println(time);
         }
 
         return result;
     }
 
-    public double useFuel(Planning plan, double mass) {
+    private double useFuel(Planning plan, double mass) {
         double magnitude = calcMagnitude(plan.getCurrent());
 
         return (magnitude*mass/maxForce)*fuelConsumption;
