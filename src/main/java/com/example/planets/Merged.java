@@ -3,6 +3,7 @@ import com.example.planets.BackEnd.CelestialEntities.CelestialBody;
 import com.example.planets.BackEnd.Models.Gravity0;
 import com.example.planets.BackEnd.NumericalMethods.*;
 import com.example.planets.BackEnd.Trajectory.Cost.MinDistAndFuel;
+import com.example.planets.BackEnd.Trajectory.FeedBack;
 import javafx.application.*;
 import javafx.collections.*;
 import javafx.geometry.Point3D;
@@ -220,7 +221,6 @@ public class Merged extends Application {
         altitudeSelector.setLayoutY((ScreenHEIGHT-200)/2);
 
         Text altitude = new Text("Choose initial altitude (X)");
-        altitude.setFill(Color.WHITE);
         altitude.setLayoutX((ScreenWIDTH-100)/2);
         altitude.setLayoutY((ScreenHEIGHT-220)/2);
 
@@ -229,7 +229,6 @@ public class Merged extends Application {
         longitudeSelector.setLayoutY(ScreenHEIGHT/2);
 
         Text longitude = new Text("Choose initial longitude (Y)");
-        longitude.setFill(Color.WHITE);
         longitude.setLayoutX((ScreenWIDTH-100)/2);
         longitude.setLayoutY((ScreenHEIGHT-20)/2);
 
@@ -238,7 +237,6 @@ public class Merged extends Application {
         xVelocitySelector.setLayoutY((ScreenHEIGHT+200)/2);
 
         Text xVelocity = new Text("Choose initial ship velocity (V)");
-        xVelocity.setFill(Color.WHITE);
         xVelocity.setLayoutX((ScreenWIDTH-100)/2);
         xVelocity.setLayoutY((ScreenHEIGHT+180)/2);
 
@@ -252,6 +250,15 @@ public class Merged extends Application {
         alert.setHeaderText("Unexpected input");
         alert.setContentText("Only doubles are allowed!");
 
+        Button defaultData = new Button("DEAFULT");
+        defaultData.setLayoutX((ScreenWIDTH+50)/2);
+        defaultData.setLayoutY((ScreenHEIGHT+400)/2);
+        defaultData.setOnAction(e -> {
+            //FeedBack defaultModel = new FeedBack();
+        });
+
+
+
         Button submit = new Button("SUBMIT");
         submit.setLayoutX((ScreenWIDTH-100)/2);
         submit.setLayoutY((ScreenHEIGHT+400)/2);
@@ -259,11 +266,12 @@ public class Merged extends Application {
             try {
                 double initAltitude = Double.parseDouble(altitudeSelector.getText());
                 double initLongitude = Double.parseDouble(longitudeSelector.getText());
-                double initxVelocity = Double.parseDouble(xVelocitySelector.getText());
+                double initialVelocity = Double.parseDouble(xVelocitySelector.getText());
+                double[] initialPosition = {initAltitude, initLongitude};
+                //FeedBack selectedModel = new FeedBack(initialPosition, initialVelocity);
                 stage.setScene(scene);
             }
             catch (NumberFormatException exception) {
-                //errorText.setVisible(true);
                 alert.showAndWait();
                 altitudeSelector.clear();
                 longitudeSelector.clear();
@@ -275,7 +283,8 @@ public class Merged extends Application {
                 stage.setScene(scene);
             }
         });
-        initialData.getChildren().addAll(altitudeSelector, longitudeSelector, xVelocitySelector, submit, altitude, longitude, xVelocity);
+        initialData.getChildren().addAll(altitudeSelector, longitudeSelector, xVelocitySelector, submit,
+                altitude, longitude, xVelocity, defaultData);
 
         // -------------------------------------------------------------------------------------------------------------
         // LANDING ON TITAN GUI
