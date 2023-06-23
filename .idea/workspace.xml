@@ -7,8 +7,6 @@
     <list default="true" id="bab05458-8716-4abd-8f37-31e577e5aaab" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/planets/BackEnd/CelestialEntities/StochasticWind.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/planets/BackEnd/CelestialEntities/StochasticWind.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/planets/BackEnd/Trajectory/FeedBack.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/planets/BackEnd/Trajectory/FeedBack.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/planets/BackEnd/Trajectory/LandingModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/planets/BackEnd/Trajectory/LandingModel.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -529,7 +527,7 @@
       <option name="project" value="LOCAL" />
       <updated>1687339297396</updated>
     </task>
-    <option name="localTasksCounter" value="107" />
+    <option name="localTasksCounter" value="108" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -547,7 +545,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="RK3 more appropiately named" />
     <MESSAGE value="beautuiful cost function done" />
     <MESSAGE value="solvers fixed after code review" />
     <MESSAGE value="experiment set up finished" />
@@ -572,7 +569,8 @@
     <MESSAGE value="feedback done without the wind" />
     <MESSAGE value="final changes to trajectory" />
     <MESSAGE value="lazy planner deleted" />
-    <option name="LAST_COMMIT_MESSAGE" value="lazy planner deleted" />
+    <MESSAGE value="wind fixed" />
+    <option name="LAST_COMMIT_MESSAGE" value="wind fixed" />
   </component>
   <component name="XDebuggerManager">
     <pin-to-top-manager>
