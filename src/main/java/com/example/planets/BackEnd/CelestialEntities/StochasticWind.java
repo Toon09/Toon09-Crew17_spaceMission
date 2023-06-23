@@ -3,6 +3,8 @@ package com.example.planets.BackEnd.CelestialEntities;
 import com.example.planets.BackEnd.CelestialEntities.CelestialBody;
 import com.example.planets.BackEnd.CelestialEntities.Spaceship;
 
+import java.util.Arrays;
+
 /*
 only spaceships can be affected by wind conditions, not other planets because they are too big
 
@@ -13,10 +15,12 @@ public class StochasticWind {
     private final double maxDistance = 600.0; // in km
 
     // parts of the atmosphere // https://www.nasa.gov/mission_pages/cassini/whycassini/cassinif-20070601-05.html
-    private double[] v1; private final double mag1 = 0.12; // 120 to up
-    private double[] v2; private final double mag2 = 0.12/2.0; // 60 to 120
-    private double[] v3; private final double mag3 = 0.001; // 6 to 60
-    private double[] v4; private final double mag4 = 0.0001; // 0.7 to 6
+
+    private final double windScalling = 10.0;
+    private double[] v1; private final double mag1 = 0.12/windScalling; // 120 to up
+    private double[] v2; private final double mag2 = (0.12/2.0)/windScalling; // 60 to 120
+    private double[] v3; private final double mag3 = 0.001/windScalling; // 6 to 60
+    private double[] v4; private final double mag4 = 0.005/windScalling; // 0.7 to 6
 
 
     /**
@@ -25,8 +29,8 @@ public class StochasticWind {
      */
     private boolean inRange(double distance){
         // the range is from 15 meters from the surface up to the max distance from surface
-        double titanRadius = 6200.0;
-        return distance < titanRadius + maxDistance && distance > titanRadius;
+        double titanRadius = 2574.7;
+        return distance < titanRadius + maxDistance && distance > titanRadius + 0.7;
     }
 
     /**
@@ -35,17 +39,22 @@ public class StochasticWind {
      */
     public void stochasticWind(Spaceship ship, CelestialBody planet, double dt){
         // ends the process if its not inside the range required
+        //System.out.println(ship.getDistance(planet));
+
         if( !inRange( ship.getDistance(planet) ) )
             return;
+
+        System.out.println("fdghjkhgfghjkhgfchjihgfhjkuhygtfrhuji    "+Arrays.toString(v1));
 
         updateWind(ship, planet, dt);
 
         double[] wind = this.getRange( ship.getDistance(planet) );
 
+
         // corresponding wind is added
-        ship.setVel( new double[] { ship.getVel()[0] + wind[0]*dt,
-                                    ship.getVel()[1] + wind[1]*dt,
-                                    ship.getVel()[2] + wind[2]*dt } );
+        ship.addVel( new double[] { wind[0]*dt,
+                                    wind[1]*dt,
+                                    wind[2]*dt } );
 
     }
 

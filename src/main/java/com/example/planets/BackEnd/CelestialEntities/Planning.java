@@ -1,8 +1,6 @@
 package com.example.planets.BackEnd.CelestialEntities;
 
 import com.example.planets.BackEnd.Models.Model3D;
-import com.example.planets.BackEnd.Trajectory.TrajectoryOptimizers.LazyPlanner;
-import com.example.planets.BackEnd.Trajectory.TrajectoryOptimizers.StocasticAscent;
 import com.example.planets.BackEnd.Trajectory.TrajectoryOptimizers.TrajectoryHolder;
 import com.example.planets.BackEnd.Trajectory.TrajectoryOptimizers.TrajectoryPlanner;
 
