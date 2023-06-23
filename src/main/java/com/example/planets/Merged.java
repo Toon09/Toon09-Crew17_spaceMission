@@ -313,7 +313,7 @@ public class Merged extends Application {
         defaultData.setLayoutY((ScreenHEIGHT+400)/2);
         defaultData.setOnAction(e -> {
             controller[0] = new FeedBack();
-            timeLanding[0] = time;
+            timeLanding[0] = model.getTime();
             stage.setScene(landingScene);
         });
 
@@ -327,7 +327,7 @@ public class Merged extends Application {
                 double initialVelocity = Double.parseDouble(xVelocitySelector.getText());
                 double[] initialPosition = {initAltitude, initLongitude};
                 controller[0] = new FeedBack(initialPosition, initialVelocity);
-                timeLanding[0] = time;
+                timeLanding[0] = model.getTime();
                 stage.setScene(landingScene);
 
             }
@@ -356,11 +356,11 @@ public class Merged extends Application {
             public void run() {
                 if(stage.getScene().equals(landingScene)){
 
-                    controller[0].update(time - timeLanding[0]);
-                    System.out.println(time - timeLanding[0]);
+                    controller[0].update(time);
+                    System.out.println(model.getTime() - timeLanding[0]);
                     double[] pos = controller[0].getLandingModule().getPos();
                     landingModule.translateXProperty().set(960 + pos[1]);
-                    landingModule.translateYProperty().set(250 + 2.77*(300 - pos[1])/time);
+                    landingModule.translateYProperty().set(250 + 2.77*(300 - pos[1])/model.getTime());
                     System.out.println(landingModule.getTranslateX());
                     System.out.println(landingModule.getTranslateY());
 
