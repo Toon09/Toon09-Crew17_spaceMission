@@ -25,7 +25,7 @@ public class StochasticWind {
      */
     private boolean inRange(double distance){
         // the range is from 15 meters from the surface up to the max distance from surface
-        double titanRadius = 6200.0;
+        double titanRadius = 2574.7;
         return distance < titanRadius + maxDistance && distance > titanRadius;
     }
 
@@ -35,6 +35,8 @@ public class StochasticWind {
      */
     public void stochasticWind(Spaceship ship, CelestialBody planet, double dt){
         // ends the process if its not inside the range required
+        //System.out.println(ship.getDistance(planet));
+
         if( !inRange( ship.getDistance(planet) ) )
             return;
 
@@ -42,10 +44,12 @@ public class StochasticWind {
 
         double[] wind = this.getRange( ship.getDistance(planet) );
 
+        System.out.println("FDGHJGFDFGHJKHGFDGHJKJHGFDGHJKLKLJKHGFGD  "+dt);
+
         // corresponding wind is added
-        ship.setVel( new double[] { ship.getVel()[0] + wind[0]*dt,
-                                    ship.getVel()[1] + wind[1]*dt,
-                                    ship.getVel()[2] + wind[2]*dt } );
+        ship.addVel( new double[] { wind[0]*dt,
+                                    wind[1]*dt,
+                                    wind[2]*dt } );
 
     }
 

@@ -4,8 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="bab05458-8716-4abd-8f37-31e577e5aaab" name="Changes" comment="feedback done with the wind but doesnt correct it ( and the wind doesn't work )">
+    <list default="true" id="bab05458-8716-4abd-8f37-31e577e5aaab" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/planets/BackEnd/CelestialEntities/StochasticWind.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/planets/BackEnd/CelestialEntities/StochasticWind.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/planets/BackEnd/Trajectory/FeedBack.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/planets/BackEnd/Trajectory/FeedBack.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/planets/BackEnd/Trajectory/LandingModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/planets/BackEnd/Trajectory/LandingModel.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -21,7 +24,13 @@
     </option>
   </component>
   <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="main" />
+      </map>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="UPDATE_TYPE" value="REBASE" />
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
@@ -129,19 +138,6 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="OpenLoop" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="com.example.planets.BackEnd.Trajectory.OpenLoop" />
-      <module name="Toon09-Crew17_spaceMission3" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.example.planets.BackEnd.Trajectory.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
     <configuration default="true" type="JetRunConfigurationType">
       <method v="2">
         <option name="Make" enabled="true" />
@@ -155,7 +151,6 @@
     </configuration>
     <list>
       <item itemvalue="Application.LandingTest" />
-      <item itemvalue="Application.OpenLoop" />
       <item itemvalue="Application.GA" />
       <item itemvalue="Application.Merged" />
       <item itemvalue="Application.NumericalExperiments" />
@@ -165,7 +160,6 @@
         <item itemvalue="Application.LandingTest" />
         <item itemvalue="Application.Merged" />
         <item itemvalue="Application.NumericalExperiments" />
-        <item itemvalue="Application.OpenLoop" />
         <item itemvalue="Application.GA" />
       </list>
     </recent_temporary>
@@ -190,8 +184,21 @@
       <workItem from="1683841240613" duration="1723000" />
       <workItem from="1686731689722" duration="3058000" />
       <workItem from="1687181645037" duration="364000" />
-      <workItem from="1687335576267" duration="4804000" />
-      <workItem from="1687517339931" duration="1788000" />
+      <workItem from="1687335576267" duration="4028000" />
+    </task>
+    <task id="LOCAL-00056" summary="experiment setup made">
+      <created>1684408810589</created>
+      <option name="number" value="00056" />
+      <option name="presentableId" value="LOCAL-00056" />
+      <option name="project" value="LOCAL" />
+      <updated>1684408810589</updated>
+    </task>
+    <task id="LOCAL-00057" summary="Data txt getter">
+      <created>1684409202400</created>
+      <option name="number" value="00057" />
+      <option name="presentableId" value="LOCAL-00057" />
+      <option name="project" value="LOCAL" />
+      <updated>1684409202400</updated>
     </task>
     <task id="LOCAL-00058" summary="Datta getter documentation changed">
       <created>1684409807194</created>
@@ -522,20 +529,6 @@
       <option name="project" value="LOCAL" />
       <updated>1687339297396</updated>
     </task>
-    <task id="LOCAL-00105" summary="feedback done without the wind">
-      <created>1687339669406</created>
-      <option name="number" value="00105" />
-      <option name="presentableId" value="LOCAL-00105" />
-      <option name="project" value="LOCAL" />
-      <updated>1687339669406</updated>
-    </task>
-    <task id="LOCAL-00106" summary="feedback done with the wind but doesnt correct it ( and the wind doesn't work )">
-      <created>1687518961011</created>
-      <option name="number" value="00106" />
-      <option name="presentableId" value="LOCAL-00106" />
-      <option name="project" value="LOCAL" />
-      <updated>1687518961012</updated>
-    </task>
     <option name="localTasksCounter" value="107" />
     <servers />
   </component>
@@ -554,7 +547,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="engine working" />
     <MESSAGE value="RK3 more appropiately named" />
     <MESSAGE value="beautuiful cost function done" />
     <MESSAGE value="solvers fixed after code review" />
@@ -578,29 +570,11 @@
     <MESSAGE value="merged fix" />
     <MESSAGE value="feedback for now" />
     <MESSAGE value="feedback done without the wind" />
-    <MESSAGE value="feedback done with the wind but doesnt correct it ( and the wind doesn't work )" />
-    <option name="LAST_COMMIT_MESSAGE" value="feedback done with the wind but doesnt correct it ( and the wind doesn't work )" />
+    <MESSAGE value="final changes to trajectory" />
+    <MESSAGE value="lazy planner deleted" />
+    <option name="LAST_COMMIT_MESSAGE" value="lazy planner deleted" />
   </component>
   <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/example/planets/NumericalExperiments.java</url>
-          <line>344</line>
-          <option name="timeStamp" value="2" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/example/planets/BackEnd/CelestialEntities/Planning.java</url>
-          <line>61</line>
-          <option name="timeStamp" value="3" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/example/planets/BackEnd/CelestialEntities/Planning.java</url>
-          <line>54</line>
-          <option name="timeStamp" value="4" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
     <pin-to-top-manager>
       <pinned-members>
         <PinnedItemInfo parentTag="com.example.planets.BackEnd.CelestialEntities.Spaceship" memberName="plan" />
