@@ -34,7 +34,7 @@ public class Merged extends Application {
     private static boolean lookAtSpaceship = false;
     private final static Box[] path = new Box[10000];
     private final static double time = 0.1;
-    private static double dt = 1.5;
+    private static double dt = 2;
     private static double lastAcc = 0;
     private final static double phaseTime = 10000;
     private final static double slowPhaseTime = 100000;
@@ -306,14 +306,16 @@ public class Merged extends Application {
         alert.setHeaderText("Unexpected input");
         alert.setContentText("Only doubles are allowed!");
 
-        final FeedBack[] controller = new FeedBack[1];
+        FeedBack[] controller = new FeedBack[1];
         final double timeLanding[] = new double[1];
+        final boolean[] land = new boolean[1];
         Button defaultData = new Button("DEFAULT");
         defaultData.setLayoutX((ScreenWIDTH+60)/2);
         defaultData.setLayoutY((ScreenHEIGHT+400)/2);
         defaultData.setOnAction(e -> {
-            controller[0] = new FeedBack();
+            //controller[0] = new FeedBack();
             timeLanding[0] = model.getTime();
+            land[0] = true;
             stage.setScene(landingScene);
         });
 
@@ -326,8 +328,9 @@ public class Merged extends Application {
                 double initLongitude = Double.parseDouble(longitudeSelector.getText());
                 double initialVelocity = Double.parseDouble(xVelocitySelector.getText());
                 double[] initialPosition = {initAltitude, initLongitude};
-                controller[0] = new FeedBack(initialPosition, initialVelocity);
+                //controller[0] = new FeedBack(initialPosition, initialVelocity);
                 timeLanding[0] = model.getTime();
+                land[0] = true;
                 stage.setScene(landingScene);
 
             }
@@ -354,21 +357,32 @@ public class Merged extends Application {
         timer.schedule(new TimerTask() {
             @Override
             public void run() {
-                if(stage.getScene().equals(landingScene)){
 
+                if(stage.getScene().equals(landingScene))
+                //if(land[0])
+                {
+//                    if(controller[0].isFinished()) {
+//                        stage.setScene(scene);
+//                    }
                     controller[0].update(time);
-                    System.out.println(model.getTime() - timeLanding[0]);
+                    //System.out.println(model.getTime() - timeLanding[0]);
                     double[] pos = controller[0].getLandingModule().getPos();
+
                     landingModule.translateXProperty().set(960);
-                    landingModule.translateYProperty().set(250 + 2.77*(300 - pos[1]));
+
+                    //landingModule.translateYProperty().set(250 + 2.77*(300 - pos[1]));
+                    //landingModule.setTranslateX(960);
+
+                    landingModule.setTranslateY(250 + 2.77*(300 - pos[1]));
+
                     System.out.println(landingModule.getTranslateX());
                     System.out.println(landingModule.getTranslateY());
-
                 } else {
                     model.updatePos(time, dt, true);
                     for (int i = 0; i < 12; i++) {
                         setPosition(world.getChildren().get(i), model.getBody(i));
                     }
+
 
                     double accX = model.getShip().getAcc()[0] * 30 * 60 * 60 * 60;
                     double accY = model.getShip().getAcc()[1] * 30 * 60 * 60 * 60;
@@ -393,6 +407,15 @@ public class Merged extends Application {
                             reachedTitan2Text.setText("Closest distance reached by the spacecraft : " + distance + " km");
                             checkForReachedTitan = false;
                         }
+
+                        if (distance < targetDistance)
+                        {
+                            controller[0] = new FeedBack();
+                            //land[0] = true;
+                            stage.setScene(landingScene);
+
+                        }
+
 
                     });
                     if (dtBox.getValue() != null) {
@@ -425,6 +448,8 @@ public class Merged extends Application {
                         camera.setTranslateZ(model.getBody(11).getPos()[2] / scale - 24000);
                     }
                     goTitan();
+
+
                 }
             }
         }, 1, 1);

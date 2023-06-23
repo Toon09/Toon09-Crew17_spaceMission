@@ -53,7 +53,7 @@ public class FeedBack implements IControler {
      */
     public void update(double time) {
         model.updatePos(time, 0.1, false);
-        boolean isThereWind = true;
+        boolean isThereWind = false;
         //noinspection ConstantValue
         if (isThereWind) {
             wind.stochasticWind(landingModule, titan, 0.1);
@@ -110,7 +110,7 @@ public class FeedBack implements IControler {
      *               would be -0.5 as it's going downwards )
      */
     private void correctY(double target, boolean boost) {
-        System.out.println("Y");
+        //System.out.println("Y");
         if (landingModule.getRotation() != 0) {
             landingModule.rotate(landingModule.getRotation() * -1);
             return;
