@@ -385,25 +385,28 @@ class NumericalExperiments {
         ArrayList<Double> steps = new ArrayList<Double>();
 
         //////// test models
-        models.add( new TestModel2( new Euler() ) );
+        //models.add( new TestModel2( new Euler() ) );
         steps.add( dt );
 
-        models.add( new TestModel2( new LeapFrog() ) );
+        //models.add( new TestModel2( new LeapFrog() ) );
         steps.add( dt );
 
-        models.add( new TestModel2( new AB2() ) );
+        //models.add( new TestModel2( new AB2() ) );
         steps.add( dt );
 
-        models.add( new TestModel2( new RK2() ) );
+        //models.add( new TestModel2( new RK2() ) );
         steps.add( dt );
 
-        models.add( new TestModel2( new HeunsRK3() ) );
+        //models.add( new TestModel2( new HeunsRK3() ) );
         steps.add( dt );
 
         models.add( new TestModel2( new RK4() ) );
         steps.add( dt );
 
-        models.add( new TestModel2( new RalstonsRK4() ) );
+        //models.add( new TestModel2( new RalstonsRK4() ) );
+        steps.add( dt );
+
+        models.add( new TestModel2( new Euler() ) );
         steps.add( dt );
 
 

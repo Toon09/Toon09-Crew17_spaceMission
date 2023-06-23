@@ -2,13 +2,13 @@ package com.example.planets.BackEnd.NumericalMethods;
 
 import com.example.planets.BackEnd.Models.Model3D;
 
-public class RalstonsRK4 implements NumSolver{
+public class DormandPrince implements NumSolver{
 
     Model3D pk2;
     Model3D pk3;
     Model3D pk4;
 
-    
+
     // coefficients
     static final double a2 = 0.40;
     static final double a3 = (14.0 - 3.0 * Math.sqrt(5.0)) / 16.0;
@@ -34,8 +34,8 @@ public class RalstonsRK4 implements NumSolver{
         for(int i=0; i<model.size(); i++){
 
             model.setPos(i, new double[] {  model.getPos(i)[0] + dt * ( g1*model.getVel(i)[0] + g2*pk2.getVel(i)[0] + g3*pk3.getVel(i)[0] + g4*pk4.getVel(i)[0] ),
-                                            model.getPos(i)[1] + dt * ( g1*model.getVel(i)[1] + g2*pk2.getVel(i)[1] + g3*pk3.getVel(i)[1] + g4*pk4.getVel(i)[1] ),
-                                            model.getPos(i)[2] + dt * ( g1*model.getVel(i)[2] + g2*pk2.getVel(i)[2] + g3*pk3.getVel(i)[2] + g4*pk4.getVel(i)[2] )   } );
+                    model.getPos(i)[1] + dt * ( g1*model.getVel(i)[1] + g2*pk2.getVel(i)[1] + g3*pk3.getVel(i)[1] + g4*pk4.getVel(i)[1] ),
+                    model.getPos(i)[2] + dt * ( g1*model.getVel(i)[2] + g2*pk2.getVel(i)[2] + g3*pk3.getVel(i)[2] + g4*pk4.getVel(i)[2] )   } );
 
         }
 
@@ -46,8 +46,8 @@ public class RalstonsRK4 implements NumSolver{
         for(int i=0; i<model.size(); i++){
 
             model.setVel(i, new double[] {  model.getVel(i)[0] + dt * ( g1*model.getAcc(i)[0] + g2*pk2.getAcc(i)[0] + g3*pk3.getAcc(i)[0] + g4*pk4.getAcc(i)[0] ),
-                                            model.getVel(i)[1] + dt * ( g1*model.getAcc(i)[1] + g2*pk2.getAcc(i)[1] + g3*pk3.getAcc(i)[1] + g4*pk4.getAcc(i)[1] ),
-                                            model.getVel(i)[2] + dt * ( g1*model.getAcc(i)[2] + g2*pk2.getAcc(i)[2] + g3*pk3.getAcc(i)[2] + g4*pk4.getAcc(i)[2] )   } );
+                    model.getVel(i)[1] + dt * ( g1*model.getAcc(i)[1] + g2*pk2.getAcc(i)[1] + g3*pk3.getAcc(i)[1] + g4*pk4.getAcc(i)[1] ),
+                    model.getVel(i)[2] + dt * ( g1*model.getAcc(i)[2] + g2*pk2.getAcc(i)[2] + g3*pk3.getAcc(i)[2] + g4*pk4.getAcc(i)[2] )   } );
 
         }
 
@@ -107,10 +107,8 @@ public class RalstonsRK4 implements NumSolver{
 
     }
 
-
     @Override
     public String getName() {
-        return "Ralston's RK4";
+        return "Dormant prince";
     }
-
 }
