@@ -251,7 +251,7 @@ public class Merged extends Application {
         alert.setContentText("Only doubles are allowed!");
 
         Button defaultData = new Button("DEAFULT");
-        defaultData.setLayoutX((ScreenWIDTH+50)/2);
+        defaultData.setLayoutX((ScreenWIDTH+70)/2);
         defaultData.setLayoutY((ScreenHEIGHT+400)/2);
         defaultData.setOnAction(e -> {
             //FeedBack defaultModel = new FeedBack();

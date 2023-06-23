@@ -4,10 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="bab05458-8716-4abd-8f37-31e577e5aaab" name="Changes" comment="added icon and title">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/planets/Merged.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/planets/Merged.java" afterDir="false" />
-    </list>
+    <list default="true" id="bab05458-8716-4abd-8f37-31e577e5aaab" name="Changes" comment="added feedback controlle r initialization" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -195,14 +192,7 @@
       <workItem from="1686731689722" duration="3058000" />
       <workItem from="1687181645037" duration="364000" />
       <workItem from="1687335576267" duration="4028000" />
-      <workItem from="1687514649645" duration="2894000" />
-    </task>
-    <task id="LOCAL-00057" summary="Data txt getter">
-      <created>1684409202400</created>
-      <option name="number" value="00057" />
-      <option name="presentableId" value="LOCAL-00057" />
-      <option name="project" value="LOCAL" />
-      <updated>1684409202400</updated>
+      <workItem from="1687514649645" duration="3260000" />
     </task>
     <task id="LOCAL-00058" summary="Datta getter documentation changed">
       <created>1684409807194</created>
@@ -540,7 +530,14 @@
       <option name="project" value="LOCAL" />
       <updated>1687514922759</updated>
     </task>
-    <option name="localTasksCounter" value="106" />
+    <task id="LOCAL-00106" summary="added feedback controlle r initialization">
+      <created>1687517851290</created>
+      <option name="number" value="00106" />
+      <option name="presentableId" value="LOCAL-00106" />
+      <option name="project" value="LOCAL" />
+      <updated>1687517851290</updated>
+    </task>
+    <option name="localTasksCounter" value="107" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -559,7 +556,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
-    <MESSAGE value="engine working" />
     <MESSAGE value="RK3 more appropiately named" />
     <MESSAGE value="beautuiful cost function done" />
     <MESSAGE value="solvers fixed after code review" />
@@ -584,7 +580,8 @@
     <MESSAGE value="feedback for now" />
     <MESSAGE value="feedback done without the wind" />
     <MESSAGE value="added icon and title" />
-    <option name="LAST_COMMIT_MESSAGE" value="added icon and title" />
+    <MESSAGE value="added feedback controlle r initialization" />
+    <option name="LAST_COMMIT_MESSAGE" value="added feedback controlle r initialization" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
