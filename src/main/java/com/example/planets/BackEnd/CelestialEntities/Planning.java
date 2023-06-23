@@ -40,7 +40,9 @@ public class Planning {
 
         //creates planner and gets trajectory
         //planner = new StocasticAscent(model, numberOfStages, targetPlanet, maxDays);
-        planner = new LazyPlanner(model, targetPlanet, homePlanet);
+        planner = new TrajectoryHolder();
+
+        //
 
         // do the calculation of the orbit from the planet
         planner.makeTrajectory();
@@ -85,6 +87,10 @@ public class Planning {
             planner = new TrajectoryHolder();
         planner.setTrajectory(state);
 
+    }
+
+    public void setTrajectory(TrajectoryPlanner trajectory){
+        this.planner = trajectory;
     }
 
 
