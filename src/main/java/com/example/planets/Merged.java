@@ -57,6 +57,8 @@ public class Merged extends Application {
 
         inicilizePath();
         stage.setMaximized(true);
+        stage.setTitle("Titanic Space Odyssey by crew17");
+        stage.getIcons().add(new Image("amogus.png"));
 
         //create a new group
         Group root = new Group();
@@ -205,6 +207,7 @@ public class Merged extends Application {
         worldRotX.setAngle(worldRotX.getAngle());
         System.out.println(camera.getRotationAxis());
         world.setRotationAxis(new Point3D(model.getBody(3).getPos()[0], model.getBody(3).getPos()[1], model.getBody(3).getPos()[2]));
+
         // -------------------------------------------------------------------------------------------------------------
         // CHOOSE INITIAL LANDING DATA GUI
 
