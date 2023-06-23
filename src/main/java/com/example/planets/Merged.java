@@ -359,8 +359,8 @@ public class Merged extends Application {
                     controller[0].update(time);
                     System.out.println(model.getTime() - timeLanding[0]);
                     double[] pos = controller[0].getLandingModule().getPos();
-                    landingModule.translateXProperty().set(960 + pos[1]);
-                    landingModule.translateYProperty().set(250 + 2.77*(300 - pos[1])/model.getTime());
+                    landingModule.translateXProperty().set(960);
+                    landingModule.translateYProperty().set(250 + 2.77*(300 - pos[1]));
                     System.out.println(landingModule.getTranslateX());
                     System.out.println(landingModule.getTranslateY());
 
