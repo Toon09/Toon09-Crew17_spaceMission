@@ -44,7 +44,7 @@ public class StochasticWind {
         if( !inRange( ship.getDistance(planet) ) )
             return;
 
-        System.out.println("fdghjkhgfghjkhgfchjihgfhjkuhygtfrhuji    "+Arrays.toString(v1));
+        //System.out.println("fdghjkhgfghjkhgfchjihgfhjkuhygtfrhuji    "+Arrays.toString(v1));
 
         updateWind(ship, planet, dt);
 

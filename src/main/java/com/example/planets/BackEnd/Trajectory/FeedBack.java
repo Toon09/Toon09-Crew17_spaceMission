@@ -55,7 +55,7 @@ public class FeedBack implements IControler {
         model.updatePos(time, 0.1, false);
         boolean isThereWind = true;
         //noinspection ConstantValue
-        if(isThereWind){
+        if (isThereWind) {
             wind.stochasticWind(landingModule, titan, 0.1);
         }
         double XTolerance = 0.01;
@@ -132,20 +132,28 @@ public class FeedBack implements IControler {
     private void correctX() {
         System.out.println("X");
         if (landingModule.getPos()[0] > 0) {
-            if (landingModule.getRotation() != 270) {
+            if (landingModule.getRotation() != 270.0) {
+                System.out.println("rotation is not 270.0, its "+ landingModule.getRotation());
                 double rotation = landingModule.getRotation();
                 //rotate to -90 degrees ( so 270 degrees )
-                landingModule.rotate(90-rotation );
+                landingModule.rotate(90 - rotation);
+                System.out.println("Rotation is: "+ landingModule.getRotation());
             } else {
-                activateEngine(landingModule.getPos()[0] / 1000);
+                System.out.println("Rotation is: "+ landingModule.getRotation());
+                System.out.println("added " + landingModule.getPos()[0] / -1000 + " velocity");
+                activateEngine(landingModule.getPos()[0] / -1000);
             }
         } else if (landingModule.getPos()[0] < 0) {
-            if (landingModule.getRotation() != 90) {
+            if (landingModule.getRotation() != 90.0) {
+                System.out.println("rotation is not 90.0, its "+ landingModule.getRotation());
                 double rotation = landingModule.getRotation();
                 //rotate to 90 degrees
-                landingModule.rotate(-(90+rotation));
+                landingModule.rotate(-(90 + rotation));
+                System.out.println("Rotation is: "+ landingModule.getRotation());
             } else {
-                activateEngine(landingModule.getPos()[0] / 1000);
+                System.out.println("Rotation is: "+ landingModule.getRotation());
+                System.out.println("added " + landingModule.getPos()[0] / -1000 + " velocity");
+                activateEngine(landingModule.getPos()[0] / -1000);
             }
         }
     }
@@ -163,6 +171,7 @@ public class FeedBack implements IControler {
     /**
      * A function to calculate a double velocity into an array representing
      * the same velocity but in the direction its facing
+     *
      * @param velocity a target velocity in the direction the ship is facing
      * @return a double array where index 0 is the velocity on X axis and index 1 is velocity on Y axis
      */
