@@ -21,7 +21,7 @@ class NumericalExperiments {
 
     // https://ssd.jpl.nasa.gov/horizons/app.html#/ [ experiment data ]
     public static void main(String[] args) {
-        engineTest();
+        //engineTest();
 
         //comparingToEachOther();
 
@@ -29,7 +29,7 @@ class NumericalExperiments {
 
         //trajectoryTesting();
 
-        //testingAccuracyOfSolvers();
+        testingAccuracyOfSolvers();
 
     }
 
@@ -41,11 +41,10 @@ class NumericalExperiments {
         double time = 30;
         boolean isDay = true;
         int checkInterval = 1; //every how many days do you want it to print the values
-        final int TARGET = 7;
 
         // benchmark model
         Model3D model = new Gravity0(0, 0, new RK4());
-        double dt = 0.5;
+        double dt = 1.5;
 
         model.addShips(1); //ship that will be unchanged
 
@@ -66,7 +65,7 @@ class NumericalExperiments {
             model.updatePos(1.0, dt, isDay );
 
             if( (i+1)%checkInterval == 0 ){
-                System.out.println("time stamp: " + (i+1)/60);
+                System.out.println("time stamp: " + (i+1));
 
                 pos1 = model.getShip(1).getPos();
                 pos2 = model.getShip(0).getPos(); // check if
@@ -323,15 +322,12 @@ class NumericalExperiments {
         int numberOfStages = 4;
         double updatePeriod = 1.0; // period on which it shows the positions (in unit of days)
 
-        // to print how long the planning takes
-        double chrono = 0.0;
-
         //where the rock starts
         double latitude = 0.0;
         double longitude = 0.0;
 
         // make trajectory
-        chrono = System.currentTimeMillis();
+        double chrono = System.currentTimeMillis();
         Model3D model = new Gravity0( longitude, latitude, new RK4(), target, numberOfStages, time, new MinDistAndFuel() );
         chrono = System.currentTimeMillis() - chrono;
 
@@ -345,27 +341,26 @@ class NumericalExperiments {
 
         // trajectory is already done, run sim and check time step
         for(int i=0; i<time/updatePeriod; i++){
-            model.updatePos( updatePeriod, 10.0, true ); // every half a day
+            model.updatePos( updatePeriod, 1.5, true ); // every half a day
             CelestialBody targetBody = model.getShip().getTarget();
 
             //System.out.println("Target: " + target);
-            //System.out.println("Time passed: " + (i+1)*updatePeriod + " Days");
+            System.out.println("Time passed: " + (i+1)*updatePeriod + " Days");
 
-            //System.out.println("Sim time: " + model.getTime() + "s");
+            System.out.println("Sim time: " + model.getTime() + "s");
 
             //System.out.println("Target position= X:" + targetBody.getPos()[0] +
             //        "; Y:" + targetBody.getPos()[1] + "; Z:" + targetBody.getPos()[2]);
 
-            //System.out.println("Ship position= X:" + model.getShip().getPos()[0] +
-            //        "; Y:" + model.getShip().getPos()[1] +
-            //        "; Z:" + model.getShip().getPos()[2]);
+            System.out.println("Ship position= X:" + model.getShip().getPos()[0] +
+                      "; Y:" + model.getShip().getPos()[1] + "; Z:" + model.getShip().getPos()[2]);
 
             for(int j=0; j<error.length; j++)
                 error[j] = targetBody.getPos()[j] - model.getShip().getPos()[j];
             errorMagnitude = Math.sqrt( error[0]*error[0] + error[1]*error[1] + error[2]*error[2] );
 
             // System.out.println("Error= X:" + error[0] + "; Y:" + error[1] + "; Z:" + error[2]);
-            System.out.println("BBBBBBBBBBBBB Error magnitude: " + errorMagnitude + "km");
+            System.out.println("Error: " + errorMagnitude + "km\n\n");
             //System.out.println("Closest dist: " + model.getShip().getClosestDistance() + "km");
             //System.out.println("trget from ship: " + model.getShip().getTarget() + "\n\n");
 
