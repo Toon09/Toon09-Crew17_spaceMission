@@ -1,8 +1,6 @@
 package com.example.planets.BackEnd.CelestialEntities;
 
 import com.example.planets.BackEnd.Models.Model3D;
-import com.example.planets.BackEnd.Trajectory.TrajectoryOptimizers.LazyPlanner;
-import com.example.planets.BackEnd.Trajectory.TrajectoryOptimizers.StocasticAscent;
 import com.example.planets.BackEnd.Trajectory.TrajectoryOptimizers.TrajectoryHolder;
 import com.example.planets.BackEnd.Trajectory.TrajectoryOptimizers.TrajectoryPlanner;
 
@@ -40,7 +38,9 @@ public class Planning {
 
         //creates planner and gets trajectory
         //planner = new StocasticAscent(model, numberOfStages, targetPlanet, maxDays);
-        planner = new LazyPlanner(model, targetPlanet, homePlanet);
+        planner = new TrajectoryHolder();
+
+        //
 
         // do the calculation of the orbit from the planet
         planner.makeTrajectory();
@@ -85,6 +85,10 @@ public class Planning {
             planner = new TrajectoryHolder();
         planner.setTrajectory(state);
 
+    }
+
+    public void setTrajectory(TrajectoryPlanner trajectory){
+        this.planner = trajectory;
     }
 
 

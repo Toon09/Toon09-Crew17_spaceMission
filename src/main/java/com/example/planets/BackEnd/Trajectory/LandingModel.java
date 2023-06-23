@@ -26,7 +26,8 @@ public class LandingModel extends Spaceship {
         }
     }
 
-    public void addVel2D(double[] vel) {
+    @Override
+    public void addVel(double[] vel) {
         super.addVel(new double[]{vel[0], vel[1], 0});
     }
 

@@ -3,6 +3,7 @@ package com.example.planets.BackEnd.CelestialEntities;
 import com.example.planets.BackEnd.Models.Gravity0;
 import com.example.planets.BackEnd.Models.Model3D;
 import com.example.planets.BackEnd.Trajectory.Cost.CostFunction;
+import com.example.planets.BackEnd.Trajectory.TrajectoryOptimizers.TrajectoryPlanner;
 
 /*
 add methods related to changing trajectory to another class that has an instance in this one
@@ -12,22 +13,19 @@ could apply decorator for trying different types of engines and debug quick
  */
 
 public class Spaceship extends CelestialBody {
-    private double usedFuel;
+
     //has all the information of where to go and such
     private Planning plan;
     private StochasticWind wind = new StochasticWind();
     private CostFunction costFunc;
     private double cost=0.0;
     private double closestDist = 0.0;
-    private  final double maxForce = 3 * Math.pow(10, 7); // Newtons
-    private final double fuelConsumption = 1451.5; //kg this fuel consumption is based on the falcon 9 maximum fuel consumption, so at max acceleration the consumption is this one.
     private CelestialBody target;
     private Model3D model;
 
     private Engine motor = new Engine();
 
-    public double getUsedFuel(){ return usedFuel; }
-    // public void setFuel(double fuel){ this.fuel = fuel; }
+    public double getUsedFuel(){ return motor.getUsedFuel(); }
 
     /**
      *
@@ -40,7 +38,7 @@ public class Spaceship extends CelestialBody {
      */
     public Spaceship(double mass, double[] pos, double[] vel, double longitude, double latitude, CostFunction costFunc){
         super(mass, pos, vel);
-        usedFuel = 0;
+
         this.costFunc = costFunc;
         //positions
         double x = Gravity0.radiuses[3] * Math.cos(longitude) * Math.cos(latitude);
@@ -61,7 +59,6 @@ public class Spaceship extends CelestialBody {
      */
     public Spaceship(double mass, double[] pos, double[] vel, double longitude, double latitude){
         super(mass, pos, vel);
-        usedFuel = 0;
         //positions
         double x = Gravity0.radiuses[3] * Math.cos(longitude) * Math.cos(latitude);
         double y = Gravity0.radiuses[3] * Math.sin(longitude) * Math.cos(latitude);
@@ -79,7 +76,6 @@ public class Spaceship extends CelestialBody {
      */
     public Spaceship(double mass, double[] pos, double[] vel){
         super(mass, pos, vel);
-        usedFuel = 0;
     }
 
 
@@ -89,7 +85,7 @@ public class Spaceship extends CelestialBody {
      * @param costFunc specifies how the body will calculate its cost for the cost function used in the
      *                 trajectory calculation
      */
-    private Spaceship(CelestialBody body, Planning plan, CostFunction costFunc){
+    private Spaceship(CelestialBody body, Engine motor, Planning plan, CostFunction costFunc){
         super( body.getName(), body.getMass(), body.getPos(), body.getVel());
         this.costFunc = costFunc;
         if( plan != null ){
@@ -97,7 +93,7 @@ public class Spaceship extends CelestialBody {
             target = plan.getTarget();
         }
 
-        usedFuel = 0;
+        this.motor = motor.clone();
 
     }
 
@@ -140,6 +136,10 @@ public class Spaceship extends CelestialBody {
             this.plan = new Planning();
 
         this.plan.setState(state);
+    }
+
+    public void setTrajectory(TrajectoryPlanner trajectory){
+        plan.setTrajectory(trajectory);
     }
 
     public double getCost(){
@@ -218,7 +218,7 @@ public class Spaceship extends CelestialBody {
 
         Spaceship cloned;
 
-        cloned = new Spaceship(temp, plan, costFunc);
+        cloned = new Spaceship(temp, motor, plan, costFunc);
         cloned.setModel(this.model);
         return cloned;
     }
