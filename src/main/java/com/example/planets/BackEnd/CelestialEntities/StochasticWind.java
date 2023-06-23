@@ -3,6 +3,8 @@ package com.example.planets.BackEnd.CelestialEntities;
 import com.example.planets.BackEnd.CelestialEntities.CelestialBody;
 import com.example.planets.BackEnd.CelestialEntities.Spaceship;
 
+import java.util.Arrays;
+
 /*
 only spaceships can be affected by wind conditions, not other planets because they are too big
 
@@ -13,10 +15,10 @@ public class StochasticWind {
     private final double maxDistance = 600.0; // in km
 
     // parts of the atmosphere // https://www.nasa.gov/mission_pages/cassini/whycassini/cassinif-20070601-05.html
-    private double[] v1; private final double mag1 = 0.12; // 120 to up
-    private double[] v2; private final double mag2 = 0.12/2.0; // 60 to 120
-    private double[] v3; private final double mag3 = 0.001; // 6 to 60
-    private double[] v4; private final double mag4 = 0.0001; // 0.7 to 6
+    private double[] v1; private final double mag1 = 0.12/100.0; // 120 to up
+    private double[] v2; private final double mag2 = (0.12/2.0)/100.0; // 60 to 120
+    private double[] v3; private final double mag3 = 0.001/100.0; // 6 to 60
+    private double[] v4; private final double mag4 = 0.0001/100.0; // 0.7 to 6
 
 
     /**
@@ -40,11 +42,12 @@ public class StochasticWind {
         if( !inRange( ship.getDistance(planet) ) )
             return;
 
+        System.out.println("fdghjkhgfghjkhgfchjihgfhjkuhygtfrhuji    "+Arrays.toString(v1));
+
         updateWind(ship, planet, dt);
 
         double[] wind = this.getRange( ship.getDistance(planet) );
 
-        System.out.println("FDGHJGFDFGHJKHGFDGHJKJHGFDGHJKLKLJKHGFGD  "+dt);
 
         // corresponding wind is added
         ship.addVel( new double[] { wind[0]*dt,
