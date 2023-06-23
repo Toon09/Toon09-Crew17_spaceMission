@@ -4,8 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="bab05458-8716-4abd-8f37-31e577e5aaab" name="Changes" comment="">
+    <list default="true" id="bab05458-8716-4abd-8f37-31e577e5aaab" name="Changes" comment="clean up the code">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/planets/BackEnd/CelestialEntities/StochasticWind.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/planets/BackEnd/CelestialEntities/StochasticWind.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/planets/BackEnd/Trajectory/FeedBack.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/planets/BackEnd/Trajectory/FeedBack.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -172,20 +173,6 @@
       <workItem from="1686731689722" duration="3058000" />
       <workItem from="1687181645037" duration="364000" />
       <workItem from="1687335576267" duration="4028000" />
-    </task>
-    <task id="LOCAL-00056" summary="experiment setup made">
-      <created>1684408810589</created>
-      <option name="number" value="00056" />
-      <option name="presentableId" value="LOCAL-00056" />
-      <option name="project" value="LOCAL" />
-      <updated>1684408810589</updated>
-    </task>
-    <task id="LOCAL-00057" summary="Data txt getter">
-      <created>1684409202400</created>
-      <option name="number" value="00057" />
-      <option name="presentableId" value="LOCAL-00057" />
-      <option name="project" value="LOCAL" />
-      <updated>1684409202400</updated>
     </task>
     <task id="LOCAL-00058" summary="Datta getter documentation changed">
       <created>1684409807194</created>
@@ -516,7 +503,21 @@
       <option name="project" value="LOCAL" />
       <updated>1687339297396</updated>
     </task>
-    <option name="localTasksCounter" value="110" />
+    <task id="LOCAL-00110" summary="clean up of feedback">
+      <created>1687524259438</created>
+      <option name="number" value="00110" />
+      <option name="presentableId" value="LOCAL-00110" />
+      <option name="project" value="LOCAL" />
+      <updated>1687524259439</updated>
+    </task>
+    <task id="LOCAL-00111" summary="clean up the code">
+      <created>1687524562715</created>
+      <option name="number" value="00111" />
+      <option name="presentableId" value="LOCAL-00111" />
+      <option name="project" value="LOCAL" />
+      <updated>1687524562715</updated>
+    </task>
+    <option name="localTasksCounter" value="112" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -534,8 +535,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="solvers fixed after code review" />
-    <MESSAGE value="experiment set up finished" />
     <MESSAGE value="engine working with new solvers" />
     <MESSAGE value="advances in hill climbing" />
     <MESSAGE value="cost function changed back lol" />
@@ -559,7 +558,9 @@
     <MESSAGE value="lazy planner deleted" />
     <MESSAGE value="wind fixed" />
     <MESSAGE value="slower wind" />
-    <option name="LAST_COMMIT_MESSAGE" value="slower wind" />
+    <MESSAGE value="clean up of feedback" />
+    <MESSAGE value="clean up the code" />
+    <option name="LAST_COMMIT_MESSAGE" value="clean up the code" />
   </component>
   <component name="XDebuggerManager">
     <pin-to-top-manager>
