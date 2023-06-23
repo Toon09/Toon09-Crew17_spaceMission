@@ -50,7 +50,7 @@ public class FeedBack implements IControler {
      */
     public void update(double time) {
         model.updatePos(time, 0.1, false);
-        wind.stochasticWind(landingModule,titan,1);
+        wind.stochasticWind(landingModule,titan,0.1);
         if (landingModule.getPos()[1] <= 0.00001) {
             finished = true;
             System.out.println("WE LANDED AT: ");
@@ -154,7 +154,7 @@ public class FeedBack implements IControler {
 
     public void activateEngine(double velocity) {
         double[] velocityInDirection = calculateVelocityInDirection(velocity);
-        landingModule.addVel2D(velocityInDirection);
+        landingModule.addVel(velocityInDirection);
     }
 
     public double[] calculateVelocityInDirection(double velocity) {
