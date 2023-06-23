@@ -406,7 +406,7 @@ class NumericalExperiments {
         //models.add( new TestModel2( new RalstonsRK4() ) );
         steps.add( dt );
 
-        models.add( new TestModel2( new Euler() ) );
+        models.add( new TestModel2( new DormandPrince() ) );
         steps.add( dt );
 
 

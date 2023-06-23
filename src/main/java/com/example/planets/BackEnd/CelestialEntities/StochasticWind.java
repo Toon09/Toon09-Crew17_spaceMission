@@ -43,9 +43,9 @@ public class StochasticWind {
         double[] wind = this.getRange( ship.getDistance(planet) );
 
         // corresponding wind is added
-        ship.setVel( new double[] { ship.getVel()[0] + wind[0]*dt,
-                                    ship.getVel()[1] + wind[1]*dt,
-                                    ship.getVel()[2] + wind[2]*dt } );
+        ship.addVel( new double[] { wind[0]*dt,
+                                    wind[1]*dt,
+                                    wind[2]*dt } );
 
     }
 

@@ -2,31 +2,47 @@ package com.example.planets.BackEnd.NumericalMethods;
 
 import com.example.planets.BackEnd.Models.Model3D;
 
+// https://numerary.readthedocs.io/en/latest/dormand-prince-method.html
 public class DormandPrince implements NumSolver{
 
     Model3D pk2;
     Model3D pk3;
     Model3D pk4;
+    Model3D pk5;
+    Model3D pk6;
+    Model3D pk7;
+
+    double step = 0.0;
 
 
-    // coefficients
+    // coefficients for adding times
     static final double a2 = 0.40;
     static final double a3 = (14.0 - 3.0 * Math.sqrt(5.0)) / 16.0;
+
+
+    // values for calculating k's
     static final double b31 = (-2889.0 + 1428.0 * Math.sqrt(5.0)) / 1024.0;
     static final double b32 = (3785.0 - 1620.0 * Math.sqrt(5.0)) / 1024.0;
     static final double b41 = (-3365.0 + 2094.0 * Math.sqrt(5.0)) / 6040.0;
     static final double b42 = (-975.0 - 3046.0 * Math.sqrt(5.0)) / 2552.0;
     static final double b43 = (467040.0 + 203968.0 * Math.sqrt(5.0)) / 240845.0;
 
+
+    // values for rk7
     static final double g1 = (263.0 + 24.0 * Math.sqrt(5.0)) / 1812.0;
     static final double g2 = (125.0 - 1000.0 * Math.sqrt(5.0)) / 3828.0;
     static final double g3 = 1024.0 * (3346.0 + 1623.0 * Math.sqrt(5.0)) / 5924787.0;
     static final double g4 = (30.0 - 4.0 * Math.sqrt(5.0)) / 123.0;
 
+    // values for rk6
+
 
     ////// http://www.mymathlib.com/c_source/diffeq/runge_kutta/runge_kutta_ralston_4.c
     @Override
     public void step(Model3D model, double dt) {
+        if(step == 0.0)
+            step = dt;
+
         //set up rk4 for position only
         RKsetUpVals(model, dt);
 
@@ -38,8 +54,6 @@ public class DormandPrince implements NumSolver{
                     model.getPos(i)[2] + dt * ( g1*model.getVel(i)[2] + g2*pk2.getVel(i)[2] + g3*pk3.getVel(i)[2] + g4*pk4.getVel(i)[2] )   } );
 
         }
-
-        //setting up values for acceleration
 
 
         //update vel
@@ -104,11 +118,11 @@ public class DormandPrince implements NumSolver{
         pk4.addDt(dt);
         pk4.hDeriv();
 
-
     }
 
     @Override
     public String getName() {
         return "Dormant prince";
     }
+
 }
