@@ -42,22 +42,7 @@ public class LazyPlanner implements TrajectoryPlanner{
 
     @Override
     public void next() { // always makes sure current and next is calcualted
-        if(curretVel == null) // first possible time step
-            curretVel = getToDo(model);
 
-        // to get next value
-        Model3D temp = model.clone();
-        // important to give it an empty trajectory since it avoids coming back to this function call and entering a recursion
-        // it also avoids unnecessary calculations since we are only looking at the targets position
-        temp.getShip().setTrajectory(new TrajectoryHolder()); //////// find way to remove the ship from it
-
-        // gets a model on the next value where it must be calculated
-        if(model.getShip().getDistance(model.getBody(target)) > 500_000_000)
-            temp.updatePos(slowPhaseTime, 150, false); ///////////// causes infinite loop ################ FIX
-        else
-            temp.updatePos(phaseTime, 150, false);
-
-        nextVel = getToDo(temp);
 
     }
 
@@ -69,56 +54,8 @@ public class LazyPlanner implements TrajectoryPlanner{
      */
     private double[] getToDo(Model3D model){
         CelestialBody targetPlanet;
-        if (toTarget)
-            targetPlanet = model.getBody(target);
-        else
-            targetPlanet = model.getBody(home);
 
-        double x = targetPlanet.getPos()[0] - model.getShip().getPos()[0];
-        double y = targetPlanet.getPos()[1] - model.getShip().getPos()[1];
-        double z = targetPlanet.getPos()[2] - model.getShip().getPos()[2];
-        double[] newAcc = new double[3];
-
-        double distance = model.getShip().getDistance( targetPlanet ); /////
-        if ((distance > 500000000 && model.getTime() > lastAcc + slowPhaseTime) || distance == 0) {
-            newAcc[0] = model.getShip().getVel()[0] + x / 900000;
-            newAcc[1] = model.getShip().getVel()[1] + y / 900000;
-            newAcc[2] = model.getShip().getVel()[2] + z / 900000;
-            lastAcc = model.getTime();
-        } else if (model.getTime() > lastAcc + phaseTime && distance < 90000000) {
-            newAcc[0] = model.getShip().getVel()[0] + x / 40000;
-            newAcc[1] = model.getShip().getVel()[1] + y / 40000;
-            newAcc[2] = model.getShip().getVel()[2] + z / 40000;
-            lastAcc = model.getTime();
-
-        } else if (model.getTime() > lastAcc + phaseTime && distance < 500000000) {
-            newAcc[0] = model.getShip().getVel()[0] + x / 550000;
-            newAcc[1] = model.getShip().getVel()[1] + y / 550000;
-            newAcc[2] = model.getShip().getVel()[2] + z / 550000;
-            lastAcc = model.getTime();
-        }else if(model.getTime() > lastAcc + phaseTime || first){
-            newAcc[0] = model.getShip().getVel()[0] + x / 550000;
-            newAcc[1] = model.getShip().getVel()[1] + y / 550000;
-            newAcc[2] = model.getShip().getVel()[2] + z / 550000;
-            lastAcc = model.getTime();
-
-            first = false;
-        }
-
-        double[] vel = new double[4];
-
-        vel[0] = model.getTime();
-        for(int i=1; i<vel.length; i++)
-            vel[i] = newAcc[i-1];
-
-        //System.out.println(Arrays.toString(vel));
-        //System.out.println(lastAcc + phaseTime);
-
-        if (distance < targetDistance && distance != 0) {
-            toTarget = false;
-        }
-
-        return vel;
+        return null;
     }
 
 

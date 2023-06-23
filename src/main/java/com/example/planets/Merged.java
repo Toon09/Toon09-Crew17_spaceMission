@@ -210,6 +210,59 @@ public class Merged extends Application {
         world.setRotationAxis(new Point3D(model.getBody(3).getPos()[0], model.getBody(3).getPos()[1], model.getBody(3).getPos()[2]));
 
         // -------------------------------------------------------------------------------------------------------------
+        // LANDING ON TITAN GUI
+
+        Group landing = new Group();
+        Scene landingScene = new Scene(landing, ScreenWIDTH, ScreenHEIGHT);
+        landingScene.setFill(Color.BLACK);
+
+        Button button = new Button("\uD83C\uDF11 LANDING \uD83C\uDF11");
+        button.setLayoutY(ScreenHEIGHT/2);
+        button.setOnAction(e -> stage.setScene(landingScene));
+        root.getChildren().add(button);
+
+        Box titan = new Box(1920, 800, 400);
+        titan.translateXProperty().set((ScreenWIDTH)/2);
+        titan.translateYProperty().set((ScreenHEIGHT+1600)/2);
+        PhongMaterial titanMaterial = new PhongMaterial();
+        titanMaterial.setDiffuseMap(new Image("titanTexture.jpg"));
+        titan.setMaterial(titanMaterial);
+
+        Rotate rotate = new Rotate();
+        rotate.setAngle(90);
+
+        Cylinder landingModule = new Cylinder(10, 50);
+        landingModule.translateXProperty().set((ScreenWIDTH)/2);
+        landingModule.translateYProperty().set((ScreenHEIGHT-600)/2);
+        PhongMaterial spaceshipMaterial = new PhongMaterial();
+        spaceshipMaterial.setDiffuseMap(new Image("metalTexture2.jpg"));
+        landingModule.setMaterial(spaceshipMaterial);
+        landingModule.getTransforms().addAll(rotate);
+
+        Camera landingCamera = new PerspectiveCamera(); // set at (0;0;0)
+        landingScene.setCamera(landingCamera);
+        landingScene.addEventHandler(KeyEvent.KEY_PRESSED, event -> {
+            switch (event.getCode()) {
+                case X -> {
+                    landingCamera.setTranslateX(0);
+                    landingCamera.setTranslateY(-landingModule.getTranslateY());
+                    landingCamera.setTranslateZ(-400);
+                }
+                case R -> {
+                    landingCamera.setTranslateX(0);
+                    landingCamera.setTranslateY(0);
+                    landingCamera.setTranslateZ(0);
+                }
+                case B -> stage.setScene(scene);
+                case W -> landingCamera.setTranslateZ(landingCamera.getTranslateZ() + 100);
+                case S -> landingCamera.setTranslateZ(landingCamera.getTranslateZ() - 100);
+
+            }
+        });
+
+        landing.getChildren().addAll(titan, landingModule, landingCamera);
+
+        // -------------------------------------------------------------------------------------------------------------
         // CHOOSE INITIAL LANDING DATA GUI
 
         Group initialData = new Group();
@@ -221,6 +274,7 @@ public class Merged extends Application {
         altitudeSelector.setLayoutY((ScreenHEIGHT-200)/2);
 
         Text altitude = new Text("Choose initial altitude (X)");
+        altitude.setFill(Color.WHITE);
         altitude.setLayoutX((ScreenWIDTH-100)/2);
         altitude.setLayoutY((ScreenHEIGHT-220)/2);
 
@@ -229,6 +283,7 @@ public class Merged extends Application {
         longitudeSelector.setLayoutY(ScreenHEIGHT/2);
 
         Text longitude = new Text("Choose initial longitude (Y)");
+        longitude.setFill(Color.WHITE);
         longitude.setLayoutX((ScreenWIDTH-100)/2);
         longitude.setLayoutY((ScreenHEIGHT-20)/2);
 
@@ -237,6 +292,7 @@ public class Merged extends Application {
         xVelocitySelector.setLayoutY((ScreenHEIGHT+200)/2);
 
         Text xVelocity = new Text("Choose initial ship velocity (V)");
+        xVelocity.setFill(Color.WHITE);
         xVelocity.setLayoutX((ScreenWIDTH-100)/2);
         xVelocity.setLayoutY((ScreenHEIGHT+180)/2);
 
@@ -250,14 +306,13 @@ public class Merged extends Application {
         alert.setHeaderText("Unexpected input");
         alert.setContentText("Only doubles are allowed!");
 
-        Button defaultData = new Button("DEAFULT");
+        Button defaultData = new Button("DEFAULT");
         defaultData.setLayoutX((ScreenWIDTH+60)/2);
         defaultData.setLayoutY((ScreenHEIGHT+400)/2);
         defaultData.setOnAction(e -> {
-            //FeedBack defaultModel = new FeedBack();
+            FeedBack defaultModel = new FeedBack();
+            stage.setScene(landingScene);
         });
-
-
 
         Button submit = new Button("SUBMIT");
         submit.setLayoutX((ScreenWIDTH-100)/2);
@@ -268,8 +323,9 @@ public class Merged extends Application {
                 double initLongitude = Double.parseDouble(longitudeSelector.getText());
                 double initialVelocity = Double.parseDouble(xVelocitySelector.getText());
                 double[] initialPosition = {initAltitude, initLongitude};
-                //FeedBack selectedModel = new FeedBack(initialPosition, initialVelocity);
-                stage.setScene(scene);
+                FeedBack selectedModel = new FeedBack(initialPosition, initialVelocity);
+                stage.setScene(landingScene);
+
             }
             catch (NumberFormatException exception) {
                 alert.showAndWait();
@@ -285,70 +341,6 @@ public class Merged extends Application {
         });
         initialData.getChildren().addAll(altitudeSelector, longitudeSelector, xVelocitySelector, submit,
                 altitude, longitude, xVelocity, defaultData);
-
-        // -------------------------------------------------------------------------------------------------------------
-        // LANDING ON TITAN GUI
-
-        Group landing = new Group();
-        Scene landingScene = new Scene(landing, ScreenWIDTH, ScreenHEIGHT);
-        landingScene.setFill(Color.BLACK);
-
-        Button button = new Button("\uD83C\uDF11 LANDING \uD83C\uDF11");
-        button.setLayoutY(ScreenHEIGHT/2);
-        button.setOnAction(e -> stage.setScene(landingScene));
-        root.getChildren().add(button);
-
-        Sphere titan = new Sphere(800);
-        titan.translateXProperty().set((ScreenWIDTH)/2);
-        titan.translateYProperty().set((ScreenHEIGHT+1600)/2);
-        PhongMaterial titanMaterial = new PhongMaterial();
-        titanMaterial.setDiffuseMap(new Image("titanTexture.jpg"));
-        titan.setMaterial(titanMaterial);
-
-        Cylinder spaceship = new Cylinder(25, 100);
-        spaceship.translateXProperty().set((ScreenWIDTH)/2);
-        spaceship.translateYProperty().set((ScreenHEIGHT-800)/2);
-        PhongMaterial spaceshipMaterial = new PhongMaterial();
-        spaceshipMaterial.setDiffuseMap(new Image("metalTexture2.jpg"));
-        spaceship.setMaterial(spaceshipMaterial);
-
-        Rotate rotate = new Rotate();
-        rotate.setAngle(90);
-        spaceship.getTransforms().addAll(rotate);
-
-        Cylinder landingModule = new Cylinder(10, 50);
-        landingModule.translateXProperty().set((ScreenWIDTH)/2);
-        landingModule.translateYProperty().set((ScreenHEIGHT-300)/2);
-        landingModule.setMaterial(spaceshipMaterial);
-        landingModule.getTransforms().addAll(rotate);
-
-        Camera landingCamera = new PerspectiveCamera(); // set at (0;0;0)
-        landingScene.setCamera(landingCamera);
-        landingScene.addEventHandler(KeyEvent.KEY_PRESSED, event -> {
-            switch (event.getCode()) {
-                case X -> {
-                    landingCamera.setTranslateX(0);
-                    landingCamera.setTranslateY(-landingModule.getTranslateY());
-                    landingCamera.setTranslateZ(-400);
-                }
-                case Z -> {
-                    landingCamera.setTranslateX(0);
-                    landingCamera.setTranslateY(-spaceship.getTranslateY());
-                    landingCamera.setTranslateZ(-400);
-                }
-                case R -> {
-                    landingCamera.setTranslateX(0);
-                    landingCamera.setTranslateY(0);
-                    landingCamera.setTranslateZ(0);
-                }
-                case B -> stage.setScene(scene);
-                case W -> landingCamera.setTranslateZ(landingCamera.getTranslateZ() + 100);
-                case S -> landingCamera.setTranslateZ(landingCamera.getTranslateZ() - 100);
-
-            }
-        });
-
-        landing.getChildren().addAll(titan, spaceship, landingModule, landingCamera);
 
         // -------------------------------------------------------------------------------------------------------------
 
