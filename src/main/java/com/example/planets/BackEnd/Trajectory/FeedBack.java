@@ -1,6 +1,7 @@
 package com.example.planets.BackEnd.Trajectory;
 
 import com.example.planets.BackEnd.CelestialEntities.CelestialBody;
+import com.example.planets.BackEnd.CelestialEntities.StochasticWind;
 import com.example.planets.BackEnd.Models.Gravity0;
 
 import java.util.Arrays;
@@ -11,7 +12,7 @@ public class FeedBack implements IControler {
     private final Gravity0 model;
     private boolean lastPhase;
     private boolean finished;
-
+    private StochasticWind wind;
     /**
      * default constructor that places the landing module at X = 0, Y = 300km and Y = 0 is the surface of titan
      */
@@ -21,6 +22,7 @@ public class FeedBack implements IControler {
         model = new Gravity0(titan, landingModule);
         lastPhase = false;
         finished = false;
+        wind = new StochasticWind();
     }
 
     /**
@@ -33,7 +35,7 @@ public class FeedBack implements IControler {
         model = new Gravity0(titan, landingModule);
         lastPhase = false;
         finished = false;
-
+        wind = new StochasticWind();
     }
 
     /**
@@ -56,7 +58,11 @@ public class FeedBack implements IControler {
             System.out.println(Arrays.toString(landingModule.getVel()));
             System.out.println("AFTER " + model.getTime() + " SECONDS");
         } else if (landingModule.getPos()[1] > 200) {
-            correctY(1, false);
+            if(Math.abs(landingModule.getPos()[0]) > 0.01){
+                correctX();
+            }else {
+                correctY(1, false);
+            }
         } else if (landingModule.getPos()[1] > 100) {
             correctY(0.5, false);
         } else if (landingModule.getPos()[1] > 20) {
@@ -65,20 +71,24 @@ public class FeedBack implements IControler {
             correctY(0.01, false);
         } else if (landingModule.getPos()[1] > 5) {
             correctY(0.001, false);
-        } else if(landingModule.getPos()[1] > 0.05){
-            correctY(0.00001,false);
-        }else{
+        } else if (landingModule.getPos()[1] > 0.05) {
+            correctY(0.0001, false);
+        } else {
             System.out.println("else");
             lastPhase = true;
-            correctY(0.00001,false);
+            correctY(0.000001, true);
         }
     }
 
     private void correctY(double target, boolean boost) {
-        if (boost){
+        if (landingModule.getRotation() != 0) {
+            landingModule.rotate(landingModule.getRotation() * -1);
+            return;
+        }
+        if (boost) {
             double difference = target - landingModule.getVel()[1];
-            activateEngine(difference*1.7);
-        }else {
+            activateEngine(difference * 1.7);
+        } else {
             target = target * -1; // that's because we are going down, so we want negative velocity
             double difference = target - landingModule.getVel()[1];
             activateEngine(difference);
@@ -102,15 +112,40 @@ public class FeedBack implements IControler {
             if (landingModule.getVel()[0] == 0) {
                 return;
             } else if (landingModule.getVel()[0] > 0) {
-                double rotation = landingModule.getRotation();
-                //rotate to -90 degrees ( so 270 degrees )
-                landingModule.rotate(-(rotation + 90));
-                activateEngine(landingModule.getVel()[0]);
+                if (landingModule.getRotation() != 270) {
+                    double rotation = landingModule.getRotation();
+                    //rotate to -90 degrees ( so 270 degrees )
+                    landingModule.rotate(-(rotation + 90));
+                } else {
+                    activateEngine(landingModule.getVel()[0] / 2);
+                }
+                //if its going towards negative x rotate it or make it go towards positive x
             } else if (landingModule.getVel()[0] < 0) {
-                double rotation = landingModule.getRotation();
-                //rotate to -90 degrees ( so 270 degrees )
-                landingModule.rotate(-(rotation + 90));
-                activateEngine(landingModule.getVel()[0]);
+                if (landingModule.getRotation() != 90) {
+                    double rotation = landingModule.getRotation();
+                    //rotate to 90 degrees
+                    landingModule.rotate(-rotation + 90);
+                } else {
+                    activateEngine(landingModule.getVel()[0] / 2);
+                }
+            }
+        } else {
+            if (landingModule.getPos()[0] > 0) {
+                if (landingModule.getRotation() != 270) {
+                    double rotation = landingModule.getRotation();
+                    //rotate to -90 degrees ( so 270 degrees )
+                    landingModule.rotate(-(rotation + 90));
+                } else {
+                    activateEngine(landingModule.getPos()[0] / 5);
+                }
+            } else if (landingModule.getPos()[0] < 0) {
+                if (landingModule.getRotation() != 90) {
+                    double rotation = landingModule.getRotation();
+                    //rotate to 90 degrees
+                    landingModule.rotate(-rotation + 90);
+                } else {
+                    activateEngine(landingModule.getPos()[0] / 5);
+                }
             }
         }
 
@@ -118,6 +153,7 @@ public class FeedBack implements IControler {
 
     public void activateEngine(double velocity) {
         double[] velocityInDirection = calculateVelocityInDirection(velocity);
+        wind.stochasticWind(landingModule,titan,1);
         landingModule.addVel2D(velocityInDirection);
     }
 
