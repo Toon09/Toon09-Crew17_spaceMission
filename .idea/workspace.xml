@@ -4,8 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="bab05458-8716-4abd-8f37-31e577e5aaab" name="Changes" comment="feedback done without the wind">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    <list default="true" id="bab05458-8716-4abd-8f37-31e577e5aaab" name="Changes" comment="feedback done with the wind but doesnt correct it ( and the wind doesn't work )">
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/planets/BackEnd/Trajectory/FeedBack.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/planets/BackEnd/Trajectory/FeedBack.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -192,14 +191,7 @@
       <workItem from="1686731689722" duration="3058000" />
       <workItem from="1687181645037" duration="364000" />
       <workItem from="1687335576267" duration="4804000" />
-      <workItem from="1687517339931" duration="1359000" />
-    </task>
-    <task id="LOCAL-00057" summary="Data txt getter">
-      <created>1684409202400</created>
-      <option name="number" value="00057" />
-      <option name="presentableId" value="LOCAL-00057" />
-      <option name="project" value="LOCAL" />
-      <updated>1684409202400</updated>
+      <workItem from="1687517339931" duration="1788000" />
     </task>
     <task id="LOCAL-00058" summary="Datta getter documentation changed">
       <created>1684409807194</created>
@@ -537,7 +529,14 @@
       <option name="project" value="LOCAL" />
       <updated>1687339669406</updated>
     </task>
-    <option name="localTasksCounter" value="106" />
+    <task id="LOCAL-00106" summary="feedback done with the wind but doesnt correct it ( and the wind doesn't work )">
+      <created>1687518961011</created>
+      <option name="number" value="00106" />
+      <option name="presentableId" value="LOCAL-00106" />
+      <option name="project" value="LOCAL" />
+      <updated>1687518961012</updated>
+    </task>
+    <option name="localTasksCounter" value="107" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -555,7 +554,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="data generation set up and rk2 refactored" />
     <MESSAGE value="engine working" />
     <MESSAGE value="RK3 more appropiately named" />
     <MESSAGE value="beautuiful cost function done" />
@@ -580,24 +578,25 @@
     <MESSAGE value="merged fix" />
     <MESSAGE value="feedback for now" />
     <MESSAGE value="feedback done without the wind" />
-    <option name="LAST_COMMIT_MESSAGE" value="feedback done without the wind" />
+    <MESSAGE value="feedback done with the wind but doesnt correct it ( and the wind doesn't work )" />
+    <option name="LAST_COMMIT_MESSAGE" value="feedback done with the wind but doesnt correct it ( and the wind doesn't work )" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/example/planets/NumericalExperiments.java</url>
-          <line>348</line>
+          <line>344</line>
           <option name="timeStamp" value="2" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/example/planets/BackEnd/CelestialEntities/Planning.java</url>
-          <line>59</line>
+          <line>61</line>
           <option name="timeStamp" value="3" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/example/planets/BackEnd/CelestialEntities/Planning.java</url>
-          <line>52</line>
+          <line>54</line>
           <option name="timeStamp" value="4" />
         </line-breakpoint>
       </breakpoints>
