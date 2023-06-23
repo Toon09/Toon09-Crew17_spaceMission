@@ -2,7 +2,7 @@ package com.example.planets.BackEnd.Trajectory.TrajectoryOptimizers;
 
 public class TrajectoryHolder implements TrajectoryPlanner{
 
-    private double[][] trajectory;
+    private double[][] trajectory  = new double[0][0];
     private int stage = 0;
     @Override
     public void makeTrajectory() {}
@@ -20,7 +20,7 @@ public class TrajectoryHolder implements TrajectoryPlanner{
 
     @Override
     public double[] getCurrent() {
-        if(stage>= trajectory.length)
+        if(stage >= trajectory.length)
             return new double[] {0,0,0,0};
         return trajectory[stage];
     }
