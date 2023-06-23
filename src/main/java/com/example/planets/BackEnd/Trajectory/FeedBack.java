@@ -3,16 +3,16 @@ package com.example.planets.BackEnd.Trajectory;
 import com.example.planets.BackEnd.CelestialEntities.CelestialBody;
 import com.example.planets.BackEnd.CelestialEntities.StochasticWind;
 import com.example.planets.BackEnd.Models.Gravity0;
-
 import java.util.Arrays;
 
+@SuppressWarnings("unused")
 public class FeedBack implements IControler {
     private final LandingModel landingModule;
     private final CelestialBody titan;
     private final Gravity0 model;
     private boolean lastPhase;
     private boolean finished;
-    private StochasticWind wind;
+    private final StochasticWind wind;
     /**
      * default constructor that places the landing module at X = 0, Y = 300km and Y = 0 is the surface of titan
      */
@@ -39,14 +39,15 @@ public class FeedBack implements IControler {
     }
 
     /**
+     * function to monitor Y velocity of the module that tries to achieve:
+     *      1km/s at 200km
+     *      0.5km/s at 100km
+     *      0.1km/s at 20km
+     *      0.01km/s at 10km
+     *      0.001km/s at 5km
+     *      0.0001km/s at 0.5km ( and no rotation anymore )
      * @param time how much time should pass
-     *             function to monitor Y velocity of the module that tries to achieve:
-     *             1km/s at 200km
-     *             0.5km/s at 100km
-     *             0.1km/s at 20km
-     *             0.01km/s at 10km
-     *             0.001km/s at 5km
-     *             0.0001km/s at 0.5km ( and no rotation anymore )
+     *
      */
     public void update(double time) {
         model.updatePos(time, 0.1, false);
@@ -81,6 +82,14 @@ public class FeedBack implements IControler {
         }
     }
 
+    /**
+     * a function that corrects the Y position of the ship, it either rotates the ship to face
+     * the correct direction
+     * @param target a target velocity of a landing module
+     * @param boost should the velocity be positive ( normally the target velocity of 0.5
+     *              would be -0.5 as it's going downwards )
+     *
+     */
     private void correctY(double target, boolean boost) {
         if (landingModule.getRotation() != 0) {
             landingModule.rotate(landingModule.getRotation() * -1);
@@ -96,17 +105,11 @@ public class FeedBack implements IControler {
         }
     }
 
-    private void calculateVelocityY(double target) {
-        calculateVelocity(target, 1);
-    }
-
-    private void calculateVelocity(double target, int axis) {
-        if (landingModule.getVel()[axis] == target) {
-            return;
-        }
-        double difference = target - landingModule.getVel()[axis];
-    }
-
+    /**
+     * A function to correct the X position of the ship, it either rotates the ship
+     * to face the correct direction or accelerates
+     */
+    @SuppressWarnings("UnnecessaryReturnStatement")
     private void correctX() {
         if (landingModule.getPos()[0] == 0) {
             //if it's above the point and has no velocity, leave it be, else fix the velocity by rotating and applying its opposite
@@ -120,7 +123,7 @@ public class FeedBack implements IControler {
                 } else {
                     activateEngine(landingModule.getVel()[0] / 2);
                 }
-                //if its going towards negative x rotate it or make it go towards positive x
+                //if it is going towards negative x rotate it or make it go towards positive x
             } else if (landingModule.getVel()[0] < 0) {
                 if (landingModule.getRotation() != 90) {
                     double rotation = landingModule.getRotation();
@@ -152,11 +155,21 @@ public class FeedBack implements IControler {
 
     }
 
+    /**
+     * Function to add @velocity in the direction that the spaceship is currently facing, so it only goes forward
+     * @param velocity velocity to add to the current velocity of the landing module
+     */
     public void activateEngine(double velocity) {
         double[] velocityInDirection = calculateVelocityInDirection(velocity);
         landingModule.addVel2D(velocityInDirection);
     }
 
+    /**
+     * A function to calculate a double velocity into an array representing
+     * the same velocity but in the direction its facing
+     * @param velocity a target velocity in the direction the ship is facing
+     * @return a double array where index 0 is the velocity on X axis and index 1 is velocity on Y axis
+     */
     public double[] calculateVelocityInDirection(double velocity) {
         // Convert rotation to radians
         double rotationInRadians = Math.toRadians(landingModule.getRotation());
@@ -167,44 +180,16 @@ public class FeedBack implements IControler {
         return new double[]{velocityX, velocityY};
     }
 
+    //getters for the model, landing module and isLastPhase and finished boolean
     public LandingModel getLandingModule() {
         return landingModule;
     }
-
     public Gravity0 getModel() {
         return model;
     }
-
-    //functions that are useful if we are working on the same system as before, not a separate one
-    private double[] getPoint(double[] A, double[] B, double distance) {
-        double X = B[0] - A[0];
-        double Y = B[1] - A[1];
-        double length = Math.sqrt(X * X + Y * Y);
-        double normX = X / length;
-        double normY = Y / length;
-        return new double[]{A[0] + normX * distance, A[1] + normY * distance};
-    }
-
-    public double getDistance2D(double[] A, double[] B) {
-        double X = A[0] - B[0];
-        double Y = A[1] - B[1];
-        return Math.sqrt(X * X + Y * Y);
-    }
-
-    private double[] getDirection(double[] start, double[] end, double velocity) {
-        double deltaX = end[0] - start[0];
-        double deltaY = end[1] - start[1];
-        double distance = Math.sqrt(deltaX * deltaX + deltaY * deltaY);
-        double directionX = velocity * (deltaX / distance);
-        double directionY = velocity * (deltaY / distance);
-
-        return new double[]{directionX, directionY};
-    }
-
     public boolean isFinished() {
         return finished;
     }
-
     public boolean isLastPhase() {
         return lastPhase;
     }
