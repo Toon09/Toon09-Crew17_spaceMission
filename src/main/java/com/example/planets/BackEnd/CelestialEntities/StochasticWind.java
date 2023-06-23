@@ -15,10 +15,10 @@ public class StochasticWind {
     private final double maxDistance = 600.0; // in km
 
     // parts of the atmosphere // https://www.nasa.gov/mission_pages/cassini/whycassini/cassinif-20070601-05.html
-    private double[] v1; private final double mag1 = 0.12/100.0; // 120 to up
-    private double[] v2; private final double mag2 = (0.12/2.0)/100.0; // 60 to 120
-    private double[] v3; private final double mag3 = 0.001/100.0; // 6 to 60
-    private double[] v4; private final double mag4 = 0.0001/100.0; // 0.7 to 6
+    private double[] v1; private final double mag1 = 0.12/10.0; // 120 to up
+    private double[] v2; private final double mag2 = (0.12/2.0)/10.0; // 60 to 120
+    private double[] v3; private final double mag3 = 0.001/10.0; // 6 to 60
+    private double[] v4; private final double mag4 = 0.0001/10.0; // 0.7 to 6
 
 
     /**

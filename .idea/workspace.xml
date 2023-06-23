@@ -516,7 +516,7 @@
       <option name="project" value="LOCAL" />
       <updated>1687339297396</updated>
     </task>
-    <option name="localTasksCounter" value="108" />
+    <option name="localTasksCounter" value="109" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -534,7 +534,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="beautuiful cost function done" />
     <MESSAGE value="solvers fixed after code review" />
     <MESSAGE value="experiment set up finished" />
     <MESSAGE value="engine working with new solvers" />
@@ -559,7 +558,8 @@
     <MESSAGE value="final changes to trajectory" />
     <MESSAGE value="lazy planner deleted" />
     <MESSAGE value="wind fixed" />
-    <option name="LAST_COMMIT_MESSAGE" value="wind fixed" />
+    <MESSAGE value="slower wind" />
+    <option name="LAST_COMMIT_MESSAGE" value="slower wind" />
   </component>
   <component name="XDebuggerManager">
     <pin-to-top-manager>
