@@ -239,7 +239,7 @@ public class Merged extends Application {
         landingModule.setMaterial(spaceshipMaterial);
         landingModule.getTransforms().addAll(rotate);
 
-        Camera landingCamera = new PerspectiveCamera(); // set at (0;0;0)
+        Camera landingCamera = new PerspectiveCamera();
         landingScene.setCamera(landingCamera);
         landingScene.addEventHandler(KeyEvent.KEY_PRESSED, event -> {
             switch (event.getCode()) {
