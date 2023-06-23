@@ -6,8 +6,6 @@ public class CelestialBody {
 
     protected String name = "Ship";
     protected double mass = 0;
-    protected double radius = 0;
-
     protected double[] pos = new double[3];
     protected double[] vel = new double[3];
     protected double[] acc = new double[]{0,0,0};
@@ -15,7 +13,7 @@ public class CelestialBody {
 
     /**
      * converts a number of days to seconds
-     * @param days number of days thats wants to be known in seconds, can be fractional
+     * @param days number of days that's wants to be known in seconds, can be fractional
      * @return amount of seconds in those days
      */
     public static double daysToSec(double days){
@@ -25,8 +23,8 @@ public class CelestialBody {
     /**
      * converts a number of seconds to an amount in days
      * @param sec the number of seconds that wants to be not known in days
-     * @return number representing the amount in days, its fractional in case
-     *      the seconds dont add up exactly to a precise number of days
+     * @return number representing the amount in days, It's fractional in case
+     *      the seconds don't add up exactly to a precise number of days
      */
     public static double secToDays(double sec){
         return sec/(60.0*60.0*24.0);
@@ -80,7 +78,7 @@ public class CelestialBody {
 
 
     /**
-     * takes 2D array and sets the velocity, positions anda ccelerations given in it as the models own,
+     * takes 2D array and sets the velocity, positions anda accelerations given in it as the models own,
      * must be in the following format:
      *  arrays of length 3 that contain     [ 0:position, 1:velocity, 2:acceleration ]
      *  values of each coordinate in        [ 0:x, 1:y, 2:z ]

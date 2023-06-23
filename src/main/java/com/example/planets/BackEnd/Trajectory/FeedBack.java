@@ -49,7 +49,7 @@ public class FeedBack implements IControler {
      * 0.001km/s at 5km
      * 0.0001km/s at 0.5km ( and no rotation anymore )
      *
-     * @param time how much time should pass
+     * @param time how much time should pass ( in seconds )
      */
     public void update(double time) {
         model.updatePos(time, 0.1, false);
@@ -163,7 +163,6 @@ public class FeedBack implements IControler {
     /**
      * A function to calculate a double velocity into an array representing
      * the same velocity but in the direction its facing
-     *
      * @param velocity a target velocity in the direction the ship is facing
      * @return a double array where index 0 is the velocity on X axis and index 1 is velocity on Y axis
      */
