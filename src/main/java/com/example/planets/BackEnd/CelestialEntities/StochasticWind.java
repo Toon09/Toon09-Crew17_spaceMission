@@ -30,7 +30,7 @@ public class StochasticWind {
     private boolean inRange(double distance){
         // the range is from 15 meters from the surface up to the max distance from surface
         double titanRadius = 2574.7;
-        return distance < titanRadius + maxDistance && distance > titanRadius;
+        return distance < titanRadius + maxDistance && distance > titanRadius + 0.7;
     }
 
     /**
