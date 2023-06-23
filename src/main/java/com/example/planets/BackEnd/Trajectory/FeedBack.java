@@ -13,6 +13,7 @@ public class FeedBack implements IControler {
     private boolean lastPhase;
     private boolean finished;
     private final StochasticWind wind;
+
     /**
      * default constructor that places the landing module at X = 0, Y = 300km and Y = 0 is the surface of titan
      */
@@ -78,7 +79,7 @@ public class FeedBack implements IControler {
         } else {
             System.out.println("else");
             lastPhase = true;
-            correctY(0.000001, true);
+            correctY(0.000001, false);
         }
     }
 
