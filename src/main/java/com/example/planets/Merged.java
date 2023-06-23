@@ -306,11 +306,14 @@ public class Merged extends Application {
         alert.setHeaderText("Unexpected input");
         alert.setContentText("Only doubles are allowed!");
 
+        final FeedBack[] controller = new FeedBack[1];
+        final double timeLanding[] = new double[1];
         Button defaultData = new Button("DEFAULT");
         defaultData.setLayoutX((ScreenWIDTH+60)/2);
         defaultData.setLayoutY((ScreenHEIGHT+400)/2);
         defaultData.setOnAction(e -> {
-            FeedBack defaultModel = new FeedBack();
+            controller[0] = new FeedBack();
+            timeLanding[0] = time;
             stage.setScene(landingScene);
         });
 
@@ -323,7 +326,8 @@ public class Merged extends Application {
                 double initLongitude = Double.parseDouble(longitudeSelector.getText());
                 double initialVelocity = Double.parseDouble(xVelocitySelector.getText());
                 double[] initialPosition = {initAltitude, initLongitude};
-                FeedBack selectedModel = new FeedBack(initialPosition, initialVelocity);
+                controller[0] = new FeedBack(initialPosition, initialVelocity);
+                timeLanding[0] = time;
                 stage.setScene(landingScene);
 
             }
@@ -350,67 +354,78 @@ public class Merged extends Application {
         timer.schedule(new TimerTask() {
             @Override
             public void run() {
-                model.updatePos(time, dt, true);
-                for (int i = 0; i < 12; i++) {
-                    setPosition(world.getChildren().get(i), model.getBody(i));
-                }
+                if(stage.getScene().equals(landingScene)){
 
-                double accX = model.getShip().getAcc()[0] * 30 * 60 * 60 * 60;
-                double accY = model.getShip().getAcc()[1] * 30 * 60 * 60 * 60;
-                double accZ = model.getShip().getAcc()[2] * 30 * 60 * 60 * 60;
+                    controller[0].update(time - timeLanding[0]);
+                    System.out.println(time - timeLanding[0]);
+                    double[] pos = controller[0].getLandingModule().getPos();
+                    landingModule.translateXProperty().set(960 + pos[1]);
+                    landingModule.translateYProperty().set(250 + 2.77*(300 - pos[1])/time);
+                    System.out.println(landingModule.getTranslateX());
+                    System.out.println(landingModule.getTranslateY());
 
-
-                double currentAccMagnitude = Math.sqrt(accX * accX + accY * accY + accZ * accZ);
-
-                double fuelConsumed = (currentAccMagnitude * 50000/ maxForce) * fuelConsumptionRate;
-
-                totalConsumption += fuelConsumed;
-
-                Platform.runLater(() -> {
-
-                    fuelLabel.setText(Double.toString(totalConsumption));
-                    positionText.setText("Spacecraft position at : " + Arrays.toString(model.getShip().getPos()));
-                    distanceText.setText("Distance between spacecraft and titan in km : " + model.getShip().getDistance(model.getBody(8)));
-                    timeText.setText("Time taken so far : " + timeInDays(model.getTime()));
-
-                    if(checkForReachedTitan)
-                    {
-                        reachedTitanText.setText("Reached titan in " + timeInDays(model.getTime()) + " days");
-                        reachedTitan2Text.setText("Closest distance reached by the spacecraft : " + distance + " km");
-                        checkForReachedTitan = false ;
+                } else {
+                    model.updatePos(time, dt, true);
+                    for (int i = 0; i < 12; i++) {
+                        setPosition(world.getChildren().get(i), model.getBody(i));
                     }
 
-                });
-                if (dtBox.getValue() != null) {
-                    dt = Double.valueOf((String) dtBox.getValue());
-                }
+                    double accX = model.getShip().getAcc()[0] * 30 * 60 * 60 * 60;
+                    double accY = model.getShip().getAcc()[1] * 30 * 60 * 60 * 60;
+                    double accZ = model.getShip().getAcc()[2] * 30 * 60 * 60 * 60;
 
-                if (lookAtEarth) {
-                    camera.setTranslateX(model.getBody(3).getPos()[0] / scale + 1000);
-                    camera.setTranslateY(model.getBody(3).getPos()[1] / scale + 2000);
-                    camera.setTranslateZ(model.getBody(3).getPos()[2] / scale - 24000);
+
+                    double currentAccMagnitude = Math.sqrt(accX * accX + accY * accY + accZ * accZ);
+
+                    double fuelConsumed = (currentAccMagnitude * 50000 / maxForce) * fuelConsumptionRate;
+
+                    totalConsumption += fuelConsumed;
+
+                    Platform.runLater(() -> {
+
+                        fuelLabel.setText(Double.toString(totalConsumption));
+                        positionText.setText("Spacecraft position at : " + Arrays.toString(model.getShip().getPos()));
+                        distanceText.setText("Distance between spacecraft and titan in km : " + model.getShip().getDistance(model.getBody(8)));
+                        timeText.setText("Time taken so far : " + timeInDays(model.getTime()));
+
+                        if (checkForReachedTitan) {
+                            reachedTitanText.setText("Reached titan in " + timeInDays(model.getTime()) + " days");
+                            reachedTitan2Text.setText("Closest distance reached by the spacecraft : " + distance + " km");
+                            checkForReachedTitan = false;
+                        }
+
+                    });
+                    if (dtBox.getValue() != null) {
+                        dt = Double.valueOf((String) dtBox.getValue());
+                    }
+
+                    if (lookAtEarth) {
+                        camera.setTranslateX(model.getBody(3).getPos()[0] / scale + 1000);
+                        camera.setTranslateY(model.getBody(3).getPos()[1] / scale + 2000);
+                        camera.setTranslateZ(model.getBody(3).getPos()[2] / scale - 24000);
+                    }
+                    if (lookAtSun) {
+                        camera.setTranslateX(-model.getBody(0).getPos()[0] / scale);
+                        camera.setTranslateY(-model.getBody(0).getPos()[1] / scale);
+                        camera.setTranslateZ(model.getBody(0).getPos()[2] / scale - 360500);
+                    }
+                    if (lookAtTitan) {
+                        camera.setTranslateX(model.getBody(8).getPos()[0] / scale + 1000);
+                        camera.setTranslateY(model.getBody(8).getPos()[1] / scale + 2000);
+                        camera.setTranslateZ(model.getBody(8).getPos()[2] / scale - 24000);
+                    }
+                    if (lookAtEverything) {
+                        camera.setTranslateX(183608);
+                        camera.setTranslateY(-130000);
+                        camera.setTranslateZ(-(484573 * 2));
+                    }
+                    if (lookAtSpaceship) {
+                        camera.setTranslateX(model.getBody(11).getPos()[0] / scale + 1000);
+                        camera.setTranslateY(model.getBody(11).getPos()[1] / scale + 2000);
+                        camera.setTranslateZ(model.getBody(11).getPos()[2] / scale - 24000);
+                    }
+                    goTitan();
                 }
-                if (lookAtSun) {
-                    camera.setTranslateX(-model.getBody(0).getPos()[0] / scale);
-                    camera.setTranslateY(-model.getBody(0).getPos()[1] / scale);
-                    camera.setTranslateZ(model.getBody(0).getPos()[2] / scale - 360500);
-                }
-                if (lookAtTitan) {
-                    camera.setTranslateX(model.getBody(8).getPos()[0] / scale + 1000);
-                    camera.setTranslateY(model.getBody(8).getPos()[1] / scale + 2000);
-                    camera.setTranslateZ(model.getBody(8).getPos()[2] / scale - 24000);
-                }
-                if (lookAtEverything) {
-                    camera.setTranslateX(183608);
-                    camera.setTranslateY(-130000);
-                    camera.setTranslateZ(-(484573 * 2));
-                }
-                if (lookAtSpaceship) {
-                    camera.setTranslateX(model.getBody(11).getPos()[0] / scale + 1000);
-                    camera.setTranslateY(model.getBody(11).getPos()[1] / scale + 2000);
-                    camera.setTranslateZ(model.getBody(11).getPos()[2] / scale - 24000);
-                }
-                goTitan();
             }
         }, 1, 1);
 
