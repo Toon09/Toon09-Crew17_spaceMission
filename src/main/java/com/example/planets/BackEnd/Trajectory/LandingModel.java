@@ -10,10 +10,6 @@ public class LandingModel extends Spaceship {
         rotation = 0;
     }
 
-    public double[] getPos() {
-        return pos;
-    }
-
     public void rotate(double rotationChange) {
         boolean negative = rotationChange < 0;
         rotationChange = Math.abs(rotationChange) % 360;

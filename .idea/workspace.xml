@@ -4,10 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="bab05458-8716-4abd-8f37-31e577e5aaab" name="Changes" comment="clean up the code">
+    <list default="true" id="bab05458-8716-4abd-8f37-31e577e5aaab" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/planets/BackEnd/NumericalMethods/RK9.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/planets/BackEnd/CelestialEntities/StochasticWind.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/planets/BackEnd/CelestialEntities/StochasticWind.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/planets/BackEnd/Trajectory/FeedBack.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/planets/BackEnd/Trajectory/FeedBack.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/planets/BackEnd/NumericalMethods/DormandPrince.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/planets/BackEnd/NumericalMethods/DormandPrince.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/planets/NumericalExperiments.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/planets/NumericalExperiments.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -23,13 +24,13 @@
     </option>
   </component>
   <component name="Git.Settings">
-    <option name="PUSH_AUTO_UPDATE" value="true" />
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
         <entry key="$PROJECT_DIR$" value="main" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="UPDATE_TYPE" value="REBASE" />
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
@@ -84,7 +85,7 @@
       <recent name="C:\Users\suszw\Desktop\uni\year_1\Period4\plswork\src\main" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.LandingTest">
+  <component name="RunManager" selected="Application.NumericalExperiments">
     <configuration name="GA" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="com.example.planets.GA" />
       <module name="Toon09-Crew17_spaceMission3" />
@@ -145,9 +146,9 @@
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.LandingTest" />
-        <item itemvalue="Application.Merged" />
         <item itemvalue="Application.NumericalExperiments" />
+        <item itemvalue="Application.Merged" />
+        <item itemvalue="Application.LandingTest" />
         <item itemvalue="Application.GA" />
       </list>
     </recent_temporary>
@@ -173,6 +174,20 @@
       <workItem from="1686731689722" duration="3058000" />
       <workItem from="1687181645037" duration="364000" />
       <workItem from="1687335576267" duration="4028000" />
+    </task>
+    <task id="LOCAL-00056" summary="experiment setup made">
+      <created>1684408810589</created>
+      <option name="number" value="00056" />
+      <option name="presentableId" value="LOCAL-00056" />
+      <option name="project" value="LOCAL" />
+      <updated>1684408810589</updated>
+    </task>
+    <task id="LOCAL-00057" summary="Data txt getter">
+      <created>1684409202400</created>
+      <option name="number" value="00057" />
+      <option name="presentableId" value="LOCAL-00057" />
+      <option name="project" value="LOCAL" />
+      <updated>1684409202400</updated>
     </task>
     <task id="LOCAL-00058" summary="Datta getter documentation changed">
       <created>1684409807194</created>
@@ -503,21 +518,7 @@
       <option name="project" value="LOCAL" />
       <updated>1687339297396</updated>
     </task>
-    <task id="LOCAL-00110" summary="clean up of feedback">
-      <created>1687524259438</created>
-      <option name="number" value="00110" />
-      <option name="presentableId" value="LOCAL-00110" />
-      <option name="project" value="LOCAL" />
-      <updated>1687524259439</updated>
-    </task>
-    <task id="LOCAL-00111" summary="clean up the code">
-      <created>1687524562715</created>
-      <option name="number" value="00111" />
-      <option name="presentableId" value="LOCAL-00111" />
-      <option name="project" value="LOCAL" />
-      <updated>1687524562715</updated>
-    </task>
-    <option name="localTasksCounter" value="112" />
+    <option name="localTasksCounter" value="111" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -535,6 +536,7 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
+    <MESSAGE value="experiment set up finished" />
     <MESSAGE value="engine working with new solvers" />
     <MESSAGE value="advances in hill climbing" />
     <MESSAGE value="cost function changed back lol" />
@@ -558,9 +560,8 @@
     <MESSAGE value="lazy planner deleted" />
     <MESSAGE value="wind fixed" />
     <MESSAGE value="slower wind" />
-    <MESSAGE value="clean up of feedback" />
-    <MESSAGE value="clean up the code" />
-    <option name="LAST_COMMIT_MESSAGE" value="clean up the code" />
+    <MESSAGE value="half wind" />
+    <option name="LAST_COMMIT_MESSAGE" value="half wind" />
   </component>
   <component name="XDebuggerManager">
     <pin-to-top-manager>
