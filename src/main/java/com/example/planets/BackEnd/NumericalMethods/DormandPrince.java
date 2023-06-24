@@ -3,11 +3,12 @@ package com.example.planets.BackEnd.NumericalMethods;
 import com.example.planets.BackEnd.Models.Model3D;
 
 // https://numerary.readthedocs.io/en/latest/dormand-prince-method.html
-public class DormandPrince implements NumSolver{
+// https://en.wikipedia.org/wiki/Runge%E2%80%93Kutta%E2%80%93Fehlberg_method
+public class DormandPrince implements AdaptiveMethod {
 
     private double step = 0.0;
     private double presicion = 0.01; // default
-
+    private double length = 0.0;
 
     Model3D k2;
     Model3D k3;
@@ -67,6 +68,8 @@ public class DormandPrince implements NumSolver{
     public void step(Model3D model, double dt) {
         if(step == 0.0)
             step = dt;
+
+        RKsetUpVals(model, dt);
 
         //update position
         for(int i=0; i<model.size(); i++){
@@ -204,4 +207,8 @@ public class DormandPrince implements NumSolver{
         return "Dormant prince";
     }
 
+    @Override
+    public void inputLength(double length) {
+        this.length = length;
+    }
 }

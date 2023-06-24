@@ -404,7 +404,13 @@ class NumericalExperiments {
         //models.add( new TestModel2( new RalstonsRK4() ) );
         steps.add( dt );
 
-        models.add( new TestModel2( new RK9() ) );
+        //models.add( new TestModel2( new RK9() ) );
+        steps.add( dt );
+
+        models.add( new TestModel2( new ButchersRK5() ) );
+        steps.add( dt );
+
+        models.add( new TestModel2( new RK6() ) );
         steps.add( dt );
 
 
@@ -412,7 +418,12 @@ class NumericalExperiments {
         double sol = 0.0;
         double[] chrono = new double[models.size()]; //last index is the benchmark
 
-        System.out.println("sim time[s], time step[s], Euler abs, Euler relative, Euler time[ns], LeapFrog abs, LeapFrog relative, LeapFrog time[ns], AB2 abs, AB2 relative, AB2 time[ns] , Ralston's RK2 abs, Ralston's RK2 relative, Ralston's RK2 time[ns], Rk3 abs, Rk3 relative, RK3 time[ns], Classical RK4 abs, Classical RK4 relative, Classical RK4 time[ns], Ralston's Rk4 abs, Ralston's Rk4 realtive, Ralston's Rk4 time[ns]");
+        System.out.print("sim time[s], time step[s]");
+
+        for(int i=0; i<models.size(); i++){
+            System.out.print(", " + models.get(i).getSolverName() + " abs, " + models.get(i).getSolverName() + " relative, "  + models.get(i).getSolverName() + " time[ns]");
+        }
+        System.out.print("\n");
 
         // sim loop
         for (int i = 0; i < time; i++) {
