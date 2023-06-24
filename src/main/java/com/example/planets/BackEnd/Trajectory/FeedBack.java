@@ -95,7 +95,7 @@ public class FeedBack implements IControler {
             }
         } else if (landingModule.getPos()[1] > 5) {
             correctY(0.001, false);
-        } else if (landingModule.getPos()[1] > 0.025) {
+        } else if (landingModule.getPos()[1] > 0.01) {
             correctY(0.0001, false);
         } else {
             lastPhase = true;
