@@ -27,6 +27,7 @@ public class Merged extends Application {
     private static final int smallScale = 25;
     private static final int bigScale = 2000;
     private static int counter = 0;
+    private static boolean lookAtLandingModule = false;
     private static boolean lookAtEarth = false;
     private static boolean lookAtTitan = false;
     private static boolean lookAtSun = false;
@@ -221,7 +222,7 @@ public class Merged extends Application {
         button.setOnAction(e -> stage.setScene(landingScene));
         root.getChildren().add(button);
 
-        Box titan = new Box(1920, 800, 400);
+        Cylinder titan = new Cylinder(800, 2920);
         titan.translateXProperty().set((ScreenWIDTH)/2);
         titan.translateYProperty().set((ScreenHEIGHT+1600)/2);
         PhongMaterial titanMaterial = new PhongMaterial();
@@ -230,6 +231,7 @@ public class Merged extends Application {
 
         Rotate rotate = new Rotate();
         rotate.setAngle(90);
+        titan.getTransforms().addAll(rotate);
 
         Cylinder landingModule = new Cylinder(10, 50);
         landingModule.translateXProperty().set((ScreenWIDTH)/2);
@@ -243,16 +245,12 @@ public class Merged extends Application {
         landingScene.setCamera(landingCamera);
         landingScene.addEventHandler(KeyEvent.KEY_PRESSED, event -> {
             switch (event.getCode()) {
-                case X -> {
-                    landingCamera.setTranslateX(0);
-                    landingCamera.setTranslateY(-landingModule.getTranslateY());
-                    landingCamera.setTranslateZ(-400);
-                }
                 case R -> {
                     landingCamera.setTranslateX(0);
                     landingCamera.setTranslateY(0);
                     landingCamera.setTranslateZ(0);
                 }
+                case X -> lookAtLandingModule = true;
                 case B -> stage.setScene(scene);
                 case W -> landingCamera.setTranslateZ(landingCamera.getTranslateZ() + 100);
                 case S -> landingCamera.setTranslateZ(landingCamera.getTranslateZ() - 100);
@@ -308,14 +306,13 @@ public class Merged extends Application {
 
         FeedBack[] controller = new FeedBack[1];
         final double timeLanding[] = new double[1];
-        final boolean[] land = new boolean[1];
+
         Button defaultData = new Button("DEFAULT");
         defaultData.setLayoutX((ScreenWIDTH+60)/2);
         defaultData.setLayoutY((ScreenHEIGHT+400)/2);
         defaultData.setOnAction(e -> {
-            //controller[0] = new FeedBack();
+            controller[0] = new FeedBack();
             timeLanding[0] = model.getTime();
-            land[0] = true;
             stage.setScene(landingScene);
         });
 
@@ -328,9 +325,8 @@ public class Merged extends Application {
                 double initLongitude = Double.parseDouble(longitudeSelector.getText());
                 double initialVelocity = Double.parseDouble(xVelocitySelector.getText());
                 double[] initialPosition = {initAltitude, initLongitude};
-                //controller[0] = new FeedBack(initialPosition, initialVelocity);
+                controller[0] = new FeedBack(initialPosition, initialVelocity);
                 timeLanding[0] = model.getTime();
-                land[0] = true;
                 stage.setScene(landingScene);
 
             }
@@ -359,25 +355,17 @@ public class Merged extends Application {
             public void run() {
 
                 if(stage.getScene().equals(landingScene))
-                //if(land[0])
                 {
-//                    if(controller[0].isFinished()) {
-//                        stage.setScene(scene);
-//                    }
                     controller[0].update(time);
-                    //System.out.println(model.getTime() - timeLanding[0]);
                     double[] pos = controller[0].getLandingModule().getPos();
 
                     landingModule.translateXProperty().set(960);
-
-                    //landingModule.translateYProperty().set(250 + 2.77*(300 - pos[1]));
-                    //landingModule.setTranslateX(960);
-
                     landingModule.setTranslateY(250 + 2.77*(300 - pos[1]));
 
                     System.out.println(landingModule.getTranslateX());
                     System.out.println(landingModule.getTranslateY());
-                } else {
+                }
+                else {
                     model.updatePos(time, dt, true);
                     for (int i = 0; i < 12; i++) {
                         setPosition(world.getChildren().get(i), model.getBody(i));
@@ -408,20 +396,12 @@ public class Merged extends Application {
                             checkForReachedTitan = false;
                         }
 
-                        if (distance < targetDistance)
-                        {
-                            controller[0] = new FeedBack();
-                            //land[0] = true;
-                            stage.setScene(landingScene);
-
-                        }
-
+                        if (distance < targetDistance) stage.setScene(dataSelector);
 
                     });
                     if (dtBox.getValue() != null) {
                         dt = Double.valueOf((String) dtBox.getValue());
                     }
-
                     if (lookAtEarth) {
                         camera.setTranslateX(model.getBody(3).getPos()[0] / scale + 1000);
                         camera.setTranslateY(model.getBody(3).getPos()[1] / scale + 2000);
