@@ -52,11 +52,11 @@ public class AB3 implements NumSolver{
     private void AB2Vals(Model3D model, double dt){
 
         if( prev1 == null || prev2 == null ){ // boots trapping
-            prev1 = model.clone( new RK7() ); // worth having as much precision as possible
-            prev2 = model.clone( new RK7() );
+            prev1 = model.clone( new RK8() ); // worth having as much precision as possible
+            prev2 = model.clone( new RK8() );
 
-            prev1.updatePos(-dt, -dt, false); // a step backwards
-            prev2.updatePos(-2*dt, -2*dt, false); // 2 steps backwards
+            prev1.updatePos(dt, -dt, false); // a step backwards
+            prev2.updatePos(2*dt, -2*dt, false); // 2 steps backwards
             temp = model.clone(null); //copy current model
 
         } else { // using last model

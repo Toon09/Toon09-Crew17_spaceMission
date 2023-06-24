@@ -378,7 +378,7 @@ class NumericalExperiments {
         boolean isDay = false;
         int checkInterval = 30; // 30
 
-        double dt = 1.0;
+        double dt = 0.01;
 
         //  testing models
         ArrayList<Model3D> models = new ArrayList<Model3D>();
@@ -409,22 +409,25 @@ class NumericalExperiments {
         //models.add( new TestModel2( new HeunsRK3() ) );
         steps.add( dt );
 
-        models.add( new TestModel2( new RK4() ) );
+        //models.add( new TestModel2( new RK4() ) );
         steps.add( dt );
 
         //models.add( new TestModel2( new RalstonsRK4() ) );
         steps.add( dt );
 
-        models.add( new TestModel2( new ButchersRK5() ) );
+        //models.add( new TestModel2( new ButchersRK5() ) );
         steps.add( dt );
 
-        models.add( new TestModel2( new RK6() ) );
+        //models.add( new TestModel2( new RK6() ) );
         steps.add( dt );
 
-        models.add( new TestModel2( new RK7() ) );
+        //models.add( new TestModel2( new RK7() ) );
         steps.add( dt );
 
-        models.add( new TestModel2( new RK8() ) );
+        //models.add( new TestModel2( new RK8() ) );
+        steps.add( dt );
+
+        models.add( new TestModel2( new DormantPrince(20.0) ) );
         steps.add( dt );
 
 
@@ -453,6 +456,9 @@ class NumericalExperiments {
                 delta = System.nanoTime() - delta;
 
                 chrono[j] += delta;
+
+                if( models.get(j).getSolverName().equalsIgnoreCase("Dormant Prince") )
+                    System.out.println( ((DormantPrince) ((TestModel2)models.get(j) ).getNumSolver()).getStep() );
             }
 
 
@@ -484,13 +490,13 @@ class NumericalExperiments {
                 }
             }
 
-
             //prints
             if ((i + 1) % checkInterval == 0) {
 
                 System.out.print((i+1) + ", " + dt);
                 for (int j = 0; j < models.size(); j++) {
                     System.out.print(", " + errors[j][0] + ", " + errors[j][1] +  ", " + chrono[j]);
+
 
                 }
                 System.out.println();
@@ -513,6 +519,8 @@ class NumericalExperiments {
         //  testing models
         ArrayList<Model3D> models = new ArrayList<Model3D>();
         ArrayList<Double> steps = new ArrayList<Double>();
+
+        ////////// ############################### do a LOT more numbers and check
 
         // all the step sizes
         steps.add(5.0);
@@ -543,17 +551,19 @@ class NumericalExperiments {
 
         //models.add( new TestModel2( new HeunsRK3() ) );
 
-        models.add( new TestModel2( new RK4() ) );
+        models.add( new TestModel1( new RK4() ) );
 
         //models.add( new TestModel2( new RalstonsRK4() ) );
 
-        models.add( new TestModel2( new ButchersRK5() ) );
+        //models.add( new TestModel2( new ButchersRK5() ) );
 
-        models.add( new TestModel2( new RK6() ) );
+        //models.add( new TestModel2( new RK6() ) );
 
-        models.add( new TestModel2( new RK7() ) );
+        //models.add( new TestModel2( new RK7() ) );
 
-        models.add( new TestModel2( new RK8() ) );
+        //models.add( new TestModel2( new RK8() ) );
+
+        models.add( new TestModel1( new DormantPrince() ) ); ///////// give it an error
 
         // saving initial state
         double[][][] init = models.get(0).getState();

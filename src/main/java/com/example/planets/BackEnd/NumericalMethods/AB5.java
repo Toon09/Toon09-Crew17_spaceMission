@@ -55,15 +55,15 @@ public class AB5 implements NumSolver{
     private void AB2Vals(Model3D model, double dt){
 
         if( prev1 == null || prev2 == null ){ // boots trapping
-            prev1 = model.clone( new RK7() ); // worth having as much precision as possible
-            prev2 = model.clone( new RK7() );
-            prev3 = model.clone( new RK7() );
-            prev4 = model.clone( new RK7() );
+            prev1 = model.clone( new RK8() ); // worth having as much precision as possible
+            prev2 = model.clone( new RK8() );
+            prev3 = model.clone( new RK8() );
+            prev4 = model.clone( new RK8() );
 
-            prev1.updatePos(-dt, -dt, false); // a step backwards
-            prev2.updatePos(-2*dt, -2*dt, false); // 2 steps backwards
-            prev3.updatePos(-3*dt, -3*dt, false); // 3 steps backwards
-            prev4.updatePos(-4*dt, -4*dt, false);
+            prev1.updatePos(dt, -dt, false); // a step backwards
+            prev2.updatePos(2*dt, -2*dt, false); // 2 steps backwards
+            prev3.updatePos(3*dt, -3*dt, false); // 3 steps backwards
+            prev4.updatePos(4*dt, -4*dt, false);
             temp = model.clone(null); //copy current model
 
         } else { // using last model

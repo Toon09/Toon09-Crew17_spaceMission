@@ -142,7 +142,10 @@ public class TestModel2 implements Model3D{
             for (int i = 0; i < simTime / Math.abs(dt); i++)
                 numSolver.step(this, dt);
         }
+
     }
+
+    public NumSolver getNumSolver(){return numSolver;}
 
     public double getActualValue(double t) {
         return t*(3.0 - 2.0*Math.log(t));

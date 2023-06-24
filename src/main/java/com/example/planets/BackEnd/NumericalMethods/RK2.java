@@ -65,6 +65,8 @@ public class RK2 implements NumSolver {
 
     @Override
     public String getName() {
+        if(alpha == 2/3.0)
+            return "Ralston's RK2";
         return "RK2: alpha = " + alpha;
     }
 
