@@ -2,13 +2,12 @@ package com.example.planets.BackEnd.NumericalMethods;
 
 import com.example.planets.BackEnd.Models.Model3D;
 
+// in our courses cheat sheet
 public class HeunsRK3 implements NumSolver{
 
     Model3D pk2;
     Model3D pk3;
 
-
-    ////// https://lpsa.swarthmore.edu/NumInt/NumIntFourth.html
     @Override
     public void step(Model3D model, double dt) {
         //set up rk4 for position only

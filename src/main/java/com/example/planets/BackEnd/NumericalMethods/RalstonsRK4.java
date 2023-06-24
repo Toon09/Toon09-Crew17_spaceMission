@@ -2,6 +2,7 @@ package com.example.planets.BackEnd.NumericalMethods;
 
 import com.example.planets.BackEnd.Models.Model3D;
 
+// http://www.mymathlib.com/c_source/diffeq/runge_kutta/runge_kutta_ralston_4.c
 public class RalstonsRK4 implements NumSolver{
 
     Model3D pk2;
@@ -24,7 +25,6 @@ public class RalstonsRK4 implements NumSolver{
     static final double g4 = (30.0 - 4.0 * Math.sqrt(5.0)) / 123.0;
 
 
-    ////// http://www.mymathlib.com/c_source/diffeq/runge_kutta/runge_kutta_ralston_4.c
     @Override
     public void step(Model3D model, double dt) {
         //set up rk4 for position only

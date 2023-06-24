@@ -2,6 +2,7 @@ package com.example.planets.BackEnd.NumericalMethods;
 
 import com.example.planets.BackEnd.Models.*;
 
+// in our courses cheat sheet
 public class RK2 implements NumSolver {
 
     //for different variants of RK2
