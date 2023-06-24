@@ -47,9 +47,9 @@ public class AB2 implements NumSolver {
     private void AB2Vals(Model3D model, double dt){
 
         if( prev == null ){ //bootstrapping with RK2
-            prev = model.clone( new RK7() );
+            prev = model.clone( new RK8() );
 
-            prev.updatePos(-dt, -dt, false); // a step backwards
+            prev.updatePos(dt, -dt, false); // a step backwards
             temp = model.clone(null); //copy current model
 
         } else { // using last model

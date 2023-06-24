@@ -5,14 +5,12 @@ import com.example.planets.BackEnd.Models.Model3D;
 // https://www.ams.org/mcom/1968-22-102/S0025-5718-68-99876-1/S0025-5718-68-99876-1.pdf
 public class RK6 implements NumSolver {
 
-
     Model3D k2;
     Model3D k3;
     Model3D k4;
     Model3D k5;
     Model3D k6;
     Model3D k7;
-
 
 
     // coefficients for adding times
