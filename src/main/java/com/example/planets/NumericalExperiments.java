@@ -427,7 +427,7 @@ class NumericalExperiments {
         //models.add( new TestModel2( new RK8() ) );
         steps.add( dt );
 
-        models.add( new TestModel2( new DormantPrince(0.1) ) );
+        models.add( new TestModel2( new ode45(0.1) ) );
         steps.add( dt );
 
 
@@ -561,7 +561,7 @@ class NumericalExperiments {
 
         //models.add( new TestModel2( new RK8() ) );
 
-        models.add( new TestModel1( new DormantPrince() ) ); ///////// give it an error
+        models.add( new TestModel1( new ode45() ) ); ///////// give it an error
 
         // saving initial state
         double[][][] init = models.get(0).getState();

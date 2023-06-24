@@ -3,14 +3,14 @@ package com.example.planets.BackEnd.NumericalMethods;
 import com.example.planets.BackEnd.Models.Model3D;
 
 // https://numerary.readthedocs.io/en/latest/dormand-prince-method.html
-public class DormantPrince implements AdaptiveMethod {
+public class ode45 implements AdaptiveMethod {
 
     private double precision = 1.0;
     private double length = 0.0;
     private double step = 0.0;
 
-    public DormantPrince(double precision){ this.precision = precision; }
-    public DormantPrince(){} // uses default precision of 0.01
+    public ode45(double precision){ this.precision = precision; }
+    public ode45(){} // uses default precision of 0.01
 
     @Override
     public void step(Model3D model, double dt) {
