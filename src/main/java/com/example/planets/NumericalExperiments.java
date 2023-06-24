@@ -376,7 +376,7 @@ class NumericalExperiments {
         boolean isDay = false;
         int checkInterval = 30; // 30
 
-        double dt = 0.1;
+        double dt = 1.0;
 
         //  testing models
         ArrayList<Model3D> models = new ArrayList<Model3D>();
@@ -392,13 +392,13 @@ class NumericalExperiments {
         //models.add( new TestModel2( new AB2() ) );
         steps.add( dt );
 
-        models.add( new TestModel2( new AB3() ) );
+        //models.add( new TestModel2( new AB3() ) );
         steps.add( dt );
 
-        models.add( new TestModel2( new AB4() ) );
+        //models.add( new TestModel2( new AB4() ) );
         steps.add( dt );
 
-        models.add( new TestModel2( new AB5() ) );
+        //models.add( new TestModel2( new AB5() ) );
         steps.add( dt );
 
         //models.add( new TestModel2( new RK2() ) );
@@ -407,19 +407,22 @@ class NumericalExperiments {
         //models.add( new TestModel2( new HeunsRK3() ) );
         steps.add( dt );
 
-        //models.add( new TestModel2( new RK4() ) );
+        models.add( new TestModel2( new RK4() ) );
         steps.add( dt );
 
         //models.add( new TestModel2( new RalstonsRK4() ) );
         steps.add( dt );
 
-        //models.add( new TestModel2( new RK9() ) );
+        models.add( new TestModel2( new ButchersRK5() ) );
         steps.add( dt );
 
-        //models.add( new TestModel2( new ButchersRK5() ) );
+        models.add( new TestModel2( new RK6() ) );
         steps.add( dt );
 
-        //models.add( new TestModel2( new RK6() ) );
+        models.add( new TestModel2( new RK7() ) );
+        steps.add( dt );
+
+        models.add( new TestModel2( new RK8() ) );
         steps.add( dt );
 
 

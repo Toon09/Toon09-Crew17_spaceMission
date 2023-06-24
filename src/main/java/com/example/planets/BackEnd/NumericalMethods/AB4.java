@@ -54,9 +54,9 @@ public class AB4 implements  NumSolver{
     private void AB2Vals(Model3D model, double dt){
 
         if( prev1 == null || prev2 == null ){ // boots trapping
-            prev1 = model.clone( new RK9() ); // worth having as much precision as possible
-            prev2 = model.clone( new RK9() );
-            prev3 = model.clone( new RK9() );
+            prev1 = model.clone( new RK7() ); // worth having as much precision as possible
+            prev2 = model.clone( new RK7() );
+            prev3 = model.clone( new RK7() );
 
             prev1.updatePos(-dt, -dt, false); // a step backwards
             prev2.updatePos(-2*dt, -2*dt, false); // 2 steps backwards

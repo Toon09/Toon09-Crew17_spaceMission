@@ -3,7 +3,7 @@ package com.example.planets.BackEnd.NumericalMethods;
 import com.example.planets.BackEnd.Models.Model3D;
 
 // https://www.sciencepublishinggroup.com/journal/paperinfo?journalid=247&doi=10.11648/j.mcs.20190403.12
-public class RK9 implements NumSolver{
+public class RK7 implements NumSolver{
 
     Model3D k2;
     Model3D k3;
@@ -256,7 +256,7 @@ public class RK9 implements NumSolver{
 
     @Override
     public String getName() {
-        return "RK9";
+        return "RK7";
     }
 
 }
