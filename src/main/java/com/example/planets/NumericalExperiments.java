@@ -5,11 +5,9 @@ import com.example.planets.BackEnd.CelestialEntities.Spaceship;
 import com.example.planets.BackEnd.Models.*;
 import com.example.planets.BackEnd.NumericalMethods.*;
 import com.example.planets.BackEnd.Trajectory.Cost.MinDistAndFuel;
-import com.example.planets.BackEnd.Trajectory.Cost.PlanetaryRing;
 import com.example.planets.Data.DataGetter;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 
 
 class NumericalExperiments {
@@ -378,7 +376,7 @@ class NumericalExperiments {
         boolean isDay = false;
         int checkInterval = 30; // 30
 
-        double dt = 0.9;
+        double dt = 0.1;
 
         //  testing models
         ArrayList<Model3D> models = new ArrayList<Model3D>();
@@ -406,7 +404,7 @@ class NumericalExperiments {
         //models.add( new TestModel2( new RalstonsRK4() ) );
         steps.add( dt );
 
-        models.add( new TestModel2( new DormandPrince() ) );
+        models.add( new TestModel2( new RK9() ) );
         steps.add( dt );
 
 
