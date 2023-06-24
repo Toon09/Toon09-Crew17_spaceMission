@@ -367,6 +367,19 @@ public class Merged extends Application {
 
                     System.out.println(landingModule.getTranslateX());
                     System.out.println(landingModule.getTranslateY());
+
+                    // alert when rocket lands
+                    //if (controller[0].getLandingModule().getPos()[1] <= 0.00001) same as if(controller[0].isFinished())
+                    if(controller[0].isFinished())
+                    {
+                        Alert landingAlert = new Alert(Alert.AlertType.INFORMATION) ;
+                        landingAlert.setTitle("Spacecraft landed !");
+                        landingAlert.setHeaderText("Landing Information");
+                        landingAlert.setContentText("Landed successfully at : " + controller[0].getLandingModule().getPos() + " with velocity : " + controller[0].getLandingModule().getVel() + " ! ");
+                        landingAlert.showAndWait();
+                        landingAlert.setOnCloseRequest( e-> stage.setScene(scene));
+
+                    }
                 }
                 else {
                     model.updatePos(time, dt, true);
