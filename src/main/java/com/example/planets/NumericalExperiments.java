@@ -404,7 +404,10 @@ class NumericalExperiments {
         //models.add( new TestModel2( new RalstonsRK4() ) );
         steps.add( dt );
 
-        models.add( new TestModel2( new RK9() ) );
+        //models.add( new TestModel2( new RK9() ) );
+        steps.add( dt );
+
+        models.add( new TestModel2( new ButchersRK5() ) );
         steps.add( dt );
 
 

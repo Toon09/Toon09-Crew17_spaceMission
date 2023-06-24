@@ -5,7 +5,6 @@ import com.example.planets.BackEnd.Models.Model3D;
 // https://www.sciencepublishinggroup.com/journal/paperinfo?journalid=247&doi=10.11648/j.mcs.20190403.12
 public class RK9 implements NumSolver{
 
-
     Model3D k2;
     Model3D k3;
     Model3D k4;

@@ -2,6 +2,7 @@ package com.example.planets.BackEnd.Models;
 
 import com.example.planets.BackEnd.CelestialEntities.CelestialBody;
 import com.example.planets.BackEnd.CelestialEntities.Spaceship;
+import com.example.planets.BackEnd.NumericalMethods.AdaptiveMethod;
 import com.example.planets.BackEnd.NumericalMethods.NumSolver;
 
 /*
@@ -128,15 +129,21 @@ public class TestModel3 implements Model3D{
 
     @Override
     public void updatePos(double time, double dt, boolean inDays) {
-        hDeriv();
-        if( inDays ){
-            for(int i=0; i<CelestialBody.daysToSec(time)/Math.abs(dt); i++ )
-                numSolver.step(this, dt);
-        //uses seconds to calculate how long to run
+        hDeriv(); //gets the acceleration at the starting point..
+        //.. so that the velocity doesn't take the acc as 0 at the start
+
+        double simTime = 0.0;
+        if(inDays)
+            simTime = CelestialBody.daysToSec(time);
+        else
+            simTime = time;
+
+        if(numSolver instanceof AdaptiveMethod){// adaptive methods define their own loop to be able to change step size
+            ((AdaptiveMethod) numSolver).inputLength(simTime);
+            numSolver.step(this, dt);
         }else{
-            for(int i=0; i<time/Math.abs(dt); i++ )
+            for (int i = 0; i < simTime / Math.abs(dt); i++)
                 numSolver.step(this, dt);
-            
         }
     }
 
