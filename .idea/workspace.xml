@@ -5,14 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="bab05458-8716-4abd-8f37-31e577e5aaab" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/planets/BackEnd/NumericalMethods/AdaptiveMethod.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/planets/BackEnd/NumericalMethods/ButchersRK5.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/planets/BackEnd/NumericalMethods/RK6.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/planets/BackEnd/Models/Gravity0.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/planets/BackEnd/Models/Gravity0.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/planets/BackEnd/Models/TestModel1.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/planets/BackEnd/Models/TestModel1.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/planets/BackEnd/Models/TestModel2.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/planets/BackEnd/Models/TestModel2.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/planets/BackEnd/Models/TestModel3.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/planets/BackEnd/Models/TestModel3.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/planets/BackEnd/NumericalMethods/DormandPrince.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/planets/BackEnd/NumericalMethods/DormandPrince.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/planets/BackEnd/NumericalMethods/RK9.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/planets/BackEnd/NumericalMethods/RK9.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/planets/NumericalExperiments.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/planets/NumericalExperiments.java" afterDir="false" />
     </list>
@@ -524,7 +518,7 @@
       <option name="project" value="LOCAL" />
       <updated>1687339297396</updated>
     </task>
-    <option name="localTasksCounter" value="112" />
+    <option name="localTasksCounter" value="113" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -542,7 +536,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="engine working with new solvers" />
     <MESSAGE value="advances in hill climbing" />
     <MESSAGE value="cost function changed back lol" />
     <MESSAGE value="steepest ascend does close flyby, needs tweaks in cost function to stay closer" />
@@ -567,7 +560,8 @@
     <MESSAGE value="slower wind" />
     <MESSAGE value="half wind" />
     <MESSAGE value="RK9 finished" />
-    <option name="LAST_COMMIT_MESSAGE" value="RK9 finished" />
+    <MESSAGE value="RK5 finished" />
+    <option name="LAST_COMMIT_MESSAGE" value="RK5 finished" />
   </component>
   <component name="XDebuggerManager">
     <pin-to-top-manager>

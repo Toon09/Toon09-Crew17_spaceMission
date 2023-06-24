@@ -2,8 +2,9 @@ package com.example.planets.BackEnd.NumericalMethods;
 
 import com.example.planets.BackEnd.Models.Model3D;
 
-// https://www.sciencepublishinggroup.com/journal/paperinfo?journalid=247&doi=10.11648/j.mcs.20190403.12
-public class RK9 implements NumSolver{
+// https://www.ams.org/mcom/1968-22-102/S0025-5718-68-99876-1/S0025-5718-68-99876-1.pdf
+public class RK6 implements NumSolver {
+
 
     Model3D k2;
     Model3D k3;
@@ -16,7 +17,7 @@ public class RK9 implements NumSolver{
 
     static final private double param = 77/1440.0;
 
-    
+
     // coefficients for adding times
     static final double a2 = 1/6.0; // also b1
     static final double a3 = 1/3.0;
@@ -256,7 +257,7 @@ public class RK9 implements NumSolver{
 
     @Override
     public String getName() {
-        return "RK9";
+        return "RK6";
     }
 
 }
