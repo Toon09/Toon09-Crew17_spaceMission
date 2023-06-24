@@ -272,6 +272,7 @@ public class Merged extends Application {
         altitudeSelector.setLayoutY((ScreenHEIGHT-200)/2);
 
         Text altitude = new Text("Choose initial altitude (X)");
+        altitude.setFont(Font.font("Arial", 16));
         altitude.setFill(Color.WHITE);
         altitude.setLayoutX((ScreenWIDTH-100)/2);
         altitude.setLayoutY((ScreenHEIGHT-220)/2);
@@ -281,18 +282,20 @@ public class Merged extends Application {
         longitudeSelector.setLayoutY(ScreenHEIGHT/2);
 
         Text longitude = new Text("Choose initial longitude (Y)");
+        longitude.setFont(Font.font("Arial", 16));
         longitude.setFill(Color.WHITE);
         longitude.setLayoutX((ScreenWIDTH-100)/2);
         longitude.setLayoutY((ScreenHEIGHT-20)/2);
 
-        TextField xVelocitySelector = new TextField();
-        xVelocitySelector.setLayoutX((ScreenWIDTH-100)/2);
-        xVelocitySelector.setLayoutY((ScreenHEIGHT+200)/2);
+        TextField yVelocitySelector = new TextField();
+        yVelocitySelector.setLayoutX((ScreenWIDTH-100)/2);
+        yVelocitySelector.setLayoutY((ScreenHEIGHT+200)/2);
 
-        Text xVelocity = new Text("Choose initial ship velocity (V)");
-        xVelocity.setFill(Color.WHITE);
-        xVelocity.setLayoutX((ScreenWIDTH-100)/2);
-        xVelocity.setLayoutY((ScreenHEIGHT+180)/2);
+        Text yVelocity = new Text("Choose initial ship velocity (V)");
+        yVelocity.setFont(Font.font("Arial", 16));
+        yVelocity.setFill(Color.WHITE);
+        yVelocity.setLayoutX((ScreenWIDTH-100)/2);
+        yVelocity.setLayoutY((ScreenHEIGHT+180)/2);
 
         Button awewa = new Button("SELECTOR"); // just for now
         awewa.setLayoutY((ScreenHEIGHT+200)/2);
@@ -323,7 +326,7 @@ public class Merged extends Application {
             try {
                 double initAltitude = Double.parseDouble(altitudeSelector.getText());
                 double initLongitude = Double.parseDouble(longitudeSelector.getText());
-                double initialVelocity = Double.parseDouble(xVelocitySelector.getText());
+                double initialVelocity = Double.parseDouble(yVelocitySelector.getText());
                 double[] initialPosition = {initAltitude, initLongitude};
                 controller[0] = new FeedBack(initialPosition, initialVelocity);
                 timeLanding[0] = model.getTime();
@@ -334,7 +337,7 @@ public class Merged extends Application {
                 alert.showAndWait();
                 altitudeSelector.clear();
                 longitudeSelector.clear();
-                xVelocitySelector.clear();
+                yVelocitySelector.clear();
             }
         });
         dataSelector.addEventHandler(KeyEvent.KEY_PRESSED, event -> {
@@ -342,8 +345,8 @@ public class Merged extends Application {
                 stage.setScene(scene);
             }
         });
-        initialData.getChildren().addAll(altitudeSelector, longitudeSelector, xVelocitySelector, submit,
-                altitude, longitude, xVelocity, defaultData);
+        initialData.getChildren().addAll(altitudeSelector, longitudeSelector, yVelocitySelector, submit,
+                altitude, longitude, yVelocity, defaultData);
 
         // -------------------------------------------------------------------------------------------------------------
 
