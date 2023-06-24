@@ -350,6 +350,13 @@ public class Merged extends Application {
 
         // -------------------------------------------------------------------------------------------------------------
 
+        Alert landingAlert = new Alert(Alert.AlertType.INFORMATION) ;
+        landingAlert.setTitle("Spacecraft landed !");
+        landingAlert.setHeaderText("Landing Information");
+
+        Text textForAlert = new Text() ;
+        textForAlert.setWrappingWidth(500);
+
         stage.show();
 
         Timer timer = new Timer();
@@ -368,18 +375,6 @@ public class Merged extends Application {
                     System.out.println(landingModule.getTranslateX());
                     System.out.println(landingModule.getTranslateY());
 
-                    // alert when rocket lands
-                    //if (controller[0].getLandingModule().getPos()[1] <= 0.00001) same as if(controller[0].isFinished())
-                    if(controller[0].isFinished())
-                    {
-                        Alert landingAlert = new Alert(Alert.AlertType.INFORMATION) ;
-                        landingAlert.setTitle("Spacecraft landed !");
-                        landingAlert.setHeaderText("Landing Information");
-                        landingAlert.setContentText("Landed successfully at : " + controller[0].getLandingModule().getPos() + " with velocity : " + controller[0].getLandingModule().getVel() + " ! ");
-                        landingAlert.showAndWait();
-                        landingAlert.setOnCloseRequest( e-> stage.setScene(scene));
-
-                    }
                 }
                 else {
                     model.updatePos(time, dt, true);
@@ -413,6 +408,18 @@ public class Merged extends Application {
                         }
 
                         if (distance < targetDistance) stage.setScene(dataSelector);
+
+                        if(stage.getScene().equals(landingScene))
+                            if(controller[0].isFinished())
+                                {
+                                    textForAlert.setText("Landed successfully at x : " + controller[0].getLandingModule().getPos()[0] + " , y  : " + controller[0].getLandingModule().getPos()[1] + "\nWith velocity : " + controller[0].getLandingModule().getVel()[1] + " ! ");
+                                    textForAlert.setFont(Font.font("Verdana", 18));
+                                    landingAlert.getDialogPane().setContent(textForAlert);
+                                    //landingAlert.setContentText("Landed successfully at : " + controller[0].getLandingModule().getPos() + " with velocity : " + controller[0].getLandingModule().getVel() + " ! ");
+                                    landingAlert.setOnCloseRequest( e-> stage.setScene(scene));
+                                    landingAlert.showAndWait();
+
+                                }
 
                     });
                     if (dtBox.getValue() != null) {
