@@ -27,6 +27,7 @@ public class Merged extends Application {
     private static final int smallScale = 25;
     private static final int bigScale = 2000;
     private static int counter = 0;
+    private static boolean lookAtLandingModule = false;
     private static boolean lookAtEarth = false;
     private static boolean lookAtTitan = false;
     private static boolean lookAtSun = false;
@@ -34,7 +35,7 @@ public class Merged extends Application {
     private static boolean lookAtSpaceship = false;
     private final static Box[] path = new Box[10000];
     private final static double time = 0.1;
-    private static double dt = 1.5;
+    private static double dt = 2;
     private static double lastAcc = 0;
     private final static double phaseTime = 10000;
     private final static double slowPhaseTime = 100000;
@@ -221,7 +222,7 @@ public class Merged extends Application {
         button.setOnAction(e -> stage.setScene(landingScene));
         root.getChildren().add(button);
 
-        Box titan = new Box(1920, 800, 400);
+        Cylinder titan = new Cylinder(800, 2920);
         titan.translateXProperty().set((ScreenWIDTH)/2);
         titan.translateYProperty().set((ScreenHEIGHT+1600)/2);
         PhongMaterial titanMaterial = new PhongMaterial();
@@ -230,6 +231,7 @@ public class Merged extends Application {
 
         Rotate rotate = new Rotate();
         rotate.setAngle(90);
+        titan.getTransforms().addAll(rotate);
 
         Cylinder landingModule = new Cylinder(10, 50);
         landingModule.translateXProperty().set((ScreenWIDTH)/2);
@@ -243,16 +245,12 @@ public class Merged extends Application {
         landingScene.setCamera(landingCamera);
         landingScene.addEventHandler(KeyEvent.KEY_PRESSED, event -> {
             switch (event.getCode()) {
-                case X -> {
-                    landingCamera.setTranslateX(0);
-                    landingCamera.setTranslateY(-landingModule.getTranslateY());
-                    landingCamera.setTranslateZ(-400);
-                }
                 case R -> {
                     landingCamera.setTranslateX(0);
                     landingCamera.setTranslateY(0);
                     landingCamera.setTranslateZ(0);
                 }
+                case X -> lookAtLandingModule = true;
                 case B -> stage.setScene(scene);
                 case W -> landingCamera.setTranslateZ(landingCamera.getTranslateZ() + 100);
                 case S -> landingCamera.setTranslateZ(landingCamera.getTranslateZ() - 100);
@@ -274,6 +272,7 @@ public class Merged extends Application {
         altitudeSelector.setLayoutY((ScreenHEIGHT-200)/2);
 
         Text altitude = new Text("Choose initial altitude (X)");
+        altitude.setFont(Font.font("Arial", 16));
         altitude.setFill(Color.WHITE);
         altitude.setLayoutX((ScreenWIDTH-100)/2);
         altitude.setLayoutY((ScreenHEIGHT-220)/2);
@@ -283,18 +282,20 @@ public class Merged extends Application {
         longitudeSelector.setLayoutY(ScreenHEIGHT/2);
 
         Text longitude = new Text("Choose initial longitude (Y)");
+        longitude.setFont(Font.font("Arial", 16));
         longitude.setFill(Color.WHITE);
         longitude.setLayoutX((ScreenWIDTH-100)/2);
         longitude.setLayoutY((ScreenHEIGHT-20)/2);
 
-        TextField xVelocitySelector = new TextField();
-        xVelocitySelector.setLayoutX((ScreenWIDTH-100)/2);
-        xVelocitySelector.setLayoutY((ScreenHEIGHT+200)/2);
+        TextField yVelocitySelector = new TextField();
+        yVelocitySelector.setLayoutX((ScreenWIDTH-100)/2);
+        yVelocitySelector.setLayoutY((ScreenHEIGHT+200)/2);
 
-        Text xVelocity = new Text("Choose initial ship velocity (V)");
-        xVelocity.setFill(Color.WHITE);
-        xVelocity.setLayoutX((ScreenWIDTH-100)/2);
-        xVelocity.setLayoutY((ScreenHEIGHT+180)/2);
+        Text yVelocity = new Text("Choose initial ship velocity (V)");
+        yVelocity.setFont(Font.font("Arial", 16));
+        yVelocity.setFill(Color.WHITE);
+        yVelocity.setLayoutX((ScreenWIDTH-100)/2);
+        yVelocity.setLayoutY((ScreenHEIGHT+180)/2);
 
         Button awewa = new Button("SELECTOR"); // just for now
         awewa.setLayoutY((ScreenHEIGHT+200)/2);
@@ -306,11 +307,15 @@ public class Merged extends Application {
         alert.setHeaderText("Unexpected input");
         alert.setContentText("Only doubles are allowed!");
 
+        FeedBack[] controller = new FeedBack[1];
+        final double timeLanding[] = new double[1];
+
         Button defaultData = new Button("DEFAULT");
         defaultData.setLayoutX((ScreenWIDTH+60)/2);
         defaultData.setLayoutY((ScreenHEIGHT+400)/2);
         defaultData.setOnAction(e -> {
-            FeedBack defaultModel = new FeedBack();
+            controller[0] = new FeedBack();
+            timeLanding[0] = model.getTime();
             stage.setScene(landingScene);
         });
 
@@ -321,9 +326,10 @@ public class Merged extends Application {
             try {
                 double initAltitude = Double.parseDouble(altitudeSelector.getText());
                 double initLongitude = Double.parseDouble(longitudeSelector.getText());
-                double initialVelocity = Double.parseDouble(xVelocitySelector.getText());
+                double initialVelocity = Double.parseDouble(yVelocitySelector.getText());
                 double[] initialPosition = {initAltitude, initLongitude};
-                FeedBack selectedModel = new FeedBack(initialPosition, initialVelocity);
+                controller[0] = new FeedBack(initialPosition, initialVelocity);
+                timeLanding[0] = model.getTime();
                 stage.setScene(landingScene);
 
             }
@@ -331,7 +337,7 @@ public class Merged extends Application {
                 alert.showAndWait();
                 altitudeSelector.clear();
                 longitudeSelector.clear();
-                xVelocitySelector.clear();
+                yVelocitySelector.clear();
             }
         });
         dataSelector.addEventHandler(KeyEvent.KEY_PRESSED, event -> {
@@ -339,8 +345,8 @@ public class Merged extends Application {
                 stage.setScene(scene);
             }
         });
-        initialData.getChildren().addAll(altitudeSelector, longitudeSelector, xVelocitySelector, submit,
-                altitude, longitude, xVelocity, defaultData);
+        initialData.getChildren().addAll(altitudeSelector, longitudeSelector, yVelocitySelector, submit,
+                altitude, longitude, yVelocity, defaultData);
 
         // -------------------------------------------------------------------------------------------------------------
 
@@ -350,67 +356,84 @@ public class Merged extends Application {
         timer.schedule(new TimerTask() {
             @Override
             public void run() {
-                model.updatePos(time, dt, true);
-                for (int i = 0; i < 12; i++) {
-                    setPosition(world.getChildren().get(i), model.getBody(i));
+
+                if(stage.getScene().equals(landingScene))
+                {
+                    controller[0].update(time);
+                    double[] pos = controller[0].getLandingModule().getPos();
+
+                    landingModule.translateXProperty().set(960);
+                    landingModule.setTranslateY(250 + 2.77*(300 - pos[1]));
+
+                    System.out.println(landingModule.getTranslateX());
+                    System.out.println(landingModule.getTranslateY());
                 }
-
-                double accX = model.getShip().getAcc()[0] * 30 * 60 * 60 * 60;
-                double accY = model.getShip().getAcc()[1] * 30 * 60 * 60 * 60;
-                double accZ = model.getShip().getAcc()[2] * 30 * 60 * 60 * 60;
-
-
-                double currentAccMagnitude = Math.sqrt(accX * accX + accY * accY + accZ * accZ);
-
-                double fuelConsumed = (currentAccMagnitude * 50000/ maxForce) * fuelConsumptionRate;
-
-                totalConsumption += fuelConsumed;
-
-                Platform.runLater(() -> {
-
-                    fuelLabel.setText(Double.toString(totalConsumption));
-                    positionText.setText("Spacecraft position at : " + Arrays.toString(model.getShip().getPos()));
-                    distanceText.setText("Distance between spacecraft and titan in km : " + model.getShip().getDistance(model.getBody(8)));
-                    timeText.setText("Time taken so far : " + timeInDays(model.getTime()));
-
-                    if(checkForReachedTitan)
-                    {
-                        reachedTitanText.setText("Reached titan in " + timeInDays(model.getTime()) + " days");
-                        reachedTitan2Text.setText("Closest distance reached by the spacecraft : " + distance + " km");
-                        checkForReachedTitan = false ;
+                else {
+                    model.updatePos(time, dt, true);
+                    for (int i = 0; i < 12; i++) {
+                        setPosition(world.getChildren().get(i), model.getBody(i));
                     }
 
-                });
-                if (dtBox.getValue() != null) {
-                    dt = Double.valueOf((String) dtBox.getValue());
-                }
 
-                if (lookAtEarth) {
-                    camera.setTranslateX(model.getBody(3).getPos()[0] / scale + 1000);
-                    camera.setTranslateY(model.getBody(3).getPos()[1] / scale + 2000);
-                    camera.setTranslateZ(model.getBody(3).getPos()[2] / scale - 24000);
+                    double accX = model.getShip().getAcc()[0] * 30 * 60 * 60 * 60;
+                    double accY = model.getShip().getAcc()[1] * 30 * 60 * 60 * 60;
+                    double accZ = model.getShip().getAcc()[2] * 30 * 60 * 60 * 60;
+
+
+                    double currentAccMagnitude = Math.sqrt(accX * accX + accY * accY + accZ * accZ);
+
+                    double fuelConsumed = (currentAccMagnitude * 50000 / maxForce) * fuelConsumptionRate;
+
+                    totalConsumption += fuelConsumed;
+
+                    Platform.runLater(() -> {
+
+                        fuelLabel.setText(Double.toString(totalConsumption));
+                        positionText.setText("Spacecraft position at : " + Arrays.toString(model.getShip().getPos()));
+                        distanceText.setText("Distance between spacecraft and titan in km : " + model.getShip().getDistance(model.getBody(8)));
+                        timeText.setText("Time taken so far : " + timeInDays(model.getTime()));
+
+                        if (checkForReachedTitan) {
+                            reachedTitanText.setText("Reached titan in " + timeInDays(model.getTime()) + " days");
+                            reachedTitan2Text.setText("Closest distance reached by the spacecraft : " + distance + " km");
+                            checkForReachedTitan = false;
+                        }
+
+                        if (distance < targetDistance) stage.setScene(dataSelector);
+
+                    });
+                    if (dtBox.getValue() != null) {
+                        dt = Double.valueOf((String) dtBox.getValue());
+                    }
+                    if (lookAtEarth) {
+                        camera.setTranslateX(model.getBody(3).getPos()[0] / scale + 1000);
+                        camera.setTranslateY(model.getBody(3).getPos()[1] / scale + 2000);
+                        camera.setTranslateZ(model.getBody(3).getPos()[2] / scale - 24000);
+                    }
+                    if (lookAtSun) {
+                        camera.setTranslateX(-model.getBody(0).getPos()[0] / scale);
+                        camera.setTranslateY(-model.getBody(0).getPos()[1] / scale);
+                        camera.setTranslateZ(model.getBody(0).getPos()[2] / scale - 360500);
+                    }
+                    if (lookAtTitan) {
+                        camera.setTranslateX(model.getBody(8).getPos()[0] / scale + 1000);
+                        camera.setTranslateY(model.getBody(8).getPos()[1] / scale + 2000);
+                        camera.setTranslateZ(model.getBody(8).getPos()[2] / scale - 24000);
+                    }
+                    if (lookAtEverything) {
+                        camera.setTranslateX(183608);
+                        camera.setTranslateY(-130000);
+                        camera.setTranslateZ(-(484573 * 2));
+                    }
+                    if (lookAtSpaceship) {
+                        camera.setTranslateX(model.getBody(11).getPos()[0] / scale + 1000);
+                        camera.setTranslateY(model.getBody(11).getPos()[1] / scale + 2000);
+                        camera.setTranslateZ(model.getBody(11).getPos()[2] / scale - 24000);
+                    }
+                    goTitan();
+
+
                 }
-                if (lookAtSun) {
-                    camera.setTranslateX(-model.getBody(0).getPos()[0] / scale);
-                    camera.setTranslateY(-model.getBody(0).getPos()[1] / scale);
-                    camera.setTranslateZ(model.getBody(0).getPos()[2] / scale - 360500);
-                }
-                if (lookAtTitan) {
-                    camera.setTranslateX(model.getBody(8).getPos()[0] / scale + 1000);
-                    camera.setTranslateY(model.getBody(8).getPos()[1] / scale + 2000);
-                    camera.setTranslateZ(model.getBody(8).getPos()[2] / scale - 24000);
-                }
-                if (lookAtEverything) {
-                    camera.setTranslateX(183608);
-                    camera.setTranslateY(-130000);
-                    camera.setTranslateZ(-(484573 * 2));
-                }
-                if (lookAtSpaceship) {
-                    camera.setTranslateX(model.getBody(11).getPos()[0] / scale + 1000);
-                    camera.setTranslateY(model.getBody(11).getPos()[1] / scale + 2000);
-                    camera.setTranslateZ(model.getBody(11).getPos()[2] / scale - 24000);
-                }
-                goTitan();
             }
         }, 1, 1);
 

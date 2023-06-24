@@ -2,13 +2,9 @@ package com.example.planets.BackEnd.NumericalMethods;
 
 import com.example.planets.BackEnd.Models.Model3D;
 
-// https://numerary.readthedocs.io/en/latest/dormand-prince-method.html
-// https://en.wikipedia.org/wiki/Runge%E2%80%93Kutta%E2%80%93Fehlberg_method
-public class DormandPrince implements AdaptiveMethod {
+// https://www.ams.org/mcom/1968-22-102/S0025-5718-68-99876-1/S0025-5718-68-99876-1.pdf
+public class RK6 implements NumSolver {
 
-    private double step = 0.0;
-    private double presicion = 0.01; // default
-    private double length = 0.0;
 
     Model3D k2;
     Model3D k3;
@@ -17,66 +13,64 @@ public class DormandPrince implements AdaptiveMethod {
     Model3D k6;
     Model3D k7;
 
-    // coefficients for adding times
-    static final double a2 = 1/5.0;
-    static final double a3 = 3/10.0;
-    static final double a4 = 4/5.0;
-    static final double a5 = 8/9.0;
 
+
+    // coefficients for adding times
+    static final double a2 = 1; // also b1
+    static final double a3 = 1/2.0;
+    static final double a4 = 3/2.0;
+    static final double a5 = (7-Math.sqrt(21.0))/14.0;
+    static final double a6 = (7+Math.sqrt(21.0))/14.0;
+    static final double a7 = 1;
 
     // values for calculating k's
-    static final double b31 = 3/10.0;
-    static final double b32 = 9/10.0;
+    static final double b31 = 3/8.0;
+    static final double b32 = 1/8.0;
 
-    static final double b41 = 44/45.0;
-    static final double b42 = -56/15.0;
-    static final double b43 = 23/9.0;
+    static final double b41 = 8/27.0;
+    static final double b42 = 2/27.0;
+    static final double b43 = 8/27.0;
 
-    static final double b51 = 19372/6561.0;
-    static final double b52 = -25360/2187.0;
-    static final double b53 = 64448/6561.0;
-    static final double b54 = -212/729.0;
+    static final double b51 = (3*(3*Math.sqrt(21.0)-7))/392.0;
+    static final double b52 = -8*(7-Math.sqrt(21.0))/392.0;
+    static final double b53 = 48*(7-Math.sqrt(21.0))/392.0;
+    static final double b54 = -3*(21-Math.sqrt(21.0))/392.0;
 
-    static final double b61 = 9017/3168.0;
-    static final double b62 = -355/33.0;
-    static final double b63 =  46732/5247.0;
-    static final double b64 = -49/176.0;
-    static final double b65 = -5103/18656.0;
+    static final double b61 = -5*(231 + 51*Math.sqrt(21.0))/1960.0;
+    static final double b62 =  -40*(7 + Math.sqrt(21.0))/1960.0;
+    static final double b63 =  -320*Math.sqrt(21.0)/1960.0;
+    static final double b64 =  3*(21 + 121*Math.sqrt(21.0))/1960.0;
+    static final double b65 =  392*(6 + Math.sqrt(21.0))/1960.0;
 
-    static final double b71 = 35/384.0;
-    static final double b73 =  500/1113.0;
-    static final double b74 = 125/192.0;
-    static final double b75 = -2187/6784.0;
-    static final double b76 = 11/84.0;
+    static final double b71 =  15*(22 + 7*Math.sqrt(21.0))/180.0;
+    static final double b72 =  120/180.0;
+    static final double b73 =  40*(7*Math.sqrt(21.0) - 5)/180.0;
+    static final double b74 = -63*(3*Math.sqrt(21.0) - 2)/180.0;
+    static final double b75 = -14*(49 + 9*Math.sqrt(21.0))/180.0;
+    static final double b76 =  70*(7 - Math.sqrt(21.0))/180.0;
+
 
     // values for rk7
-    static final double g1 = 5179/57600.0;
-    static final double g3 = 7571/16695.0;
-    static final double g4 = 393/640.0;
-    static final double g5 = 92097/339200.0;
-    static final double g6 = 187/2100.0;
-    static final double g7 = 1/40.0;
+    static final double g1 = 9/180.0;
+    static final double g2 = 0;
+    static final double g3 = 64/180.0;
+    static final double g4 = 0;
+    static final double g5 = 49/180.0;
+    static final double g6 = 49/180.0;
+    static final double g7 = 9/180.0;
 
-    // values for rk6
-
-    public DormandPrince(double precision){this.presicion = precision;} //sets precision
-    public DormandPrince(){}; // uses default precision
-
-
-    ////// http://www.mymathlib.com/c_source/diffeq/runge_kutta/runge_kutta_ralston_4.c
     @Override
     public void step(Model3D model, double dt) {
-        if(step == 0.0)
-            step = dt;
 
+        //set up rk4 for position only
         RKsetUpVals(model, dt);
 
         //update position
         for(int i=0; i<model.size(); i++){
 
-            model.setPos(i, new double[] {  model.getPos(i)[0] + dt * ( g1*model.getVel(i)[0] + g3*k3.getVel(i)[0] + g4*k4.getVel(i)[0] + g5*k5.getVel(i)[0] + g6*k6.getVel(i)[0] + g7*k7.getVel(i)[0] ),
-                    model.getPos(i)[1] + dt * ( g1*model.getVel(i)[1] + g3*k3.getVel(i)[1] + g4*k4.getVel(i)[1] + g5*k5.getVel(i)[1] + g6*k6.getVel(i)[1] + g7*k7.getVel(i)[1] ),
-                    model.getPos(i)[2] + dt * ( g1*model.getVel(i)[2] + g3*k3.getVel(i)[2] + g4*k4.getVel(i)[2] + g5*k5.getVel(i)[2] + g6*k6.getVel(i)[2] + g7*k7.getVel(i)[2] )   } );
+            model.setPos(i, new double[] {  model.getPos(i)[0] + dt * ( g1*model.getVel(i)[0] + g2*k2.getVel(i)[0] + g3*k3.getVel(i)[0] + g4*k4.getVel(i)[0] + g5*k5.getVel(i)[0] + g6*k6.getVel(i)[0] + g7*k7.getVel(i)[0] ),
+                    model.getPos(i)[1] + dt * ( g1*model.getVel(i)[1] + g2*k2.getVel(i)[1] + g3*k3.getVel(i)[1] + g4*k4.getVel(i)[1] + g5*k5.getVel(i)[1] + g6*k6.getVel(i)[1] + g7*k7.getVel(i)[1] ),
+                    model.getPos(i)[2] + dt * ( g1*model.getVel(i)[2] + g2*k2.getVel(i)[2] + g3*k3.getVel(i)[2] + g4*k4.getVel(i)[2] + g5*k5.getVel(i)[2] + g6*k6.getVel(i)[2] + g7*k7.getVel(i)[2] )   } );
 
         }
 
@@ -84,9 +78,9 @@ public class DormandPrince implements AdaptiveMethod {
         //update vel
         for(int i=0; i<model.size(); i++){
 
-            model.setVel(i, new double[] {  model.getVel(i)[0] + dt * ( g1*model.getAcc(i)[0] + g3*k3.getAcc(i)[0] + g4*k4.getAcc(i)[0] + g5*k5.getAcc(i)[0] + g6*k6.getAcc(i)[0] + g7*k7.getAcc(i)[0] ),
-                    model.getVel(i)[1] + dt * ( g1*model.getAcc(i)[1] + g3*k3.getAcc(i)[1] + g4*k4.getAcc(i)[1] + g5*k5.getAcc(i)[1] + g6*k6.getAcc(i)[1] + g7*k7.getAcc(i)[1] ),
-                    model.getVel(i)[2] + dt * ( g1*model.getAcc(i)[2] + g3*k3.getAcc(i)[2] + g4*k4.getAcc(i)[2] + g5*k5.getAcc(i)[2] + g6*k6.getAcc(i)[2] + g7*k7.getAcc(i)[2] )   } );
+            model.setVel(i, new double[] {  model.getVel(i)[0] + dt * ( g1*model.getAcc(i)[0] + g2*k2.getAcc(i)[0] + g3*k3.getAcc(i)[0] + g4*k4.getAcc(i)[0] + g5*k5.getAcc(i)[0] + g6*k6.getAcc(i)[0] + g7*k7.getAcc(i)[0] ),
+                    model.getVel(i)[1] + dt * ( g1*model.getAcc(i)[1] + g2*k2.getAcc(i)[1] + g3*k3.getAcc(i)[1] + g4*k4.getAcc(i)[1] + g5*k5.getAcc(i)[1] + g6*k6.getAcc(i)[1] + g7*k7.getAcc(i)[1] ),
+                    model.getVel(i)[2] + dt * ( g1*model.getAcc(i)[2] + g2*k2.getAcc(i)[2] + g3*k3.getAcc(i)[2] + g4*k4.getAcc(i)[2] + g5*k5.getAcc(i)[2] + g6*k6.getAcc(i)[2] + g7*k7.getAcc(i)[2] )   } );
 
         }
 
@@ -164,7 +158,7 @@ public class DormandPrince implements AdaptiveMethod {
         k5.hDeriv();
 
 
-        // k6: t+dt, y+ dt ( b61*k1 + b52*k2 + b53*k3 + b54*k4 )
+        // k6: t+dt, y+ dt ( b61*k1 + b62*k2 + b63*k3 + b64*k4 )
         k6 = model.clone(null);
         state = model.getState();
 
@@ -178,7 +172,7 @@ public class DormandPrince implements AdaptiveMethod {
         }
 
         k6.setState(state);
-        k6.addDt(dt);
+        k6.addDt(dt*a6);
         k6.hDeriv();
 
 
@@ -189,26 +183,21 @@ public class DormandPrince implements AdaptiveMethod {
         for(int i=0; i<k7.size(); i++){
             // position
             for(int k=0; k<3; k++)
-                state[i][0][k] += dt*( b71*model.getVel(i)[k] + b73*k3.getVel(i)[k] + b74*k4.getVel(i)[k] + b75*k5.getVel(i)[k] + b76*k6.getVel(i)[k] );
+                state[i][0][k] += dt*( b71*model.getVel(i)[k] + b72*k2.getVel(i)[k] + b73*k3.getVel(i)[k] + b74*k4.getVel(i)[k] + b75*k5.getVel(i)[k] + b76*k6.getVel(i)[k] );
             // velocity
             for(int k=0; k<3; k++)
-                state[i][1][k] += dt*( b71*model.getAcc(i)[k] + b73*k3.getAcc(i)[k] + b74*k4.getAcc(i)[k] + b75*k5.getAcc(i)[k] + b76*k6.getAcc(i)[k] );
+                state[i][1][k] += dt*( b71*model.getAcc(i)[k] + b72*k2.getAcc(i)[k] + b73*k3.getAcc(i)[k] + b74*k4.getAcc(i)[k] + b75*k5.getAcc(i)[k] + b76*k6.getAcc(i)[k] );
         }
 
         k7.setState(state);
-        k7.addDt(dt);
+        k7.addDt(dt*a7);
         k7.hDeriv();
-
 
     }
 
     @Override
     public String getName() {
-        return "Dormant prince";
+        return "RK6";
     }
 
-    @Override
-    public void inputLength(double length) {
-        this.length = length;
-    }
 }
