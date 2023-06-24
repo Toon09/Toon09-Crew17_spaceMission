@@ -1,5 +1,7 @@
 package com.example.planets.BackEnd.Trajectory;
 
+import com.example.planets.BackEnd.CelestialEntities.CelestialBody;
+import com.example.planets.BackEnd.CelestialEntities.Spaceship;
 import com.example.planets.BackEnd.Models.Gravity0;
 import java.util.Arrays;
 
@@ -29,4 +31,5 @@ public class LandingTest {
         System.out.println("Module at: "+ Arrays.toString(feedBack.getLandingModule().getPos()));
         System.out.println("Module velocity is: "+ Arrays.toString(feedBack.getLandingModule().getVel()));
     }
+
 }
