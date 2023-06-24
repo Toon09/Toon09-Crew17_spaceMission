@@ -145,8 +145,6 @@ public class TestModel2 implements Model3D{
 
     }
 
-    public NumSolver getNumSolver(){return numSolver;}
-
     public double getActualValue(double t) {
         return t*(3.0 - 2.0*Math.log(t));
     }

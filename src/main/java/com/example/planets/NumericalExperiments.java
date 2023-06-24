@@ -226,13 +226,13 @@ class NumericalExperiments {
         ArrayList<Double> steps = new ArrayList<Double>();
 
         // models
-        models.add( new Gravity0( 0, 0, new Euler(), DATA_ORIGIN ) ); //, DATA_ORIGIN
+        models.add( new Gravity0( 0, 0, new RK4(), DATA_ORIGIN ) ); //, DATA_ORIGIN
         steps.add( dt );
 
-        models.add( new Gravity0( 0, 0, new AB2(), DATA_ORIGIN ) ); //, DATA_ORIGIN
+        models.add( new Gravity0( 0, 0, new RK8(), DATA_ORIGIN ) ); //, DATA_ORIGIN
         steps.add( dt );
 
-        models.add( new Gravity0( 0, 0, new RalstonsRK4(), DATA_ORIGIN ) ); //, DATA_ORIGIN
+        models.add( new Gravity0( 0, 0, new AB5(), DATA_ORIGIN ) ); //, DATA_ORIGIN
         steps.add( dt );
 
         //benchmark
@@ -385,7 +385,7 @@ class NumericalExperiments {
         ArrayList<Double> steps = new ArrayList<Double>();
 
         //////// test models
-        //models.add( new TestModel2( new Euler() ) );
+        models.add( new TestModel2( new Euler() ) );
         steps.add( dt );
 
         //models.add( new TestModel2( new LeapFrog() ) );
@@ -409,7 +409,7 @@ class NumericalExperiments {
         //models.add( new TestModel2( new HeunsRK3() ) );
         steps.add( dt );
 
-        //models.add( new TestModel2( new RK4() ) );
+        models.add( new TestModel2( new RK4() ) );
         steps.add( dt );
 
         //models.add( new TestModel2( new RalstonsRK4() ) );
@@ -427,7 +427,7 @@ class NumericalExperiments {
         //models.add( new TestModel2( new RK8() ) );
         steps.add( dt );
 
-        models.add( new TestModel2( new DormantPrince(20.0) ) );
+        models.add( new TestModel2( new DormantPrince(0.1) ) );
         steps.add( dt );
 
 
@@ -457,8 +457,6 @@ class NumericalExperiments {
 
                 chrono[j] += delta;
 
-                if( models.get(j).getSolverName().equalsIgnoreCase("Dormant Prince") )
-                    System.out.println( ((DormantPrince) ((TestModel2)models.get(j) ).getNumSolver()).getStep() );
             }
 
 
