@@ -12,76 +12,52 @@ public class RK6 implements NumSolver {
     Model3D k5;
     Model3D k6;
     Model3D k7;
-    Model3D k8;
-    Model3D k9;
 
-    static final private double param = 77/1440.0;
 
 
     // coefficients for adding times
-    static final double a2 = 1/6.0; // also b1
-    static final double a3 = 1/3.0;
-    static final double a4 = 1/2.0;
-    static final double a5 = 2/11.0;
-    static final double a6 = 2/3.0;
-    static final double a7 = 6/7.0;
-    static final double a8 = 0.0;
-    static final double a9 = 1.0;
-
+    static final double a2 = 1; // also b1
+    static final double a3 = 1/2.0;
+    static final double a4 = 3/2.0;
+    static final double a5 = (7-Math.sqrt(21.0))/14.0;
+    static final double a6 = (7+Math.sqrt(21.0))/14.0;
+    static final double a7 = 1;
 
     // values for calculating k's
-    static final double b31 = 0.0;
-    static final double b32 = 1/3.0;
+    static final double b31 = 3/8.0;
+    static final double b32 = 1/8.0;
 
-    static final double b41 = 1/8.0;
-    static final double b42 = 0;
-    static final double b43 = 3/8.0;
+    static final double b41 = 8/27.0;
+    static final double b42 = 2/27.0;
+    static final double b43 = 8/27.0;
 
-    static final double b51 = 148/1331.0;
-    static final double b52 = 0;
-    static final double b53 = 150/1331.0;
-    static final double b54 = -56/1331.0;
+    static final double b51 = (3*(3*Math.sqrt(21.0)-7))/392.0;
+    static final double b52 = -8*(7-Math.sqrt(21.0))/392.0;
+    static final double b53 = 48*(7-Math.sqrt(21.0))/392.0;
+    static final double b54 = -3*(21-Math.sqrt(21.0))/392.0;
 
-    static final double b61 = -404/243.0;
-    static final double b62 = 0;
-    static final double b63 =  -170/27.0;
-    static final double b64 = 4024/1701.0;
-    static final double b65 = 10648/1701.0;
+    static final double b61 = -5*(231 + 51*Math.sqrt(21.0))/1960.0;
+    static final double b62 =  -40*(7 + Math.sqrt(21.0))/1960.0;
+    static final double b63 =  -320*Math.sqrt(21.0)/1960.0;
+    static final double b64 =  3*(21 + 121*Math.sqrt(21.0))/1960.0;
+    static final double b65 =  392*(6 + Math.sqrt(21.0))/1960.0;
 
-    static final double b71 = 2466/2401.0;
-    static final double b72 =  0;
-    static final double b73 =  1242/343.0;
-    static final double b74 = -19176/16807.0;
-    static final double b75 = -51909/16807.0;
-    static final double b76 = 1053/2401.0;
+    static final double b71 =  15*(22 + 7*Math.sqrt(21.0))/180.0;
+    static final double b72 =  120/180.0;
+    static final double b73 =  40*(7*Math.sqrt(21.0) - 5)/180.0;
+    static final double b74 = -63*(3*Math.sqrt(21.0) - 2)/180.0;
+    static final double b75 = -14*(49 + 9*Math.sqrt(21.0))/180.0;
+    static final double b76 =  70*(7 - Math.sqrt(21.0))/180.0;
 
-    static final double b81 = 1/(576.0*param);
-    static final double b82 =  0;
-    static final double b83 =  0;
-    static final double b84 = 1/(105.0*param);
-    static final double b85 = -1331/(279552.0*param);
-    static final double b86 = -9/(1024.0*param);
-    static final double b87 = 343/(149760.0*param);
-
-    static final double b91 = -71/32.0 - 270*param/11.0;
-    static final double b92 =  0;
-    static final double b93 =  -195/22.0;
-    static final double b94 = 32/7.0;
-    static final double b95 = 29403/3584.0;
-    static final double b96 = -729/512.0;
-    static final double b97 = 1029/1408.0;
-    static final double b98 = 270*param/11.0;
 
     // values for rk7
-    static final double g1 = 77/1440.0 - param;
+    static final double g1 = 9/180.0;
     static final double g2 = 0;
-    static final double g3 = 0;
-    static final double g4 = 32/105.0;
-    static final double g5 = 1771561/6289920.0;
-    static final double g6 = 243/2560.0;
-    static final double g7 = 16807/74880.0;
-    static final double g8 = param;
-    static final double g9 = 11/270.0;
+    static final double g3 = 64/180.0;
+    static final double g4 = 0;
+    static final double g5 = 49/180.0;
+    static final double g6 = 49/180.0;
+    static final double g7 = 9/180.0;
 
     @Override
     public void step(Model3D model, double dt) {
@@ -92,9 +68,9 @@ public class RK6 implements NumSolver {
         //update position
         for(int i=0; i<model.size(); i++){
 
-            model.setPos(i, new double[] {  model.getPos(i)[0] + dt * ( g1*model.getVel(i)[0] + g2*k2.getVel(i)[0] + g3*k3.getVel(i)[0] + g4*k4.getVel(i)[0] + g5*k5.getVel(i)[0] + g6*k6.getVel(i)[0] + g7*k7.getVel(i)[0] + g8*k8.getVel(i)[0] + g9*k9.getVel(i)[0] ),
-                    model.getPos(i)[1] + dt * ( g1*model.getVel(i)[1] + g2*k2.getVel(i)[1] + g3*k3.getVel(i)[1] + g4*k4.getVel(i)[1] + g5*k5.getVel(i)[1] + g6*k6.getVel(i)[1] + g7*k7.getVel(i)[1] + g8*k8.getVel(i)[1] + g9*k9.getVel(i)[1] ),
-                    model.getPos(i)[2] + dt * ( g1*model.getVel(i)[2] + g2*k2.getVel(i)[2] + g3*k3.getVel(i)[2] + g4*k4.getVel(i)[2] + g5*k5.getVel(i)[2] + g6*k6.getVel(i)[2] + g7*k7.getVel(i)[2] + g8*k8.getVel(i)[2] + g9*k9.getVel(i)[2] )   } );
+            model.setPos(i, new double[] {  model.getPos(i)[0] + dt * ( g1*model.getVel(i)[0] + g2*k2.getVel(i)[0] + g3*k3.getVel(i)[0] + g4*k4.getVel(i)[0] + g5*k5.getVel(i)[0] + g6*k6.getVel(i)[0] + g7*k7.getVel(i)[0] ),
+                    model.getPos(i)[1] + dt * ( g1*model.getVel(i)[1] + g2*k2.getVel(i)[1] + g3*k3.getVel(i)[1] + g4*k4.getVel(i)[1] + g5*k5.getVel(i)[1] + g6*k6.getVel(i)[1] + g7*k7.getVel(i)[1] ),
+                    model.getPos(i)[2] + dt * ( g1*model.getVel(i)[2] + g2*k2.getVel(i)[2] + g3*k3.getVel(i)[2] + g4*k4.getVel(i)[2] + g5*k5.getVel(i)[2] + g6*k6.getVel(i)[2] + g7*k7.getVel(i)[2] )   } );
 
         }
 
@@ -102,9 +78,9 @@ public class RK6 implements NumSolver {
         //update vel
         for(int i=0; i<model.size(); i++){
 
-            model.setVel(i, new double[] {  model.getVel(i)[0] + dt * ( g1*model.getAcc(i)[0] + g2*k2.getAcc(i)[0] + g3*k3.getAcc(i)[0] + g4*k4.getAcc(i)[0] + g5*k5.getAcc(i)[0] + g6*k6.getAcc(i)[0] + g7*k7.getAcc(i)[0] + g8*k8.getAcc(i)[0] + g9*k9.getAcc(i)[0] ),
-                    model.getVel(i)[1] + dt * ( g1*model.getAcc(i)[1] + g2*k2.getAcc(i)[1] + g3*k3.getAcc(i)[1] + g4*k4.getAcc(i)[1] + g5*k5.getAcc(i)[1] + g6*k6.getAcc(i)[1] + g7*k7.getAcc(i)[1] + g8*k8.getAcc(i)[1] + g9*k9.getAcc(i)[1] ),
-                    model.getVel(i)[2] + dt * ( g1*model.getAcc(i)[2] + g2*k2.getAcc(i)[2] + g3*k3.getAcc(i)[2] + g4*k4.getAcc(i)[2] + g5*k5.getAcc(i)[2] + g6*k6.getAcc(i)[2] + g7*k7.getAcc(i)[2] + g8*k8.getAcc(i)[2] + g9*k9.getAcc(i)[2] )   } );
+            model.setVel(i, new double[] {  model.getVel(i)[0] + dt * ( g1*model.getAcc(i)[0] + g2*k2.getAcc(i)[0] + g3*k3.getAcc(i)[0] + g4*k4.getAcc(i)[0] + g5*k5.getAcc(i)[0] + g6*k6.getAcc(i)[0] + g7*k7.getAcc(i)[0] ),
+                    model.getVel(i)[1] + dt * ( g1*model.getAcc(i)[1] + g2*k2.getAcc(i)[1] + g3*k3.getAcc(i)[1] + g4*k4.getAcc(i)[1] + g5*k5.getAcc(i)[1] + g6*k6.getAcc(i)[1] + g7*k7.getAcc(i)[1] ),
+                    model.getVel(i)[2] + dt * ( g1*model.getAcc(i)[2] + g2*k2.getAcc(i)[2] + g3*k3.getAcc(i)[2] + g4*k4.getAcc(i)[2] + g5*k5.getAcc(i)[2] + g6*k6.getAcc(i)[2] + g7*k7.getAcc(i)[2] )   } );
 
         }
 
@@ -216,42 +192,6 @@ public class RK6 implements NumSolver {
         k7.setState(state);
         k7.addDt(dt*a7);
         k7.hDeriv();
-
-
-        // k7: t+dt, y+ dt ( b71*k1 + b73*k3 + b74*k4 + b75*k5 )
-        k8 = model.clone(null);
-        state = model.getState();
-
-        for(int i=0; i<k8.size(); i++){
-            // position
-            for(int k=0; k<3; k++)
-                state[i][0][k] += dt*( b81*model.getVel(i)[k] + b82*k2.getVel(i)[k] + b83*k3.getVel(i)[k] + b84*k4.getVel(i)[k] + b85*k5.getVel(i)[k] + b86*k6.getVel(i)[k] + b87*k7.getVel(i)[k] );
-            // velocity
-            for(int k=0; k<3; k++)
-                state[i][1][k] += dt*( b81*model.getAcc(i)[k] + b82*k2.getAcc(i)[k] + b83*k3.getAcc(i)[k] + b84*k4.getAcc(i)[k] + b85*k5.getAcc(i)[k] + b86*k6.getAcc(i)[k] + b87*k7.getAcc(i)[k] );
-        }
-
-        k8.setState(state);
-        k8.addDt(dt*a8);
-        k8.hDeriv();
-
-
-        // k7: t+dt, y+ dt ( b71*k1 + b73*k3 + b74*k4 + b75*k5 )
-        k9 = model.clone(null);
-        state = model.getState();
-
-        for(int i=0; i<k9.size(); i++){
-            // position
-            for(int k=0; k<3; k++)
-                state[i][0][k] += dt*( b91*model.getVel(i)[k] + b92*k2.getVel(i)[k] + b93*k3.getVel(i)[k] + b94*k4.getVel(i)[k] + b95*k5.getVel(i)[k] + b96*k6.getVel(i)[k] + b97*k7.getVel(i)[k] + b98*k8.getVel(i)[k] );
-            // velocity
-            for(int k=0; k<3; k++)
-                state[i][1][k] += dt*( b91*model.getAcc(i)[k] + b92*k2.getAcc(i)[k] + b93*k3.getAcc(i)[k] + b94*k4.getAcc(i)[k] + b95*k5.getAcc(i)[k] + b96*k6.getAcc(i)[k] + b97*k7.getAcc(i)[k] + b98*k8.getAcc(i)[k] );
-        }
-
-        k9.setState(state);
-        k9.addDt(dt*a9);
-        k9.hDeriv();
 
     }
 

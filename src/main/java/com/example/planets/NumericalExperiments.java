@@ -29,6 +29,8 @@ class NumericalExperiments {
 
         testingAccuracyOfSolvers();
 
+        //generateSolverData();
+
     }
 
 
@@ -498,6 +500,126 @@ class NumericalExperiments {
 
 
         }
+
+    }
+
+    ///////////////////////////////////// GENERATING DATA
+    public static void generateSolverData(){
+        //experiment setup hyper parameters
+        double time = 30000; //30000
+        boolean isDay = false;
+        int checkInterval = 30; // 30
+
+        //  testing models
+        ArrayList<Model3D> models = new ArrayList<Model3D>();
+        ArrayList<Double> steps = new ArrayList<Double>();
+
+        // all the step sizes
+        steps.add(5.0);
+        steps.add(2.5);
+        steps.add(1.0);
+        steps.add(0.5);
+        steps.add(0.1);
+        steps.add(0.25);
+        steps.add(0.01);
+        steps.add(0.005);
+        steps.add(0.001);
+
+
+        //////// test models
+        //models.add( new TestModel2( new Euler() ) );
+
+        //models.add( new TestModel2( new LeapFrog() ) );
+
+        //models.add( new TestModel2( new AB2() ) );
+
+        //models.add( new TestModel2( new AB3() ) );
+
+        //models.add( new TestModel2( new AB4() ) );
+
+        //models.add( new TestModel2( new AB5() ) );
+
+        //models.add( new TestModel2( new RK2() ) );
+
+        //models.add( new TestModel2( new HeunsRK3() ) );
+
+        models.add( new TestModel2( new RK4() ) );
+
+        //models.add( new TestModel2( new RalstonsRK4() ) );
+
+        models.add( new TestModel2( new ButchersRK5() ) );
+
+        models.add( new TestModel2( new RK6() ) );
+
+        models.add( new TestModel2( new RK7() ) );
+
+        models.add( new TestModel2( new RK8() ) );
+
+        // saving initial state
+        double[][][] init = models.get(0).getState();
+
+
+        double[] errors = new double[2]; // 0 is absolute and 1 is relative error
+        double chrono = 0.0; //last index is the benchmark
+        double sol = 0.0;
+
+        System.out.print("sim time[s], time step[s]");
+
+        for(int i=0; i<models.size(); i++){
+            System.out.print(", " + models.get(i).getSolverName() + " log(abs), " + models.get(i).getSolverName() + " log(relative), "  + models.get(i).getSolverName() + " log(time[ns])");
+        }
+        System.out.print("\n");
+
+
+        for (Double step : steps) {
+
+            System.out.print(time + ", " + step);
+
+            // do all sims with time and
+            for (int j = 0; j < models.size(); j++) {
+                chrono = System.nanoTime();
+                models.get(j).updatePos(time, step, false);
+                chrono = System.nanoTime() - chrono;
+
+                //calculate errors
+                if (models.get(j) instanceof TestModel1) {
+                    sol = ((TestModel1) models.get(j)).getActualValue(models.get(j).getTime());
+                    errors[0] = (sol - models.get(j).getBody(0).getPos()[0]);
+                    errors[0] = Math.abs(errors[0]);
+                    errors[1] = errors[0] / Math.abs(sol);
+
+                } else if (models.get(j) instanceof TestModel2) {
+                    sol = ((TestModel2) models.get(j)).getActualValue(models.get(j).getTime());
+                    errors[0] = (sol - models.get(j).getBody(0).getPos()[0]);
+                    errors[0] = Math.abs(errors[0]);
+                    errors[1] = errors[0] / Math.abs(sol);
+
+                } else if (models.get(j) instanceof TestModel3) {
+                    sol = ((TestModel3) models.get(j)).getActualValue(models.get(j).getTime());
+                    errors[0] = (sol - models.get(j).getBody(0).getPos()[0]);
+                    errors[0] = Math.abs(errors[0]);
+                    errors[1] = errors[0] / Math.abs(sol);
+                }
+
+                // getting logs of vals
+                //errors[j][0] = Math.log10(errors[j][0]);
+                //errors[j][1] = Math.log10(errors[j][1]);
+                //chrono[j] = Math.log10(chrono[j]);
+
+                System.out.print(", " + errors[0] + ", " + errors[1] + ", " + chrono);
+
+                models.get(j).setState(init); // re starts
+
+
+            }
+
+            System.out.println();
+
+        }
+
+
+        // have for loop that loops thru steps
+
 
     }
 
