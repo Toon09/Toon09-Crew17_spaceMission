@@ -5,10 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="bab05458-8716-4abd-8f37-31e577e5aaab" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/planets/BackEnd/NumericalMethods/DormantAttempt1.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/planets/BackEnd/NumericalMethods/DormantPrince.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/planets/BackEnd/NumericalMethods/ode23.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/planets/BackEnd/NumericalMethods/ode78.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/planets/BackEnd/Models/TestModel2.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/planets/BackEnd/Models/TestModel2.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/planets/BackEnd/NumericalMethods/DormantPrince.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/planets/BackEnd/NumericalMethods/DormantPrince.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/planets/BackEnd/NumericalMethods/ode45.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/planets/BackEnd/NumericalMethods/ode45.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/planets/NumericalExperiments.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/planets/NumericalExperiments.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -522,7 +523,7 @@
       <option name="project" value="LOCAL" />
       <updated>1687620996226</updated>
     </task>
-    <option name="localTasksCounter" value="115" />
+    <option name="localTasksCounter" value="116" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -540,7 +541,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="cost function changed back lol" />
     <MESSAGE value="steepest ascend does close flyby, needs tweaks in cost function to stay closer" />
     <MESSAGE value="update on trajectory optimisrrz" />
     <MESSAGE value="engine update un done" />
@@ -565,7 +565,8 @@
     <MESSAGE value="clean up the code" />
     <MESSAGE value="alert added when spacecraft lands&#10;still takes a lot to land" />
     <MESSAGE value="Dormant prince completed" />
-    <option name="LAST_COMMIT_MESSAGE" value="Dormant prince completed" />
+    <MESSAGE value="adaptive method names refactored" />
+    <option name="LAST_COMMIT_MESSAGE" value="adaptive method names refactored" />
   </component>
   <component name="XDebuggerManager">
     <pin-to-top-manager>

@@ -27,9 +27,9 @@ class NumericalExperiments {
 
         //trajectoryTesting();
 
-        testingAccuracyOfSolvers();
+        //testingAccuracyOfSolvers();
 
-        //generateSolverData();
+        generateSolverData();
 
     }
 
@@ -378,14 +378,14 @@ class NumericalExperiments {
         boolean isDay = false;
         int checkInterval = 30; // 30
 
-        double dt = 0.01;
+        double dt = 0.1;
 
         //  testing models
         ArrayList<Model3D> models = new ArrayList<Model3D>();
         ArrayList<Double> steps = new ArrayList<Double>();
 
         //////// test models
-        models.add( new TestModel2( new Euler() ) );
+        //models.add( new TestModel2( new Euler() ) );
         steps.add( dt );
 
         //models.add( new TestModel2( new LeapFrog() ) );
@@ -403,13 +403,13 @@ class NumericalExperiments {
         //models.add( new TestModel2( new AB5() ) );
         steps.add( dt );
 
-        //models.add( new TestModel2( new RK2() ) );
+        models.add( new TestModel2( new RK2() ) );
         steps.add( dt );
 
-        //models.add( new TestModel2( new HeunsRK3() ) );
+        models.add( new TestModel2( new HeunsRK3() ) );
         steps.add( dt );
 
-        models.add( new TestModel2( new RK4() ) );
+        //models.add( new TestModel2( new RK4() ) );
         steps.add( dt );
 
         //models.add( new TestModel2( new RalstonsRK4() ) );
@@ -427,7 +427,19 @@ class NumericalExperiments {
         //models.add( new TestModel2( new RK8() ) );
         steps.add( dt );
 
-        models.add( new TestModel2( new ode45(0.1) ) );
+        models.add( new TestModel2( new ode23(0.01) ) );
+        steps.add( dt );
+
+        models.add( new TestModel2( new ode45(0.01) ) );
+        steps.add( dt );
+
+        models.add( new TestModel2( new ode78(0.01) ) );
+        steps.add( dt );
+
+        models.add( new TestModel2( new RK8() ) );
+        steps.add( dt );
+
+        models.add( new TestModel2( new RK7() ) );
         steps.add( dt );
 
 
@@ -507,10 +519,12 @@ class NumericalExperiments {
 
     }
 
+
+
     ///////////////////////////////////// GENERATING DATA
     public static void generateSolverData(){
         //experiment setup hyper parameters
-        double time = 30000; //30000
+        double time = 3000; //30000
         boolean isDay = false;
         int checkInterval = 30; // 30
 
@@ -521,47 +535,48 @@ class NumericalExperiments {
         ////////// ############################### do a LOT more numbers and check
 
         // all the step sizes
+        steps.add(15.0);
+        steps.add(10.0);
         steps.add(5.0);
-        steps.add(2.5);
+        steps.add(4.0);
+        steps.add(3.0);
+        steps.add(2.0);
+        steps.add(1.5);
         steps.add(1.0);
+        steps.add(0.75);
         steps.add(0.5);
-        steps.add(0.1);
         steps.add(0.25);
+        steps.add(0.1);
+        steps.add(0.05);
+        steps.add(0.025);
         steps.add(0.01);
         steps.add(0.005);
         steps.add(0.001);
 
 
         //////// test models
-        //models.add( new TestModel2( new Euler() ) );
+        models.add( new TestModel2( new Euler() ) );
+        models.add( new TestModel2( new LeapFrog() ) );
 
-        //models.add( new TestModel2( new LeapFrog() ) );
+        models.add( new TestModel2( new AB2() ) );
+        models.add( new TestModel2( new AB3() ) );
+        models.add( new TestModel2( new AB4() ) );
+        models.add( new TestModel2( new AB5() ) );
 
-        //models.add( new TestModel2( new AB2() ) );
+        models.add( new TestModel2( new RK2() ) );
+        models.add( new TestModel2( new HeunsRK3() ) );
+        models.add( new TestModel2( new RK4() ) );
+        models.add( new TestModel2( new RalstonsRK4() ) );
+        models.add( new TestModel2( new ButchersRK5() ) );
+        models.add( new TestModel2( new RK6() ) );
+        models.add( new TestModel2( new RK7() ) );
+        models.add( new TestModel2( new RK8() ) );
 
-        //models.add( new TestModel2( new AB3() ) );
-
-        //models.add( new TestModel2( new AB4() ) );
-
-        //models.add( new TestModel2( new AB5() ) );
-
-        //models.add( new TestModel2( new RK2() ) );
-
-        //models.add( new TestModel2( new HeunsRK3() ) );
-
-        models.add( new TestModel1( new RK4() ) );
-
-        //models.add( new TestModel2( new RalstonsRK4() ) );
-
-        //models.add( new TestModel2( new ButchersRK5() ) );
-
-        //models.add( new TestModel2( new RK6() ) );
-
-        //models.add( new TestModel2( new RK7() ) );
-
-        //models.add( new TestModel2( new RK8() ) );
-
-        models.add( new TestModel1( new ode45() ) ); ///////// give it an error
+        double precision = 0.1;
+        models.add( new TestModel2( new ode23(precision) ) );
+        models.add( new TestModel2( new ode45(precision) ) );
+        models.add( new TestModel2( new ode78(precision) ) );
+        models.add( new TestModel2( new DormantPrince(precision) ) );
 
         // saving initial state
         double[][][] init = models.get(0).getState();
@@ -571,7 +586,10 @@ class NumericalExperiments {
         double chrono = 0.0; //last index is the benchmark
         double sol = 0.0;
 
-        System.out.print("sim time[s], time step[s]");
+        System.out.println("sim time[s], " + time);
+        System.out.println("adaptive method precision, " + precision);
+
+        System.out.print("\ntime step[s]");
 
         for(int i=0; i<models.size(); i++){
             System.out.print(", " + models.get(i).getSolverName() + " log(abs), " + models.get(i).getSolverName() + " log(relative), "  + models.get(i).getSolverName() + " log(time[ns])");
@@ -581,7 +599,7 @@ class NumericalExperiments {
 
         for (Double step : steps) {
 
-            System.out.print(time + ", " + step);
+            System.out.print(step);
 
             // do all sims with time and
             for (int j = 0; j < models.size(); j++) {
