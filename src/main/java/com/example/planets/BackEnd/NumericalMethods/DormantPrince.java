@@ -245,7 +245,7 @@ public class DormantPrince implements AdaptiveMethod {
     @Override
     public String getName() {
         return "Dormant Prince";
-    }
+    } //
     @Override
     public void inputLength(double length) {
         this.length = length;
