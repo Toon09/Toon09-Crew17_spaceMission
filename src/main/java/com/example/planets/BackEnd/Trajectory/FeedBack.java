@@ -13,6 +13,7 @@ public class FeedBack implements IControler {
     private boolean lastPhase;
     private boolean finished;
     private final StochasticWind wind;
+    private int countX;
 
     /**
      * default constructor that places the landing module at X = 0, Y = 300km and Y = 0 is the surface of titan
@@ -24,6 +25,7 @@ public class FeedBack implements IControler {
         lastPhase = false;
         finished = false;
         wind = new StochasticWind();
+        countX = 0;
     }
 
     /**
@@ -38,6 +40,7 @@ public class FeedBack implements IControler {
         lastPhase = false;
         finished = false;
         wind = new StochasticWind();
+        countX = 0;
     }
 
     /**
@@ -67,25 +70,25 @@ public class FeedBack implements IControler {
             System.out.println(Arrays.toString(landingModule.getVel()));
             System.out.println("AFTER " + model.getTime() + " SECONDS");
         } else if (landingModule.getPos()[1] > 200) {
-            if (Math.abs(landingModule.getPos()[0]) > XTolerance) {
+            if (Math.abs(landingModule.getPos()[0]) > XTolerance && countX <= 0) {
                 correctX();
             } else {
                 correctY(1, false);
             }
         } else if (landingModule.getPos()[1] > 100) {
-            if (Math.abs(landingModule.getPos()[0]) > XTolerance) {
+            if (Math.abs(landingModule.getPos()[0]) > XTolerance && countX <= 0) {
                 correctX();
             } else {
                 correctY(0.5, false);
             }
         } else if (landingModule.getPos()[1] > 20) {
-            if (Math.abs(landingModule.getPos()[0]) > XTolerance) {
+            if (Math.abs(landingModule.getPos()[0]) > XTolerance && countX <= 0) {
                 correctX();
             } else {
                 correctY(0.1, false);
             }
         } else if (landingModule.getPos()[1] > 10) {
-            if (Math.abs(landingModule.getPos()[0]) > XTolerance) {
+            if (Math.abs(landingModule.getPos()[0]) > XTolerance && countX <= 0) {
                 correctX();
             } else {
                 correctY(0.01, false);
@@ -95,9 +98,8 @@ public class FeedBack implements IControler {
         } else if (landingModule.getPos()[1] > 0.025) {
             correctY(0.0001, false);
         } else {
-            System.out.println("else");
             lastPhase = true;
-            correctY(0.0000001, true);
+            correctY(0.00001, false);
         }
     }
 
@@ -110,7 +112,8 @@ public class FeedBack implements IControler {
      *               would be -0.5 as it's going downwards )
      */
     private void correctY(double target, boolean boost) {
-        System.out.println("Y");
+        countX -= 1;
+        //System.out.println("Y");
         if (landingModule.getRotation() != 0) {
             landingModule.rotate(landingModule.getRotation() * -1);
             return;
@@ -133,27 +136,40 @@ public class FeedBack implements IControler {
         System.out.println("X");
         if (landingModule.getPos()[0] > 0) {
             if (landingModule.getRotation() != 270.0) {
-                System.out.println("rotation is not 270.0, its "+ landingModule.getRotation());
+                System.out.println("rotation is not 270.0, its " + landingModule.getRotation());
                 double rotation = landingModule.getRotation();
                 //rotate to -90 degrees ( so 270 degrees )
-                landingModule.rotate(90 - rotation);
-                System.out.println("Rotation is: "+ landingModule.getRotation());
+                landingModule.rotate(-(rotation + 90));
+                System.out.println("Rotation is: " + landingModule.getRotation());
             } else {
-                System.out.println("Rotation is: "+ landingModule.getRotation());
-                System.out.println("added " + landingModule.getPos()[0] / -1000 + " velocity");
-                activateEngine(landingModule.getPos()[0] / -1000);
+                countX = 10;
+                System.out.println("Before, vel: " + Arrays.toString(landingModule.getVel()) +", pos: " + Arrays.toString(landingModule.getPos()));
+                System.out.println("Rotation is: " + landingModule.getRotation());
+                System.out.println("added " + -1 * (landingModule.getVel()[0]) + " velocity");
+                System.out.println("added " + -0.01 + " velocity");
+                activateEngine( (landingModule.getVel()[0]));
+                activateEngine(0.00001);
+                System.out.println("After, vel: " + Arrays.toString(landingModule.getVel()) +", pos: " + Arrays.toString(landingModule.getPos()));
+
             }
         } else if (landingModule.getPos()[0] < 0) {
             if (landingModule.getRotation() != 90.0) {
-                System.out.println("rotation is not 90.0, its "+ landingModule.getRotation());
+                System.out.println("rotation is not 90.0, its " + landingModule.getRotation());
                 double rotation = landingModule.getRotation();
                 //rotate to 90 degrees
-                landingModule.rotate(-(90 + rotation));
-                System.out.println("Rotation is: "+ landingModule.getRotation());
+                landingModule.rotate(90 - rotation);
+                System.out.println("Rotation is: " + landingModule.getRotation());
             } else {
-                System.out.println("Rotation is: "+ landingModule.getRotation());
-                System.out.println("added " + landingModule.getPos()[0] / -1000 + " velocity");
-                activateEngine(landingModule.getPos()[0] / -1000);
+                System.out.println("Before, vel: " + Arrays.toString(landingModule.getVel()) +", pos: " + Arrays.toString(landingModule.getPos()));
+                System.out.println("Rotation is: " + landingModule.getRotation());
+                System.out.println("added " + -1 * (landingModule.getVel()[0]) + " velocity");
+                System.out.println("added " + 0.01 + " velocity");
+
+                activateEngine((landingModule.getVel()[0]));
+                activateEngine(0.00001);
+                System.out.println("After, vel: " + Arrays.toString(landingModule.getVel()) +", pos: " + Arrays.toString(landingModule.getPos()));
+
+
             }
         }
     }

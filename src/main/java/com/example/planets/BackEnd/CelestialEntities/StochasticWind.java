@@ -16,7 +16,7 @@ public class StochasticWind {
 
     // parts of the atmosphere // https://www.nasa.gov/mission_pages/cassini/whycassini/cassinif-20070601-05.html
 
-    private final double windScalling = 10.0;
+    private final double windScalling = 1000.0;
     private double[] v1; private final double mag1 = 0.12/windScalling; // 120 to up
     private double[] v2; private final double mag2 = (0.12/2.0)/windScalling; // 60 to 120
     private double[] v3; private final double mag3 = 0.001/windScalling; // 6 to 60

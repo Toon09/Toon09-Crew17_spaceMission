@@ -7,7 +7,8 @@ public class LandingTest {
     private static Gravity0 model;
     private static FeedBack feedBack;
     public static void main(String[] args) {
-        feedBack = new FeedBack();
+        //feedBack = new FeedBack();
+       feedBack = new FeedBack(new double[]{0,300},0) ;
         model = feedBack.getModel();
         System.out.println("start");
         print();
@@ -16,11 +17,10 @@ public class LandingTest {
         print();
         boolean stop = false;
         while (!stop){
-            print();
             if (feedBack.isLastPhase()){
                 feedBack.update(0.1);
             }else {
-                feedBack.update(1);
+                feedBack.update(5);
             }
             stop = feedBack.isFinished();
         }
