@@ -4,14 +4,6 @@ import com.example.planets.BackEnd.Models.*;
 
 public class AB2 implements NumSolver {
 
-    /*
-     * save values of prev iteration in an array
-     * use it for calculation of next step
-     * in first iteration just use 10 or so euler steps backwards to ensure precision..
-     * ..then test if less steps make a difference 
-     */
-
-
     private Model3D prev;
     private Model3D temp;
 
@@ -51,27 +43,17 @@ public class AB2 implements NumSolver {
 
     }
 
-    /*
-    - bootstrap RK2
-    - calc value of t0
-    - use t0 to t1
-    - calc value t1+1
-
-    must use 2 behind, the bootstrap is 2 behind and the current model is 1 behind
-
-    so bootstrap
-
-     */
 
     private void AB2Vals(Model3D model, double dt){
 
         if( prev == null ){ //bootstrapping with RK2
-            prev = model.clone( new RK4() );
+            prev = model.clone( new RK9() );
 
             prev.updatePos(-dt, -dt, false); // a step backwards
             temp = model.clone(null); //copy current model
 
         } else { // using last model
+            // they are all cloned with null to prevent using the same method, thus entering a recursion
             prev = temp.clone(null); //copies previous model
             temp = model.clone(null); //copies current model
 

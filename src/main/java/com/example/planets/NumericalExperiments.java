@@ -392,13 +392,22 @@ class NumericalExperiments {
         //models.add( new TestModel2( new AB2() ) );
         steps.add( dt );
 
+        models.add( new TestModel2( new AB3() ) );
+        steps.add( dt );
+
+        models.add( new TestModel2( new AB4() ) );
+        steps.add( dt );
+
+        models.add( new TestModel2( new AB5() ) );
+        steps.add( dt );
+
         //models.add( new TestModel2( new RK2() ) );
         steps.add( dt );
 
         //models.add( new TestModel2( new HeunsRK3() ) );
         steps.add( dt );
 
-        models.add( new TestModel2( new RK4() ) );
+        //models.add( new TestModel2( new RK4() ) );
         steps.add( dt );
 
         //models.add( new TestModel2( new RalstonsRK4() ) );
@@ -407,10 +416,10 @@ class NumericalExperiments {
         //models.add( new TestModel2( new RK9() ) );
         steps.add( dt );
 
-        models.add( new TestModel2( new ButchersRK5() ) );
+        //models.add( new TestModel2( new ButchersRK5() ) );
         steps.add( dt );
 
-        models.add( new TestModel2( new RK6() ) );
+        //models.add( new TestModel2( new RK6() ) );
         steps.add( dt );
 
 
