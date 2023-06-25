@@ -232,7 +232,7 @@ public class Merged extends Application {
         landingModule.translateXProperty().set((ScreenWIDTH)/2);
         landingModule.translateYProperty().set((ScreenHEIGHT-600)/2);
         PhongMaterial spaceshipMaterial = new PhongMaterial();
-        spaceshipMaterial.setDiffuseMap(new Image("metalTexture2.jpg"));
+        spaceshipMaterial.setDiffuseMap(new Image("spaceshipTexture.jpg"));
         landingModule.setMaterial(spaceshipMaterial);
         landingModule.getTransforms().addAll(rotate);
 
