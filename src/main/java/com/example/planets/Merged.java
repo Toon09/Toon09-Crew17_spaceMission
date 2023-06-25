@@ -179,23 +179,23 @@ public class Merged extends Application {
         landingModule.setMaterial(spaceshipMaterial);
         landingModule.getTransforms().addAll(rotate);
 
+        Sphere landingSpot = new Sphere(10);
+        landingSpot.translateXProperty().set((double) ScreenWIDTH/2);
+        landingSpot.translateYProperty().set(ScreenHEIGHT);
+        PhongMaterial landingSpotColor = new PhongMaterial();
+        landingSpotColor.setDiffuseColor(Color.LIGHTGREEN);
+        landingSpot.setMaterial(landingSpotColor);
+
         Camera landingCamera = new PerspectiveCamera();
         landingScene.setCamera(landingCamera);
+        landingCamera.setTranslateZ(-600);
         landingScene.addEventHandler(KeyEvent.KEY_PRESSED, event -> {
             switch (event.getCode()) {
-                case R -> {
-                    landingCamera.setTranslateX(0);
-                    landingCamera.setTranslateY(0);
-                    landingCamera.setTranslateZ(0);
-                }
                 case B -> stage.setScene(scene);
-                case W -> landingCamera.setTranslateZ(landingCamera.getTranslateZ() + 100);
-                case S -> landingCamera.setTranslateZ(landingCamera.getTranslateZ() - 100);
-
             }
         });
 
-        landing.getChildren().addAll(titan, landingModule, landingCamera);
+        landing.getChildren().addAll(titan, landingSpot, landingModule, landingCamera);
 
         // -------------------------------------------------------------------------------------------------------------
         // CHOOSE INITIAL LANDING DATA GUI
@@ -289,8 +289,9 @@ public class Merged extends Application {
 
                     landingModule.translateXProperty().set(960);
                     landingModule.setTranslateY(250 + 2.77 * (300 - pos[1]));
+                    System.out.println(landingModule.getTranslateY());
 
-                    System.out.println(Arrays.toString(controller[0].getLandingModule().getPos()));
+                    //System.out.println(Arrays.toString(controller[0].getLandingModule().getPos()));
 
                 } else {
                     model.updatePos(time, dt, true);
