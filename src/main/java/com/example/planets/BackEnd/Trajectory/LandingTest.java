@@ -1,7 +1,5 @@
 package com.example.planets.BackEnd.Trajectory;
 
-import com.example.planets.BackEnd.CelestialEntities.CelestialBody;
-import com.example.planets.BackEnd.CelestialEntities.Spaceship;
 import com.example.planets.BackEnd.Models.Gravity0;
 import java.util.Arrays;
 
@@ -15,14 +13,14 @@ public class LandingTest {
         System.out.println("start");
         print();
         System.out.println("let 30 seconds pass");
-        //feedBack.update(30);
+        feedBack.update();
         print();
         boolean stop = false;
         while (!stop){
             if (feedBack.isLastPhase()){
-                //feedBack.update(0.1);
+                feedBack.update();
             }else {
-                //feedBack.update(5);
+                feedBack.update();
             }
             stop = feedBack.isFinished();
         }

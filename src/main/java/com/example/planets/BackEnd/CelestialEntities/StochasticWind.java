@@ -1,10 +1,5 @@
 package com.example.planets.BackEnd.CelestialEntities;
 
-import com.example.planets.BackEnd.CelestialEntities.CelestialBody;
-import com.example.planets.BackEnd.CelestialEntities.Spaceship;
-
-import java.util.Arrays;
-
 /*
 only spaceships can be affected by wind conditions, not other planets because they are too big
 
@@ -24,7 +19,7 @@ public class StochasticWind {
 
 
     /**
-     * @param distance its the distance from the ship to the ship
+     * @param distance it's the distance from the ship to the ship
      * @return boolean that specifies if the wind should be applied to the ship
      */
     private boolean inRange(double distance){
@@ -38,7 +33,7 @@ public class StochasticWind {
      * @param ship entity to which the gravity affects
      */
     public void stochasticWind(Spaceship ship, CelestialBody planet, double dt){
-        // ends the process if its not inside the range required
+        // ends the process if it's not inside the range required
         //System.out.println(ship.getDistance(planet));
 
         if( !inRange( ship.getDistance(planet) ) )
@@ -68,7 +63,7 @@ public class StochasticWind {
 
         // only in x direction since y is up
 
-        // generates wind vectors if they arent already
+        // generates wind vectors if they aren't already
         if(v1 == null)
             v1 = new double[] { 1*mag1, 0, 0 };
 
@@ -117,17 +112,17 @@ public class StochasticWind {
      * Generates a vector with a small change for the x, y direction while staying under the max magnitude,
      * the wind can only go up to 20 degrees upwards to avoid it being completely vertical (y is always up)
      * @param vector vector which is going to be have a small change given to, the z direction must be 0 already
-     * @param maxMag maximun magnitude of the output vector
+     * @param maxMag maximum magnitude of the output vector
      * @param dt
      * @return
      */
     private double[] randomVectorMaxMagnitude(double[] vector, double maxMag, double dt){
         double[] result = {0,0,0};
 
-        // maximun degree that the wind can go in the upwards direction (20 degrees in radians)
+        // maximum degree that the wind can go in the upwards direction (20 degrees in radians)
         final double DEG = 20.0 *3.141592654/180.0;
 
-        final double maxAngleChange = 0.5 *3.141592654/180.0; // half a degree up or down is max whta it cna change a second
+        final double maxAngleChange = 0.5 *3.141592654/180.0; // half a degree up or down is max what it cna change a second
         final double maxMagChange = 0.00005; // max per second is half a meter per second for the magnitude change
 
         double deg = Math.atan( vector[1]/vector[0] ); // gets actual value of the degree that the vector currently has
@@ -140,7 +135,7 @@ public class StochasticWind {
 
         double newDeg = deg + ( 2*maxAngleChange*Math.random() - maxAngleChange )*dt;
 
-        if( Math.abs(newDeg) > DEG ){ //exceeding the max value inmidiatly makes it go down
+        if( Math.abs(newDeg) > DEG ){ //exceeding the max value intimidatingly makes it go down
             if(newDeg>0)
                 newDeg = DEG - DEG*0.1;
             else
@@ -151,7 +146,7 @@ public class StochasticWind {
         double newMagnitude = magnitude + ( 2*maxMagChange*Math.random() - maxMagChange )*dt;
 
         // magnitude should always be positives
-        if( newMagnitude > maxMag ){ // it also goes down inmidiatly if it exceeds this maximun
+        if( newMagnitude > maxMag ){ // it also goes down intimidatingly if it exceeds this maximum
             if(newMagnitude > 0)
                 newMagnitude = maxMag - maxMag*0.1;
             else

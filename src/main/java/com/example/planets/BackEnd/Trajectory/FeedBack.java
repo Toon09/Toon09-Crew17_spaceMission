@@ -64,11 +64,7 @@ public class FeedBack implements IControler {
         double XTolerance = 0.01;
         if (landingModule.getPos()[1] <= 0.00001) {
             finished = true;
-            System.out.println("WE LANDED AT: ");
-            System.out.println(Arrays.toString(landingModule.getPos()));
-            System.out.println("WITH VELOCITY OF:");
-            System.out.println(Arrays.toString(landingModule.getVel()));
-            System.out.println("AFTER " + model.getTime() + " SECONDS");
+            printLanding();
         } else if (landingModule.getPos()[1] > 200) {
             if (Math.abs(landingModule.getPos()[0]) > XTolerance && countX <= 0) {
                 correctX();
@@ -108,8 +104,16 @@ public class FeedBack implements IControler {
         if (lastPhase){
             update(1);
         }else{
-            update(3);
+            update(2);
         }
+    }
+
+    private void printLanding(){
+        System.out.println("WE LANDED AT: ");
+        System.out.println(Arrays.toString(landingModule.getPos()));
+        System.out.println("WITH VELOCITY OF:");
+        System.out.println(Arrays.toString(landingModule.getVel()));
+        System.out.println("AFTER " + model.getTime() + " SECONDS");
     }
 
     /**
@@ -120,7 +124,7 @@ public class FeedBack implements IControler {
      * @param boost  should the velocity be positive ( normally the target velocity of 0.5
      *               would be -0.5 as it's going downwards )
      */
-    private void correctY(double target, boolean boost) {
+    private void correctY(double target, @SuppressWarnings("SameParameterValue") boolean boost) {
         countX -= 1;
         //System.out.println("Y");
         if (landingModule.getRotation() != 0) {
