@@ -217,11 +217,6 @@ public class Merged extends Application {
         Scene landingScene = new Scene(landing, ScreenWIDTH, ScreenHEIGHT);
         landingScene.setFill(Color.BLACK);
 
-        Button button = new Button("\uD83C\uDF11 LANDING \uD83C\uDF11");
-        button.setLayoutY(ScreenHEIGHT/2);
-        button.setOnAction(e -> stage.setScene(landingScene));
-        root.getChildren().add(button);
-
         Cylinder titan = new Cylinder(800, 2920);
         titan.translateXProperty().set((ScreenWIDTH)/2);
         titan.translateYProperty().set((ScreenHEIGHT+1600)/2);
@@ -296,11 +291,6 @@ public class Merged extends Application {
         yVelocity.setFill(Color.WHITE);
         yVelocity.setLayoutX((ScreenWIDTH-100)/2);
         yVelocity.setLayoutY((ScreenHEIGHT+180)/2);
-
-        Button awewa = new Button("SELECTOR"); // just for now
-        awewa.setLayoutY((ScreenHEIGHT+200)/2);
-        awewa.setOnAction(e -> stage.setScene(dataSelector));
-        root.getChildren().add(awewa);
 
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle("Error");

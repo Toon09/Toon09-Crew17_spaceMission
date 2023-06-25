@@ -90,7 +90,7 @@
       <recent name="C:\Users\suszw\Desktop\uni\year_1\Period4\plswork\src\main" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.NumericalExperiments">
+  <component name="RunManager" selected="Application.Merged">
     <configuration name="GA" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="com.example.planets.GA" />
       <module name="Toon09-Crew17_spaceMission3" />
@@ -151,8 +151,8 @@
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.NumericalExperiments" />
         <item itemvalue="Application.Merged" />
+        <item itemvalue="Application.NumericalExperiments" />
         <item itemvalue="Application.LandingTest" />
         <item itemvalue="Application.GA" />
       </list>
