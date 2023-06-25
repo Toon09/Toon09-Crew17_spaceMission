@@ -217,11 +217,6 @@ public class Merged extends Application {
         Scene landingScene = new Scene(landing, ScreenWIDTH, ScreenHEIGHT);
         landingScene.setFill(Color.BLACK);
 
-        Button button = new Button("\uD83C\uDF11 LANDING \uD83C\uDF11");
-        button.setLayoutY(ScreenHEIGHT/2);
-        button.setOnAction(e -> stage.setScene(landingScene));
-        root.getChildren().add(button);
-
         Cylinder titan = new Cylinder(800, 2920);
         titan.translateXProperty().set((ScreenWIDTH)/2);
         titan.translateYProperty().set((ScreenHEIGHT+1600)/2);
@@ -297,11 +292,6 @@ public class Merged extends Application {
         yVelocity.setLayoutX((ScreenWIDTH-100)/2);
         yVelocity.setLayoutY((ScreenHEIGHT+180)/2);
 
-        Button awewa = new Button("SELECTOR"); // just for now
-        awewa.setLayoutY((ScreenHEIGHT+200)/2);
-        awewa.setOnAction(e -> stage.setScene(dataSelector));
-        root.getChildren().add(awewa);
-
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle("Error");
         alert.setHeaderText("Unexpected input");
@@ -350,6 +340,13 @@ public class Merged extends Application {
 
         // -------------------------------------------------------------------------------------------------------------
 
+        Alert landingAlert = new Alert(Alert.AlertType.INFORMATION) ;
+        landingAlert.setTitle("Spacecraft landed !");
+        landingAlert.setHeaderText("Landing Information");
+
+        Text textForAlert = new Text() ;
+        textForAlert.setWrappingWidth(500);
+
         stage.show();
 
         Timer timer = new Timer();
@@ -376,18 +373,6 @@ public class Merged extends Application {
                     System.out.println(landingModule.getTranslateX());
                     System.out.println(landingModule.getTranslateY());
 
-                    // alert when rocket lands
-                    //if (controller[0].getLandingModule().getPos()[1] <= 0.00001) same as if(controller[0].isFinished())
-                    if(controller[0].isFinished())
-                    {
-                        Alert landingAlert = new Alert(Alert.AlertType.INFORMATION) ;
-                        landingAlert.setTitle("Spacecraft landed !");
-                        landingAlert.setHeaderText("Landing Information");
-                        landingAlert.setContentText("Landed successfully at : " + controller[0].getLandingModule().getPos() + " with velocity : " + controller[0].getLandingModule().getVel() + " ! ");
-                        landingAlert.showAndWait();
-                        landingAlert.setOnCloseRequest( e-> stage.setScene(scene));
-
-                    }
                 }
                 else {
                     model.updatePos(time, dt, true);
@@ -421,6 +406,18 @@ public class Merged extends Application {
                         }
 
                         if (distance < targetDistance) stage.setScene(dataSelector);
+
+                        if(stage.getScene().equals(landingScene))
+                            if(controller[0].isFinished())
+                                {
+                                    textForAlert.setText("Landed successfully at x : " + controller[0].getLandingModule().getPos()[0] + " , y  : " + controller[0].getLandingModule().getPos()[1] + "\nWith velocity : " + controller[0].getLandingModule().getVel()[1] + " ! ");
+                                    textForAlert.setFont(Font.font("Verdana", 18));
+                                    landingAlert.getDialogPane().setContent(textForAlert);
+                                    //landingAlert.setContentText("Landed successfully at : " + controller[0].getLandingModule().getPos() + " with velocity : " + controller[0].getLandingModule().getVel() + " ! ");
+                                    landingAlert.setOnCloseRequest( e-> stage.setScene(scene));
+                                    landingAlert.showAndWait();
+
+                                }
 
                     });
                     if (dtBox.getValue() != null) {

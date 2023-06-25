@@ -4,7 +4,6 @@ import com.example.planets.BackEnd.Models.Model3D;
 
 public class ButchersRK5 implements  NumSolver{
 
-
     Model3D k2;
     Model3D k3;
     Model3D k4;

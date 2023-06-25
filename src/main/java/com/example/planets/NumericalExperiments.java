@@ -29,8 +29,6 @@ class NumericalExperiments {
 
         testingAccuracyOfSolvers();
 
-        //generateSolverData();
-
     }
 
 
@@ -226,13 +224,13 @@ class NumericalExperiments {
         ArrayList<Double> steps = new ArrayList<Double>();
 
         // models
-        models.add( new Gravity0( 0, 0, new Euler(), DATA_ORIGIN ) ); //, DATA_ORIGIN
+        models.add( new Gravity0( 0, 0, new RK4(), DATA_ORIGIN ) ); //, DATA_ORIGIN
         steps.add( dt );
 
-        models.add( new Gravity0( 0, 0, new AB2(), DATA_ORIGIN ) ); //, DATA_ORIGIN
+        models.add( new Gravity0( 0, 0, new RK8(), DATA_ORIGIN ) ); //, DATA_ORIGIN
         steps.add( dt );
 
-        models.add( new Gravity0( 0, 0, new RalstonsRK4(), DATA_ORIGIN ) ); //, DATA_ORIGIN
+        models.add( new Gravity0( 0, 0, new AB5(), DATA_ORIGIN ) ); //, DATA_ORIGIN
         steps.add( dt );
 
         //benchmark
@@ -370,257 +368,152 @@ class NumericalExperiments {
     }
 
 
+    /// https://www.osti.gov/servlets/purl/6111421
+
+    // http://faculty.olin.edu/bstorey/Notes/DiffEq.pdf more promising
 
     // ############################################################################## NUM SOLVER ACCURACY CHECK SET UP
     public static void testingAccuracyOfSolvers() {
         //experiment setup hyper parameters
         double time = 30000; //30000
         boolean isDay = false;
-        int checkInterval = 30; // 30
+        int checkInterval = (int)time; // 30
 
-        double dt = 1.0;
 
-        //  testing models
-        ArrayList<Model3D> models = new ArrayList<Model3D>();
         ArrayList<Double> steps = new ArrayList<Double>();
 
-        //////// test models
-        //models.add( new TestModel2( new Euler() ) );
-        steps.add( dt );
-
-        //models.add( new TestModel2( new LeapFrog() ) );
-        steps.add( dt );
-
-        //models.add( new TestModel2( new AB2() ) );
-        steps.add( dt );
-
-        //models.add( new TestModel2( new AB3() ) );
-        steps.add( dt );
-
-        //models.add( new TestModel2( new AB4() ) );
-        steps.add( dt );
-
-        //models.add( new TestModel2( new AB5() ) );
-        steps.add( dt );
-
-        //models.add( new TestModel2( new RK2() ) );
-        steps.add( dt );
-
-        //models.add( new TestModel2( new HeunsRK3() ) );
-        steps.add( dt );
-
-        models.add( new TestModel2( new RK4() ) );
-        steps.add( dt );
-
-        //models.add( new TestModel2( new RalstonsRK4() ) );
-        steps.add( dt );
-
-        models.add( new TestModel2( new ButchersRK5() ) );
-        steps.add( dt );
-
-        models.add( new TestModel2( new RK6() ) );
-        steps.add( dt );
-
-        models.add( new TestModel2( new RK7() ) );
-        steps.add( dt );
-
-        models.add( new TestModel2( new RK8() ) );
-        steps.add( dt );
-
-
-        double[][] errors = new double[models.size()][2]; // 0 is absolute and 1 is relative error
-        double sol = 0.0;
-        double[] chrono = new double[models.size()]; //last index is the benchmark
-
-        System.out.print("sim time[s], time step[s]");
-
-        for(int i=0; i<models.size(); i++){
-            System.out.print(", " + models.get(i).getSolverName() + " abs, " + models.get(i).getSolverName() + " relative, "  + models.get(i).getSolverName() + " time[ns]");
-        }
-        System.out.print("\n");
-
-        // sim loop
-        for (int i = 0; i < time; i++) {
-            //benchmark
-            // make benchmark just a precise eval of the method thats going to be in each class
-
-            // update all models positions
-            for (int j=0; j<models.size(); j++) {
-                //start count of how much each model took here
-                double delta = System.nanoTime();
-                models.get(j).updatePos(1, steps.get(j), isDay);
-                //end count of how long each model here
-                delta = System.nanoTime() - delta;
-
-                chrono[j] += delta;
-            }
-
-
-            //calculate errors
-            for (int j = 0; j < models.size(); j++) {
-                if( models.get(j) instanceof TestModel1 ){
-                    sol = ( (TestModel1)models.get(j) ).getActualValue(models.get(j).getTime());
-                    errors[j][0] = ( sol - models.get(j).getBody(0).getPos()[0] );
-                    errors[j][0] = Math.abs(errors[j][0]);
-                    errors[j][1] = errors[j][0] / Math.abs(sol);
-                    //errors[j] = models.get(j).getBody(0).getPos()[0];
-
-                }
-                if( models.get(j) instanceof TestModel2 ){
-                    sol = ( (TestModel2)models.get(j) ).getActualValue(models.get(j).getTime());
-                    errors[j][0] = ( sol - models.get(j).getBody(0).getPos()[0] );
-                    errors[j][0] = Math.abs(errors[j][0]);
-                    errors[j][1] = errors[j][0] / Math.abs(sol);
-                    //errors[j] = models.get(j).getBody(0).getPos()[0];
-
-                }
-
-                if( models.get(j) instanceof TestModel3 ){
-                    sol = ( (TestModel3)models.get(j) ).getActualValue(models.get(j).getTime());
-                    errors[j][0] = ( sol - models.get(j).getBody(0).getPos()[0] );
-                    errors[j][0] = Math.abs(errors[j][0]);
-                    errors[j][1] = errors[j][0] / Math.abs(sol);
-                    //errors[j] = models.get(j).getBody(0).getPos()[0];
-                }
-            }
-
-
-            //prints
-            if ((i + 1) % checkInterval == 0) {
-
-                System.out.print((i+1) + ", " + dt);
-                for (int j = 0; j < models.size(); j++) {
-                    System.out.print(", " + errors[j][0] + ", " + errors[j][1] +  ", " + chrono[j]);
-
-                }
-                System.out.println();
-
-
-            }
-
-
-        }
-
-    }
-
-    ///////////////////////////////////// GENERATING DATA
-    public static void generateSolverData(){
-        //experiment setup hyper parameters
-        double time = 30000; //30000
-        boolean isDay = false;
-        int checkInterval = 30; // 30
-
-        //  testing models
-        ArrayList<Model3D> models = new ArrayList<Model3D>();
-        ArrayList<Double> steps = new ArrayList<Double>();
-
-        // all the step sizes
+        // all the step sizes that are going to be tested
+        steps.add(15.0);
+        steps.add(10.0);
         steps.add(5.0);
-        steps.add(2.5);
+        steps.add(4.0);
+        steps.add(3.0);
+        steps.add(2.0);
+        steps.add(1.5);
         steps.add(1.0);
+        steps.add(0.75);
         steps.add(0.5);
-        steps.add(0.1);
         steps.add(0.25);
+        steps.add(0.1);
+        steps.add(0.05);
+        steps.add(0.025);
         steps.add(0.01);
         steps.add(0.005);
         steps.add(0.001);
 
-
-        //////// test models
-        //models.add( new TestModel2( new Euler() ) );
-
-        //models.add( new TestModel2( new LeapFrog() ) );
-
-        //models.add( new TestModel2( new AB2() ) );
-
-        //models.add( new TestModel2( new AB3() ) );
-
-        //models.add( new TestModel2( new AB4() ) );
-
-        //models.add( new TestModel2( new AB5() ) );
-
-        //models.add( new TestModel2( new RK2() ) );
-
-        //models.add( new TestModel2( new HeunsRK3() ) );
-
-        models.add( new TestModel2( new RK4() ) );
-
-        //models.add( new TestModel2( new RalstonsRK4() ) );
-
-        models.add( new TestModel2( new ButchersRK5() ) );
-
-        models.add( new TestModel2( new RK6() ) );
-
-        models.add( new TestModel2( new RK7() ) );
-
-        models.add( new TestModel2( new RK8() ) );
-
-        // saving initial state
-        double[][][] init = models.get(0).getState();
+        double[][] errors = new double[0][0];
+        double sol;
+        double[] chrono = new double[0];
 
 
-        double[] errors = new double[2]; // 0 is absolute and 1 is relative error
-        double chrono = 0.0; //last index is the benchmark
-        double sol = 0.0;
+        for(int k=0; k< steps.size(); k++){
 
-        System.out.print("sim time[s], time step[s]");
+            //  testing models
+            ArrayList<Model3D> models = new ArrayList<Model3D>();
 
-        for(int i=0; i<models.size(); i++){
-            System.out.print(", " + models.get(i).getSolverName() + " log(abs), " + models.get(i).getSolverName() + " log(relative), "  + models.get(i).getSolverName() + " log(time[ns])");
-        }
-        System.out.print("\n");
+            models.add( new TestModel3( new Euler() ) );
+            models.add( new TestModel3( new LeapFrog() ) );
+
+            models.add( new TestModel3( new AB2() ) );
+            models.add( new TestModel3( new AB3() ) );
+            models.add( new TestModel3( new AB4() ) );
+            models.add( new TestModel3( new AB5() ) );
+
+            models.add( new TestModel3( new RK2() ) );
+            models.add( new TestModel3( new HeunsRK3() ) );
+            models.add( new TestModel3( new RK4() ) );
+            models.add( new TestModel3( new RalstonsRK4() ) );
+            models.add( new TestModel3( new ButchersRK5() ) );
+            models.add( new TestModel3( new RK6() ) );
+            models.add( new TestModel3( new RK7() ) );
+            models.add( new TestModel3( new RK8() ) );
+
+            double precision = 0.01;
+            models.add( new TestModel3( new ode23(precision) ) );
+            models.add( new TestModel3( new ode45(precision) ) );
+            models.add( new TestModel3( new ode78(precision) ) );
+            models.add( new TestModel3( new DormantPrince(precision) ) );
+
+            if(k==0){
+                errors = new double[models.size()][2]; // 0 is absolute and 1 is relative error
+                sol = 0.0;
+                chrono = new double[models.size()]; //last index is the benchmark
+
+                System.out.println("sim time[s], " + time + "\nadpad. precision., " + precision);
+
+                System.out.print("\ntime step[s]");
+
+                for(int i=0; i<models.size(); i++){
+                    System.out.print(", " + models.get(i).getSolverName() + " abs, " + models.get(i).getSolverName() + " relative, "  + models.get(i).getSolverName() + " time[ns]");
+                }
+                System.out.print("\n");
+            }
 
 
-        for (Double step : steps) {
+            // sim loop
+            for (int i = 0; i < time; i++) {
+                //benchmark
+                // make benchmark just a precise eval of the method thats going to be in each class
 
-            System.out.print(time + ", " + step);
+                // update all models positions
+                for (int j=0; j<models.size(); j++) {
+                    //start count of how much each model took here
+                    double delta = System.nanoTime();
+                    models.get(j).updatePos(1, steps.get(k), isDay);
+                    //end count of how long each model here
+                    delta = System.nanoTime() - delta;
 
-            // do all sims with time and
-            for (int j = 0; j < models.size(); j++) {
-                chrono = System.nanoTime();
-                models.get(j).updatePos(time, step, false);
-                chrono = System.nanoTime() - chrono;
+                    chrono[j] += delta;
 
-                //calculate errors
-                if (models.get(j) instanceof TestModel1) {
-                    sol = ((TestModel1) models.get(j)).getActualValue(models.get(j).getTime());
-                    errors[0] = (sol - models.get(j).getBody(0).getPos()[0]);
-                    errors[0] = Math.abs(errors[0]);
-                    errors[1] = errors[0] / Math.abs(sol);
-
-                } else if (models.get(j) instanceof TestModel2) {
-                    sol = ((TestModel2) models.get(j)).getActualValue(models.get(j).getTime());
-                    errors[0] = (sol - models.get(j).getBody(0).getPos()[0]);
-                    errors[0] = Math.abs(errors[0]);
-                    errors[1] = errors[0] / Math.abs(sol);
-
-                } else if (models.get(j) instanceof TestModel3) {
-                    sol = ((TestModel3) models.get(j)).getActualValue(models.get(j).getTime());
-                    errors[0] = (sol - models.get(j).getBody(0).getPos()[0]);
-                    errors[0] = Math.abs(errors[0]);
-                    errors[1] = errors[0] / Math.abs(sol);
                 }
 
-                // getting logs of vals
-                //errors[j][0] = Math.log10(errors[j][0]);
-                //errors[j][1] = Math.log10(errors[j][1]);
-                //chrono[j] = Math.log10(chrono[j]);
 
-                System.out.print(", " + errors[0] + ", " + errors[1] + ", " + chrono);
+                //calculate errors
+                for (int j = 0; j < models.size(); j++) {
+                    if( models.get(j) instanceof TestModel1 ){
+                        sol = ( (TestModel1)models.get(j) ).getActualValue(models.get(j).getTime());
+                        errors[j][0] = Math.abs( sol - models.get(j).getBody(0).getPos()[0] );
+                        errors[j][1] = errors[j][0] / Math.abs(sol);
+                        //errors[j] = models.get(j).getBody(0).getPos()[0];
 
-                models.get(j).setState(init); // re starts
+                    }
+                    if( models.get(j) instanceof TestModel2 ){
+                        sol = ( (TestModel2)models.get(j) ).getActualValue(models.get(j).getTime());
+                        errors[j][0] = Math.abs( sol - models.get(j).getBody(0).getPos()[0] );
+                        errors[j][1] = errors[j][0] / Math.abs(sol);
+                        //errors[j] = models.get(j).getBody(0).getPos()[0];
 
+                    }
+
+                    if( models.get(j) instanceof TestModel3 ){
+                        sol = ( (TestModel3)models.get(j) ).getActualValue(models.get(j).getTime());
+                        errors[j][0] = Math.abs( sol - models.get(j).getBody(0).getPos()[0] );
+                        errors[j][1] = errors[j][0] / Math.abs(sol);
+                        //errors[j] = models.get(j).getBody(0).getPos()[0];
+                    }
+                }
+
+                //prints
+                if ((i + 1) % checkInterval == 0) {
+
+                    System.out.print(steps.get(k));
+                    for (int j = 0; j < models.size(); j++) {
+                        System.out.print(", " + errors[j][0]); //  + ", " + errors[j][1] +  ", " + chrono[j]
+
+
+                    }
+                    System.out.println();//
+
+
+                }
 
             }
 
-            System.out.println();
-
         }
 
-
-        // have for loop that loops thru steps
-
-
     }
+
+
+
 
 }
