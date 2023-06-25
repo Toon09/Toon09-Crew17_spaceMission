@@ -35,7 +35,7 @@ public class Merged extends Application {
     private static boolean lookAtSpaceship = false;
     private final static Box[] path = new Box[10000];
     private final static double time = 0.1;
-    private static double dt = 2;
+    private static double dt = 5;
     private static double lastAcc = 0;
     private final static double phaseTime = 10000;
     private final static double slowPhaseTime = 100000;
@@ -399,7 +399,7 @@ public class Merged extends Application {
                         if (distance < targetDistance) stage.setScene(dataSelector);
 
                         if(stage.getScene().equals(landingScene))
-                            if(true)
+                            if(controller[0].isFinished())
                                 {
                                     textForAlert.setText("Landed successfully at x : " + controller[0].getLandingModule().getPos()[0] + " , y  : " + controller[0].getLandingModule().getPos()[1] + "\nWith velocity : " + controller[0].getLandingModule().getVel()[1] + " ! ");
                                     textForAlert.setFont(Font.font("Verdana", 18));
