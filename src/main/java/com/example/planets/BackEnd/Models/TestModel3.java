@@ -148,7 +148,7 @@ public class TestModel3 implements Model3D{
     }
 
     public double getActualValue(double t) {
-        return -2*t*( t*Math.log(t)-Math.log(30.0)-1/60.0 );
+        return -2*t*( Math.log(t)-Math.log(30.0)-1/60.0 );
     }
 
 }

@@ -23,11 +23,11 @@ class NumericalExperiments {
 
         //comparingToEachOther();
 
-        //comparingToNasaData();
+        comparingToNasaData();
 
         //trajectoryTesting();
 
-        testingAccuracyOfSolvers();
+        //testingAccuracyOfSolvers();
 
     }
 
@@ -221,17 +221,17 @@ class NumericalExperiments {
 
         //  testing models
         ArrayList<Model3D> models = new ArrayList<Model3D>();
-        ArrayList<Double> steps = new ArrayList<Double>();
 
         // models
-        models.add( new Gravity0( 0, 0, new RK4(), DATA_ORIGIN ) ); //, DATA_ORIGIN
-        steps.add( dt );
+        models.add( new Gravity0( 0, 0, new Euler(), DATA_ORIGIN ) );
+        models.add( new Gravity0( 0, 0, new LeapFrog(), DATA_ORIGIN ) );
+        models.add( new Gravity0( 0, 0, new AB2(), DATA_ORIGIN ) );
+        models.add( new Gravity0( 0, 0, new RK2(), DATA_ORIGIN ) );
+        models.add( new Gravity0( 0, 0, new HeunsRK3(), DATA_ORIGIN ) );
+        models.add( new Gravity0( 0, 0, new RK4(), DATA_ORIGIN ) );
+        models.add( new Gravity0( 0, 0, new RK8(), DATA_ORIGIN ) );
+        models.add( new Gravity0( 0, 0, new ode45(), DATA_ORIGIN ) );
 
-        models.add( new Gravity0( 0, 0, new RK8(), DATA_ORIGIN ) ); //, DATA_ORIGIN
-        steps.add( dt );
-
-        models.add( new Gravity0( 0, 0, new AB5(), DATA_ORIGIN ) ); //, DATA_ORIGIN
-        steps.add( dt );
 
         //benchmark
         DataGetter dataGetter = new DataGetter();
@@ -245,7 +245,20 @@ class NumericalExperiments {
         // innit position:
         System.out.println(); //////// comments
 
-        System.out.println("sim time[s], time step[s], Euler abs, Euler relative, Euler time[ns], AB2 abs, AB2 relative, AB2 time[ns], Ralston's RK4 abs, Ralston's RK4 relative, Ralston's RK4 time[ns]");
+        //System.out.println("time step[s], Euler abs, Euler relative, Euler time[ns], AB2 abs, AB2 relative, AB2 time[ns], Ralston's RK4 abs, Ralston's RK4 relative, Ralston's RK4 time[ns]");
+
+        errors = new double[models.size()][3]; // 0 is absolute and 1 is relative error
+        //sol = 0.0;
+        chrono = new double[models.size()]; //last index is the benchmark
+
+        //System.out.println("sim time[s], " + time + "\nadpad. precision., " + precision);
+
+        System.out.print("sim time[s], time step[s]");
+
+        for(int i=0; i<models.size(); i++){
+            System.out.print(", " + models.get(i).getSolverName() + " log(relative), "  + models.get(i).getSolverName() + " log(time[ns])");
+        }
+        System.out.print("\n");
 
         // main loop
         for (int i = 0; i < time; i++) {
@@ -261,7 +274,7 @@ class NumericalExperiments {
             for (int j=0; j<models.size(); j++) {
                 //start count of how much each model took here
                 double delta = System.nanoTime();
-                models.get(j).updatePos(6*60*60, steps.get(j), isDay); ////////////////// NO RUN
+                models.get(j).updatePos(6*60*60, dt, isDay); ////////////////// NO RUN
                 //end count of how long each model here
                 delta = System.nanoTime() - delta;
                 chrono[j] += delta;
@@ -297,7 +310,7 @@ class NumericalExperiments {
                     //System.out.println("Error magnitude= " +  errorMag + " km");
                     //System.out.println("relative error: " + (errorMag)/presMag + "\n");
 
-                    System.out.print(", " + errorMag + ", " + (errorMag/presMag) + ", " + chrono[j]);
+                    System.out.print(", " + Math.log10(errorMag/presMag) + ", " + Math.log10(chrono[j]));
 
                 }
 
@@ -351,7 +364,7 @@ class NumericalExperiments {
             //        "; Y:" + targetBody.getPos()[1] + "; Z:" + targetBody.getPos()[2]);
 
             System.out.println("Ship position= X:" + model.getShip().getPos()[0] +
-                      "; Y:" + model.getShip().getPos()[1] + "; Z:" + model.getShip().getPos()[2]);
+                    "; Y:" + model.getShip().getPos()[1] + "; Z:" + model.getShip().getPos()[2]);
 
             for(int j=0; j<error.length; j++)
                 error[j] = targetBody.getPos()[j] - model.getShip().getPos()[j];
@@ -377,14 +390,10 @@ class NumericalExperiments {
         //experiment setup hyper parameters
         double time = 30000; //30000
         boolean isDay = false;
-        int checkInterval = (int)time; // 30
-
 
         ArrayList<Double> steps = new ArrayList<Double>();
 
         // all the step sizes that are going to be tested
-        steps.add(15.0);
-        steps.add(10.0);
         steps.add(5.0);
         steps.add(4.0);
         steps.add(3.0);
@@ -432,7 +441,7 @@ class NumericalExperiments {
             models.add( new TestModel3( new ode23(precision) ) );
             models.add( new TestModel3( new ode45(precision) ) );
             models.add( new TestModel3( new ode78(precision) ) );
-            models.add( new TestModel3( new DormantPrince(precision) ) );
+            //models.add( new TestModel3( new DormantPrince(precision) ) );
 
             if(k==0){
                 errors = new double[models.size()][2]; // 0 is absolute and 1 is relative error
@@ -444,70 +453,60 @@ class NumericalExperiments {
                 System.out.print("\ntime step[s]");
 
                 for(int i=0; i<models.size(); i++){
-                    System.out.print(", " + models.get(i).getSolverName() + " abs, " + models.get(i).getSolverName() + " relative, "  + models.get(i).getSolverName() + " time[ns]");
+                    System.out.print(", " + models.get(i).getSolverName() + " log(relative), "  + models.get(i).getSolverName() + " log(time[ns])");
                 }
                 System.out.print("\n");
             }
 
 
-            // sim loop
-            for (int i = 0; i < time; i++) {
-                //benchmark
-                // make benchmark just a precise eval of the method thats going to be in each class
+            // update all models positions
+            for (int j=0; j<models.size(); j++) {
+                //start count of how much each model took here
+                double delta = System.nanoTime();
+                models.get(j).updatePos(time, steps.get(k), isDay);
+                //end count of how long each model here
+                delta = System.nanoTime() - delta;
 
-                // update all models positions
-                for (int j=0; j<models.size(); j++) {
-                    //start count of how much each model took here
-                    double delta = System.nanoTime();
-                    models.get(j).updatePos(1, steps.get(k), isDay);
-                    //end count of how long each model here
-                    delta = System.nanoTime() - delta;
-
-                    chrono[j] += delta;
-
-                }
-
-
-                //calculate errors
-                for (int j = 0; j < models.size(); j++) {
-                    if( models.get(j) instanceof TestModel1 ){
-                        sol = ( (TestModel1)models.get(j) ).getActualValue(models.get(j).getTime());
-                        errors[j][0] = Math.abs( sol - models.get(j).getBody(0).getPos()[0] );
-                        errors[j][1] = errors[j][0] / Math.abs(sol);
-                        //errors[j] = models.get(j).getBody(0).getPos()[0];
-
-                    }
-                    if( models.get(j) instanceof TestModel2 ){
-                        sol = ( (TestModel2)models.get(j) ).getActualValue(models.get(j).getTime());
-                        errors[j][0] = Math.abs( sol - models.get(j).getBody(0).getPos()[0] );
-                        errors[j][1] = errors[j][0] / Math.abs(sol);
-                        //errors[j] = models.get(j).getBody(0).getPos()[0];
-
-                    }
-
-                    if( models.get(j) instanceof TestModel3 ){
-                        sol = ( (TestModel3)models.get(j) ).getActualValue(models.get(j).getTime());
-                        errors[j][0] = Math.abs( sol - models.get(j).getBody(0).getPos()[0] );
-                        errors[j][1] = errors[j][0] / Math.abs(sol);
-                        //errors[j] = models.get(j).getBody(0).getPos()[0];
-                    }
-                }
-
-                //prints
-                if ((i + 1) % checkInterval == 0) {
-
-                    System.out.print(steps.get(k));
-                    for (int j = 0; j < models.size(); j++) {
-                        System.out.print(", " + errors[j][0]); //  + ", " + errors[j][1] +  ", " + chrono[j]
-
-
-                    }
-                    System.out.println();//
-
-
-                }
+                chrono[j] += delta;
 
             }
+
+            for (int j = 0; j < models.size(); j++) {
+                if( models.get(j) instanceof TestModel1 ){
+                    sol = ( (TestModel1)models.get(j) ).getActualValue(models.get(j).getTime());
+                    errors[j][0] = Math.abs( sol - models.get(j).getBody(0).getPos()[0] );
+                    errors[j][1] = errors[j][0] / Math.abs(sol);
+                    //errors[j] = models.get(j).getBody(0).getPos()[0];
+
+                }
+                if( models.get(j) instanceof TestModel2 ){
+                    sol = ( (TestModel2)models.get(j) ).getActualValue(models.get(j).getTime());
+                    errors[j][0] = Math.abs( sol - models.get(j).getBody(0).getPos()[0] );
+                    errors[j][1] = errors[j][0] / Math.abs(sol);
+                    //errors[j] = models.get(j).getBody(0).getPos()[0];
+
+                }
+
+                if( models.get(j) instanceof TestModel3 ){
+                    sol = ( (TestModel3)models.get(j) ).getActualValue(models.get(j).getTime());
+                    errors[j][0] = Math.abs( sol - models.get(j).getBody(0).getPos()[0] );
+                    errors[j][1] = errors[j][0] / Math.abs(sol);
+                    //errors[j] = models.get(j).getBody(0).getPos()[0];
+                }
+            }
+
+            System.out.print(Math.log10(steps.get(k)));
+            for (int j = 0; j < models.size(); j++) {
+                System.out.print(", " + Math.log10(errors[j][1]) + ", " + Math.log10(chrono[j])); //  + ", " + errors[j][1] +  ", " + chrono[j]
+
+
+            }
+            System.out.println();//
+
+
+
+
+
 
         }
 
