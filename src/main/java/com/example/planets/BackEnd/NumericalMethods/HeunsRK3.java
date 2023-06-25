@@ -5,8 +5,8 @@ import com.example.planets.BackEnd.Models.Model3D;
 // in our courses cheat sheet
 public class HeunsRK3 implements NumSolver{
 
-    Model3D pk2;
-    Model3D pk3;
+    private Model3D pk2;
+    private Model3D pk3;
 
     @Override
     public void step(Model3D model, double dt) {

@@ -4,9 +4,9 @@ import com.example.planets.BackEnd.Models.Model3D;
 
 public class AB3 implements NumSolver{
 
-    static final double g1 = 23/12.0;
-    static final double g2 = -16/12.0;
-    static final double g3 = 5/12.0;
+    private static final double g1 = 23/12.0;
+    private static final double g2 = -16/12.0;
+    private static final double g3 = 5/12.0;
 
 
 

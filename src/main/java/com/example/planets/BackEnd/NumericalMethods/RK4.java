@@ -5,9 +5,9 @@ import com.example.planets.BackEnd.Models.Model3D;
 // https://lpsa.swarthmore.edu/NumInt/NumIntFourth.html
 public class RK4 implements NumSolver{
 
-    Model3D pk2;
-    Model3D pk3;
-    Model3D pk4;
+    private Model3D pk2;
+    private Model3D pk3;
+    private Model3D pk4;
 
     @Override
     public void step(Model3D model, double dt) {

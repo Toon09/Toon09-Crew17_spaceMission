@@ -3,53 +3,58 @@ package com.example.planets.BackEnd.NumericalMethods;
 import com.example.planets.BackEnd.Models.Model3D;
 
 // https://numerary.readthedocs.io/en/latest/dormand-prince-method.html
+
+// this version of dormant prince is less precise than the other ode's and slower
+// altho they are also different versions of dormant prince
+// the difference is that this version tries to save on computation by having the values of k being the same for both 4 and 5 order
+// the other methods do not have this property, but the fact that each of their methods is more precise makes them
 public class DormantPrince implements AdaptiveMethod {
 
     private double precision = 50.0;
     private double length = 0.0;
     private double step = 0.0;
 
-    Model3D k2;
-    Model3D k3;
-    Model3D k4;
-    Model3D k5;
-    Model3D k6;
-    Model3D k7;
+    private Model3D k2;
+    private Model3D k3;
+    private Model3D k4;
+    private Model3D k5;
+    private Model3D k6;
+    private Model3D k7;
 
 
     // coefficients for adding times
-    static final double a2 = 1/5.0; // also b1
-    static final double a3 = 3/10.0;
-    static final double a4 = 4/5.0;
-    static final double a5 = 8/9.0;
-    static final double a6 = 1;
-    static final double a7 = 1;
+    private static final double a2 = 1/5.0; // also b1
+    private static final double a3 = 3/10.0;
+    private static final double a4 = 4/5.0;
+    private static final double a5 = 8/9.0;
+    private static final double a6 = 1;
+    private static final double a7 = 1;
 
     // values for calculating k's
-    static final double b31 = 3/40.0;
-    static final double b32 = 9/40.0;
+    private static final double b31 = 3/40.0;
+    private static final double b32 = 9/40.0;
 
-    static final double b41 = 44/45.0;
-    static final double b42 = -56/15.0;
-    static final double b43 = 32/9.0;
+    private static final double b41 = 44/45.0;
+    private static final double b42 = -56/15.0;
+    private static final double b43 = 32/9.0;
 
-    static final double b51 = 19372/6561.0;
-    static final double b52 = -25360/2187.0;
-    static final double b53 = 64448/6561.0;
-    static final double b54 = -212/729.0;
+    private static final double b51 = 19372/6561.0;
+    private static final double b52 = -25360/2187.0;
+    private static final double b53 = 64448/6561.0;
+    private static final double b54 = -212/729.0;
 
-    static final double b61 =  9017/3168.0;
-    static final double b62 =  -355/33.0;
-    static final double b63 =  -46732/5247.0;
-    static final double b64 =  49/176.0;
-    static final double b65 =  -5103/18656.0;
+    private static final double b61 =  9017/3168.0;
+    private static final double b62 =  -355/33.0;
+    private static final double b63 =  -46732/5247.0;
+    private static final double b64 =  49/176.0;
+    private static final double b65 =  -5103/18656.0;
 
-    static final double b71 =  35/384.0;
-    static final double b72 =  0;
-    static final double b73 =  500/1113.0;
-    static final double b74 = 125/192.0;
-    static final double b75 = -2187/6784.0;
-    static final double b76 =  11/84.0;
+    private static final double b71 =  35/384.0;
+    private static final double b72 =  0;
+    private static final double b73 =  500/1113.0;
+    private static final double b74 = 125/192.0;
+    private static final double b75 = -2187/6784.0;
+    private static final double b76 =  11/84.0;
 
 
     // values for rk7

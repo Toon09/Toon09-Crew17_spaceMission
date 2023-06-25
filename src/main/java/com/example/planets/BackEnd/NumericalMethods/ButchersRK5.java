@@ -4,47 +4,47 @@ import com.example.planets.BackEnd.Models.Model3D;
 
 public class ButchersRK5 implements  NumSolver{
 
-    Model3D k2;
-    Model3D k3;
-    Model3D k4;
-    Model3D k5;
-    Model3D k6;
+    private Model3D k2;
+    private Model3D k3;
+    private Model3D k4;
+    private Model3D k5;
+    private Model3D k6;
 
 
     // coefficients for adding times
-    static final double a2 = 1/4.0; // also b1
-    static final double a3 = 1/4.0;
-    static final double a4 = 1/2.0;
-    static final double a5 = 3/4.0;
-    static final double a6 = 1;
+    private static final double a2 = 1/4.0; // also b1
+    private static final double a3 = 1/4.0;
+    private static final double a4 = 1/2.0;
+    private static final double a5 = 3/4.0;
+    private static final double a6 = 1;
 
 
     // values for calculating k's
-    static final double b31 = 1/8.0;
-    static final double b32 = 1/8.0;
+    private static final double b31 = 1/8.0;
+    private static final double b32 = 1/8.0;
 
-    static final double b41 = 0;
-    static final double b42 = -1/2.0;
-    static final double b43 = 1;
+    private static final double b41 = 0;
+    private static final double b42 = -1/2.0;
+    private static final double b43 = 1;
 
-    static final double b51 = 3/16.0;
-    static final double b52 = 0;
-    static final double b53 = 0;
-    static final double b54 = 9/16.0;
+    private static final double b51 = 3/16.0;
+    private static final double b52 = 0;
+    private static final double b53 = 0;
+    private static final double b54 = 9/16.0;
 
-    static final double b61 = -3/7.0;
-    static final double b62 = 2/7.0;
-    static final double b63 =  12/7.0;
-    static final double b64 = -12/7.0;
-    static final double b65 = 8/7.0;
+    private static final double b61 = -3/7.0;
+    private static final double b62 = 2/7.0;
+    private static final double b63 =  12/7.0;
+    private static final double b64 = -12/7.0;
+    private static final double b65 = 8/7.0;
 
     // values for rk7
-    static final double g1 = 7/90.0;
-    static final double g2 = 0;
-    static final double g3 = 32/90.0;
-    static final double g4 = 12/90.0;
-    static final double g5 = 32/90.0;
-    static final double g6 = 7/90.0;
+    private static final double g1 = 7/90.0;
+    private static final double g2 = 0;
+    private static final double g3 = 32/90.0;
+    private static final double g4 = 12/90.0;
+    private static final double g5 = 32/90.0;
+    private static final double g6 = 7/90.0;
 
     @Override
     public void step(Model3D model, double dt) {

@@ -5,57 +5,57 @@ import com.example.planets.BackEnd.Models.Model3D;
 // https://www.ams.org/mcom/1968-22-102/S0025-5718-68-99876-1/S0025-5718-68-99876-1.pdf
 public class RK6 implements NumSolver {
 
-    Model3D k2;
-    Model3D k3;
-    Model3D k4;
-    Model3D k5;
-    Model3D k6;
-    Model3D k7;
+    private Model3D k2;
+    private Model3D k3;
+    private Model3D k4;
+    private Model3D k5;
+    private Model3D k6;
+    private Model3D k7;
 
 
     // coefficients for adding times
-    static final double a2 = 1; // also b1
-    static final double a3 = 1/2.0;
-    static final double a4 = 3/2.0;
-    static final double a5 = (7-Math.sqrt(21.0))/14.0;
-    static final double a6 = (7+Math.sqrt(21.0))/14.0;
-    static final double a7 = 1;
+    private static final double a2 = 1; // also b1
+    private static final double a3 = 1/2.0;
+    private static final double a4 = 3/2.0;
+    private static final double a5 = (7-Math.sqrt(21.0))/14.0;
+    private static final double a6 = (7+Math.sqrt(21.0))/14.0;
+    private static final double a7 = 1;
 
     // values for calculating k's
-    static final double b31 = 3/8.0;
-    static final double b32 = 1/8.0;
+    private static final double b31 = 3/8.0;
+    private static final double b32 = 1/8.0;
 
-    static final double b41 = 8/27.0;
-    static final double b42 = 2/27.0;
-    static final double b43 = 8/27.0;
+    private static final double b41 = 8/27.0;
+    private static final double b42 = 2/27.0;
+    private static final double b43 = 8/27.0;
 
-    static final double b51 = (3*(3*Math.sqrt(21.0)-7))/392.0;
-    static final double b52 = -8*(7-Math.sqrt(21.0))/392.0;
-    static final double b53 = 48*(7-Math.sqrt(21.0))/392.0;
-    static final double b54 = -3*(21-Math.sqrt(21.0))/392.0;
+    private static final double b51 = (3*(3*Math.sqrt(21.0)-7))/392.0;
+    private static final double b52 = -8*(7-Math.sqrt(21.0))/392.0;
+    private static final double b53 = 48*(7-Math.sqrt(21.0))/392.0;
+    private static final double b54 = -3*(21-Math.sqrt(21.0))/392.0;
 
-    static final double b61 = -5*(231 + 51*Math.sqrt(21.0))/1960.0;
-    static final double b62 =  -40*(7 + Math.sqrt(21.0))/1960.0;
-    static final double b63 =  -320*Math.sqrt(21.0)/1960.0;
-    static final double b64 =  3*(21 + 121*Math.sqrt(21.0))/1960.0;
-    static final double b65 =  392*(6 + Math.sqrt(21.0))/1960.0;
+    private static final double b61 = -5*(231 + 51*Math.sqrt(21.0))/1960.0;
+    private static final double b62 =  -40*(7 + Math.sqrt(21.0))/1960.0;
+    private static final double b63 =  -320*Math.sqrt(21.0)/1960.0;
+    private static final double b64 =  3*(21 + 121*Math.sqrt(21.0))/1960.0;
+    private static final double b65 =  392*(6 + Math.sqrt(21.0))/1960.0;
 
-    static final double b71 =  15*(22 + 7*Math.sqrt(21.0))/180.0;
-    static final double b72 =  120/180.0;
-    static final double b73 =  40*(7*Math.sqrt(21.0) - 5)/180.0;
-    static final double b74 = -63*(3*Math.sqrt(21.0) - 2)/180.0;
-    static final double b75 = -14*(49 + 9*Math.sqrt(21.0))/180.0;
-    static final double b76 =  70*(7 - Math.sqrt(21.0))/180.0;
+    private static final double b71 =  15*(22 + 7*Math.sqrt(21.0))/180.0;
+    private static final double b72 =  120/180.0;
+    private static final double b73 =  40*(7*Math.sqrt(21.0) - 5)/180.0;
+    private static final double b74 = -63*(3*Math.sqrt(21.0) - 2)/180.0;
+    private static final double b75 = -14*(49 + 9*Math.sqrt(21.0))/180.0;
+    private static final double b76 =  70*(7 - Math.sqrt(21.0))/180.0;
 
 
     // values for rk7
-    static final double g1 = 9/180.0;
-    static final double g2 = 0;
-    static final double g3 = 64/180.0;
-    static final double g4 = 0;
-    static final double g5 = 49/180.0;
-    static final double g6 = 49/180.0;
-    static final double g7 = 9/180.0;
+    private static final double g1 = 9/180.0;
+    private static final double g2 = 0;
+    private static final double g3 = 64/180.0;
+    private static final double g4 = 0;
+    private static final double g5 = 49/180.0;   
+    private static final double g6 = 49/180.0;
+    private static final double g7 = 9/180.0;
 
     @Override
     public void step(Model3D model, double dt) {

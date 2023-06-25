@@ -5,7 +5,7 @@ import com.example.planets.BackEnd.Models.Model3D;
 public class ode23 implements AdaptiveMethod{
 
 
-    private double precision = 1.0;
+    private double precision = 0.01;
     private double length = 0.0;
     private double step = 0.0;
 

@@ -13,9 +13,8 @@ public class RK2 implements NumSolver {
         this.alpha = alph;
     }
 
-    Model3D pk1;
-
-    Model3D vk1;
+    private Model3D pk1;
+    private Model3D vk1;
 
     public void step(Model3D model, double dt) {
 

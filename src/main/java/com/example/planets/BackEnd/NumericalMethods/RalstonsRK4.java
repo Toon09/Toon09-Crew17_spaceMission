@@ -5,24 +5,24 @@ import com.example.planets.BackEnd.Models.Model3D;
 // http://www.mymathlib.com/c_source/diffeq/runge_kutta/runge_kutta_ralston_4.c
 public class RalstonsRK4 implements NumSolver{
 
-    Model3D pk2;
-    Model3D pk3;
-    Model3D pk4;
+    private Model3D pk2;
+    private Model3D pk3;
+    private Model3D pk4;
 
     
     // coefficients
-    static final double a2 = 0.40;
-    static final double a3 = (14.0 - 3.0 * Math.sqrt(5.0)) / 16.0;
-    static final double b31 = (-2889.0 + 1428.0 * Math.sqrt(5.0)) / 1024.0;
-    static final double b32 = (3785.0 - 1620.0 * Math.sqrt(5.0)) / 1024.0;
-    static final double b41 = (-3365.0 + 2094.0 * Math.sqrt(5.0)) / 6040.0;
-    static final double b42 = (-975.0 - 3046.0 * Math.sqrt(5.0)) / 2552.0;
-    static final double b43 = (467040.0 + 203968.0 * Math.sqrt(5.0)) / 240845.0;
+    private static final double a2 = 0.40;
+    private static final double a3 = (14.0 - 3.0 * Math.sqrt(5.0)) / 16.0;
+    private static final double b31 = (-2889.0 + 1428.0 * Math.sqrt(5.0)) / 1024.0;
+    private static final double b32 = (3785.0 - 1620.0 * Math.sqrt(5.0)) / 1024.0;
+    private static final double b41 = (-3365.0 + 2094.0 * Math.sqrt(5.0)) / 6040.0;
+    private static final double b42 = (-975.0 - 3046.0 * Math.sqrt(5.0)) / 2552.0;
+    private static final double b43 = (467040.0 + 203968.0 * Math.sqrt(5.0)) / 240845.0;
 
-    static final double g1 = (263.0 + 24.0 * Math.sqrt(5.0)) / 1812.0;
-    static final double g2 = (125.0 - 1000.0 * Math.sqrt(5.0)) / 3828.0;
-    static final double g3 = 1024.0 * (3346.0 + 1623.0 * Math.sqrt(5.0)) / 5924787.0;
-    static final double g4 = (30.0 - 4.0 * Math.sqrt(5.0)) / 123.0;
+    private static final double g1 = (263.0 + 24.0 * Math.sqrt(5.0)) / 1812.0;
+    private static final double g2 = (125.0 - 1000.0 * Math.sqrt(5.0)) / 3828.0;
+    private static final double g3 = 1024.0 * (3346.0 + 1623.0 * Math.sqrt(5.0)) / 5924787.0;
+    private static final double g4 = (30.0 - 4.0 * Math.sqrt(5.0)) / 123.0;
 
 
     @Override
