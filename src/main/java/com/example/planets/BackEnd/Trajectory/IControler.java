@@ -4,7 +4,6 @@ import com.example.planets.BackEnd.CelestialEntities.Planning;
 import com.example.planets.BackEnd.Models.Model3D;
  // this is what you need
 
-
 public interface IControler {
     Model3D model = null;
     Planning plan = null;
@@ -21,9 +20,6 @@ public interface IControler {
 
         return plan;
     }
-
-
-
     public default Planning claclateThrust(double initialX, double initialY, double initialTheta,
                                            double acceleration, double torque, double gravity) {
     Planning plan= null;

@@ -54,7 +54,7 @@ public class FeedBack implements IControler {
      *
      * @param time how much time should pass ( in seconds )
      */
-    private void update(double time) {
+    public void update(double time) {
         model.updatePos(time, 0.1, false);
         boolean isThereWind = true;
         //noinspection ConstantValue
@@ -69,7 +69,7 @@ public class FeedBack implements IControler {
             if (Math.abs(landingModule.getPos()[0]) > XTolerance && countX <= 0) {
                 correctX();
             } else {
-                correctY(1, false);
+                correctY(0.75, false);
             }
         } else if (landingModule.getPos()[1] > 100) {
             if (Math.abs(landingModule.getPos()[0]) > XTolerance && countX <= 0) {
@@ -104,7 +104,7 @@ public class FeedBack implements IControler {
         if (lastPhase){
             update(1);
         }else{
-            update(2);
+            update(1);
         }
     }
 
