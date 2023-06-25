@@ -15,7 +15,7 @@ public class TestModel3 implements Model3D{
 
     private CelestialBody[] bodies;
     private NumSolver numSolver;
-    private double time = 0.0;
+    private double time = 30.0;
 
     /*
     create 2 con
@@ -27,7 +27,7 @@ public class TestModel3 implements Model3D{
 
         bodies = new CelestialBody[1];
 
-        double[] innitPos = {30.0, 30.0, 30.0};
+        double[] innitPos = {1.0, 1.0, 1.0};
         double[] innitVel = {0.0, 0.0, 0.0};
 
         // add each dim with the initial values of the corresponding eq.

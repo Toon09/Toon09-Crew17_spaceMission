@@ -432,6 +432,7 @@ class NumericalExperiments {
             models.add( new TestModel3( new ode23(precision) ) );
             models.add( new TestModel3( new ode45(precision) ) );
             models.add( new TestModel3( new ode78(precision) ) );
+            models.add( new TestModel3( new DormantPrince(precision) ) );
 
             if(k==0){
                 errors = new double[models.size()][2]; // 0 is absolute and 1 is relative error
