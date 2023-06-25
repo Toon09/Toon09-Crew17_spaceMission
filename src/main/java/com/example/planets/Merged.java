@@ -359,7 +359,15 @@ public class Merged extends Application {
 
                 if(stage.getScene().equals(landingScene))
                 {
-                    controller[0].update(time);
+                    if(controller[0].isLastPhase()){
+                        for (int i=0; i<100; i++){
+                            controller[0].update(time);
+                        }
+                    }else {
+                        controller[0].update(time);
+
+                    }
+
                     double[] pos = controller[0].getLandingModule().getPos();
 
                     landingModule.translateXProperty().set(960);
