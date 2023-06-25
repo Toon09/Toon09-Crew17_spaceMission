@@ -5,82 +5,82 @@ import com.example.planets.BackEnd.Models.Model3D;
 // https://www.sciencepublishinggroup.com/journal/paperinfo?journalid=247&doi=10.11648/j.mcs.20190403.12
 public class RK7 implements NumSolver{
 
-    Model3D k2;
-    Model3D k3;
-    Model3D k4;
-    Model3D k5;
-    Model3D k6;
-    Model3D k7;
-    Model3D k8;
-    Model3D k9;
+    private Model3D k2;
+    private Model3D k3;
+    private Model3D k4;
+    private Model3D k5;
+    private Model3D k6;
+    private Model3D k7;
+    private Model3D k8;
+    private Model3D k9;
 
-    static final private double param = 77/1440.0;
+    private static final double param = 77/1440.0;
 
     
     // coefficients for adding times
-    static final double a2 = 1/6.0; // also b1
-    static final double a3 = 1/3.0;
-    static final double a4 = 1/2.0;
-    static final double a5 = 2/11.0;
-    static final double a6 = 2/3.0;
-    static final double a7 = 6/7.0;
-    static final double a8 = 0.0;
-    static final double a9 = 1.0;
+    private static final double a2 = 1/6.0; // also b1
+    private static final double a3 = 1/3.0;
+    private static final double a4 = 1/2.0;
+    private static final double a5 = 2/11.0;
+    private static final double a6 = 2/3.0;
+    private static final double a7 = 6/7.0;
+    private static final double a8 = 0.0;
+    private static final double a9 = 1.0;
 
 
     // values for calculating k's
-    static final double b31 = 0.0;
-    static final double b32 = 1/3.0;
+    private static final double b31 = 0.0;
+    private static final double b32 = 1/3.0;
 
-    static final double b41 = 1/8.0;
-    static final double b42 = 0;
-    static final double b43 = 3/8.0;
+    private static final double b41 = 1/8.0;
+    private static final double b42 = 0;
+    private static final double b43 = 3/8.0;
 
-    static final double b51 = 148/1331.0;
-    static final double b52 = 0;
-    static final double b53 = 150/1331.0;
-    static final double b54 = -56/1331.0;
+    private static final double b51 = 148/1331.0;
+    private static final double b52 = 0;
+    private static final double b53 = 150/1331.0;
+    private static final double b54 = -56/1331.0;
 
-    static final double b61 = -404/243.0;
-    static final double b62 = 0;
-    static final double b63 =  -170/27.0;
-    static final double b64 = 4024/1701.0;
-    static final double b65 = 10648/1701.0;
+    private static final double b61 = -404/243.0;
+    private static final double b62 = 0;
+    private static final double b63 =  -170/27.0;
+    private static final double b64 = 4024/1701.0;
+    private static final double b65 = 10648/1701.0;
 
-    static final double b71 = 2466/2401.0;
-    static final double b72 =  0;
-    static final double b73 =  1242/343.0;
-    static final double b74 = -19176/16807.0;
-    static final double b75 = -51909/16807.0;
-    static final double b76 = 1053/2401.0;
+    private static final double b71 = 2466/2401.0;
+    private static final double b72 =  0;
+    private static final double b73 =  1242/343.0;
+    private static final double b74 = -19176/16807.0;
+    private static final double b75 = -51909/16807.0;
+    private static final double b76 = 1053/2401.0;
 
-    static final double b81 = 1/(576.0*param);
-    static final double b82 =  0;
-    static final double b83 =  0;
-    static final double b84 = 1/(105.0*param);
-    static final double b85 = -1331/(279552.0*param);
-    static final double b86 = -9/(1024.0*param);
-    static final double b87 = 343/(149760.0*param);
+    private static final double b81 = 1/(576.0*param);
+    private static final double b82 =  0;
+    private static final double b83 =  0;
+    private static final double b84 = 1/(105.0*param);
+    private static final double b85 = -1331/(279552.0*param);
+    private static final double b86 = -9/(1024.0*param);
+    private static final double b87 = 343/(149760.0*param);
 
-    static final double b91 = -71/32.0 - 270*param/11.0;
-    static final double b92 =  0;
-    static final double b93 =  -195/22.0;
-    static final double b94 = 32/7.0;
-    static final double b95 = 29403/3584.0;
-    static final double b96 = -729/512.0;
-    static final double b97 = 1029/1408.0;
-    static final double b98 = 270*param/11.0;
+    private static final double b91 = -71/32.0 - 270*param/11.0;
+    private static final double b92 =  0;
+    private static final double b93 =  -195/22.0;
+    private static final double b94 = 32/7.0;
+    private static final double b95 = 29403/3584.0;
+    private static final double b96 = -729/512.0;
+    private static final double b97 = 1029/1408.0;
+    private static final double b98 = 270*param/11.0;
 
     // values for rk7
-    static final double g1 = 77/1440.0 - param;
-    static final double g2 = 0;
-    static final double g3 = 0;
-    static final double g4 = 32/105.0;
-    static final double g5 = 1771561/6289920.0;
-    static final double g6 = 243/2560.0;
-    static final double g7 = 16807/74880.0;
-    static final double g8 = param;
-    static final double g9 = 11/270.0;
+    private static final double g1 = 77/1440.0 - param;
+    private static final double g2 = 0;
+    private static final double g3 = 0;
+    private static final double g4 = 32/105.0;
+    private static final double g5 = 1771561/6289920.0;
+    private static final double g6 = 243/2560.0;
+    private static final double g7 = 16807/74880.0;
+    private static final double g8 = param;
+    private static final double g9 = 11/270.0;
 
     @Override
     public void step(Model3D model, double dt) {

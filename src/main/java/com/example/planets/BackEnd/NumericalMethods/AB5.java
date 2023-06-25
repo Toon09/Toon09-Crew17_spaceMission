@@ -4,11 +4,11 @@ import com.example.planets.BackEnd.Models.Model3D;
 
 public class AB5 implements NumSolver{
 
-    static final double g1 = 1901/720.0;
-    static final double g2 = -2774/720.0;
-    static final double g3 = 2616/720.0;
-    static final double g4 = -1274/720.0;
-    static final double g5 = 251/720.0;
+    private static final double g1 = 1901/720.0;
+    private static final double g2 = -2774/720.0;
+    private static final double g3 = 2616/720.0;
+    private static final double g4 = -1274/720.0;
+    private static final double g5 = 251/720.0;
 
 
     private Model3D prev1; // 1 step behind

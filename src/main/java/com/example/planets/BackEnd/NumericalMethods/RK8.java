@@ -7,107 +7,107 @@ public class RK8 implements NumSolver{
 
     /////////////////// change params to one in link
 
-    Model3D k2;
-    Model3D k3;
-    Model3D k4;
-    Model3D k5;
-    Model3D k6;
-    Model3D k7;
-    Model3D k8;
-    Model3D k9;
-    Model3D k10;
-    Model3D k11;
+    private Model3D k2;
+    private Model3D k3;
+    private Model3D k4;
+    private Model3D k5;
+    private Model3D k6;
+    private Model3D k7;
+    private Model3D k8;
+    private Model3D k9;
+    private Model3D k10;
+    private Model3D k11;
 
 
     // coefficients for adding times
-    static final double a2 = 1/2.0; // also b11
-    static final double a3 = 1/2.0;
-    static final double a4 = (7+Math.sqrt(21.0))/14.0;
-    static final double a5 = (7+Math.sqrt(21.0))/14.0;
-    static final double a6 = 1/2.0;
-    static final double a7 = (7-Math.sqrt(21.0))/14.0;
-    static final double a8 = (7-Math.sqrt(21.0))/14.0;
-    static final double a9 = 1/2.0;
-    static final double a10 = (7+Math.sqrt(21.0))/14.0;
-    static final double a11 = 1.0;
+    private static final double a2 = 1/2.0; // also b11
+    private static final double a3 = 1/2.0;
+    private static final double a4 = (7+Math.sqrt(21.0))/14.0;
+    private static final double a5 = (7+Math.sqrt(21.0))/14.0;
+    private static final double a6 = 1/2.0;
+    private static final double a7 = (7-Math.sqrt(21.0))/14.0;
+    private static final double a8 = (7-Math.sqrt(21.0))/14.0;
+    private static final double a9 = 1/2.0;
+    private static final double a10 = (7+Math.sqrt(21.0))/14.0;
+    private static final double a11 = 1.0;
 
 
     // values for calculating k's
-    static final double b31 =  1.0 / 4.0;
-    static final double b32 =  1.0 / 4.0;
+    private static final double b31 =  1.0 / 4.0;
+    private static final double b32 =  1.0 / 4.0;
 
-    static final double b41 =  1.0 / 7.0;
-    static final double b42 = -(7.0 + 3.0 * Math.sqrt(21.0)) / 98.0;
-    static final double b43 =  (21.0 + 5.0 * Math.sqrt(21.0)) / 49.0;
+    private static final double b41 =  1.0 / 7.0;
+    private static final double b42 = -(7.0 + 3.0 * Math.sqrt(21.0)) / 98.0;
+    private static final double b43 =  (21.0 + 5.0 * Math.sqrt(21.0)) / 49.0;
 
-    static final double b51 =  (11.0 + Math.sqrt(21.0)) / 84.0;
-    static final double b52 =  0;
-    static final double b53 =  (18.0 + 4.0 * Math.sqrt(21.0)) / 63.0;
-    static final double b54 =  (21.0 - Math.sqrt(21.0)) / 252.0;
+    private static final double b51 =  (11.0 + Math.sqrt(21.0)) / 84.0;
+    private static final double b52 =  0;
+    private static final double b53 =  (18.0 + 4.0 * Math.sqrt(21.0)) / 63.0;
+    private static final double b54 =  (21.0 - Math.sqrt(21.0)) / 252.0;
 
-    static final double b61 =  (5.0 + Math.sqrt(21.0)) / 48.0;
-    static final double b62 =  0;
-    static final double b63 =  (9.0 + Math.sqrt(21.0)) / 36.0;
-    static final double b64 =  (-231.0 + 14.0 * Math.sqrt(21.0)) / 360.0;
-    static final double b65 =  (63.0 - 7.0 * Math.sqrt(21.0)) / 80.0;
+    private static final double b61 =  (5.0 + Math.sqrt(21.0)) / 48.0;
+    private static final double b62 =  0;
+    private static final double b63 =  (9.0 + Math.sqrt(21.0)) / 36.0;
+    private static final double b64 =  (-231.0 + 14.0 * Math.sqrt(21.0)) / 360.0;
+    private static final double b65 =  (63.0 - 7.0 * Math.sqrt(21.0)) / 80.0;
 
-    static final double b71 =  (10.0 - Math.sqrt(21.0)) / 42.0;
-    static final double b72 =  0;
-    static final double b73 =  (-432.0 + 92.0 * Math.sqrt(21.0)) / 315.0;
-    static final double b74 =  (633.0 - 145.0 * Math.sqrt(21.0)) / 90.0;
-    static final double b75 =  (-504.0 + 115.0 * Math.sqrt(21.0)) / 70.0;
-    static final double b76 =  (63.0 - 13.0 * Math.sqrt(21.0)) / 35.0;
+    private static final double b71 =  (10.0 - Math.sqrt(21.0)) / 42.0;
+    private static final double b72 =  0;
+    private static final double b73 =  (-432.0 + 92.0 * Math.sqrt(21.0)) / 315.0;
+    private static final double b74 =  (633.0 - 145.0 * Math.sqrt(21.0)) / 90.0;
+    private static final double b75 =  (-504.0 + 115.0 * Math.sqrt(21.0)) / 70.0;
+    private static final double b76 =  (63.0 - 13.0 * Math.sqrt(21.0)) / 35.0;
 
-    static final double b81 =  1.0 / 14.0;
-    static final double b82 =  0;
-    static final double b83 =  0;
-    static final double b84 =  0;
-    static final double b85 =  (14.0 - 3.0 * Math.sqrt(21.0)) / 126.0;
-    static final double b86 =  (13.0 - 3.0 * Math.sqrt(21.0)) / 63.0;
-    static final double b87 =  1.0 / 9.0;
+    private static final double b81 =  1.0 / 14.0;
+    private static final double b82 =  0;
+    private static final double b83 =  0;
+    private static final double b84 =  0;
+    private static final double b85 =  (14.0 - 3.0 * Math.sqrt(21.0)) / 126.0;
+    private static final double b86 =  (13.0 - 3.0 * Math.sqrt(21.0)) / 63.0;
+    private static final double b87 =  1.0 / 9.0;
 
-    static final double b91 =  1.0 / 32.0;
-    static final double b92 =  0;
-    static final double b93 =  0;
-    static final double b94 =  0;
-    static final double b95 =  (91.0 - 21.0 * Math.sqrt(21.0)) / 576.0;
-    static final double b96 =  11.0 / 72.0;
-    static final double b97 = -(385.0 + 75.0 * Math.sqrt(21.0)) / 1152.0;
-    static final double b98 =  (63.0 + 13.0 * Math.sqrt(21.0)) / 128.0;
+    private static final double b91 =  1.0 / 32.0;
+    private static final double b92 =  0;
+    private static final double b93 =  0;
+    private static final double b94 =  0;
+    private static final double b95 =  (91.0 - 21.0 * Math.sqrt(21.0)) / 576.0;
+    private static final double b96 =  11.0 / 72.0;
+    private static final double b97 = -(385.0 + 75.0 * Math.sqrt(21.0)) / 1152.0;
+    private static final double b98 =  (63.0 + 13.0 * Math.sqrt(21.0)) / 128.0;
 
-    static final double b101 =  1.0 / 14.0;
-    static final double b102 =  0;
-    static final double b103 =  0;
-    static final double b104 =  0;
-    static final double b105 =  1.0 / 9.0;
-    static final double b106 = -(733.0 + 147.0 * Math.sqrt(21.0)) / 2205.0;
-    static final double b107 =  (515.0 + 111.0 * Math.sqrt(21.0)) / 504.0;
-    static final double b108 = -(51.0 + 11.0 * Math.sqrt(21.0)) / 56.0;
-    static final double b109 =  (132.0 + 28.0 * Math.sqrt(21.0)) / 245.0;
+    private static final double b101 =  1.0 / 14.0;
+    private static final double b102 =  0;
+    private static final double b103 =  0;
+    private static final double b104 =  0;
+    private static final double b105 =  1.0 / 9.0;
+    private static final double b106 = -(733.0 + 147.0 * Math.sqrt(21.0)) / 2205.0;
+    private static final double b107 =  (515.0 + 111.0 * Math.sqrt(21.0)) / 504.0;
+    private static final double b108 = -(51.0 + 11.0 * Math.sqrt(21.0)) / 56.0;
+    private static final double b109 =  (132.0 + 28.0 * Math.sqrt(21.0)) / 245.0;
 
-    static final double b111 = 0;
-    static final double b112 = 0;
-    static final double b113 = 0;
-    static final double b114 = 0;
-    static final double b115 = (-42.0 + 7.0 * Math.sqrt(21.0)) / 18.0;
-    static final double b116 = (-18.0 + 28.0 * Math.sqrt(21.0)) / 45.0;
-    static final double b117 = -(273.0 + 53.0 * Math.sqrt(21.0)) / 72.0;
-    static final double b118 =  (301.0 + 53.0 * Math.sqrt(21.0)) / 72.0;
-    static final double b119 =  (28.0 - 28.0 * Math.sqrt(21.0)) / 45.0;
-    static final double b1110 = (49.0 - 7.0 * Math.sqrt(21.0)) / 18.0;
+    private static final double b111 = 0;
+    private static final double b112 = 0;
+    private static final double b113 = 0;
+    private static final double b114 = 0;
+    private static final double b115 = (-42.0 + 7.0 * Math.sqrt(21.0)) / 18.0;
+    private static final double b116 = (-18.0 + 28.0 * Math.sqrt(21.0)) / 45.0;
+    private static final double b117 = -(273.0 + 53.0 * Math.sqrt(21.0)) / 72.0;
+    private static final double b118 =  (301.0 + 53.0 * Math.sqrt(21.0)) / 72.0;
+    private static final double b119 =  (28.0 - 28.0 * Math.sqrt(21.0)) / 45.0;
+    private static final double b1110 = (49.0 - 7.0 * Math.sqrt(21.0)) / 18.0;
 
     // values for rk7
-    static final double g1 = 9/180.0;
-    static final double g2 = 0;
-    static final double g3 = 0;
-    static final double g4 = 0;
-    static final double g5 = 0;
-    static final double g6 = 0;
-    static final double g7 = 0;
-    static final double g8 = 49/180.0;
-    static final double g9 = 64/180.0;
-    static final double g10 = g8;
-    static final double g11 = g1;
+    private static final double g1 = 9/180.0;
+    private static final double g2 = 0;
+    private static final double g3 = 0;
+    private static final double g4 = 0;
+    private static final double g5 = 0;
+    private static final double g6 = 0;
+    private static final double g7 = 0;
+    private static final double g8 = 49/180.0;
+    private static final double g9 = 64/180.0;
+    private static final double g10 = g8;
+    private static final double g11 = g1;    
 
     @Override
     public void step(Model3D model, double dt) {

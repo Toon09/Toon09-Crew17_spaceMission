@@ -8,7 +8,7 @@ it did end up being more effective than the implementation of dormant prince, as
  */
 public class ode45 implements AdaptiveMethod {
 
-    private double precision = 1.0;
+    private double precision = 0.01;
     private double length = 0.0;
     private double step = 0.0;
 

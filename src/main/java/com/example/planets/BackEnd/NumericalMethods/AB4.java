@@ -4,10 +4,10 @@ import com.example.planets.BackEnd.Models.Model3D;
 
 public class AB4 implements  NumSolver{
 
-    static final double g1 = 55/24.0;
-    static final double g2 = -59/24.0;
-    static final double g3 = 37/24.0;
-    static final double g4 = -9/24.0;
+    private static final double g1 = 55/24.0;
+    private static final double g2 = -59/24.0;
+    private static final double g3 = 37/24.0;
+    private static final double g4 = -9/24.0;
 
 
 

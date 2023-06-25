@@ -6,8 +6,8 @@ import com.example.planets.BackEnd.Models.Model3D;
 
 public class LeapFrog implements NumSolver{
 
-    Model3D v12;
-    Model3D a1;
+    private Model3D v12;
+    private Model3D a1;
 
     @Override
     public void step(Model3D model, double dt) {

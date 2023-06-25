@@ -243,7 +243,7 @@ class NumericalExperiments {
         double[] chrono = new double[models.size()+1]; //last index is the benchmark
 
         // innit position:
-        System.out.println(); //////// comments
+        System.out.println();
 
         //System.out.println("time step[s], Euler abs, Euler relative, Euler time[ns], AB2 abs, AB2 relative, AB2 time[ns], Ralston's RK4 abs, Ralston's RK4 relative, Ralston's RK4 time[ns]");
 
