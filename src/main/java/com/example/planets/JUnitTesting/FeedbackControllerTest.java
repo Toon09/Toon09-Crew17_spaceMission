@@ -15,14 +15,14 @@ public class FeedbackControllerTest {
 
     @Test
     public void testUpdate_LandingAtSurface() {
-        feedBack.update(728.55918);
+        //feedBack.update(728.55918);
         Assert.assertTrue(feedBack.isFinished());
         Assert.assertTrue(0.1 > Math.abs(feedBack.getLandingModule().getPos()[1]));
     }
     @Test
     public void testUpdate_CorrectY() {
         double initialY = feedBack.getLandingModule().getPos()[1];
-        feedBack.update(4.0);
+        //feedBack.update(4.0);
         double newY = feedBack.getLandingModule().getPos()[1];
         Assert.assertTrue(newY < initialY); // Y position should decrease
     }

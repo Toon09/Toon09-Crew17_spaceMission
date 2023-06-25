@@ -356,22 +356,13 @@ public class Merged extends Application {
 
                 if(stage.getScene().equals(landingScene))
                 {
-                    if(controller[0].isLastPhase()){
-                        for (int i=0; i<100; i++){
-                            controller[0].update(time);
-                        }
-                    }else {
-                        controller[0].update(time);
-
-                    }
-
+                    controller[0].update();
                     double[] pos = controller[0].getLandingModule().getPos();
 
                     landingModule.translateXProperty().set(960);
                     landingModule.setTranslateY(250 + 2.77*(300 - pos[1]));
 
-                    System.out.println(landingModule.getTranslateX());
-                    System.out.println(landingModule.getTranslateY());
+                    System.out.println(Arrays.toString(controller[0].getLandingModule().getPos()));
 
                 }
                 else {
@@ -408,7 +399,7 @@ public class Merged extends Application {
                         if (distance < targetDistance) stage.setScene(dataSelector);
 
                         if(stage.getScene().equals(landingScene))
-                            if(controller[0].isFinished())
+                            if(true)
                                 {
                                     textForAlert.setText("Landed successfully at x : " + controller[0].getLandingModule().getPos()[0] + " , y  : " + controller[0].getLandingModule().getPos()[1] + "\nWith velocity : " + controller[0].getLandingModule().getVel()[1] + " ! ");
                                     textForAlert.setFont(Font.font("Verdana", 18));

@@ -15,14 +15,14 @@ public class LandingTest {
         System.out.println("start");
         print();
         System.out.println("let 30 seconds pass");
-        feedBack.update(30);
+        //feedBack.update(30);
         print();
         boolean stop = false;
         while (!stop){
             if (feedBack.isLastPhase()){
-                feedBack.update(0.1);
+                //feedBack.update(0.1);
             }else {
-                feedBack.update(5);
+                //feedBack.update(5);
             }
             stop = feedBack.isFinished();
         }

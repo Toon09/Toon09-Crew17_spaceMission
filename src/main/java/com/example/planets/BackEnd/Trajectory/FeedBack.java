@@ -54,7 +54,7 @@ public class FeedBack implements IControler {
      *
      * @param time how much time should pass ( in seconds )
      */
-    public void update(double time) {
+    private void update(double time) {
         model.updatePos(time, 0.1, false);
         boolean isThereWind = true;
         //noinspection ConstantValue
@@ -101,6 +101,14 @@ public class FeedBack implements IControler {
         } else {
             lastPhase = true;
             correctY(0.00001, false);
+        }
+    }
+
+    public void update(){
+        if (lastPhase){
+            update(1);
+        }else{
+            update(3);
         }
     }
 
