@@ -4,9 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="bab05458-8716-4abd-8f37-31e577e5aaab" name="Changes" comment="wind working with feedback">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/planets/GUI/SolarSystem.java" afterDir="false" />
+    <list default="true" id="bab05458-8716-4abd-8f37-31e577e5aaab" name="Changes" comment="code cleanup">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/planets/BackEnd/Trajectory/FeedBack.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/planets/BackEnd/Trajectory/FeedBack.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/planets/Merged.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/planets/Merged.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -84,7 +84,7 @@
       <recent name="C:\Users\suszw\Desktop\uni\year_1\Period4\plswork\src\main" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.Merged (2)">
+  <component name="RunManager" selected="Application.OpenLoop">
     <configuration name="LandingTest" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="com.example.planets.BackEnd.Trajectory.LandingTest" />
       <module name="Toon09-Crew17_spaceMission3" />
@@ -137,12 +137,12 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="NumericalExperiments" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="com.example.planets.NumericalExperiments" />
+    <configuration name="OpenLoop" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.example.planets.BackEnd.Trajectory.OpenLoop" />
       <module name="Toon09-Crew17_spaceMission3" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="com.example.planets.*" />
+          <option name="PATTERN" value="com.example.planets.BackEnd.Trajectory.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -153,17 +153,17 @@
     <list>
       <item itemvalue="Application.Merged (1)" />
       <item itemvalue="Application.Merged (2)" />
+      <item itemvalue="Application.OpenLoop" />
       <item itemvalue="Application.LandingTest" />
       <item itemvalue="Application.Merged" />
-      <item itemvalue="Application.NumericalExperiments" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.OpenLoop" />
         <item itemvalue="Application.Merged (2)" />
         <item itemvalue="Application.LandingTest" />
         <item itemvalue="Application.Merged (1)" />
         <item itemvalue="Application.Merged" />
-        <item itemvalue="Application.NumericalExperiments" />
       </list>
     </recent_temporary>
   </component>
@@ -188,13 +188,6 @@
       <workItem from="1686731689722" duration="3058000" />
       <workItem from="1687181645037" duration="364000" />
       <workItem from="1687335576267" duration="4028000" />
-    </task>
-    <task id="LOCAL-00065" summary="Added whole trajecotry making and usage structure as well as ideas to generate them">
-      <created>1684700842462</created>
-      <option name="number" value="00065" />
-      <option name="presentableId" value="LOCAL-00065" />
-      <option name="project" value="LOCAL" />
-      <updated>1684700842463</updated>
     </task>
     <task id="LOCAL-00066" summary="renamed an unimplemented method based on whats supposed to be (not yet done)">
       <created>1684701682768</created>
@@ -532,7 +525,14 @@
       <option name="project" value="LOCAL" />
       <updated>1687696426794</updated>
     </task>
-    <option name="localTasksCounter" value="119" />
+    <task id="LOCAL-00119" summary="code cleanup">
+      <created>1687700677961</created>
+      <option name="number" value="00119" />
+      <option name="presentableId" value="LOCAL-00119" />
+      <option name="project" value="LOCAL" />
+      <updated>1687700677961</updated>
+    </task>
+    <option name="localTasksCounter" value="120" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -550,7 +550,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="advances in hill climbing" />
     <MESSAGE value="cost function changed back lol" />
     <MESSAGE value="steepest ascend does close flyby, needs tweaks in cost function to stay closer" />
     <MESSAGE value="update on trajectory optimisrrz" />
@@ -575,7 +574,8 @@
     <MESSAGE value="clean up of feedback" />
     <MESSAGE value="clean up the code" />
     <MESSAGE value="wind working with feedback" />
-    <option name="LAST_COMMIT_MESSAGE" value="wind working with feedback" />
+    <MESSAGE value="code cleanup" />
+    <option name="LAST_COMMIT_MESSAGE" value="code cleanup" />
   </component>
   <component name="XDebuggerManager">
     <pin-to-top-manager>

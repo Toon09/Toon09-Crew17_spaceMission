@@ -21,7 +21,7 @@ import javafx.stage.Stage;
 
 import java.util.*;
 
-@SuppressWarnings("rawtypes")
+@SuppressWarnings({"rawtypes", "unchecked"})
 public class Merged extends Application {
 
     static private final Gravity0 model = new Gravity0(0.0, 0.0, new RK4(), "titan", 1, 364, new MinDistAndFuel());
@@ -36,7 +36,7 @@ public class Merged extends Application {
     private static boolean lookAtSpaceship = false;
     private final static Box[] path = new Box[10000];
     private final static double time = 0.1;
-    private static double dt = 2;
+    private static double dt = 4;
     private static double lastAcc = 0;
     private final static double phaseTime = 10000;
     private final static double slowPhaseTime = 100000;
@@ -92,7 +92,6 @@ public class Merged extends Application {
         setTextProperties(reachedTitanText, -70, scene);
 
         setTextProperties(reachedTitan2Text, -50, scene);
-
 
 
         //labels
@@ -206,7 +205,7 @@ public class Merged extends Application {
         dataSelector.setFill(Color.BLACK);
 
         TextField altitudeSelector = new TextField();
-        setSelectorProperties(altitudeSelector, -100,-200);
+        setSelectorProperties(altitudeSelector, -200);
 
 
         Text altitude = new Text("Choose initial altitude (X)");
@@ -214,13 +213,13 @@ public class Merged extends Application {
 
 
         TextField longitudeSelector = new TextField();
-        setSelectorProperties(longitudeSelector,-100,0);
+        setSelectorProperties(longitudeSelector, 0);
 
         Text longitude = new Text("Choose initial longitude (Y)");
         setTextProperties(longitude, -20);
 
         TextField yVelocitySelector = new TextField();
-        setSelectorProperties(yVelocitySelector, -100, 200);
+        setSelectorProperties(yVelocitySelector, 200);
 
         Text yVelocity = new Text("Choose initial ship velocity (V)");
         setTextProperties(yVelocity, 180);
@@ -233,14 +232,12 @@ public class Merged extends Application {
         alert.setContentText("Only doubles are allowed!");
 
         FeedBack[] controller = new FeedBack[1];
-        final double[] timeLanding = new double[1];
 
         Button defaultData = new Button("DEFAULT");
         defaultData.setLayoutX((double) (ScreenWIDTH + 60) / 2);
         defaultData.setLayoutY((double) (ScreenHEIGHT + 400) / 2);
         defaultData.setOnAction(e -> {
             controller[0] = new FeedBack();
-            timeLanding[0] = model.getTime();
             stage.setScene(landingScene);
         });
 
@@ -254,7 +251,6 @@ public class Merged extends Application {
                 double initialVelocity = Double.parseDouble(yVelocitySelector.getText());
                 double[] initialPosition = {initAltitude, initLongitude};
                 controller[0] = new FeedBack(initialPosition, initialVelocity);
-                timeLanding[0] = model.getTime();
                 stage.setScene(landingScene);
 
             } catch (NumberFormatException exception) {
@@ -394,6 +390,7 @@ public class Merged extends Application {
         launch(args);
     }
 
+    @SuppressWarnings("ClassEscapesDefinedScope")
     public static void setPosition(Node sphere, CelestialBody body) {
         sphere.setTranslateX(body.getPos()[0] / scale);
         sphere.setTranslateY(body.getPos()[1] / scale);
@@ -462,7 +459,7 @@ public class Merged extends Application {
         field.setTranslateY(scene.getHeight() + changeY);
     }
 
-    private void setLookBooleans(String name){
+    private void setLookBooleans(String name) {
         lookAtEverything = false;
         lookAtTitan = false;
         lookAtSun = false;
@@ -476,7 +473,8 @@ public class Merged extends Application {
             case "EVERYTHING" -> lookAtEverything = true;
         }
     }
-    private void printPositions(){
+
+    private void printPositions() {
         System.out.println("------------------------------------------");
         System.out.println("titan at: ");
         for (int i = 0; i < 3; i++) {
@@ -489,9 +487,9 @@ public class Merged extends Application {
         }
     }
 
-    private void setSelectorProperties(TextField field, int changeX, int changeY){
-        field.setLayoutX((double) (ScreenWIDTH - changeX) / 2);
-        field.setLayoutY((double) (ScreenHEIGHT - changeY) / 2);
+    private void setSelectorProperties(TextField field, int changeY) {
+        field.setLayoutX((double) (ScreenWIDTH - 100) / 2);
+        field.setLayoutY((double) (ScreenHEIGHT + changeY) / 2);
     }
 
     private int timeInDays(double time) {
