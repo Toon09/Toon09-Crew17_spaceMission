@@ -96,13 +96,13 @@ public class FeedBack implements IControler {
             //lastPhase = true;
         } else {
             lastPhase = true;
-            correctY(0.00001, false);
+            correctY(0.000001, true);
         }
     }
 
     public void update(){
         if (lastPhase){
-            update(1);
+            update(0.1);
         }else{
             update(3);
         }

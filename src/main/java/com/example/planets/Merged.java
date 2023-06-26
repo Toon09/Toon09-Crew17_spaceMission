@@ -302,7 +302,7 @@ public class Merged extends Application {
                             landingAlert.setOnCloseRequest(e -> stage.setScene(scene));
                             landingAlert.show();
                             try {
-                                timer.wait(100);
+                                timer.wait(1000);
                             } catch (InterruptedException e) {
                                 System.out.println("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAa");
                             } catch (Exception a) {
