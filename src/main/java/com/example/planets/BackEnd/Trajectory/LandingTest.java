@@ -16,13 +16,8 @@ public class LandingTest {
         feedBack.update();
         print();
         boolean stop = false;
-        while (!stop){
-            if (feedBack.isLastPhase()){
-                feedBack.update();
-            }else {
-                feedBack.update();
-            }
-            stop = feedBack.isFinished();
+        while (!feedBack.isFinished()){
+            feedBack.update();
         }
     }
     private static void print(){

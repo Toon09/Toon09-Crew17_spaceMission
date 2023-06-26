@@ -34,7 +34,6 @@ public class FeedBack implements IControler {
      * @param initialPosition an array specifying the landing module position where index 0 is X position, index 1 is Y position
      * @param initialVelocity one value of Y axis initial velocity of the module
      */
-    @SuppressWarnings("unused")
     public FeedBack(double[] initialPosition, double initialVelocity) {
         titan = new CelestialBody(1.35e23, new double[]{0, -2574, 0}, new double[]{0, 0, 0});
         landingModule = new LandingModel(4200, new double[]{initialPosition[0], initialPosition[1], 0}, new double[]{initialVelocity, 0, 0});
