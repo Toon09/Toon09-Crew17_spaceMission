@@ -191,7 +191,7 @@ class NumericalExperiments {
 
     // ############################################################################## NASA DATA COMPARISON
 
-    /*
+    /* this is the order in which the planets are stored inside our simulation
     Sun
     Mercury
     Venus
@@ -502,10 +502,6 @@ class NumericalExperiments {
 
             }
             System.out.println();//
-
-
-
-
 
 
         }

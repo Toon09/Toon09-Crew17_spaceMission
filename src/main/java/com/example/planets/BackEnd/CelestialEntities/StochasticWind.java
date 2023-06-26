@@ -11,12 +11,25 @@ public class StochasticWind {
 
     // parts of the atmosphere // https://www.nasa.gov/mission_pages/cassini/whycassini/cassinif-20070601-05.html
 
-    private final double windScalling = 1000.0;
-    private double[] v1; private final double mag1 = 0.12/windScalling; // 120 to up
-    private double[] v2; private final double mag2 = (0.12/2.0)/windScalling; // 60 to 120
-    private double[] v3; private final double mag3 = 0.001/windScalling; // 6 to 60
-    private double[] v4; private final double mag4 = 0.005/windScalling; // 0.7 to 6
+    private double titanRadius = 2574.7;
+    private double windScalling = 1/1000.0;
+    private double[] v1; private double mag1 = 0.12; // 120 to up
+    private double[] v2; private double mag2 = (0.12/2.0); // 60 to 120
+    private double[] v3; private double mag3 = 0.001; // 6 to 60
+    private double[] v4; private double mag4 = 0.005; // 0.7 to 6
 
+    public double getMagScaling(){
+        return windScalling;
+    }
+
+    public void setwindScalling(double scale){
+        windScalling = scale;
+        mag1 *= windScalling;
+        mag2 *= windScalling;
+        mag3 *= windScalling;
+        mag4 *= windScalling;
+
+    }
 
     /**
      * @param distance it's the distance from the ship to the ship
@@ -24,7 +37,6 @@ public class StochasticWind {
      */
     private boolean inRange(double distance){
         // the range is from 15 meters from the surface up to the max distance from surface
-        double titanRadius = 2574.7;
         return distance < titanRadius + maxDistance && distance > titanRadius + 0.7;
     }
 
@@ -38,8 +50,6 @@ public class StochasticWind {
 
         if( !inRange( ship.getDistance(planet) ) )
             return;
-
-        //System.out.println("fdghjkhgfghjkhgfchjihgfhjkuhygtfrhuji    "+Arrays.toString(v1));
 
         updateWind(ship, planet, dt);
 
@@ -57,24 +67,18 @@ public class StochasticWind {
     initialize with the direction and all fo the ships
      */
     private void updateWind(Spaceship ship, CelestialBody planet, double dt){
-        // vector from ship to planet
-        // use spaceship velocity as direction of wind
-        // project vector onto x,y axis
-
-        // only in x direction since y is up
-
         // generates wind vectors if they aren't already
         if(v1 == null)
-            v1 = new double[] { 1*mag1, 0, 0 };
+            v1 = new double[] { 1.0*mag1, 0, 0 };
 
         if(v2 == null)
-            v2 = new double[] { 1*mag2, 0, 0 };
+            v2 = new double[] { 1.0*mag2, 0, 0 };
 
         if(v3 == null)
-            v3 = new double[] { -1*mag3, 0, 0 };
+            v3 = new double[] { -1.0*mag3, 0, 0 };
 
         if(v4 == null)
-            v4 = new double[] { 1*mag4, 0, 0 };
+            v4 = new double[] { 1.0*mag4, 0, 0 };
 
 
         // add some randomness to the magnitude
@@ -83,6 +87,7 @@ public class StochasticWind {
         v3 = randomVectorMaxMagnitude(v3, mag3, dt);
         v4 = randomVectorMaxMagnitude(v4, mag4, dt);
 
+        int a=0;
 
     }
 
@@ -103,8 +108,6 @@ public class StochasticWind {
             return v4;
         }
 
-
-
     }
 
 
@@ -119,28 +122,15 @@ public class StochasticWind {
     private double[] randomVectorMaxMagnitude(double[] vector, double maxMag, double dt){
         double[] result = {0,0,0};
 
-        // maximum degree that the wind can go in the upwards direction (20 degrees in radians)
-        final double DEG = 20.0 *3.141592654/180.0;
+        if(maxMag <= 0.0)
+            return new double[] {0,0,0};
 
-        final double maxAngleChange = 0.5 *3.141592654/180.0; // half a degree up or down is max what it cna change a second
         final double maxMagChange = 0.00005; // max per second is half a meter per second for the magnitude change
-
-        double deg = Math.atan( vector[1]/vector[0] ); // gets actual value of the degree that the vector currently has
 
         double magnitude = 0.0;
         for(int i=0; i<vector.length; i++)
             magnitude += vector[i]*vector[i];
         magnitude = Math.sqrt(magnitude);
-
-
-        double newDeg = deg + ( 2*maxAngleChange*Math.random() - maxAngleChange )*dt;
-
-        if( Math.abs(newDeg) > DEG ){ //exceeding the max value intimidatingly makes it go down
-            if(newDeg>0)
-                newDeg = DEG - DEG*0.1;
-            else
-                newDeg = -(DEG - DEG*0.1);
-        }
 
 
         double newMagnitude = magnitude + ( 2*maxMagChange*Math.random() - maxMagChange )*dt;
@@ -153,11 +143,12 @@ public class StochasticWind {
                 newMagnitude = maxMagChange; // if its lower than 0, we reset it back to a small number
         }
 
-        result[0] = Math.cos(newDeg)*newMagnitude;
-        result[1] = Math.sin(newDeg)*newMagnitude;
-        result[2] = 0; // make sure its always 0
+        result[0] = newMagnitude;
+        result[1] = 0.0;
+        result[2] = 0.0; // make sure its always 0
 
         return  result;
+
     }
 
 
