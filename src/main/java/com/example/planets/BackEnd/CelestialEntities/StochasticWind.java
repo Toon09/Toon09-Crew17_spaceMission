@@ -162,7 +162,7 @@ public class StochasticWind {
         }
 
         result[0] = Math.cos(newDeg)*newMagnitude;
-        result[1] = Math.sin(0.0)*newMagnitude;
+        result[1] = Math.sin(newDeg)*newMagnitude;
         result[2] = 0; // make sure its always 0
 
         return  result;

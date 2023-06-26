@@ -10,7 +10,7 @@ public class LandingTest {
     public static void main(String[] args) {
         //double[] scales = new double[] {1/100_000_000.0, 2/100_000.0, 1/1_000.0, 2/1_000.0, 1/100.0, 2/100.0, 1/10.0, 2/10.0, 1.0, 0.0, 10.0};
 
-        double[] scales = new double[] {1/100_000_000.0, 0.0}; //
+        double[] scales = new double[] {1/100_000_000.0, 1/100.0, 0.0}; //
 
 
         System.out.println("max x error: " + 0.1/1000.0);
