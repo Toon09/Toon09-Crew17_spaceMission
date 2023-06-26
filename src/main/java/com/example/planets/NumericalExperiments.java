@@ -230,7 +230,7 @@ class NumericalExperiments {
         models.add( new Gravity0( 0, 0, new HeunsRK3(), DATA_ORIGIN ) );
         models.add( new Gravity0( 0, 0, new RK4(), DATA_ORIGIN ) );
         models.add( new Gravity0( 0, 0, new RK8(), DATA_ORIGIN ) );
-        models.add( new Gravity0( 0, 0, new ode45(), DATA_ORIGIN ) );
+        //models.add( new Gravity0( 0, 0, new ode45(), DATA_ORIGIN ) );
 
 
         //benchmark

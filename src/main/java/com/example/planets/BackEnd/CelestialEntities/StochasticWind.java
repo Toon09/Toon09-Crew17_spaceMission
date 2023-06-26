@@ -12,9 +12,9 @@ public class StochasticWind {
 
     // parts of the atmosphere // https://www.nasa.gov/mission_pages/cassini/whycassini/cassinif-20070601-05.html
 
-    private double windScalling = 1.0;
-    private double[] v1; private double mag1 = 0.012 *windScalling; // 120 to up
-    private double[] v2; private double mag2 = (0.012/2.0) *windScalling; // 60 to 120
+    private double windScalling = 0.0005;
+    private double[] v1; private double mag1 = 0.12 *windScalling; // 120 to up
+    private double[] v2; private double mag2 = (0.12/2.0) *windScalling; // 60 to 120
     private double[] v3; private double mag3 = 0.005 *windScalling; // 6 to 60
     private double[] v4; private double mag4 = 0.001 *windScalling; // 0.7 to 6
 
@@ -137,7 +137,7 @@ public class StochasticWind {
         double newMagnitude = magnitude + ( 2*maxMagChange*Math.random() - maxMagChange )*dt;
 
         // magnitude should always be positives
-        if( newMagnitude > maxMag ){ // it also goes down intimidatingly if it exceeds this maximum
+        if( Math.abs(newMagnitude) > maxMag ){ // it also goes down intimidatingly if it exceeds this maximum
             if(newMagnitude > 0)
                 newMagnitude = maxMag - maxMag*0.1;
             else
