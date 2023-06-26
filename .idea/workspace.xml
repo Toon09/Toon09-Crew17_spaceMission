@@ -4,8 +4,16 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="bab05458-8716-4abd-8f37-31e577e5aaab" name="Changes" comment="finishing the timer">
+    <list default="true" id="bab05458-8716-4abd-8f37-31e577e5aaab" name="Changes" comment="code cleanup">
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_22_03_2023_14_43__Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_22_03_2023_14_43__Changes_.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_23_03_2023_11_42__Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_23_03_2023_11_42__Changes_.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_23_03_2023_17_37__Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_23_03_2023_17_37__Changes_.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/planets/BackEnd/CelestialEntities/StochasticWind.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/planets/BackEnd/CelestialEntities/StochasticWind.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/planets/BackEnd/NumericalMethods/ode45.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/planets/BackEnd/NumericalMethods/ode45.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/planets/BackEnd/Trajectory/FeedBack.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/planets/BackEnd/Trajectory/FeedBack.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/planets/BackEnd/Trajectory/LandingTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/planets/BackEnd/Trajectory/LandingTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/planets/NumericalExperiments.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/planets/NumericalExperiments.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -41,7 +49,9 @@
     </option>
   </component>
   <component name="ProjectId" id="2NCWcLuYHhcwt20P03l2liympkF" />
-  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -158,9 +168,9 @@
     <recent_temporary>
       <list>
         <item itemvalue="Application.LandingTest" />
-        <item itemvalue="Application.Merged (1)" />
         <item itemvalue="Application.OpenLoop" />
         <item itemvalue="Application.Merged (2)" />
+        <item itemvalue="Application.Merged (1)" />
         <item itemvalue="Application.Merged" />
       </list>
     </recent_temporary>
@@ -186,6 +196,34 @@
       <workItem from="1686731689722" duration="3058000" />
       <workItem from="1687181645037" duration="364000" />
       <workItem from="1687335576267" duration="4028000" />
+    </task>
+    <task id="LOCAL-00066" summary="renamed an unimplemented method based on whats supposed to be (not yet done)">
+      <created>1684701682768</created>
+      <option name="number" value="00066" />
+      <option name="presentableId" value="LOCAL-00066" />
+      <option name="project" value="LOCAL" />
+      <updated>1684701682768</updated>
+    </task>
+    <task id="LOCAL-00067" summary="added stuff">
+      <created>1684838251671</created>
+      <option name="number" value="00067" />
+      <option name="presentableId" value="LOCAL-00067" />
+      <option name="project" value="LOCAL" />
+      <updated>1684838251672</updated>
+    </task>
+    <task id="LOCAL-00068" summary="GUI cool stuff">
+      <created>1684839733735</created>
+      <option name="number" value="00068" />
+      <option name="presentableId" value="LOCAL-00068" />
+      <option name="project" value="LOCAL" />
+      <updated>1684839733735</updated>
+    </task>
+    <task id="LOCAL-00069" summary="Documentation of celestial bodies">
+      <created>1684918935392</created>
+      <option name="number" value="00069" />
+      <option name="presentableId" value="LOCAL-00069" />
+      <option name="project" value="LOCAL" />
+      <updated>1684918935392</updated>
     </task>
     <task id="LOCAL-00070" summary="Documentation of celestial bodies">
       <created>1684924781277</created>
@@ -502,35 +540,7 @@
       <option name="project" value="LOCAL" />
       <updated>1687700677961</updated>
     </task>
-    <task id="LOCAL-00120" summary="code cleanup">
-      <created>1687702604200</created>
-      <option name="number" value="00120" />
-      <option name="presentableId" value="LOCAL-00120" />
-      <option name="project" value="LOCAL" />
-      <updated>1687702604200</updated>
-    </task>
-    <task id="LOCAL-00121" summary="code cleanup">
-      <created>1687702694887</created>
-      <option name="number" value="00121" />
-      <option name="presentableId" value="LOCAL-00121" />
-      <option name="project" value="LOCAL" />
-      <updated>1687702694887</updated>
-    </task>
-    <task id="LOCAL-00122" summary="finishing the timer">
-      <created>1687777868795</created>
-      <option name="number" value="00122" />
-      <option name="presentableId" value="LOCAL-00122" />
-      <option name="project" value="LOCAL" />
-      <updated>1687777868795</updated>
-    </task>
-    <task id="LOCAL-00123" summary="finishing the timer">
-      <created>1687778303152</created>
-      <option name="number" value="00123" />
-      <option name="presentableId" value="LOCAL-00123" />
-      <option name="project" value="LOCAL" />
-      <updated>1687778303152</updated>
-    </task>
-    <option name="localTasksCounter" value="124" />
+    <option name="localTasksCounter" value="120" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -548,6 +558,7 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
+    <MESSAGE value="cost function changed back lol" />
     <MESSAGE value="steepest ascend does close flyby, needs tweaks in cost function to stay closer" />
     <MESSAGE value="update on trajectory optimisrrz" />
     <MESSAGE value="engine update un done" />
@@ -572,16 +583,17 @@
     <MESSAGE value="clean up the code" />
     <MESSAGE value="wind working with feedback" />
     <MESSAGE value="code cleanup" />
-    <MESSAGE value="finishing the timer" />
-    <option name="LAST_COMMIT_MESSAGE" value="finishing the timer" />
+    <option name="LAST_COMMIT_MESSAGE" value="code cleanup" />
   </component>
   <component name="XDebuggerManager">
     <pin-to-top-manager>
       <pinned-members>
         <PinnedItemInfo parentTag="com.example.planets.BackEnd.CelestialEntities.Spaceship" memberName="plan" />
         <PinnedItemInfo parentTag="com.example.planets.BackEnd.NumericalMethods.RK2" memberName="first" />
+        <PinnedItemInfo parentTag="com.example.planets.BackEnd.Trajectory.LandingModel" memberName="vel" />
         <PinnedItemInfo parentTag="com.example.planets.BackEnd.CelestialEntities.Spaceship" memberName="vel" />
         <PinnedItemInfo parentTag="com.example.planets.BackEnd.CelestialEntities.Spaceship" memberName="pos" />
+        <PinnedItemInfo parentTag="com.example.planets.BackEnd.Trajectory.LandingModel" memberName="pos" />
       </pinned-members>
     </pin-to-top-manager>
   </component>

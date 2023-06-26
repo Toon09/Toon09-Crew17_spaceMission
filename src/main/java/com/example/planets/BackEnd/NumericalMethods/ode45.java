@@ -36,7 +36,6 @@ public class ode45 implements AdaptiveMethod {
 
             double optimalMultiplier = Math.pow( (precision*step)/(2*error) , 1/5.0);
 
-
             // check error
             if(precision <= optimalMultiplier){ // step is correct, thus
                 model.setState( higher.getState() );

@@ -11,12 +11,20 @@ public class StochasticWind {
 
     // parts of the atmosphere // https://www.nasa.gov/mission_pages/cassini/whycassini/cassinif-20070601-05.html
 
-    private final double windScalling = 1000.0;
-    private double[] v1; private final double mag1 = 0.12/windScalling; // 120 to up
-    private double[] v2; private final double mag2 = (0.12/2.0)/windScalling; // 60 to 120
-    private double[] v3; private final double mag3 = 0.001/windScalling; // 6 to 60
-    private double[] v4; private final double mag4 = 0.005/windScalling; // 0.7 to 6
+    private double titanRadius = 2574.7;
+    private double windScalling = 1/1000.0;
+    private double[] v1; private final double mag1 = 0.12 *windScalling; // 120 to up
+    private double[] v2; private final double mag2 = (0.12/2.0) *windScalling; // 60 to 120
+    private double[] v3; private final double mag3 = 0.001 *windScalling; // 6 to 60
+    private double[] v4; private final double mag4 = 0.005 *windScalling; // 0.7 to 6
 
+    public double getMagScaling(){
+        return windScalling;
+    }
+
+    public void setwindScalling(double scale){
+        windScalling = scale;
+    }
 
     /**
      * @param distance it's the distance from the ship to the ship
@@ -24,7 +32,6 @@ public class StochasticWind {
      */
     private boolean inRange(double distance){
         // the range is from 15 meters from the surface up to the max distance from surface
-        double titanRadius = 2574.7;
         return distance < titanRadius + maxDistance && distance > titanRadius + 0.7;
     }
 
@@ -38,8 +45,6 @@ public class StochasticWind {
 
         if( !inRange( ship.getDistance(planet) ) )
             return;
-
-        //System.out.println("fdghjkhgfghjkhgfchjihgfhjkuhygtfrhuji    "+Arrays.toString(v1));
 
         updateWind(ship, planet, dt);
 
@@ -57,12 +62,6 @@ public class StochasticWind {
     initialize with the direction and all fo the ships
      */
     private void updateWind(Spaceship ship, CelestialBody planet, double dt){
-        // vector from ship to planet
-        // use spaceship velocity as direction of wind
-        // project vector onto x,y axis
-
-        // only in x direction since y is up
-
         // generates wind vectors if they aren't already
         if(v1 == null)
             v1 = new double[] { 1*mag1, 0, 0 };
@@ -83,6 +82,7 @@ public class StochasticWind {
         v3 = randomVectorMaxMagnitude(v3, mag3, dt);
         v4 = randomVectorMaxMagnitude(v4, mag4, dt);
 
+        int a=0;
 
     }
 
@@ -102,8 +102,6 @@ public class StochasticWind {
         } else {
             return v4;
         }
-
-
 
     }
 
@@ -158,6 +156,7 @@ public class StochasticWind {
         result[2] = 0; // make sure its always 0
 
         return  result;
+
     }
 
 
