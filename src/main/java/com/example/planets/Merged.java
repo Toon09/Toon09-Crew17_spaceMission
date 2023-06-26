@@ -283,6 +283,7 @@ public class Merged extends Application {
                     double[] pos = controller[0].getLandingModule().getPos();
                     landingModule.translateXProperty().set(960);
                     landingModule.setTranslateY(250 + 2.77 * (300 - pos[1]));
+                    landingModule.setTranslateX(960 + 2.77 * (-pos[0]));
 
                     System.out.println(landingModule.getTranslateY());
 

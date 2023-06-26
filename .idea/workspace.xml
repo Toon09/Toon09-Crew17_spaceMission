@@ -7,8 +7,6 @@
     <list default="true" id="bab05458-8716-4abd-8f37-31e577e5aaab" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/planets/BackEnd/CelestialEntities/StochasticWind.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/planets/BackEnd/CelestialEntities/StochasticWind.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/planets/BackEnd/Trajectory/FeedBack.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/planets/BackEnd/Trajectory/FeedBack.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/planets/BackEnd/Trajectory/LandingTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/planets/BackEnd/Trajectory/LandingTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/planets/Merged.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/planets/Merged.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -88,7 +86,7 @@
       <recent name="C:\Users\suszw\Desktop\uni\year_1\Period4\plswork\src\main" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.LandingTest">
+  <component name="RunManager" selected="Application.Merged">
     <configuration name="LandingTest" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="com.example.planets.BackEnd.Trajectory.LandingTest" />
       <module name="Toon09-Crew17_spaceMission3" />
@@ -163,8 +161,8 @@
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.LandingTest" />
         <item itemvalue="Application.Merged" />
+        <item itemvalue="Application.LandingTest" />
         <item itemvalue="Application.OpenLoop" />
         <item itemvalue="Application.Merged (2)" />
         <item itemvalue="Application.Merged (1)" />
@@ -536,7 +534,7 @@
       <option name="project" value="LOCAL" />
       <updated>1687700677961</updated>
     </task>
-    <option name="localTasksCounter" value="124" />
+    <option name="localTasksCounter" value="125" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -554,7 +552,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="engine update un done" />
     <MESSAGE value="Controler interface, Landing module" />
     <MESSAGE value="max values for landing" />
     <MESSAGE value="changes to gradient ascent" />
@@ -579,23 +576,10 @@
     <MESSAGE value="wind experiment setup" />
     <MESSAGE value="wind stuff" />
     <MESSAGE value="experiment" />
-    <option name="LAST_COMMIT_MESSAGE" value="experiment" />
+    <MESSAGE value="FINAL VERSION" />
+    <option name="LAST_COMMIT_MESSAGE" value="FINAL VERSION" />
   </component>
   <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/example/planets/BackEnd/CelestialEntities/StochasticWind.java</url>
-          <line>52</line>
-          <option name="timeStamp" value="10" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/example/planets/BackEnd/CelestialEntities/StochasticWind.java</url>
-          <line>86</line>
-          <option name="timeStamp" value="11" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
     <pin-to-top-manager>
       <pinned-members>
         <PinnedItemInfo parentTag="com.example.planets.BackEnd.CelestialEntities.Spaceship" memberName="plan" />

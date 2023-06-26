@@ -8,15 +8,15 @@ only spaceships can be affected by wind conditions, not other planets because th
  */
 public class StochasticWind {
     private final double maxDistance = 600.0; // in km
+    private double titanRadius = 2574.7;
 
     // parts of the atmosphere // https://www.nasa.gov/mission_pages/cassini/whycassini/cassinif-20070601-05.html
 
-    private double titanRadius = 2574.7;
-    private double windScalling = 1/1000.0;
-    private double[] v1; private double mag1 = 0.12 *windScalling; // 120 to up
-    private double[] v2; private double mag2 = (0.12/2.0) *windScalling; // 60 to 120
-    private double[] v3; private double mag3 = 0.001 *windScalling; // 6 to 60
-    private double[] v4; private double mag4 = 0.005 *windScalling; // 0.7 to 6
+    private double windScalling = 1.0;
+    private double[] v1; private double mag1 = 0.012 *windScalling; // 120 to up
+    private double[] v2; private double mag2 = (0.012/2.0) *windScalling; // 60 to 120
+    private double[] v3; private double mag3 = 0.005 *windScalling; // 6 to 60
+    private double[] v4; private double mag4 = 0.001 *windScalling; // 0.7 to 6
 
 
     public double getMagScaling(){
@@ -38,7 +38,6 @@ public class StochasticWind {
      */
     private boolean inRange(double distance){
         // the range is from 15 meters from the surface up to the max distance from surface
-        double titanRadius = 2574.7;
         return distance < titanRadius + maxDistance && distance > titanRadius + 0.7;
     }
 
@@ -59,9 +58,9 @@ public class StochasticWind {
 
 
         // corresponding wind is added
-        ship.addVel( new double[] { wind[0]*dt,
-                                    wind[1]*dt,
-                                    wind[2]*dt } );
+        ship.addVel( new double[] { wind[0]*dt / ship.getMass(),
+                                    wind[1]*dt / ship.getMass(),
+                                    wind[2]*dt / ship.getMass() } );
 
     }
 
@@ -100,11 +99,11 @@ public class StochasticWind {
    everything goes in same direction, but from 6km to 700m it goes the other
     */
     private double[] getRange(double distance){
-        if( distance < maxDistance && distance > 120.0 ){
+        if( distance < maxDistance + titanRadius && distance > 120.0 + titanRadius ){
             return v1;
-        } else if ( distance <= 120.0 && distance > 60.0 ) {
+        } else if ( distance <= 120.0 + titanRadius && distance > 60.0 + titanRadius ) {
             return v2;
-        } else if ( distance <= 60.0 && distance > 6.0 ) {
+        } else if ( distance <= 60.0 + titanRadius && distance > 6.0 + titanRadius) {
             return v3;
         } else {
             return v4;
