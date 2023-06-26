@@ -69,16 +69,16 @@ public class StochasticWind {
     private void updateWind(Spaceship ship, CelestialBody planet, double dt){
         // generates wind vectors if they aren't already
         if(v1 == null)
-            v1 = new double[] { 1*mag1, 0, 0 };
+            v1 = new double[] { 1.0*mag1, 0, 0 };
 
         if(v2 == null)
-            v2 = new double[] { 1*mag2, 0, 0 };
+            v2 = new double[] { 1.0*mag2, 0, 0 };
 
         if(v3 == null)
-            v3 = new double[] { -1*mag3, 0, 0 };
+            v3 = new double[] { -1.0*mag3, 0, 0 };
 
         if(v4 == null)
-            v4 = new double[] { 1*mag4, 0, 0 };
+            v4 = new double[] { 1.0*mag4, 0, 0 };
 
 
         // add some randomness to the magnitude
@@ -125,30 +125,12 @@ public class StochasticWind {
         if(maxMag <= 0.0)
             return new double[] {0,0,0};
 
-        // maximum degree that the wind can go in the upwards direction (20 degrees in radians)
-        final double DEG = 20.0 *3.141592654/180.0;
-
-        final double maxAngleChange = 0.5 *3.141592654/180.0; // half a degree up or down is max what it cna change a second
         final double maxMagChange = 0.00005; // max per second is half a meter per second for the magnitude change
-
-        double deg = 0;
-        if(vector[0] != 0)
-            deg = Math.atan( vector[1]/vector[0] ); // gets actual value of the degree that the vector currently has
 
         double magnitude = 0.0;
         for(int i=0; i<vector.length; i++)
             magnitude += vector[i]*vector[i];
         magnitude = Math.sqrt(magnitude);
-
-
-        double newDeg = deg + ( 2*maxAngleChange*Math.random() - maxAngleChange )*dt;
-
-        if( Math.abs(newDeg) > DEG ){ //exceeding the max value intimidatingly makes it go down
-            if(newDeg>0)
-                newDeg = DEG - DEG*0.1;
-            else
-                newDeg = -(DEG - DEG*0.1);
-        }
 
 
         double newMagnitude = magnitude + ( 2*maxMagChange*Math.random() - maxMagChange )*dt;
@@ -161,9 +143,9 @@ public class StochasticWind {
                 newMagnitude = maxMagChange; // if its lower than 0, we reset it back to a small number
         }
 
-        result[0] = Math.cos(newDeg)*newMagnitude;
-        result[1] = Math.sin(newDeg)*newMagnitude;
-        result[2] = 0; // make sure its always 0
+        result[0] = newMagnitude;
+        result[1] = 0.0;
+        result[2] = 0.0; // make sure its always 0
 
         return  result;
 
