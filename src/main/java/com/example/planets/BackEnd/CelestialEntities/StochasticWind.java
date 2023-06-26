@@ -13,10 +13,10 @@ public class StochasticWind {
 
     private double titanRadius = 2574.7;
     private double windScalling = 1/1000.0;
-    private double[] v1; private final double mag1 = 0.12 *windScalling; // 120 to up
-    private double[] v2; private final double mag2 = (0.12/2.0) *windScalling; // 60 to 120
-    private double[] v3; private final double mag3 = 0.001 *windScalling; // 6 to 60
-    private double[] v4; private final double mag4 = 0.005 *windScalling; // 0.7 to 6
+    private double[] v1; private double mag1 = 0.12; // 120 to up
+    private double[] v2; private double mag2 = (0.12/2.0); // 60 to 120
+    private double[] v3; private double mag3 = 0.001; // 6 to 60
+    private double[] v4; private double mag4 = 0.005; // 0.7 to 6
 
     public double getMagScaling(){
         return windScalling;
@@ -24,6 +24,11 @@ public class StochasticWind {
 
     public void setwindScalling(double scale){
         windScalling = scale;
+        mag1 *= windScalling;
+        mag2 *= windScalling;
+        mag3 *= windScalling;
+        mag4 *= windScalling;
+
     }
 
     /**
@@ -117,13 +122,18 @@ public class StochasticWind {
     private double[] randomVectorMaxMagnitude(double[] vector, double maxMag, double dt){
         double[] result = {0,0,0};
 
+        if(maxMag <= 0.0)
+            return new double[] {0,0,0};
+
         // maximum degree that the wind can go in the upwards direction (20 degrees in radians)
         final double DEG = 20.0 *3.141592654/180.0;
 
         final double maxAngleChange = 0.5 *3.141592654/180.0; // half a degree up or down is max what it cna change a second
         final double maxMagChange = 0.00005; // max per second is half a meter per second for the magnitude change
 
-        double deg = Math.atan( vector[1]/vector[0] ); // gets actual value of the degree that the vector currently has
+        double deg = 0;
+        if(vector[0] != 0)
+            deg = Math.atan( vector[1]/vector[0] ); // gets actual value of the degree that the vector currently has
 
         double magnitude = 0.0;
         for(int i=0; i<vector.length; i++)
@@ -152,7 +162,7 @@ public class StochasticWind {
         }
 
         result[0] = Math.cos(newDeg)*newMagnitude;
-        result[1] = Math.sin(newDeg)*newMagnitude;
+        result[1] = Math.sin(0.0)*newMagnitude;
         result[2] = 0; // make sure its always 0
 
         return  result;
