@@ -206,13 +206,6 @@ public class Merged extends Application {
         Scene dataSelector = new Scene(initialData, ScreenWIDTH, ScreenHEIGHT);
         dataSelector.setFill(Color.BLACK);
 
-        TextField altitudeSelector = new TextField();
-        setSelectorProperties(altitudeSelector, -200);
-
-
-        Text altitude = new Text("Choose initial altitude (X)");
-        setTextProperties(altitude, -220);
-
 
         TextField longitudeSelector = new TextField();
         setSelectorProperties(longitudeSelector, 0);
@@ -248,7 +241,7 @@ public class Merged extends Application {
         submit.setLayoutY((double) (ScreenHEIGHT + 400) / 2);
         submit.setOnAction(e -> {
             try {
-                double initAltitude = Double.parseDouble(altitudeSelector.getText());
+                double initAltitude = 0;
                 double initLongitude = Double.parseDouble(longitudeSelector.getText());
                 double initialVelocity = Double.parseDouble(yVelocitySelector.getText());
                 double[] initialPosition = {initAltitude, initLongitude};
@@ -257,7 +250,6 @@ public class Merged extends Application {
 
             } catch (NumberFormatException exception) {
                 alert.showAndWait();
-                altitudeSelector.clear();
                 longitudeSelector.clear();
                 yVelocitySelector.clear();
             }
@@ -267,8 +259,7 @@ public class Merged extends Application {
                 stage.setScene(scene);
             }
         });
-        initialData.getChildren().addAll(altitudeSelector, longitudeSelector, yVelocitySelector, submit,
-                altitude, longitude, yVelocity, defaultData);
+        initialData.getChildren().addAll(longitudeSelector, yVelocitySelector, submit, longitude, yVelocity, defaultData);
 
         // -------------------------------------------------------------------------------------------------------------
 
@@ -292,6 +283,7 @@ public class Merged extends Application {
                     double[] pos = controller[0].getLandingModule().getPos();
                     landingModule.translateXProperty().set(960);
                     landingModule.setTranslateY(250 + 2.77 * (300 - pos[1]));
+
                     System.out.println(landingModule.getTranslateY());
 
                     System.out.println(Arrays.toString(controller[0].getLandingModule().getPos()));

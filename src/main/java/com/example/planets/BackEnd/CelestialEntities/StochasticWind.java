@@ -13,10 +13,11 @@ public class StochasticWind {
 
     private double titanRadius = 2574.7;
     private double windScalling = 1/1000.0;
-    private double[] v1; private double mag1 = 0.12; // 120 to up
-    private double[] v2; private double mag2 = (0.12/2.0); // 60 to 120
-    private double[] v3; private double mag3 = 0.001; // 6 to 60
-    private double[] v4; private double mag4 = 0.005; // 0.7 to 6
+    private double[] v1; private double mag1 = 0.12 *windScalling; // 120 to up
+    private double[] v2; private double mag2 = (0.12/2.0) *windScalling; // 60 to 120
+    private double[] v3; private double mag3 = 0.001 *windScalling; // 6 to 60
+    private double[] v4; private double mag4 = 0.005 *windScalling; // 0.7 to 6
+
 
     public double getMagScaling(){
         return windScalling;
@@ -37,6 +38,7 @@ public class StochasticWind {
      */
     private boolean inRange(double distance){
         // the range is from 15 meters from the surface up to the max distance from surface
+        double titanRadius = 2574.7;
         return distance < titanRadius + maxDistance && distance > titanRadius + 0.7;
     }
 

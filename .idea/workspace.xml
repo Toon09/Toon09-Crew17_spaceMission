@@ -7,7 +7,9 @@
     <list default="true" id="bab05458-8716-4abd-8f37-31e577e5aaab" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/planets/BackEnd/CelestialEntities/StochasticWind.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/planets/BackEnd/CelestialEntities/StochasticWind.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/planets/BackEnd/Trajectory/FeedBack.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/planets/BackEnd/Trajectory/FeedBack.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/planets/BackEnd/Trajectory/LandingTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/planets/BackEnd/Trajectory/LandingTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/planets/Merged.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/planets/Merged.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -162,10 +164,10 @@
     <recent_temporary>
       <list>
         <item itemvalue="Application.LandingTest" />
+        <item itemvalue="Application.Merged" />
         <item itemvalue="Application.OpenLoop" />
         <item itemvalue="Application.Merged (2)" />
         <item itemvalue="Application.Merged (1)" />
-        <item itemvalue="Application.Merged" />
       </list>
     </recent_temporary>
   </component>
@@ -534,7 +536,7 @@
       <option name="project" value="LOCAL" />
       <updated>1687700677961</updated>
     </task>
-    <option name="localTasksCounter" value="123" />
+    <option name="localTasksCounter" value="124" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -552,7 +554,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="update on trajectory optimisrrz" />
     <MESSAGE value="engine update un done" />
     <MESSAGE value="Controler interface, Landing module" />
     <MESSAGE value="max values for landing" />
@@ -577,28 +578,20 @@
     <MESSAGE value="code cleanup" />
     <MESSAGE value="wind experiment setup" />
     <MESSAGE value="wind stuff" />
-    <option name="LAST_COMMIT_MESSAGE" value="wind stuff" />
+    <MESSAGE value="experiment" />
+    <option name="LAST_COMMIT_MESSAGE" value="experiment" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
-        <line-breakpoint enabled="true" type="java-method">
-          <url>file://$PROJECT_DIR$/src/main/java/com/example/planets/BackEnd/CelestialEntities/StochasticWind.java</url>
-          <line>24</line>
-          <properties class="com.example.planets.BackEnd.CelestialEntities.StochasticWind" method="setwindScalling">
-            <option name="EMULATED" value="true" />
-            <option name="WATCH_EXIT" value="false" />
-          </properties>
-          <option name="timeStamp" value="9" />
-        </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/example/planets/BackEnd/CelestialEntities/StochasticWind.java</url>
-          <line>50</line>
+          <line>52</line>
           <option name="timeStamp" value="10" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/example/planets/BackEnd/CelestialEntities/StochasticWind.java</url>
-          <line>84</line>
+          <line>86</line>
           <option name="timeStamp" value="11" />
         </line-breakpoint>
       </breakpoints>
