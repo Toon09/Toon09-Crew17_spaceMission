@@ -21,6 +21,8 @@ import javafx.stage.Stage;
 
 import java.util.*;
 
+import static com.example.planets.GUI.GUIsupport.printPositions;
+
 @SuppressWarnings({"rawtypes", "unchecked"})
 public class Merged extends Application {
 
@@ -120,7 +122,7 @@ public class Merged extends Application {
         camera.getTransforms().addAll(worldRotY, worldRotX);
         stage.addEventHandler(KeyEvent.KEY_PRESSED, event -> {
             switch (event.getCode()) {
-                case DIGIT0 -> printPositions();
+                case DIGIT0 -> printPositions(model, scale);
                 case Q -> System.exit(0);
                 case DIGIT1 -> {
                     if (!lookAtEarth) {
@@ -453,20 +455,6 @@ public class Merged extends Application {
 
     }
 
-    private void setTextProperties(Text field, int changeY) {
-        field.setFont(Font.font("Arial", 16));
-        field.setFill(Color.WHITE);
-        field.setLayoutX((double) (ScreenWIDTH - 100) / 2);
-        field.setLayoutY((double) (ScreenHEIGHT + changeY) / 2);
-    }
-
-    private void setTextProperties(Text field, int changeY, Scene scene) {
-        field.setFill(Color.WHITE);
-        field.setFont(Font.font("Arial", 16));
-        field.setTextAlignment(TextAlignment.RIGHT);
-        field.setTranslateX(scene.getWidth() - 730);
-        field.setTranslateY(scene.getHeight() + changeY);
-    }
 
     private void setLookBooleans(String name) {
         lookAtEverything = false;
@@ -483,18 +471,7 @@ public class Merged extends Application {
         }
     }
 
-    private void printPositions() {
-        System.out.println("------------------------------------------");
-        System.out.println("titan at: ");
-        for (int i = 0; i < 3; i++) {
-            System.out.println(model.getBody(8).getPos()[i] / scale);
-        }
-        System.out.println("------------------------------------------");
-        System.out.println("spaceship at: ");
-        for (int i = 0; i < 3; i++) {
-            System.out.println(model.getBody(11).getPos()[i] / scale);
-        }
-    }
+
 
     private void setSelectorProperties(TextField field, int changeY) {
         field.setLayoutX((double) (ScreenWIDTH - 100) / 2);
@@ -503,6 +480,20 @@ public class Merged extends Application {
 
     private int timeInDays(double time) {
         return (int) (((time / 60) / 60) / 24);
+    }
+    private void setTextProperties(Text field, int changeY) {
+        field.setFont(Font.font("Arial", 16));
+        field.setFill(Color.WHITE);
+        field.setLayoutX((double) (ScreenWIDTH - 100) / 2);
+        field.setLayoutY((double) (ScreenHEIGHT + changeY) / 2);
+    }
+
+    private void setTextProperties(Text field, int changeY, Scene scene) {
+        field.setFill(Color.WHITE);
+        field.setFont(Font.font("Arial", 16));
+        field.setTextAlignment(TextAlignment.RIGHT);
+        field.setTranslateX(scene.getWidth() - 730);
+        field.setTranslateY(scene.getHeight() + changeY);
     }
 
 }

@@ -4,8 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="bab05458-8716-4abd-8f37-31e577e5aaab" name="Changes" comment="finishing the timer">
+    <list default="true" id="bab05458-8716-4abd-8f37-31e577e5aaab" name="Changes" comment="clean up of the code">
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/planets/GUI/GUIsupport.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/planets/BackEnd/Trajectory/FeedBack.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/planets/BackEnd/Trajectory/FeedBack.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/planets/Merged.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/planets/Merged.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -186,20 +189,6 @@
       <workItem from="1686731689722" duration="3058000" />
       <workItem from="1687181645037" duration="364000" />
       <workItem from="1687335576267" duration="4028000" />
-    </task>
-    <task id="LOCAL-00070" summary="Documentation of celestial bodies">
-      <created>1684924781277</created>
-      <option name="number" value="00070" />
-      <option name="presentableId" value="LOCAL-00070" />
-      <option name="project" value="LOCAL" />
-      <updated>1684924781277</updated>
-    </task>
-    <task id="LOCAL-00071" summary="leapFrog and others">
-      <created>1685005373982</created>
-      <option name="number" value="00071" />
-      <option name="presentableId" value="LOCAL-00071" />
-      <option name="project" value="LOCAL" />
-      <updated>1685005373982</updated>
     </task>
     <task id="LOCAL-00072" summary="data generation set up and rk2 refactored">
       <created>1685013238991</created>
@@ -530,7 +519,21 @@
       <option name="project" value="LOCAL" />
       <updated>1687778303152</updated>
     </task>
-    <option name="localTasksCounter" value="124" />
+    <task id="LOCAL-00124" summary="clean up of the code">
+      <created>1687778804716</created>
+      <option name="number" value="00124" />
+      <option name="presentableId" value="LOCAL-00124" />
+      <option name="project" value="LOCAL" />
+      <updated>1687778804716</updated>
+    </task>
+    <task id="LOCAL-00125" summary="clean up of the code">
+      <created>1687778906658</created>
+      <option name="number" value="00125" />
+      <option name="presentableId" value="LOCAL-00125" />
+      <option name="project" value="LOCAL" />
+      <updated>1687778906658</updated>
+    </task>
+    <option name="localTasksCounter" value="126" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -548,7 +551,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="steepest ascend does close flyby, needs tweaks in cost function to stay closer" />
     <MESSAGE value="update on trajectory optimisrrz" />
     <MESSAGE value="engine update un done" />
     <MESSAGE value="Controler interface, Landing module" />
@@ -573,7 +575,8 @@
     <MESSAGE value="wind working with feedback" />
     <MESSAGE value="code cleanup" />
     <MESSAGE value="finishing the timer" />
-    <option name="LAST_COMMIT_MESSAGE" value="finishing the timer" />
+    <MESSAGE value="clean up of the code" />
+    <option name="LAST_COMMIT_MESSAGE" value="clean up of the code" />
   </component>
   <component name="XDebuggerManager">
     <pin-to-top-manager>

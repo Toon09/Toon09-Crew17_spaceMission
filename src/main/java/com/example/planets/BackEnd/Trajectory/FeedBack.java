@@ -144,7 +144,7 @@ public class FeedBack implements IControler {
             } else {
                 countX = 10;
                 activateEngine( (landingModule.getVel()[0]));
-                activateEngine(0.00001);
+                activateEngine( 0.00001);
             }
         } else if (landingModule.getPos()[0] < 0) {
             if (landingModule.getRotation() != 90.0) {
@@ -153,7 +153,7 @@ public class FeedBack implements IControler {
                 landingModule.rotate(90 - rotation);
             } else {
                 activateEngine((landingModule.getVel()[0]));
-                activateEngine(0.00001);
+                activateEngine( 0.00001);
             }
         }
     }
