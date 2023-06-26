@@ -180,7 +180,7 @@ public class Merged extends Application {
         landingModule.getTransforms().addAll(rotate);
 
         Sphere landingSpot = new Sphere(10);
-        landingSpot.translateXProperty().set((double) ScreenWIDTH/2);
+        landingSpot.translateXProperty().set((double) ScreenWIDTH / 2);
         landingSpot.translateYProperty().set(ScreenHEIGHT);
         PhongMaterial landingSpotColor = new PhongMaterial();
         landingSpotColor.setDiffuseColor(Color.LIGHTGREEN);
@@ -284,14 +284,32 @@ public class Merged extends Application {
             @Override
             public void run() {
                 if (stage.getScene().equals(landingScene)) {
-                    controller[0].update();
+                    if (!controller[0].isFinished()){
+                        controller[0].update();
+                    }
                     double[] pos = controller[0].getLandingModule().getPos();
-
                     landingModule.translateXProperty().set(960);
                     landingModule.setTranslateY(250 + 2.77 * (300 - pos[1]));
                     System.out.println(landingModule.getTranslateY());
 
-                    //System.out.println(Arrays.toString(controller[0].getLandingModule().getPos()));
+                    System.out.println(Arrays.toString(controller[0].getLandingModule().getPos()));
+                    if (controller[0].isFinished()) {
+                        Platform.runLater(() -> {
+                            textForAlert.setText("Landed successfully at x : " + controller[0].getLandingModule().getPos()[0] + " , y  : " + controller[0].getLandingModule().getPos()[1] + "\nWith velocity : " + controller[0].getLandingModule().getVel()[1] + " ! ");
+                            textForAlert.setFont(Font.font("Verdana", 18));
+                            landingAlert.getDialogPane().setContent(textForAlert);
+                            //landingAlert.setContentText("Landed successfully at : " + controller[0].getLandingModule().getPos() + " with velocity : " + controller[0].getLandingModule().getVel() + " ! ");
+                            landingAlert.setOnCloseRequest(e -> stage.setScene(scene));
+                            landingAlert.show();
+                            try {
+                                timer.wait(100);
+                            } catch (InterruptedException e) {
+                                System.out.println("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAa");
+                            } catch (Exception a) {
+                                System.out.println("AAAABBBBBBBBBAAAAAAAAAAAA");
+                            }
+                        });
+                    }
 
                 } else {
                     model.updatePos(time, dt, true);
@@ -326,16 +344,6 @@ public class Merged extends Application {
 
                         if (distance < targetDistance) stage.setScene(dataSelector);
 
-                        if (stage.getScene().equals(landingScene))
-                            if (controller[0].isFinished()) {
-                                textForAlert.setText("Landed successfully at x : " + controller[0].getLandingModule().getPos()[0] + " , y  : " + controller[0].getLandingModule().getPos()[1] + "\nWith velocity : " + controller[0].getLandingModule().getVel()[1] + " ! ");
-                                textForAlert.setFont(Font.font("Verdana", 18));
-                                landingAlert.getDialogPane().setContent(textForAlert);
-                                //landingAlert.setContentText("Landed successfully at : " + controller[0].getLandingModule().getPos() + " with velocity : " + controller[0].getLandingModule().getVel() + " ! ");
-                                landingAlert.setOnCloseRequest(e -> stage.setScene(scene));
-                                landingAlert.showAndWait();
-
-                            }
 
                     });
                     if (dtBox.getValue() != null) {
